@@ -24,7 +24,7 @@ export default class SwitchButtonLayout extends Component {
                     <Text>{text}</Text>
                 </View>
                 <View style={styles.toggleLayout}>
-                    <Switch onValueChange={this.toggleSwitch} value={switchValue} thumbColor={'#2196F3'} trackColor={{ true: '#b3dbfb' }} />
+                    <Switch onValueChange={this.toggleSwitch} value={switchValue} thumbColor={'#ede8e8'} trackColor={{ false: '#ADB0B2', true: '#2196F3' }} />
                 </View>
             </View>
         );

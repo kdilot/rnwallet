@@ -8,7 +8,7 @@ export default StyleSheet.create({
         paddingHorizontal: 10,
     },
     textLayout: {
-        flex: 3,
+        flex: 1,
     },
     toggleLayout: {
         flex: 1,

@@ -17,7 +17,7 @@ const DEFAULT_LANGUAGE = 'en';
 const initialState = {
     locale: DEFAULT_LANGUAGE,
     defaultLocale: DEFAULT_LANGUAGE,
-    t: LangFiles[DEFAULT_LANGUAGE],
+    lang: LangFiles[DEFAULT_LANGUAGE],
 };
 
 export default handleActions(
@@ -25,11 +25,11 @@ export default handleActions(
         [GETLOCALE]: (state, action) =>
             produce(state, draft => {
                 draft.locale = action.locale;
-                draft.t = LangFiles[action.locale];
+                draft.lang = LangFiles[action.locale];
             }),
         [SETLANGUAGE]: (state, action) =>
             produce(state, draft => {
-                draft.t = LangFiles[action.locale];
+                draft.lang = LangFiles[action.locale];
             }),
     },
     initialState,

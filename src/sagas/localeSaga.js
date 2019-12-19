@@ -1,12 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import * as RNLocalize from 'react-native-localize';
 import { takeEvery, put } from 'redux-saga/effects';
-import {
-    GETLOCALE,
-    GETLOCALE_SAGA,
-    SETLANGUAGE,
-    SETLANGUAGE_SAGA,
-} from 'modules/LocaleReducer';
+import { GETLOCALE, GETLOCALE_SAGA, SETLANGUAGE, SETLANGUAGE_SAGA } from 'modules/LocaleReducer';
 
 function* getLocale() {
     let locale = null;

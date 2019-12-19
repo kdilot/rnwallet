@@ -50,14 +50,14 @@ class Locale extends Component {
         return (
             <View>
                 <View>
-                    <Text style={styles.container}>{locale.t.msg}</Text>
+                    <Text style={styles.container}>{locale.lang.msg}</Text>
                 </View>
                 <View>
                     <View style={styles.btnLayout}>
-                        <Button title={locale.t.slk} onPress={() => LocaleAction.setLanguage('ko')} style={{ marginVertical: 10 }} />
+                        <Button title={locale.lang.slk} onPress={() => LocaleAction.setLanguage('ko')} style={{ marginVertical: 10 }} />
                     </View>
                     <View style={styles.btnLayout}>
-                        <Button title={locale.t.sle} onPress={() => LocaleAction.setLanguage('en')} style={{ marginVertical: 10 }} />
+                        <Button title={locale.lang.sle} onPress={() => LocaleAction.setLanguage('en')} style={{ marginVertical: 10 }} />
                     </View>
                     <View style={styles.btnLayout}>
                         <Button title={'clipboard'} onPress={() => this.onShare()} style={{ marginVertical: 10 }} />

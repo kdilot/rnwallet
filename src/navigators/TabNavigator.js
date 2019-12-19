@@ -17,26 +17,26 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             screen: LocaleScreen,
             navigationOptions: {
                 headerLeft: <Ionicons name="home" size={15} color="blue" />,
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={25} color={focused ? 'white' : 'white'} />,
-                // tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={25} color={focused ? ActiveColor : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? 'white' : 'white'} />,
+                // tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? ActiveColor : 'white'} />,
             },
         },
         test: {
             screen: QrcodeTextScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
         contact: {
             screen: LocaleScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-contact" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-contact" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
         setting: {
             screen: SettingScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-settings" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-settings" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
     },
@@ -46,6 +46,14 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         tabBarPosition: 'bottom',
         initialRouteName: 'Home',
         tabBarOptions: {
+            tabStyle: {
+                margin: 6,
+            },
+            iconStyle: {
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
             showIcon: true,
             showLabel: false,
             indicatorStyle: {

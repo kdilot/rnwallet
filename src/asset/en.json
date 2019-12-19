@@ -1,0 +1,9 @@
+{
+    "msg": "Redux Counter",
+    "rdi": "Redux Increment",
+    "rdd": "Redux Decrement",
+    "rdsi": "Redux Saga Increment",
+    "rdsd": "Redux Saga Decrement",
+    "slk": "Set Locale KO",
+    "sle": "Set Locale EN"
+}

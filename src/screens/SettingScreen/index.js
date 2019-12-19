@@ -46,16 +46,26 @@ export default class SettingScreen extends Component {
         this.setState({ panelActive: true });
     };
 
-    closePanel = () => {
+    closePanel = flag => {
         const { navigation } = this.props;
         this.setState({ panelActive: false });
-        navigation.navigate('Home');
+        if (flag) {
+            navigation.navigate('Home');
+        }
     };
 
     render() {
         const { panelActive } = this.state;
         return (
-            <SwipeablePanel fullWidth isActive={panelActive} onClose={this.closePanel} onPressCloseButton={this.closePanel} showCloseButton={true} openLarge={true}>
+            <SwipeablePanel
+                fullWidth
+                isActive={panelActive}
+                onClose={this.closePanel}
+                onPressCloseButton={() => {
+                    this.closePanel(true);
+                }}
+                showCloseButton={true}
+                openLarge={true}>
                 {/* <Text>asdfsadf</Text> */}
                 {MenuList.map((item, index) => (
                     <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />

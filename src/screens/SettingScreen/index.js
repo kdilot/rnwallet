@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-// import { View, FlatList, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import SwitchButtonLayout from './SwitchButtonLayout';
 import SwipeablePanel from 'rn-swipeable-panel';
+import styles from './style';
 
 const MenuList = [
     {
@@ -66,10 +67,12 @@ export default class SettingScreen extends Component {
                 }}
                 showCloseButton={true}
                 openLarge={true}>
-                {/* <Text>asdfsadf</Text> */}
-                {MenuList.map((item, index) => (
-                    <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />
-                ))}
+                <View style={styles.panelLayout}>
+                    <Text style={styles.titleLayout}>설정</Text>
+                    {MenuList.map((item, index) => (
+                        <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />
+                    ))}
+                </View>
             </SwipeablePanel>
         );
     }

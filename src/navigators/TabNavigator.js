@@ -3,13 +3,15 @@ import { TouchableOpacity } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import DrawerNavigator from 'navigators/DrawerNavigator';
+// import DrawerNavigator from 'navigators/DrawerNavigator';
 import LocaleScreen from 'components/Locale';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
 import SettingScreen from 'screens/SettingScreen';
-// QrcodeText
-const BottomMenuNavigator = createMaterialTopTabNavigator(
+import CustomSidebarMenu from 'screens/CustomDrawerScreen';
+
+const BottomMenuTab = createMaterialTopTabNavigator(
     {
         Home: {
             screen: LocaleScreen,
@@ -54,7 +56,19 @@ const BottomMenuNavigator = createMaterialTopTabNavigator(
     },
 );
 
-BottomMenuNavigator.navigationOptions = ({ navigation }) => ({
+const BottomStack = createStackNavigator(
+    {
+        Home: {
+            screen: BottomMenuTab,
+        },
+    },
+    {
+        initialRouteName: 'Home',
+        headerLayoutPreset: 'center',
+    },
+);
+
+BottomMenuTab.navigationOptions = ({ navigation }) => ({
     title: 'ROZ',
     headerStyle: {
         backgroundColor: '#2196F3',
@@ -63,7 +77,7 @@ BottomMenuNavigator.navigationOptions = ({ navigation }) => ({
     headerLeft: (
         <TouchableOpacity
             onPress={() => {
-                navigation.navigate('DrawerMenu');
+                navigation.openDrawer();
             }}>
             <Ionicons name="md-menu" size={30} color={'white'} />
         </TouchableOpacity>
@@ -71,17 +85,18 @@ BottomMenuNavigator.navigationOptions = ({ navigation }) => ({
     headerLeftContainerStyle: { marginLeft: 20 },
 });
 
-const MainNavigator = createStackNavigator(
+const MainNavigator = createDrawerNavigator(
     {
         BottomMenu: {
-            screen: BottomMenuNavigator,
+            screen: BottomStack,
         },
-        DrawerMenu: {
-            screen: DrawerNavigator,
-        },
+        // DrawerMenu: {
+        //     screen: DrawerNavigator,
+        // },
     },
     {
-        headerLayoutPreset: 'center',
+        drawerType: 'slide',
+        contentComponent: CustomSidebarMenu,
     },
 );
 

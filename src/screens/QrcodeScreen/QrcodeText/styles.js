@@ -8,7 +8,6 @@ export default StyleSheet.create({
     },
     address: {
         padding: 10,
-        backgroundColor: '#aaa',
         fontSize: 15,
         textAlign: 'center',
     },
@@ -17,13 +16,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    addressLayout: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
     buttonLayout: {
-        flex: 3,
+        flex: 2,
         width: '100%',
         paddingHorizontal: 50,
         alignItems: 'flex-start',

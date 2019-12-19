@@ -43,9 +43,7 @@ export default class Qrcode extends Component {
             <View style={styles.container}>
                 <View style={styles.qrLayout}>
                     <QRCode size={200} value={text} />
-                </View>
-                <View style={styles.addressLayout}>
-                    <Text style={{ ...styles.address, width: Dimensions.get('screen').width }}>{text}</Text>
+                    <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
                 <View style={styles.buttonLayout}>
                     <Button title="복사하기" onPress={() => this.onCopy()} />

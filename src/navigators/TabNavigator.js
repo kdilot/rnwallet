@@ -5,9 +5,9 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import DrawerNavigator from 'navigators/DrawerNavigator';
 import LocaleScreen from 'components/Locale';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
+import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
 import SettingScreen from 'screens/SettingScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
 
@@ -21,19 +21,19 @@ const BottomMenuTab = createMaterialTopTabNavigator(
                 // tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? ActiveColor : 'white'} />,
             },
         },
-        test: {
+        History: {
             screen: QrcodeTextScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
-        contact: {
-            screen: LocaleScreen,
+        Contact: {
+            screen: QrcodeScannerScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-contact" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
-        setting: {
+        Setting: {
             screen: SettingScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-settings" size={35} color={focused ? 'white' : 'white'} />,
@@ -98,9 +98,6 @@ const MainNavigator = createDrawerNavigator(
         BottomMenu: {
             screen: BottomStack,
         },
-        // DrawerMenu: {
-        //     screen: DrawerNavigator,
-        // },
     },
     {
         drawerType: 'slide',

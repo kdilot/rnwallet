@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import BarcodeMask from 'react-native-barcode-mask';
 import styles from './styles';
 
 export default class QrcodeScan extends Component {
@@ -19,7 +20,10 @@ export default class QrcodeScan extends Component {
         const { text } = this.state;
         return (
             <View style={styles.container}>
-                <QRCodeScanner onRead={this._handleAction} containerStyle={styles.scannerLayout} />
+                <View style={styles.scannerLayout}>
+                    <QRCodeScanner onRead={this._handleAction} />
+                    <BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false} />
+                </View>
                 <View style={styles.textLayout}>
                     <Text style={styles.text}>{text}</Text>
                 </View>

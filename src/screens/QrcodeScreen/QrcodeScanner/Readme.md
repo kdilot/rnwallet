@@ -9,11 +9,13 @@
 	 npm install react-native-camera@git+https://git@github.com/react-native-community/react-native-camera.git --save
 	 npm install react-native-qrcode-scanner --save
 	 npm install react-native-permissions --save
+	 npm install react-native-barcode-mask --save
 or
 			
 	 yarn add react-native-camera@git+https://git@github.com/react-native-community/react-native-camera.git
 	 yarn add react-native-qrcode-scanner
 	 yarn add react-native-permissions
+	 yarn add react-native-barcode-mask
 
 *Github : https://github.com/moaazsidat/react-native-qrcode-scanner*
 

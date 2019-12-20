@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        height: '100%',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -10,9 +10,9 @@ export default StyleSheet.create({
         flex: 3,
     },
     textLayout: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
     },
     text: {
         fontSize: 15,

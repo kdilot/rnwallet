@@ -28,7 +28,6 @@ export default StyleSheet.create({
     },
     confirmLayout: {
         flex: 5,
-        padding: 10,
         borderWidth: 1,
         borderColor: 'black',
         alignItems: 'center',

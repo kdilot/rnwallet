@@ -2,14 +2,22 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#d82027',
-        justifyContent: 'center',
+        flex: 1,
+        width: '100%',
         alignItems: 'center',
-        height: '100%',
+        justifyContent: 'center',
     },
-    text: {
-        fontSize: 55,
-        fontWeight: 'bold',
-        color: 'white',
+    logoLayout: {
+        flex: 2,
+        width: '100%',
+        backgroundColor: '#2196F3',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    contentLayout: {
+        flex: 5,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
     },
 });

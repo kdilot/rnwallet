@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Share, Clipboard, Alert } from 'react-native';
-import { Button } from 'react-native-elements';
+// import { Button } from 'react-native-elements';
 import QRCode from 'react-native-qrcode-svg';
+import Button from 'react-native-button';
 import styles from './styles';
 
 export default class Qrcode extends Component {
@@ -46,8 +48,24 @@ export default class Qrcode extends Component {
                     <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <Button title="복사하기" onPress={() => this.onCopy()} />
-                    <Button title="공유하기" onPress={() => this.onShare()} />
+                    <Button
+                        style={styles.buttonTextLayout}
+                        styleDisabled={{ color: 'white' }}
+                        containerStyle={styles.buttonContainerLayout}
+                        disabledContainerStyle={{ backgroundColor: 'pink' }}
+                        onPress={() => this.onCopy()}>
+                        복사하기
+                    </Button>
+                    <Button
+                        style={styles.buttonTextOutLineLayout}
+                        styleDisabled={{ color: 'white' }}
+                        containerStyle={styles.buttonContainerOutLineLayout}
+                        disabledContainerStyle={{ backgroundColor: 'pink' }}
+                        onPress={() => this.onShare()}>
+                        공유하기
+                    </Button>
+                    {/* <Button title="복사하기" onPress={() => this.onCopy()} />
+                    <Button title="공유하기" onPress={() => this.onShare()} /> */}
                 </View>
             </View>
         );

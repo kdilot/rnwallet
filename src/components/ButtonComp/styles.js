@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { dividerDarkColor, whiteColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -7,20 +8,20 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     disText: {
-        color: 'white',
+        color: whiteColor,
     },
     disContainer: {
-        backgroundColor: '#aaa',
+        backgroundColor: dividerDarkColor,
     },
     buttonLayout: ({ color, outline, radius }) => ({
         width: '100%',
         padding: 8,
-        backgroundColor: outline ? 'white' : color,
+        backgroundColor: outline ? whiteColor : color,
         borderWidth: outline ? 1 : 0,
-        borderColor: outline ? color : color,
+        borderColor: outline ? color : whiteColor,
         borderRadius: radius,
     }),
     buttonTextLayout: ({ color, outline }) => ({
-        color: outline ? color : 'white',
+        color: outline ? color : whiteColor,
     }),
 });

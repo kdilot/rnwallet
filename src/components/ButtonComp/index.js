@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import Button from 'react-native-button';
+import { basicColor } from 'constants/Color';
 import styles from './styles';
 
 export default class ButtonComp extends Component {
@@ -8,7 +9,7 @@ export default class ButtonComp extends Component {
         name: 'button',
         disable: false,
         onPress: null,
-        color: '#2196F3',
+        color: basicColor,
         outline: false,
         radius: 5,
         style: null,

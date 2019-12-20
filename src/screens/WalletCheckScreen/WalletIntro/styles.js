@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { rozeusColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -10,7 +11,7 @@ export default StyleSheet.create({
         flex: 4,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#d82027',
+        backgroundColor: rozeusColor,
     },
     logoSubTextLayout: {
         fontSize: 20,

@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { rozeusColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#d82027',
+        backgroundColor: rozeusColor,
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',

@@ -15,4 +15,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    textStyle: {
+        fontSize: 15,
+    },
 });

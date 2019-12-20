@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Text, View } from 'react-native';
+import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -22,10 +23,10 @@ export default class SwitchButtonLayout extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.textLayout}>
-                    <Text>{text}</Text>
+                    <Text style={styles.textStyle}>{text}</Text>
                 </View>
                 <View style={styles.toggleLayout}>
-                    <Switch onValueChange={this.toggleSwitch} value={switchValue} thumbColor={'#ede8e8'} trackColor={{ false: '#ADB0B2', true: '#2196F3' }} />
+                    <Switch onValueChange={this.toggleSwitch} value={switchValue} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
                 </View>
             </View>
         );

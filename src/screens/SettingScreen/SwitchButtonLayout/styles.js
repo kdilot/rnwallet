@@ -9,8 +9,10 @@ export default StyleSheet.create({
     },
     textLayout: {
         flex: 1,
+        justifyContent: 'center',
     },
     toggleLayout: {
         flex: 1,
+        justifyContent: 'center',
     },
 });

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Share, Clipboard, Alert } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';

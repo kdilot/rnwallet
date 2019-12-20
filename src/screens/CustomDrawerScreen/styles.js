@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { basicColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -10,7 +11,7 @@ export default StyleSheet.create({
     logoLayout: {
         flex: 2,
         width: '100%',
-        backgroundColor: '#2196F3',
+        backgroundColor: basicColor,
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -25,6 +25,9 @@ const MenuList = [
 ];
 
 export default class CustomDrawerScreen extends Component {
+    onClick = () => {
+        this.props.navigation.navigate('Notice');
+    };
     render() {
         return (
             <View style={styles.container}>
@@ -34,7 +37,7 @@ export default class CustomDrawerScreen extends Component {
                 <View style={styles.contentLayout}>
                     {MenuList.map((item, i) => (
                         // eslint-disable-next-line react-native/no-inline-styles
-                        <ListItem key={i} title={item.title} bottomDivider style={{ width: '100%' }} chevron />
+                        <ListItem key={i} title={item.title} bottomDivider style={{ width: '100%' }} onPress={() => this.onClick()} chevron />
                     ))}
                 </View>
             </View>

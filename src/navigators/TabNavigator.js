@@ -10,6 +10,7 @@ import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
 // import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
 import WalletCheckScreen from 'screens/WalletCheckScreen/WalletIntro';
 import SettingScreen from 'screens/SettingScreen';
+import NoticeScreen from 'screens/NoticeScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
@@ -68,6 +69,12 @@ const BottomStack = createStackNavigator(
     {
         Home: {
             screen: BottomMenuTab,
+        },
+        Notice: {
+            screen: NoticeScreen,
+            navigationOptions: {
+                headerTitle: 'asdf',
+            },
         },
     },
     {

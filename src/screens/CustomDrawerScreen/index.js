@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
+import styles from './styles';
+
 const MenuList = [
     {
         title: '지갑정보',
@@ -21,7 +24,7 @@ const MenuList = [
     },
 ];
 
-export default class index extends Component {
+export default class CustomDrawerScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -39,24 +42,6 @@ export default class index extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    logoLayout: {
-        flex: 2,
-        width: '100%',
-        backgroundColor: '#2196F3',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    contentLayout: {
-        flex: 5,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
-});
+CustomDrawerScreen.propTypes = {
+    MenuList: PropTypes.object,
+};

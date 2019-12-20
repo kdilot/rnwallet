@@ -7,7 +7,8 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LocaleScreen from 'components/Locale';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
-import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
+// import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
+import WalletCheckScreen from 'screens/WalletCheckScreen/WalletIntro';
 import SettingScreen from 'screens/SettingScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
 
@@ -18,7 +19,6 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             navigationOptions: {
                 headerLeft: <Ionicons name="home" size={15} color="blue" />,
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? 'white' : 'white'} />,
-                // tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? ActiveColor : 'white'} />,
             },
         },
         History: {
@@ -28,7 +28,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             },
         },
         Contact: {
-            screen: QrcodeScannerScreen,
+            screen: WalletCheckScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-contact" size={35} color={focused ? 'white' : 'white'} />,
             },

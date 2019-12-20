@@ -6,44 +6,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as localeActions from 'modules/LocaleReducer';
-import { Button, View, Text, StyleSheet, Clipboard, Share } from 'react-native';
+import { Button, View, Text, StyleSheet } from 'react-native';
 
 class Locale extends Component {
     componentDidMount() {
         const { LocaleAction } = this.props;
         LocaleAction.getLocale();
+        // this.props.navigation.openDrawer();
     }
-
-    test = () => {
-        this._cboardGet();
-        Clipboard.setString('hello world');
-        this._cboardGet();
-    };
-
-    _cboardGet = async () => {
-        const msg = await Clipboard.getString();
-        console.log(msg);
-    };
-    onShare = async () => {
-        try {
-            const result = await Share.share({
-                message: 'React Native | A framework for building native apps using React',
-            });
-
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            // eslint-disable-next-line no-alert
-            alert(error.message);
-        }
-    };
 
     render() {
         const { LocaleAction, locale } = this.props;
@@ -58,9 +28,6 @@ class Locale extends Component {
                     </View>
                     <View style={styles.btnLayout}>
                         <Button title={locale.lang.sle} onPress={() => LocaleAction.setLanguage('en')} style={{ marginVertical: 10 }} />
-                    </View>
-                    <View style={styles.btnLayout}>
-                        <Button title={'clipboard'} onPress={() => this.onShare()} style={{ marginVertical: 10 }} />
                     </View>
                 </View>
             </View>

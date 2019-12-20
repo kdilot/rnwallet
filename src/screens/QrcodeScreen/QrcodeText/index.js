@@ -1,12 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Share, Clipboard, Alert } from 'react-native';
-// import { Button } from 'react-native-elements';
 import QRCode from 'react-native-qrcode-svg';
 import Button from 'react-native-button';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class Qrcode extends Component {
+export default class QrcodeText extends Component {
     constructor(props) {
         super(props);
 
@@ -64,10 +64,14 @@ export default class Qrcode extends Component {
                         onPress={() => this.onShare()}>
                         공유하기
                     </Button>
-                    {/* <Button title="복사하기" onPress={() => this.onCopy()} />
-                    <Button title="공유하기" onPress={() => this.onShare()} /> */}
                 </View>
             </View>
         );
     }
 }
+
+QrcodeText.propTypes = {
+    text: PropTypes.string,
+    onCopy: PropTypes.func,
+    onShare: PropTypes.func,
+};

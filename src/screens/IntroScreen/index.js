@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
 
-export default class Intro extends Component {
+export default class IntroScreen extends Component {
     componentDidMount() {
         setTimeout(() => {
             this.props.navigation.navigate('TabNavigator');

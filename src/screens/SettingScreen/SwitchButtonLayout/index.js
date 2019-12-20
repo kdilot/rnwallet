@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class SwitchButtonLayout extends Component {
@@ -30,3 +31,9 @@ export default class SwitchButtonLayout extends Component {
         );
     }
 }
+
+SwitchButtonLayout.propTypes = {
+    switchValue: PropTypes.bool,
+    text: PropTypes.string.isRequired,
+    toggleSwitch: PropTypes.func,
+};

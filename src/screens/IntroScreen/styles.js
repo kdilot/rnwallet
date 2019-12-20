@@ -1,4 +1,6 @@
-export default {
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
     container: {
         backgroundColor: '#d82027',
         justifyContent: 'center',
@@ -10,4 +12,4 @@ export default {
         fontWeight: 'bold',
         color: 'white',
     },
-};
+});

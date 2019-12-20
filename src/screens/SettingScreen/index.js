@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import SwitchButtonLayout from './SwitchButtonLayout';
 import SwipeablePanel from 'rn-swipeable-panel';
+import PropTypes from 'prop-types';
 import styles from './style';
 
 const MenuList = [
@@ -77,3 +78,12 @@ export default class SettingScreen extends Component {
         );
     }
 }
+
+SettingScreen.propTypes = {
+    panelActive: PropTypes.string,
+    navigation: PropTypes.object.isRequired,
+    focusListener: PropTypes.func,
+    blurListener: PropTypes.func,
+    openPanel: PropTypes.func,
+    closePanel: PropTypes.func,
+};

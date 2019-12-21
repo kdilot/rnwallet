@@ -23,6 +23,10 @@ export default StyleSheet.create({
     addressButtonTextStlye: {
         fontSize: 13,
     },
+    addressTextfield: {
+        paddingHorizontal: 10,
+        height: 40,
+    },
     contentLayout: {
         flex: 4,
         flexDirection: 'row',
@@ -60,10 +64,5 @@ export default StyleSheet.create({
     },
     alignRight: {
         textAlign: 'right',
-    },
-
-    textfield: {
-        paddingHorizontal: 10,
-        height: 40,
     },
 });

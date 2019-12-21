@@ -34,7 +34,7 @@ export default class WalletHistoryComponent extends Component {
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(send ? plusColor : minusColor)]}>
-                    <View style={styles.textfield}>
+                    <View style={styles.addressTextfield}>
                         <TextInput value={nickname} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
                     </View>
                 </View>

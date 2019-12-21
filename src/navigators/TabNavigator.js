@@ -5,31 +5,35 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LocaleScreen from 'components/Locale';
+// import LocaleScreen from 'components/Locale';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
 // import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
-import WalletCheckScreen from 'screens/WalletCheckScreen/WalletIntro';
+import MainScreen from 'screens/MainScreen';
+import TradeHistoryScreen from 'screens/TradeHistoryScreen';
+import AddressBookScreen from 'screens/AddressBookScreen';
+// import WalletCheckScreen from 'screens/WalletCheckScreen/WalletIntro';
+// import ReceiveScreen from 'screens/ReceiveScreen';
 import SettingScreen from 'screens/SettingScreen';
 import NoticeScreen from 'screens/NoticeScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
+import { basicColor } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
     {
         Home: {
-            screen: LocaleScreen,
+            screen: MainScreen,
             navigationOptions: {
-                headerLeft: <Ionicons name="home" size={15} color="blue" />,
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
         History: {
-            screen: QrcodeTextScreen,
+            screen: TradeHistoryScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
-        Contact: {
-            screen: WalletCheckScreen,
+        AddressBook: {
+            screen: AddressBookScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-contact" size={35} color={focused ? 'white' : 'white'} />,
             },
@@ -58,7 +62,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             showIcon: true,
             showLabel: false,
             indicatorStyle: {
-                borderBottomColor: 'blue',
+                borderBottomColor: basicColor,
                 borderBottomWidth: 2,
             },
         },
@@ -76,6 +80,12 @@ const BottomStack = createStackNavigator(
                 headerTitle: 'asdf',
             },
         },
+        QrcodeText: {
+            screen: QrcodeTextScreen,
+            navigationOptions: {
+                headerTitle: '받기',
+            },
+        },
     },
     {
         initialRouteName: 'Home',
@@ -86,7 +96,7 @@ const BottomStack = createStackNavigator(
 BottomMenuTab.navigationOptions = ({ navigation }) => ({
     title: 'ROZ',
     headerStyle: {
-        backgroundColor: '#2196F3',
+        backgroundColor: basicColor,
     },
     headerTintColor: '#FFFFFF',
     headerLeft: (

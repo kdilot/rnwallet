@@ -48,7 +48,7 @@ export default class QrcodeText extends Component {
                     <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp style={styles.buttonStyle} name={'복사하기'} onPress={this.onCopy} />
+                    <ButtonComp style={styles.buttonStyle} name={'복사하기'} outline={true} onPress={this.onCopy} />
                     <ButtonComp style={styles.buttonStyle} name={'공유하기'} onPress={this.onShare} />
                 </View>
             </View>

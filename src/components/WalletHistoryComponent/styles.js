@@ -2,24 +2,50 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     cardLayout: {
-        height: 120,
+        height: 130,
         margin: 7,
     },
-    contentLayout: {
-        flex: 3,
-        flexDirection: 'row',
+    addressLayout: {
+        flex: 2,
+        justifyContent: 'center',
+    },
+    borderColor: color => ({
+        borderBottomWidth: 2,
+        borderBottomColor: color,
+    }),
+    addressButtonLayout: {
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'flex-end',
+        paddingTop: 5,
+        paddingHorizontal: 10,
+    },
+    addressButtonTextStlye: {
+        fontSize: 13,
+    },
+    contentLayout: {
+        flex: 4,
+        flexDirection: 'row',
     },
     contentIconLayout: {
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingHorizontal: 10,
     },
     contentIconStyle: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    contentTextLayout: {
+        flex: 5,
+        justifyContent: 'center',
+    },
+    contentTextGroup: {
+        flexDirection: 'row',
     },
     IconColor: color => ({
         backgroundColor: color,
@@ -28,29 +54,16 @@ export default StyleSheet.create({
         color: color,
         fontWeight: 'bold',
     }),
-    contentTextLayout: {
-        flex: 5,
-        height: 60,
-    },
-    contentTextFirstLine: {
+    contentTextStyle: {
         flex: 1,
-        paddingRight: 10,
-        paddingVertical: 10,
-        justifyContent: 'center',
+        paddingRight: 15,
     },
-    contentTextSecondLine: {
-        flex: 1,
-        paddingRight: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    alignRight: {
+        textAlign: 'right',
     },
-    footerLayout: {
-        flex: 2,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    footerTextStyle: {
-        flex: 1,
-        textAlign: 'center',
+
+    textfield: {
+        paddingHorizontal: 10,
+        height: 40,
     },
 });

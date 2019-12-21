@@ -1,8 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { whiteColor, plusColor, minusColor } from 'constants/Color';
+import { whiteColor, plusColor, minusColor, dividerDarkColor } from 'constants/Color';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class WalletHistoryComponent extends Component {
@@ -13,10 +15,34 @@ export default class WalletHistoryComponent extends Component {
         date: '-',
         value: '5223',
     };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            nickname: props.address,
+        };
+    }
+
+    onChange = text => {
+        this.setState({ nickname: text });
+    };
+
     render() {
-        const { send, address, status, date, value } = this.props;
+        const { send, status, date, value } = this.props;
+        const { nickname } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
+                <View style={[styles.addressLayout, styles.borderColor(send ? plusColor : minusColor)]}>
+                    <View style={styles.textfield}>
+                        <TextInput value={nickname} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
+                    </View>
+                </View>
+                <View style={styles.addressButtonLayout}>
+                    <TouchableOpacity>
+                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>주소록에 저장</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.contentLayout}>
                     <View style={styles.contentIconLayout}>
                         <View style={[styles.contentIconStyle, styles.IconColor(send ? plusColor : minusColor)]}>
@@ -24,20 +50,25 @@ export default class WalletHistoryComponent extends Component {
                         </View>
                     </View>
                     <View style={styles.contentTextLayout}>
-                        <View style={styles.contentTextFirstLine}>
-                            <Text>{address}</Text>
+                        <View style={styles.contentTextGroup}>
+                            <Text style={[styles.contentTextStyle, styles.TextColor(send ? plusColor : minusColor)]}>{send ? 'Sent' : 'Receive'}</Text>
+                            <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`$${value}`}</Text>
                         </View>
-                        <View style={[styles.contentTextSecondLine]}>
-                            <Text style={styles.TextColor(send ? plusColor : minusColor)}>{send ? 'Sent' : 'Receive'}</Text>
-                            <Text>{`$${value}`}</Text>
+                        <View style={styles.contentTextGroup}>
+                            <Text style={styles.contentTextStyle}>{status}</Text>
+                            <Text style={[styles.contentTextStyle, styles.alignRight]}>{date}</Text>
                         </View>
                     </View>
-                </View>
-                <View style={styles.footerLayout}>
-                    <Text style={styles.footerTextStyle}>{status}</Text>
-                    <Text style={styles.footerTextStyle}>{date}</Text>
                 </View>
             </CardView>
         );
     }
 }
+
+WalletHistoryComponent.proptypes = {
+    address: PropTypes.string,
+    nickname: PropTypes.string,
+    status: PropTypes.string,
+    date: PropTypes.string,
+    value: PropTypes.number,
+};

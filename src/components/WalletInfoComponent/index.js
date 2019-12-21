@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class WalletInfoComponent extends Component {
@@ -62,3 +63,12 @@ export default class WalletInfoComponent extends Component {
         );
     }
 }
+
+WalletInfoComponent.proptypes = {
+    logo: PropTypes.string,
+    address: PropTypes.string,
+    name: PropTypes.string,
+    coin: PropTypes.string,
+    value: PropTypes.number,
+    navigation: PropTypes.object,
+};

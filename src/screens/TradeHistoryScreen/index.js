@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import CardView from 'react-native-cardview';
 import PropTypes from 'prop-types';
@@ -57,7 +57,7 @@ export default class TradeHistoryScreen extends Component {
     render() {
         const { page, refreshing, data, itemType } = this.state;
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemTypeLayout}>
                     <CardView cardElevation={5} cornerRadius={10} style={styles.typeLayout}>
                         <TouchableOpacity
@@ -99,7 +99,7 @@ export default class TradeHistoryScreen extends Component {
                         onEndReachedThreshold={0.2}
                     />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

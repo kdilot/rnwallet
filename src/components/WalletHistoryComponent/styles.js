@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     cardLayout: {
         height: 120,
-        margin: 5,
+        margin: 7,
     },
     contentLayout: {
         flex: 3,

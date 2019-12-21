@@ -77,7 +77,10 @@ const BottomStack = createStackNavigator(
         Notice: {
             screen: NoticeScreen,
             navigationOptions: {
-                headerTitle: 'asdf',
+                headerStyle: {
+                    backgroundColor: basicColor,
+                },
+                headerTintColor: '#FFFFFF',
             },
         },
         QrcodeText: {

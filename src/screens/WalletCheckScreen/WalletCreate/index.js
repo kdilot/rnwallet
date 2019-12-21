@@ -30,7 +30,6 @@ export default class WalletCreate extends Component {
 
     onCreate = () => {
         //  Token 생성 로직 추가
-
         const { navigation } = this.props;
         navigation.navigate('TabNavigator');
     };
@@ -67,7 +66,7 @@ export default class WalletCreate extends Component {
                     <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={text.join('   ')} />
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp name={'복사하기'} onPress={this.onCopy} />
+                    <ButtonComp name={'복사하기'} outline={true} onPress={this.onCopy} />
                 </View>
                 <View style={styles.confirmLayout}>
                     <View style={styles.confirmTextLayout}>

@@ -5,7 +5,7 @@ import styles from './styles';
 export default class IntroScreen extends Component {
     componentDidMount() {
         setTimeout(() => {
-            this.props.navigation.navigate('TabNavigator');
+            this.props.navigation.navigate('WalletIntro');
         }, 2000);
     }
 

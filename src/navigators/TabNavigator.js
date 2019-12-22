@@ -5,14 +5,12 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import LocaleScreen from 'components/Locale';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
-// import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
+import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
 import MainScreen from 'screens/MainScreen';
 import TradeHistoryScreen from 'screens/TradeHistoryScreen';
 import AddressBookScreen from 'screens/AddressBookScreen';
-// import WalletCheckScreen from 'screens/WalletCheckScreen/WalletIntro';
-// import ReceiveScreen from 'screens/ReceiveScreen';
+import ReceiveScreen from 'screens/ReceiveScreen';
 import SettingScreen from 'screens/SettingScreen';
 import NoticeScreen from 'screens/NoticeScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
@@ -69,35 +67,8 @@ const BottomMenuTab = createMaterialTopTabNavigator(
     },
 );
 
-const BottomStack = createStackNavigator(
-    {
-        Home: {
-            screen: BottomMenuTab,
-        },
-        Notice: {
-            screen: NoticeScreen,
-            navigationOptions: {
-                headerStyle: {
-                    backgroundColor: basicColor,
-                },
-                headerTintColor: '#FFFFFF',
-            },
-        },
-        QrcodeText: {
-            screen: QrcodeTextScreen,
-            navigationOptions: {
-                headerTitle: '받기',
-            },
-        },
-    },
-    {
-        initialRouteName: 'Home',
-        headerLayoutPreset: 'center',
-    },
-);
-
 BottomMenuTab.navigationOptions = ({ navigation }) => ({
-    title: 'ROZ',
+    title: navigation.getParam('title') || 'ROZ',
     headerStyle: {
         backgroundColor: basicColor,
     },
@@ -112,6 +83,52 @@ BottomMenuTab.navigationOptions = ({ navigation }) => ({
     ),
     headerLeftContainerStyle: { marginLeft: 20 },
 });
+
+const BottomStack = createStackNavigator(
+    {
+        Home: {
+            screen: BottomMenuTab,
+        },
+        Notice: {
+            screen: NoticeScreen,
+            navigationOptions: {
+                headerTitle: '공지사항',
+                headerStyle: {
+                    backgroundColor: basicColor,
+                },
+                headerTintColor: '#FFFFFF',
+            },
+        },
+        ReceiveScreen: {
+            screen: ReceiveScreen,
+            navigationOptions: {
+                headerTitle: '보내기',
+            },
+        },
+        QrcodeText: {
+            screen: QrcodeTextScreen,
+            navigationOptions: {
+                headerTitle: '받기',
+            },
+        },
+        QrcodeScanner: {
+            screen: QrcodeScannerScreen,
+            navigationOptions: {
+                headerTitle: '주소스캔',
+            },
+        },
+    },
+    {
+        initialRouteName: 'Home',
+        headerLayoutPreset: 'center',
+        // navigationOptions: {
+        //     headerStyle: {
+        //         backgroundColor: basicColor,
+        //     },
+        //     headerTintColor: '#FFFFFF',
+        // },
+    },
+);
 
 const MainNavigator = createDrawerNavigator(
     {

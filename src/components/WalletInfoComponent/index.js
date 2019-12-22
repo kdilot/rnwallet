@@ -20,6 +20,11 @@ export default class WalletInfoComponent extends Component {
         navigation.navigate('QrcodeText');
     };
 
+    onSend = () => {
+        const { navigation } = this.props;
+        navigation.navigate('ReceiveScreen');
+    };
+
     render() {
         const { logo, address, name, coin, value } = this.props;
         return (
@@ -53,7 +58,10 @@ export default class WalletInfoComponent extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.buttonGroup}>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this.onSend();
+                                }}>
                                 <Text style={styles.buttonTextStyle}>보내기</Text>
                             </TouchableOpacity>
                         </View>
@@ -70,5 +78,7 @@ WalletInfoComponent.proptypes = {
     name: PropTypes.string,
     coin: PropTypes.string,
     value: PropTypes.number,
+    onReceive: PropTypes.func,
+    onSend: PropTypes.func,
     navigation: PropTypes.object,
 };

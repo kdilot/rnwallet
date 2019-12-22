@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput } from 'react-native';
 import ButtonComp from 'components/ButtonComp';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class WalletRestore extends Component {
@@ -10,6 +10,7 @@ export default class WalletRestore extends Component {
 
         this.state = {
             text: null,
+            restoreDisable: true,
         };
     }
     onRestore = () => {
@@ -20,11 +21,11 @@ export default class WalletRestore extends Component {
     };
 
     onChangeText = text => {
-        this.setState({ text });
+        this.setState({ text, restoreDisable: text ? false : true });
     };
 
     render() {
-        const { text } = this.state;
+        const { text, restoreDisable } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.textareaLayout}>
@@ -32,9 +33,14 @@ export default class WalletRestore extends Component {
                     <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp name={'복구하기'} onPress={this.onRestore} />
+                    <ButtonComp name={'복구하기'} disable={restoreDisable} onPress={this.onRestore} />
                 </View>
             </View>
         );
     }
 }
+
+WalletRestore.propTypes = {
+    text: PropTypes.string,
+    restoreDisable: PropTypes.bool,
+};

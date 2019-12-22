@@ -13,7 +13,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     itemListLayout: {
-        flex: 12,
+        flex: 7,
         paddingVertical: 5,
         paddingHorizontal: 15,
         width: '100%',

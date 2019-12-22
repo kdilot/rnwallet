@@ -37,7 +37,7 @@ export default class AddressBookComponent extends Component {
                     </View>
                     <View style={styles.addressButtonLayout}>
                         <TouchableOpacity>
-                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>주소록에 저장</Text>
+                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>저장</Text>
                         </TouchableOpacity>
                     </View>
                 </CardView>

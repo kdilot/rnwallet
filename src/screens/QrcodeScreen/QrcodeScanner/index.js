@@ -14,7 +14,10 @@ export default class QrcodeScan extends Component {
     }
 
     handleAction = e => {
+        const { navigation } = this.props;
         this.setState({ text: e.data });
+        navigation.goBack();
+        navigation.state.params.setAddress(e.data);
     };
 
     render() {

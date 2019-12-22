@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
@@ -25,8 +24,12 @@ export default class WalletCheckScreen extends Component {
                     <Text style={styles.logoSubTextLayout}>Wallet</Text>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp name={'복구하기'} color={rozeusColor} style={{ marginBottom: 10 }} outline={true} onPress={this.onRestore} />
-                    <ButtonComp name={'생성하기'} color={rozeusColor} onPress={this.onCreate} />
+                    <View style={styles.buttonStyle}>
+                        <ButtonComp name={'복구하기'} color={rozeusColor} outline={true} onPress={this.onRestore} />
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <ButtonComp name={'생성하기'} color={rozeusColor} onPress={this.onCreate} />
+                    </View>
                 </View>
             </View>
         );

@@ -25,9 +25,13 @@ export default StyleSheet.create({
     },
     buttonLayout: {
         flex: 6,
+        flexDirection: 'row',
         paddingHorizontal: 15,
-        padding: 10,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+        alignItems: 'flex-end',
+    },
+    buttonStyle: {
+        flex: 1,
+        paddingHorizontal: 10,
+        paddingBottom: 20,
     },
 });

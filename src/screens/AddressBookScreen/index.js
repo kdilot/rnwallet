@@ -21,7 +21,10 @@ class AddressBookScreen extends Component {
     componentDidMount() {
         const { navigation, AddressAction } = this.props;
         this.focusListener = navigation.addListener('didFocus', payload => {
-            AddressAction.getAddressBook(); // 페이지 로드마다 주소록 정보 불러오기
+            AddressAction.resetAddressBook(); // 임시로 데이터 강제 리셋
+            setTimeout(() => {
+                AddressAction.getAddressBook(); // 페이지 로드마다 주소록 정보 불러오기
+            }, 2000);
         });
     }
 

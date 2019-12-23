@@ -3,21 +3,19 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'stretch',
+        padding: 20,
+        justifyContent: 'space-around',
     },
     textareaLayout: {
-        flex: 9,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     textStyle: {
         margin: 15,
     },
     textareaStyle: {
         width: '100%',
-        height: '30%',
+        height: 100,
         borderColor: 'gray',
         borderWidth: 1,
         color: 'black',
@@ -26,7 +24,6 @@ export default StyleSheet.create({
     },
     buttonLayout: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
     },
 });

@@ -49,22 +49,20 @@ export default class WalletInfoComponent extends Component {
                         </View>
                     </View>
                     <View style={styles.footerLayout}>
-                        <View style={styles.buttonGroup}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    this.onReceive();
-                                }}>
-                                <Text style={styles.buttonTextStyle}>받기</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.buttonGroup}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    this.onSend();
-                                }}>
-                                <Text style={styles.buttonTextStyle}>보내기</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            style={styles.buttonGroup}
+                            onPress={() => {
+                                this.onReceive();
+                            }}>
+                            <Text style={styles.buttonTextStyle}>받기</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonGroup}
+                            onPress={() => {
+                                this.onSend();
+                            }}>
+                            <Text style={styles.buttonTextStyle}>보내기</Text>
+                        </TouchableOpacity>
                     </View>
                 </CardView>
             </View>

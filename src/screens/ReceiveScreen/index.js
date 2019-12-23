@@ -53,7 +53,7 @@ export default class ReceiveScreen extends Component {
     render() {
         const { value, address, fee } = this.state;
         return (
-            <KeyboardAvoidingView style={styles.container} enabled>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.headerLayout}>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>금액</Text>

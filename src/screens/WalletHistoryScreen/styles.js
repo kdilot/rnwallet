@@ -7,7 +7,7 @@ export default StyleSheet.create({
         paddingVertical: 10,
     },
     itemTypeLayout: {
-        flex: 1,
+        height: 70,
         paddingHorizontal: 15,
         alignItems: 'center',
         justifyContent: 'center',

@@ -18,6 +18,13 @@ class AddressBookScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        const { navigation, AddressAction } = this.props;
+        this.focusListener = navigation.addListener('didFocus', payload => {
+            AddressAction.getAddressBook(); // 페이지 로드마다 주소록 정보 불러오기
+        });
+    }
+
     render() {
         const { list } = this.props.addressBook;
         const { navigation } = this.props;

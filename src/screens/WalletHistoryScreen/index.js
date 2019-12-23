@@ -33,6 +33,16 @@ export default class WalletHistoryScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', payload => {
+            if (payload.state.params) {
+                this.setState({ itemType: payload.state.params.itemType });
+                this.getAddressData(payload.state.params.address);
+            }
+        });
+    }
+
     onRefresh = () => {
         this.setState({
             refreshing: true,

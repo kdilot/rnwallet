@@ -20,13 +20,14 @@ class AddressBookScreen extends Component {
 
     render() {
         const { list } = this.props.addressBook;
+        const { navigation } = this.props;
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemListLayout}>
                     {list.length > 0 ? (
                         <FlatList
                             data={list}
-                            renderItem={({ item }) => <AddressBookComponent nickname={item.nickname} address={item.address} />}
+                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} nickname={item.nickname} address={item.address} />}
                             keyExtractor={(item, index) => index.toString()}
                             // refreshing={refreshing}
                             // onRefresh={() => {

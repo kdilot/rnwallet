@@ -33,6 +33,11 @@ class AddressBookComponent extends Component {
         AddressAction.setAddressBook({ address, nickname });
     };
 
+    onHistory = () => {
+        const { address } = this.props;
+        this.props.navigation.navigate('WalletHistory', { itemType: 3, address });
+    };
+
     render() {
         const { address } = this.props;
         const { nickname } = this.state;
@@ -46,7 +51,7 @@ class AddressBookComponent extends Component {
                         </View>
                     </View>
                     <View style={styles.addressButtonLayout}>
-                        <TouchableOpacity style={styles.addressButtonGroup}>
+                        <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onHistory()}>
                             <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>거래내역</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend()}>
@@ -64,6 +69,7 @@ AddressBookComponent.proptypes = {
     nickname: PropTypes.string,
     onChange: PropTypes.func,
     onSend: PropTypes.func,
+    onHistory: PropTypes.func,
 };
 
 export default connect(

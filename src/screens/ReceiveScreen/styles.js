@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -9,21 +10,15 @@ export default StyleSheet.create({
     headerLayout: {
         height: 200,
     },
-    textareaGroup: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     textareaLayout: {
         flex: 1,
         height: '100%',
         justifyContent: 'flex-start',
     },
     textareaIconStyle: {
-        position: 'relative',
-        top: 3,
-        marginLeft: 5,
+        position: 'absolute',
+        top: 6,
+        right: 10,
     },
     buttonLayout: {
         flex: 2,
@@ -36,5 +31,17 @@ export default StyleSheet.create({
     },
     feeTextStyle: {
         flex: 1,
+    },
+    textStyle: {
+        paddingLeft: 5,
+        paddingBottom: 5,
+        fontSize: 12,
+    },
+    textInputStyle: {
+        padding: 10,
+        height: 40,
+        borderColor: dividerDarkColor,
+        borderWidth: 1,
+        borderRadius: 5,
     },
 });

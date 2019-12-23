@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import { OutlinedTextField } from 'react-native-material-textfield';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ButtonComp from 'components/ButtonComp';
@@ -16,7 +15,6 @@ export default class ReceiveScreen extends Component {
             value: 999,
             address: null,
             fee: 1,
-            qrActive: false,
         };
     }
 
@@ -45,7 +43,7 @@ export default class ReceiveScreen extends Component {
     };
 
     setAddress = address => {
-        this.setState({ qrActive: true, address });
+        this.setState({ address });
     };
 
     onSend = () => {
@@ -53,57 +51,56 @@ export default class ReceiveScreen extends Component {
     };
 
     render() {
-        const { value, address, fee, qrActive } = this.state;
+        const { value, address, fee } = this.state;
         return (
             <KeyboardAvoidingView style={styles.container} enabled>
                 <View style={styles.headerLayout}>
-                    <View style={styles.textareaGroup}>
-                        <View style={styles.textareaLayout}>
-                            <OutlinedTextField
-                                label="금액"
-                                keyboardType="phone-pad"
-                                tintColor={basicColor}
-                                labelTextStyle={{ paddingTop: 3 }}
+                    <View style={styles.textareaLayout}>
+                        <Text style={styles.textStyle}>금액</Text>
+                        <TextInput style={styles.textInputStyle} placeholder="금액" keyboardType="phone-pad" onChangeText={text => this.setState({ value: text })} value={value.toString()} />
+                    </View>
+                    <View style={styles.textareaLayout}>
+                        <Text style={styles.textStyle}>주소</Text>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <TextInput
+                                style={[styles.textInputStyle, { flex: 1, paddingRight: 50 }]}
+                                placeholder="주소"
+                                keyboardType="default"
                                 onChangeText={text => this.setState({ address: text })}
-                                value={value.toString()}
+                                value={address}
                             />
+                            <TouchableOpacity
+                                style={{ position: 'absolute', top: 6, right: 10 }}
+                                onPress={() => {
+                                    this.onSearch();
+                                }}>
+                                <Ionicons name="qrcode-scan" size={25} />
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.textareaGroup}>
-                        <View style={styles.textareaLayout}>
-                            {qrActive === 3 ? (
-                                <Text>{address}</Text>
-                            ) : (
-                                <OutlinedTextField
-                                    label="주소"
-                                    keyboardType="default"
-                                    renderRightAccessory={this.setQrcode}
-                                    tintColor={basicColor}
-                                    labelTextStyle={{ paddingTop: 3 }}
-                                    onChangeText={text => this.setState({ address: text })}
-                                    value={address}
-                                />
-                            )}
+                    <View style={styles.textareaLayout}>
+                        <Text style={styles.textStyle}>수수료</Text>
+                        <TextInput
+                            style={styles.textInputStyle}
+                            placeholder="수수료"
+                            keyboardType="phone-pad"
+                            onChangeText={text => this.setState({ fee: text > 10 ? 10 : Number(text) })}
+                            value={fee.toString()}
+                        />
+                        <Slider
+                            value={fee}
+                            onValueChange={data => this.setState({ fee: Number(data.toFixed(1)) })}
+                            thumbTintColor={basicColor}
+                            minimumTrackTintColor={basicColor}
+                            minimumValue={1}
+                            maximumValue={10}
+                            step={0.1}
+                        />
+                        <View style={styles.feeTextLayout}>
+                            <Text style={styles.feeTextStyle}>Slow</Text>
+                            <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>Fast</Text>
                         </View>
-                    </View>
-                    <View style={styles.textareaGroup}>
-                        <View style={styles.textareaLayout}>
-                            <OutlinedTextField label="수수료" keyboardType="phone-pad" onChangeText={text => this.setState({ fee: text })} value={fee.toString()} />
-                            <Slider
-                                value={fee}
-                                onValueChange={data => this.setState({ fee: Number(data.toFixed(1)) })}
-                                thumbTintColor={basicColor}
-                                minimumTrackTintColor={basicColor}
-                                minimumValue={1}
-                                maximumValue={10}
-                                step={0.1}
-                            />
-                            <View style={styles.feeTextLayout}>
-                                <Text style={styles.feeTextStyle}>Slow</Text>
-                                <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>Fast</Text>
-                            </View>
-                            <Text style={{ textAlign: 'center' }}>Value: {fee}</Text>
-                        </View>
+                        <Text style={{ textAlign: 'center' }}>Value: {fee}</Text>
                     </View>
                 </View>
                 <View style={styles.buttonLayout}>

@@ -1,5 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as addressActions from 'modules/AddressBookReducer';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,7 +10,7 @@ import { whiteColor, plusColor, minusColor, dividerDarkColor } from 'constants/C
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class WalletHistoryComponent extends Component {
+class WalletHistoryComponent extends Component {
     static defaultProps = {
         send: true,
         address: '0x8A52B2a07CE959B54c6dB876CBcb2850A35E37aB',
@@ -32,6 +35,16 @@ export default class WalletHistoryComponent extends Component {
         this.props.navigation.navigate('Send', { address });
     };
 
+    addAddressBook = () => {
+        const { AddressAction, address } = this.props;
+        const { name } = this.state;
+        AddressAction.resetAddressBook(); // 임시로 데이터 강제 리셋
+        AddressAction.setAddressBook({ address, nickname: name });
+        setTimeout(() => {
+            AddressAction.getAddressBook(); // 페이지 로드마다 주소록 정보 불러오기
+        }, 2000);
+    };
+
     render() {
         const { send, status, date, value, address } = this.props;
         const { name } = this.state;
@@ -43,7 +56,7 @@ export default class WalletHistoryComponent extends Component {
                     </View>
                 </View>
                 <View style={styles.addressButtonLayout}>
-                    <TouchableOpacity style={styles.addressButtonGroup}>
+                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.addAddressBook()}>
                         <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>주소록에 저장</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(address)}>
@@ -80,4 +93,14 @@ WalletHistoryComponent.proptypes = {
     value: PropTypes.number,
     onChange: PropTypes.func,
     onSend: PropTypes.func,
+    addAddressBook: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        addressBook: state.AddressBookReducer,
+    }),
+    dispatch => ({
+        AddressAction: bindActionCreators(addressActions, dispatch),
+    }),
+)(WalletHistoryComponent);

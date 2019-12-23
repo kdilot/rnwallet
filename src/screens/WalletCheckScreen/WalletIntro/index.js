@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import ButtonComp from 'components/ButtonComp';
+import ButtonComponent from 'components/ButtonComponent';
 import { rozeusColor } from 'constants/Color';
 import styles from './styles';
 
@@ -25,10 +25,10 @@ export default class WalletCheckScreen extends Component {
                 </View>
                 <View style={styles.buttonLayout}>
                     <View style={styles.buttonStyle}>
-                        <ButtonComp name={'복구하기'} color={rozeusColor} outline={true} onPress={this.onRestore} />
+                        <ButtonComponent name={'복구하기'} color={rozeusColor} outline={true} onPress={this.onRestore} />
                     </View>
                     <View style={styles.buttonStyle}>
-                        <ButtonComp name={'생성하기'} color={rozeusColor} onPress={this.onCreate} />
+                        <ButtonComponent name={'생성하기'} color={rozeusColor} onPress={this.onCreate} />
                     </View>
                 </View>
             </View>

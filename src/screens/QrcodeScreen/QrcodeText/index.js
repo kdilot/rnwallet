@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions, Share, Clipboard, Alert } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 // import Button from 'react-native-button';
-import ButtonComp from 'components/ButtonComp';
+import ButtonComponent from 'components/ButtonComponent';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -48,8 +48,8 @@ export default class QrcodeText extends Component {
                     <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp style={styles.buttonStyle} name={'복사하기'} outline={true} onPress={this.onCopy} />
-                    <ButtonComp style={styles.buttonStyle} name={'공유하기'} onPress={this.onShare} />
+                    <ButtonComponent style={styles.buttonStyle} name={'복사하기'} outline={true} onPress={this.onCopy} />
+                    <ButtonComponent style={styles.buttonStyle} name={'공유하기'} onPress={this.onShare} />
                 </View>
             </View>
         );

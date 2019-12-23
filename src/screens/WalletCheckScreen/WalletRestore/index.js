@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput } from 'react-native';
-import ButtonComp from 'components/ButtonComp';
+import ButtonComponent from 'components/ButtonComponent';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -33,7 +33,7 @@ export default class WalletRestore extends Component {
                     <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp name={'복구하기'} disable={restoreDisable} onPress={this.onRestore} />
+                    <ButtonComponent name={'복구하기'} disable={restoreDisable} onPress={this.onRestore} />
                 </View>
             </View>
         );

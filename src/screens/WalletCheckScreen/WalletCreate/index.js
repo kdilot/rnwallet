@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Clipboard, Alert, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
-import ButtonComp from 'components/ButtonComp';
+import ButtonComponent from 'components/ButtonComponent';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -66,7 +66,7 @@ export default class WalletCreate extends Component {
                     <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={text.join('   ')} />
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp name={'복사하기'} outline={true} onPress={this.onCopy} />
+                    <ButtonComponent name={'복사하기'} outline={true} onPress={this.onCopy} />
                 </View>
                 <View style={styles.confirmLayout}>
                     <View style={styles.confirmTextLayout}>
@@ -79,7 +79,7 @@ export default class WalletCreate extends Component {
                             spacing={12}
                             itemDimension={(Dimensions.get('window').width - 50) / 4}
                             renderItem={({ item, index }) => (
-                                <ButtonComp
+                                <ButtonComponent
                                     name={item}
                                     onPress={() => {
                                         this.checkWord(item);
@@ -90,7 +90,7 @@ export default class WalletCreate extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp name={'생성하기'} disable={createDisable} onPress={this.onCreate} />
+                    <ButtonComponent name={'생성하기'} disable={createDisable} onPress={this.onCreate} />
                 </View>
             </View>
         );

@@ -4,7 +4,7 @@ import Button from 'react-native-button';
 import { basicColor } from 'constants/Color';
 import styles from './styles';
 
-export default class ButtonComp extends Component {
+export default class ButtonComponent extends Component {
     static defaultProps = {
         name: 'button',
         disable: false,

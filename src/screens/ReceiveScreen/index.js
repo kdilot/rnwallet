@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
-import ButtonComp from 'components/ButtonComp';
+import ButtonComponent from 'components/ButtonComponent';
 import { basicColor } from 'constants/Color';
 import styles from './styles';
 
@@ -104,7 +104,7 @@ export default class ReceiveScreen extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComp
+                    <ButtonComponent
                         name={'보내기'}
                         onPress={() => {
                             this.onSend();

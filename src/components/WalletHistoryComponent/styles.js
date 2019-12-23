@@ -15,12 +15,18 @@ export default StyleSheet.create({
     }),
     addressButtonLayout: {
         flex: 1,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         alignItems: 'flex-end',
         paddingTop: 5,
         paddingHorizontal: 10,
     },
+    addressButtonGroup: {
+        flex: 1,
+        paddingHorizontal: 5,
+    },
     addressButtonTextStlye: {
+        flex: 1,
         fontSize: 13,
     },
     addressTextfield: {

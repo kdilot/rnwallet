@@ -5,6 +5,7 @@ import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ButtonComponent from 'components/ButtonComponent';
 import { basicColor } from 'constants/Color';
+import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class ReceiveScreen extends Component {
@@ -18,27 +19,16 @@ export default class ReceiveScreen extends Component {
         };
     }
 
-    setQrcode = () => {
-        return (
-            <TouchableOpacity
-                style={styles.textareaIconStyle}
-                onPress={() => {
-                    this.onSearch();
-                }}>
-                <Ionicons name="qrcode-scan" size={30} />
-            </TouchableOpacity>
-        );
-    };
-
-    // componentDidMount() {
-    //     const { navigation } = this.props;
-    //     this.focusListener = navigation.addListener('didFocus', payload => {
-    //         console.log('recieve', payload);
-    //     });
-    // }
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', payload => {
+            if (payload.state.params) {
+                this.setState({ address: payload.state.params.address });
+            }
+        });
+    }
 
     onSearch = () => {
-        // this.setState({ value: 1212512 });
         this.props.navigation.navigate('QrcodeScanner', { setAddress: this.setAddress });
     };
 
@@ -115,3 +105,12 @@ export default class ReceiveScreen extends Component {
         );
     }
 }
+
+ReceiveScreen.proptypes = {
+    value: PropTypes.number,
+    fee: PropTypes.number,
+    address: PropTypes.string,
+    onSearch: PropTypes.func,
+    onSend: PropTypes.func,
+    setAddress: PropTypes.func,
+};

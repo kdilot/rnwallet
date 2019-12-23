@@ -56,6 +56,7 @@ export default class TradeHistoryScreen extends Component {
 
     render() {
         const { page, refreshing, data, itemType } = this.state;
+        const { navigation } = this.props;
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemTypeLayout}>
@@ -86,7 +87,7 @@ export default class TradeHistoryScreen extends Component {
                 <View style={styles.itemListLayout}>
                     <FlatList
                         data={data}
-                        renderItem={({ item }) => <WalletHistoryComponent send={item.send} status={item.status} date={item.date} value={item.value} />}
+                        renderItem={({ item }) => <WalletHistoryComponent navigation={navigation} send={item.send} status={item.status} date={item.date} value={item.value} />}
                         keyExtractor={(item, index) => index.toString()}
                         extraData={this.state}
                         refreshing={refreshing}

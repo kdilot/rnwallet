@@ -28,8 +28,12 @@ export default class WalletHistoryComponent extends Component {
         this.setState({ name: text });
     };
 
+    onSend = address => {
+        this.props.navigation.navigate('ReceiveScreen', { address });
+    };
+
     render() {
-        const { send, status, date, value } = this.props;
+        const { send, status, date, value, address } = this.props;
         const { name } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
@@ -39,8 +43,11 @@ export default class WalletHistoryComponent extends Component {
                     </View>
                 </View>
                 <View style={styles.addressButtonLayout}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={styles.addressButtonGroup}>
                         <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>주소록에 저장</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(address)}>
+                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>보내기</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentLayout}>
@@ -71,4 +78,6 @@ WalletHistoryComponent.proptypes = {
     status: PropTypes.string,
     date: PropTypes.string,
     value: PropTypes.number,
+    onChange: PropTypes.func,
+    onSend: PropTypes.func,
 };

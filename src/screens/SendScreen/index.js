@@ -37,7 +37,7 @@ export default class SendScreen extends Component {
     };
 
     onSend = () => {
-        console.log(1);
+        this.props.navigation.navigate('LoginAuth');
     };
 
     render() {

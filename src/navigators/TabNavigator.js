@@ -14,6 +14,7 @@ import SendScreen from 'screens/SendScreen';
 import SettingScreen from 'screens/SettingScreen';
 import NoticeScreen from 'screens/NoticeScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
+import LoginAuthNavigator from 'screens/LoginAuthScreen/LoginAuthNavigator';
 import { basicColor } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
@@ -111,6 +112,12 @@ const BottomStack = createStackNavigator(
             screen: QrcodeScannerScreen,
             navigationOptions: {
                 headerTitle: '주소스캔',
+            },
+        },
+        LoginAuth: {
+            screen: LoginAuthNavigator,
+            navigationOptions: {
+                header: null,
             },
         },
     },

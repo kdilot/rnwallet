@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
-import LangFiles from 'asset/LangFiles';
+import LangFiles from 'asset/lang/LangFiles';
 
 //  Actions Type
 export const GETLOCALE = 'locale/GETLOCALE';

@@ -1,5 +1,5 @@
-import en from 'asset/en.json';
-import ko from 'asset/ko.json';
+import en from 'asset/lang/en.json';
+import ko from 'asset/lang/ko.json';
 
 const LangFiles = {
     en: en,

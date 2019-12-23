@@ -23,7 +23,9 @@ export default handleActions(
             }),
         [SETADDRESS]: (state, action) =>
             produce(state, draft => {
+                draft.list = [];
                 console.log(`[SET ADDRESSBOOK]`, action.payload);
+                draft.list = AddressBookList;
             }),
     },
     initialState,

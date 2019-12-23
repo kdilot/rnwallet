@@ -22,7 +22,7 @@ export default class WalletInfoComponent extends Component {
 
     onSend = () => {
         const { navigation } = this.props;
-        navigation.navigate('ReceiveScreen');
+        navigation.navigate('Send');
     };
 
     render() {

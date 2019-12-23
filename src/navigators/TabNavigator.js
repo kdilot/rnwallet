@@ -10,7 +10,7 @@ import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
 import MainScreen from 'screens/MainScreen';
 import WalletHistoryScreen from 'screens/WalletHistoryScreen';
 import AddressBookScreen from 'screens/AddressBookScreen';
-import ReceiveScreen from 'screens/ReceiveScreen';
+import SendScreen from 'screens/SendScreen';
 import SettingScreen from 'screens/SettingScreen';
 import NoticeScreen from 'screens/NoticeScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
@@ -24,7 +24,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? 'white' : 'white'} />,
             },
         },
-        History: {
+        WalletHistory: {
             screen: WalletHistoryScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={35} color={focused ? 'white' : 'white'} />,
@@ -95,8 +95,8 @@ const BottomStack = createStackNavigator(
                 headerTitle: '공지사항',
             },
         },
-        ReceiveScreen: {
-            screen: ReceiveScreen,
+        Send: {
+            screen: SendScreen,
             navigationOptions: {
                 headerTitle: '보내기',
             },

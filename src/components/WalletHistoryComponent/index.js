@@ -29,7 +29,7 @@ export default class WalletHistoryComponent extends Component {
     };
 
     onSend = address => {
-        this.props.navigation.navigate('ReceiveScreen', { address });
+        this.props.navigation.navigate('Send', { address });
     };
 
     render() {

@@ -8,7 +8,7 @@ import { basicColor } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class ReceiveScreen extends Component {
+export default class SendScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -106,7 +106,7 @@ export default class ReceiveScreen extends Component {
     }
 }
 
-ReceiveScreen.proptypes = {
+SendScreen.proptypes = {
     value: PropTypes.number,
     fee: PropTypes.number,
     address: PropTypes.string,

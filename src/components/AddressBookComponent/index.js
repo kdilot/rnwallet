@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
@@ -36,8 +37,11 @@ export default class AddressBookComponent extends Component {
                         </View>
                     </View>
                     <View style={styles.addressButtonLayout}>
-                        <TouchableOpacity>
-                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>저장</Text>
+                        <TouchableOpacity style={styles.addressButtonGroup}>
+                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>거래내역</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(address)}>
+                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>저장</Text>
                         </TouchableOpacity>
                     </View>
                 </CardView>

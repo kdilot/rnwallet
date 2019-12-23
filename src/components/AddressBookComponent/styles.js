@@ -9,7 +9,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
     },
     cardLayout: {
-        height: 65,
+        height: 70,
     },
     addressLayout: {
         flex: 2,
@@ -25,10 +25,13 @@ export default StyleSheet.create({
     }),
     addressButtonLayout: {
         flex: 1,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         alignItems: 'flex-end',
         padding: 10,
-        paddingVertical: 5,
+    },
+    addressButtonGroup: {
+        flex: 1,
     },
     addressButtonTextStlye: {
         fontSize: 13,

@@ -68,9 +68,10 @@ export default class WalletHistoryScreen extends Component {
     setType = type => {
         this.setState({
             itemType: type,
-            addressBookShow: type === 2 ? true : false,
+            addressBookShow: type === 3 ? true : false, //  주소록 on/off
         });
-        if (type !== 2) {
+        if (type !== 3) {
+            //  주소록은 선택 후 데이터 가져오기
             this.getData(0);
         }
     };
@@ -113,7 +114,14 @@ export default class WalletHistoryScreen extends Component {
                             onPress={() => {
                                 this.setType(2);
                             }}>
-                            <Text style={[styles.textStyle, itemType === 2 && styles.typeSelectedText]}>주소록</Text>
+                            <Text style={[styles.textStyle, itemType === 2 && styles.typeSelectedText]}>ETH</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.alignCenter, itemType === 3 && styles.typeSelected]}
+                            onPress={() => {
+                                this.setType(3);
+                            }}>
+                            <Text style={[styles.textStyle, itemType === 3 && styles.typeSelectedText]}>주소록</Text>
                         </TouchableOpacity>
                     </CardView>
                 </View>

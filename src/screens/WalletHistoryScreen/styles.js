@@ -40,4 +40,9 @@ export default StyleSheet.create({
     typeSelectedText: {
         color: whiteColor,
     },
+    addressBookLayout: {
+        padding: 10,
+        marginHorizontal: 15,
+        borderRadius: 5,
+    },
 });

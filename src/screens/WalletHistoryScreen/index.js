@@ -1,11 +1,23 @@
+// /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+// import Timeline from 'react-native-timeline-flatlist';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
+import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 import sampleData from './sampleData.json';
+
+// const aaa = sampleData.map(item => {
+//     return {
+//         time: item.date,
+//         title: 'asdf',
+//         description: 'sdfasdf',
+//         // description: <WalletHistoryComponent navigation={this.props.navigation} send={item.send} status={item.status} date={item.date} value={item.value} />,
+//     };
+// });
 
 export default class WalletHistoryScreen extends Component {
     constructor(props) {
@@ -17,6 +29,7 @@ export default class WalletHistoryScreen extends Component {
             extraData: [],
             itemType: 0,
             refreshing: false,
+            addressBookShow: false,
         };
     }
 
@@ -47,18 +60,38 @@ export default class WalletHistoryScreen extends Component {
         }
     };
 
+    getAddressData = address => {
+        console.log('ADDRESS DATA ', address);
+        this.setState({ addressBookShow: false });
+    };
+
     setType = type => {
         this.setState({
             itemType: type,
+            addressBookShow: type === 2 ? true : false,
         });
-        this.getData(0);
+        if (type !== 2) {
+            this.getData(0);
+        }
     };
 
     render() {
-        const { page, refreshing, data, itemType } = this.state;
+        const { page, refreshing, data, itemType, addressBookShow } = this.state;
         const { navigation } = this.props;
         return (
             <KeyboardAvoidingView style={styles.container}>
+                {/* <Timeline
+                    data={aaa}
+                    circleSize={20}
+                    circleColor="rgb(45,156,219)"
+                    lineColor="rgb(45,156,219)"
+                    timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
+                    timeStyle={{ textAlign: 'center', backgroundColor: '#ff9797', color: 'white', padding: 5, borderRadius: 13 }}
+                    descriptionStyle={{ color: 'gray' }}
+                    options={{
+                        style: { paddingTop: 5 },
+                    }}
+                /> */}
                 <View style={styles.itemTypeLayout}>
                     <CardView cardElevation={5} cornerRadius={10} style={styles.typeLayout}>
                         <TouchableOpacity
@@ -84,6 +117,11 @@ export default class WalletHistoryScreen extends Component {
                         </TouchableOpacity>
                     </CardView>
                 </View>
+                {addressBookShow && (
+                    <View style={styles.addressBookLayout}>
+                        <AddressBookMiniComponent getAddressData={this.getAddressData} />
+                    </View>
+                )}
                 <View style={styles.itemListLayout}>
                     <FlatList
                         data={data}
@@ -110,7 +148,9 @@ WalletHistoryScreen.proptpes = {
     extraData: PropTypes.array,
     refreshing: PropTypes.bool,
     page: PropTypes.number,
+    addressBookShow: PropTypes.bool,
     onRefresh: PropTypes.func,
     getData: PropTypes.func,
+    getAddressData: PropTypes.func,
     setType: PropTypes.func,
 };

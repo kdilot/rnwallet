@@ -8,7 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
 import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
 import MainScreen from 'screens/MainScreen';
-import TradeHistoryScreen from 'screens/TradeHistoryScreen';
+import WalletHistoryScreen from 'screens/WalletHistoryScreen';
 import AddressBookScreen from 'screens/AddressBookScreen';
 import ReceiveScreen from 'screens/ReceiveScreen';
 import SettingScreen from 'screens/SettingScreen';
@@ -25,7 +25,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             },
         },
         History: {
-            screen: TradeHistoryScreen,
+            screen: WalletHistoryScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={35} color={focused ? 'white' : 'white'} />,
             },

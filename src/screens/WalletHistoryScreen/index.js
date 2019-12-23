@@ -7,7 +7,7 @@ import styles from './styles';
 
 import sampleData from './sampleData.json';
 
-export default class TradeHistoryScreen extends Component {
+export default class WalletHistoryScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -105,7 +105,7 @@ export default class TradeHistoryScreen extends Component {
     }
 }
 
-TradeHistoryScreen.proptpes = {
+WalletHistoryScreen.proptpes = {
     data: PropTypes.array,
     extraData: PropTypes.array,
     refreshing: PropTypes.bool,

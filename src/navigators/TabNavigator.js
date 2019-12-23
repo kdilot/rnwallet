@@ -93,10 +93,6 @@ const BottomStack = createStackNavigator(
             screen: NoticeScreen,
             navigationOptions: {
                 headerTitle: '공지사항',
-                headerStyle: {
-                    backgroundColor: basicColor,
-                },
-                headerTintColor: '#FFFFFF',
             },
         },
         ReceiveScreen: {
@@ -121,12 +117,12 @@ const BottomStack = createStackNavigator(
     {
         initialRouteName: 'Home',
         headerLayoutPreset: 'center',
-        // navigationOptions: {
-        //     headerStyle: {
-        //         backgroundColor: basicColor,
-        //     },
-        //     headerTintColor: '#FFFFFF',
-        // },
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: basicColor,
+            },
+            headerTintColor: '#FFFFFF',
+        },
     },
 );
 

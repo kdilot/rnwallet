@@ -8,7 +8,7 @@ import styles from './styles';
 class IntroScreen extends Component {
     componentDidMount() {
         const { AddressAction } = this.props;
-        AddressAction.getAddressBook(); //  주소록 가져오기
+        AddressAction.getAddressBook();
 
         setTimeout(() => {
             this.props.navigation.navigate('WalletIntro');
@@ -25,6 +25,11 @@ class IntroScreen extends Component {
     }
 }
 
-export default connect(dispatch => ({
-    AddressAction: bindActionCreators(addressActions, dispatch),
-}))(IntroScreen);
+export default connect(
+    state => ({
+        addressBook: state.AddressBookReducer,
+    }),
+    dispatch => ({
+        AddressAction: bindActionCreators(addressActions, dispatch),
+    }),
+)(IntroScreen);

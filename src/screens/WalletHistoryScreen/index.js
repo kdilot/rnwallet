@@ -137,7 +137,8 @@ export default class WalletHistoryScreen extends Component {
                 </View>
                 {addressBookShow && (
                     <View style={styles.addressBookLayout}>
-                        <AddressBookMiniComponent getAddressData={this.getAddressData} />
+                        {/* 거래내역 조회 로직 */}
+                        <AddressBookMiniComponent />
                     </View>
                 )}
                 <View style={styles.itemListLayout}>

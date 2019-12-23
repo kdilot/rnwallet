@@ -7,7 +7,7 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
     },
     headerLayout: {
-        flex: 2,
+        height: 200,
     },
     textareaGroup: {
         flex: 1,

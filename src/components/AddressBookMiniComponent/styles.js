@@ -3,7 +3,6 @@ import { dividerLightColor, dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
-        // alignSelf: 'flex-start',
         justifyContent: 'center',
         borderWidth: 1,
         borderRadius: 10,

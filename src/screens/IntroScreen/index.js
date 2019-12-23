@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as addressActions from 'modules/AddressBookReducer';
 import { Text, View } from 'react-native';
 import styles from './styles';
 
-export default class IntroScreen extends Component {
+class IntroScreen extends Component {
     componentDidMount() {
+        const { AddressAction } = this.props;
+        AddressAction.getAddressBook(); //  주소록 가져오기
+
         setTimeout(() => {
             this.props.navigation.navigate('WalletIntro');
-        }, 2000);
+        }, 3000);
     }
 
     render() {
@@ -18,3 +24,7 @@ export default class IntroScreen extends Component {
         );
     }
 }
+
+export default connect(dispatch => ({
+    AddressAction: bindActionCreators(addressActions, dispatch),
+}))(IntroScreen);

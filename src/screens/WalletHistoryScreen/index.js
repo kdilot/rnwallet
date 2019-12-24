@@ -6,20 +6,29 @@ import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import Timeline from 'react-native-timeline-flatlist';
 import sampleData from './sampleData.json';
+import moment from 'moment';
+import { getTxList, getRozTxList, getEthTxList } from 'api/etherscan-api';
 
 export default class WalletHistoryScreen extends Component {
+    ITEMTYPE_ALL = 0;
+    ITEMTYPE_ROZ = 1;
+    ITEMTYPE_ETH = 2;
+    ITEMTYPE_ADDRESSBOOK = 3;
     constructor(props) {
         super(props);
 
         this.state = {
             page: 1,
-            data: sampleData,
+            data: [],
             extraData: [],
             itemType: 0,
             refreshing: false,
             addressBookShow: false,
         };
+
+        // this.renderDetail = this.renderDetail.bind(this);
     }
 
     componentDidMount() {
@@ -30,33 +39,51 @@ export default class WalletHistoryScreen extends Component {
                 this.getAddressData(payload.state.params.address);
             }
         });
+        this.getData(this.ITEMTYPE_ALL, 1);
     }
 
     onRefresh = () => {
+        const { itemType } = this.state;
         this.setState({
             refreshing: true,
             page: 1,
         });
-        this.getData();
+        this.getData(itemType, 1);
     };
 
-    getData = page => {
+    /* renderDetail(rowData, sectionID, rowID) {
         const { data } = this.state;
-        if (!page) {
-            // 데이터 초기화
-            this.setState({
-                data: sampleData,
-                refreshing: false,
-                page: 1,
-            });
-        } else {
-            // 데이터 추가
-            this.setState({
-                data: data.concat(sampleData),
-                refreshing: false,
-                page: page + 1,
-            });
+        const { navigation } = this.props;
+
+        console.log(data[sectionID]);
+
+        return <View>{<WalletHistoryComponent navigation={navigation} send={data[sectionID].send} status={data[sectionID].status} date={data[sectionID].ts} value={data[sectionID].value} />}</View>;
+    } */
+
+    getData = async (itemType, page) => {
+        let { data } = this.state;
+
+        let txList = [];
+
+        switch (itemType) {
+            case this.ITEMTYPE_ALL:
+                txList = await getTxList(page, 5);
+                break;
+            case this.ITEMTYPE_ROZ:
+                txList = await getRozTxList(page, 5);
+                break;
+            case this.ITEMTYPE_ETH:
+                txList = await getEthTxList(page, 5);
+                break;
+            case this.ITEMTYPE_ADDRESSBOOK:
+                break;
         }
+
+        this.setState({
+            data: page !== 1 ? data.concat(txList) : txList,
+            refreshing: false,
+            page: page + 1,
+        });
     };
 
     getAddressData = address => {
@@ -64,15 +91,13 @@ export default class WalletHistoryScreen extends Component {
         this.setState({ addressBookShow: false });
     };
 
-    setType = type => {
+    setType = itemType => {
         this.setState({
-            itemType: type,
-            addressBookShow: type === 3 ? true : false, //  주소록 on/off
+            itemType: itemType,
+            addressBookShow: itemType === this.ITEMTYPE_ADDRESSBOOK ? true : false, //  주소록 on/off
+            data: [],
         });
-        if (type !== 3) {
-            //  주소록은 선택 후 데이터 가져오기
-            this.getData(0);
-        }
+        this.getData(itemType, 1);
     };
 
     onActiveMini = flag => {
@@ -99,30 +124,30 @@ export default class WalletHistoryScreen extends Component {
                 <View style={styles.itemTypeLayout}>
                     <CardView cardElevation={5} cornerRadius={10} style={styles.typeLayout}>
                         <TouchableOpacity
-                            style={[styles.alignCenter, itemType === 0 && styles.typeSelected]}
+                            style={[styles.alignCenter, itemType === this.ITEMTYPE_ALL && styles.typeSelected]}
                             onPress={() => {
-                                this.setType(0);
+                                this.setType(this.ITEMTYPE_ALL);
                             }}>
-                            <Text style={[styles.textStyle, itemType === 0 && styles.typeSelectedText]}>전체</Text>
+                            <Text style={[styles.textStyle, itemType === this.ITEMTYPE_ALL && styles.typeSelectedText]}>전체</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.alignCenter, itemType === 1 && styles.typeSelected]}
+                            style={[styles.alignCenter, itemType === this.ITEMTYPE_ROZ && styles.typeSelected]}
                             onPress={() => {
-                                this.setType(1);
+                                this.setType(this.ITEMTYPE_ROZ);
                             }}>
-                            <Text style={[styles.textStyle, itemType === 1 && styles.typeSelectedText]}>ROZ</Text>
+                            <Text style={[styles.textStyle, itemType === this.ITEMTYPE_ROZ && styles.typeSelectedText]}>ROZ</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.alignCenter, itemType === 2 && styles.typeSelected]}
+                            style={[styles.alignCenter, itemType === this.ITEMTYPE_ETH && styles.typeSelected]}
                             onPress={() => {
-                                this.setType(2);
+                                this.setType(this.ITEMTYPE_ETH);
                             }}>
-                            <Text style={[styles.textStyle, itemType === 2 && styles.typeSelectedText]}>ETH</Text>
+                            <Text style={[styles.textStyle, itemType === this.ITEMTYPE_ETH && styles.typeSelectedText]}>ETH</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.alignCenter, itemType === 3 && styles.typeSelected]}
+                            style={[styles.alignCenter, itemType === this.ITEMTYPE_ADDRESSBOOK && styles.typeSelected]}
                             onPress={() => {
-                                this.setType(3);
+                                this.setType(this.ITEMTYPE_ADDRESSBOOK);
                             }}>
                             <Text style={[styles.textStyle, itemType === 3 && styles.typeSelectedText]}>주소록</Text>
                         </TouchableOpacity>

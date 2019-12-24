@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
 import { getAddressBookApi } from 'api/AddressBook/AddressBookApi';
-import { View, FlatList, KeyboardAvoidingView, Text } from 'react-native';
+import { View, FlatList, KeyboardAvoidingView } from 'react-native';
 import AddressBookComponent from 'components/AddressBookComponent';
+import Placeholderlayout from './PlaceholderLayout';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -21,6 +22,7 @@ class AddressBookScreen extends Component {
     componentDidMount() {
         const { navigation, AddressAction } = this.props;
         this.focusListener = navigation.addListener('didFocus', payload => {
+            this.setState({ addressBookLoad: false });
             getAddressBookApi().then(res => {
                 //  주소록 가져오기
                 if (res.data) {
@@ -55,7 +57,7 @@ class AddressBookScreen extends Component {
                             onEndReachedThreshold={0.2}
                         />
                     ) : (
-                        <Text>No data</Text>
+                        <Placeholderlayout />
                     )}
                 </View>
             </KeyboardAvoidingView>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
-import { getAddressBookApi } from 'api/AddressBookApi';
+import { getAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View } from 'react-native';
 import styles from './styles';
 

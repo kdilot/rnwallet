@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
-import { setAddressBookApi } from 'api/AddressBookApi';
+import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import { dividerLightColor, dividerDarkColor } from 'constants/Color';

@@ -46,4 +46,11 @@ export default StyleSheet.create({
         marginHorizontal: 15,
         borderRadius: 5,
     },
+    timelineLayout: {
+        textAlign: 'center',
+        backgroundColor: '#ff9797',
+        color: 'white',
+        padding: 5,
+        borderRadius: 13,
+    },
 });

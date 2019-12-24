@@ -1,8 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-// /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { View, Text, /*FlatList,*/ TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl } from 'react-native';
-// import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
@@ -28,10 +26,7 @@ export default class WalletHistoryScreen extends Component {
             itemType: 0,
             refreshing: false,
             addressBookShow: false,
-            renderDetail: this.renderDetail,
         };
-
-        // this.renderDetail = this.renderDetail.bind(this);
     }
 
     componentDidMount() {
@@ -59,7 +54,6 @@ export default class WalletHistoryScreen extends Component {
     renderDetail = (rowData, sectionID, rowID) => {
         const { data } = this.state;
         const { navigation } = this.props;
-        // return <WalletHistoryComponent navigation={navigation} send={data[sectionID].send} status={data[sectionID].status} date={data[sectionID].ts} value={data[sectionID].value} />;
         return <WalletHistoryComponent navigation={navigation} data={data[sectionID]} />;
     };
 
@@ -163,8 +157,7 @@ export default class WalletHistoryScreen extends Component {
                             data={data}
                             circleSize={20}
                             timeContainerStyle={{ minWidth: 60 }}
-                            timeStyle={{ textAlign: 'center', backgroundColor: '#ff9797', color: 'white', padding: 5, borderRadius: 13 }}
-                            descriptionStyle={{ color: 'gray' }}
+                            timeStyle={styles.timelineLayout}
                             options={{
                                 style: { paddingTop: 5 },
                                 refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,

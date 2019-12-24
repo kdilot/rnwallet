@@ -7,12 +7,13 @@ import { setAddressBookApi } from 'api/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import { dividerLightColor, dividerDarkColor } from 'constants/Color';
+import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 class AddressBookComponent extends Component {
     static defaultProps = {
-        address: '0x8A52B2a07CE959B54c6dB876CBcb2850A35E37aB',
+        address: '---------------',
         nickname: '테스트',
     };
 
@@ -34,7 +35,7 @@ class AddressBookComponent extends Component {
 
         await setAddressBookApi({ address, nickname }).then(res => {
             if (res.data) {
-                // [ALLERT 필요 - 성공]
+                Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
                 AddressAction.setAddressBook(res.data);
             } else {
                 console.error('ADDRESSBOOK LOAD ERROR');

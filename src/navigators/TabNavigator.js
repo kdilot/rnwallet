@@ -68,8 +68,8 @@ const BottomMenuTab = createMaterialTopTabNavigator(
     },
 );
 
-BottomMenuTab.navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('title') || 'ROZ',
+BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
+    title: 'ROZ',
     headerStyle: {
         backgroundColor: basicColor,
     },

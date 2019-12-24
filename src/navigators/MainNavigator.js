@@ -10,6 +10,11 @@ import WalletCreateScreen from 'screens/WalletCheckScreen/WalletCreate';
 import WalletRestoreScreen from 'screens/WalletCheckScreen/WalletRestore';
 
 class MainNavigator extends Component {
+    componentDidMount() {
+        const { LocaleAction } = this.props;
+        LocaleAction.getLocale(); //  언어정보
+    }
+
     render() {
         return <Screens screenProps={{ lang: this.props.locale.lang }} />;
     }

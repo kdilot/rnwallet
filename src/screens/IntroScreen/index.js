@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
-import * as localeActions from 'modules/LocaleReducer';
 import { getAddressBookApi } from 'api/AddressBookApi';
 import { Text, View } from 'react-native';
 import styles from './styles';
@@ -16,7 +15,7 @@ class IntroScreen extends Component {
         };
     }
     componentDidMount() {
-        const { AddressAction, LocaleAction } = this.props;
+        const { AddressAction } = this.props;
 
         getAddressBookApi().then(res => {
             //  주소록 가져오기
@@ -27,8 +26,6 @@ class IntroScreen extends Component {
                 console.error('ADDRESSBOOK LOAD ERROR');
             }
         });
-
-        LocaleAction.getLocale(); //  언어정보
 
         setTimeout(() => {
             this.props.navigation.navigate('WalletIntro');
@@ -48,10 +45,8 @@ class IntroScreen extends Component {
 export default connect(
     state => ({
         addressBook: state.AddressBookReducer,
-        locale: state.LocaleReducer,
     }),
     dispatch => ({
         AddressAction: bindActionCreators(addressActions, dispatch),
-        LocaleAction: bindActionCreators(localeActions, dispatch),
     }),
 )(IntroScreen);

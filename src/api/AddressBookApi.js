@@ -2,14 +2,12 @@ const API_URL = 'https://asia-northeast1-rozeus-4321c.cloudfunctions.net/rozeusw
 const USER_ETH_ADDRESS = '0xbde7cd1b49eaac57373eaf5b1e9a9D588f3e456d';
 
 const getAddressBookApi = async () => {
-    // let fetchResult = await fetch(ROZEUS_WALLET_API_URI + '/addressbookList?owner=' + address);
-    // let result = await fetchResult.json();
     try {
         const response = await fetch(`${API_URL}/addressbookList?owner=${USER_ETH_ADDRESS}`);
-        console.log('ADDRESSBOOK API CALL');
+        console.log('[ADDRESSBOOK GET API CALL]');
         return await response.json();
     } catch (e) {
-        console.log(e);
+        console.log(`[ADDRESSBOOK GET API] ${e}`);
         return { error: e };
     }
 };
@@ -30,7 +28,7 @@ const setAddressBookApi = async param => {
             }
         });
     } catch (e) {
-        console.log(e);
+        console.log(`[ADDRESSBOOK SET API] ${e}`);
         return { error: e };
     }
 };

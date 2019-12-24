@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View, Text, /*FlatList,*/ TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl } from 'react-native';
 // import WalletHistoryComponent from 'components/WalletHistoryComponent';
-import WalletHistoryComponent from 'components/WalletHistoryComponent/test';
+import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
 import PropTypes from 'prop-types';

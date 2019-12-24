@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { dividerLightColor, dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
     cardLayout: {
-        height: 130,
+        height: 220,
         margin: 7,
     },
     addressLayout: {
@@ -34,25 +35,17 @@ export default StyleSheet.create({
         height: 40,
     },
     contentLayout: {
-        flex: 4,
-        flexDirection: 'row',
+        flex: 7,
+        padding: 10,
     },
-    contentIconLayout: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
+    contentAddressGroup: {
+        marginBottom: 5,
+        paddingBottom: 5,
+        borderBottomWidth: 1,
+        borderColor: dividerLightColor,
     },
-    contentIconStyle: {
-        width: 50,
-        height: 50,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    contentTextLayout: {
-        flex: 5,
-        justifyContent: 'center',
+    contentAddressStyle: {
+        color: dividerDarkColor,
     },
     contentTextGroup: {
         flexDirection: 'row',

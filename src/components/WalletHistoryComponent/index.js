@@ -6,25 +6,23 @@ import * as addressActions from 'modules/AddressBookReducer';
 import { setAddressBookApi } from 'api/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { whiteColor, plusColor, minusColor, dividerDarkColor } from 'constants/Color';
+import { plusColor, minusColor, dividerDarkColor } from 'constants/Color';
+import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 class WalletHistoryComponent extends Component {
     static defaultProps = {
-        send: true,
-        address: '0x8A52B2a07CE959B54c6dB876CBcb2850A35E37aB',
-        status: '-',
-        date: '-',
-        value: '5223',
+        data: [],
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            name: props.address,
+            name: props.data.nickname ? props.data.nickname : props.data.send ? props.data.to : props.data.from,
+            address: props.data.send ? props.data.from : props.data.to, //  본인주소
+            to: props.data.to,
         };
     }
 
@@ -37,11 +35,11 @@ class WalletHistoryComponent extends Component {
     };
 
     addAddressBook = async () => {
-        const { AddressAction, address } = this.props;
-        const { name } = this.state;
-        await setAddressBookApi({ address, nickname: name }).then(res => {
+        const { AddressAction } = this.props;
+        const { name, to } = this.state;
+        await setAddressBookApi({ address: to, nickname: name }).then(res => {
             if (res.data) {
-                // Alert 필요
+                Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
                 AddressAction.setAddressBook(res.data);
             } else {
                 console.error('ADDRESSBOOK LOAD ERROR');
@@ -50,8 +48,8 @@ class WalletHistoryComponent extends Component {
     };
 
     render() {
-        const { send, status, date, value, address } = this.props;
-        const { name } = this.state;
+        const { ts, value, status, send, from, to } = this.props.data;
+        const { name, address } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(send ? plusColor : minusColor)]}>
@@ -68,20 +66,19 @@ class WalletHistoryComponent extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentLayout}>
-                    <View style={styles.contentIconLayout}>
-                        <View style={[styles.contentIconStyle, styles.IconColor(send ? plusColor : minusColor)]}>
-                            <Ionicons name={`md-arrow-round-${send ? 'up' : 'down'}`} size={50} color={whiteColor} />
-                        </View>
+                    <View style={styles.contentAddressGroup}>
+                        <Text style={styles.contentAddressStyle}>from</Text>
+                        <Text>{from}</Text>
+                        <Text style={styles.contentAddressStyle}>to</Text>
+                        <Text>{to}</Text>
                     </View>
-                    <View style={styles.contentTextLayout}>
-                        <View style={styles.contentTextGroup}>
-                            <Text style={[styles.contentTextStyle, styles.TextColor(send ? plusColor : minusColor)]}>{send ? 'Sent' : 'Receive'}</Text>
-                            <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`$${value}`}</Text>
-                        </View>
-                        <View style={styles.contentTextGroup}>
-                            <Text style={styles.contentTextStyle}>{status}</Text>
-                            <Text style={[styles.contentTextStyle, styles.alignRight]}>{date}</Text>
-                        </View>
+                    <View style={styles.contentTextGroup}>
+                        <Text style={styles.contentTextStyle}>{status}</Text>
+                        <Text style={[styles.contentTextStyle, styles.alignRight]}>{ts}</Text>
+                    </View>
+                    <View style={styles.contentTextGroup}>
+                        <Text style={[styles.contentTextStyle, styles.TextColor(send ? plusColor : minusColor)]}>{send ? 'Sent' : 'Receive'}</Text>
+                        <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`$${value}`}</Text>
                     </View>
                 </View>
             </CardView>
@@ -90,11 +87,7 @@ class WalletHistoryComponent extends Component {
 }
 
 WalletHistoryComponent.proptypes = {
-    address: PropTypes.string,
-    name: PropTypes.string,
-    status: PropTypes.string,
-    date: PropTypes.string,
-    value: PropTypes.number,
+    data: PropTypes.number,
     onChange: PropTypes.func,
     onSend: PropTypes.func,
     addAddressBook: PropTypes.func,

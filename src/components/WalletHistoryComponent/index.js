@@ -68,9 +68,13 @@ class WalletHistoryComponent extends Component {
                 <View style={styles.contentLayout}>
                     <View style={styles.contentAddressGroup}>
                         <Text style={styles.contentAddressStyle}>from</Text>
-                        <Text>{from}</Text>
+                        <Text numberOfLines={1} ellipsizeMode="middle">
+                            {from}
+                        </Text>
                         <Text style={styles.contentAddressStyle}>to</Text>
-                        <Text>{to}</Text>
+                        <Text numberOfLines={1} ellipsizeMode="middle">
+                            {to}
+                        </Text>
                     </View>
                     <View style={styles.contentTextGroup}>
                         <Text style={styles.contentTextStyle}>{status}</Text>

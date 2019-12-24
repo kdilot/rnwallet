@@ -3,7 +3,7 @@ import { dividerLightColor, dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
     cardLayout: {
-        height: 220,
+        height: 230,
         margin: 7,
     },
     addressLayout: {
@@ -15,16 +15,16 @@ export default StyleSheet.create({
         borderBottomColor: color,
     }),
     addressButtonLayout: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'flex-end',
         paddingTop: 5,
-        paddingHorizontal: 10,
     },
     addressButtonGroup: {
         flex: 1,
-        paddingHorizontal: 5,
+        margin: 5,
+        paddingHorizontal: 15,
+        justifyContent: 'center',
     },
     addressButtonTextStlye: {
         flex: 1,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     },
     contentLayout: {
         flex: 7,
-        padding: 10,
+        paddingHorizontal: 10,
     },
     contentAddressGroup: {
         marginBottom: 5,

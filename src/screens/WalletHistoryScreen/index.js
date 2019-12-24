@@ -1,23 +1,12 @@
 // /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-// import Timeline from 'react-native-timeline-flatlist';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
 import PropTypes from 'prop-types';
 import styles from './styles';
-
 import sampleData from './sampleData.json';
-
-// const aaa = sampleData.map(item => {
-//     return {
-//         time: item.date,
-//         title: 'asdf',
-//         description: 'sdfasdf',
-//         // description: <WalletHistoryComponent navigation={this.props.navigation} send={item.send} status={item.status} date={item.date} value={item.value} />,
-//     };
-// });
 
 export default class WalletHistoryScreen extends Component {
     constructor(props) {
@@ -86,6 +75,10 @@ export default class WalletHistoryScreen extends Component {
         }
     };
 
+    onActiveMini = flag => {
+        this.setState({ addressBookShow: flag });
+    };
+
     render() {
         const { page, refreshing, data, itemType, addressBookShow } = this.state;
         const { navigation } = this.props;
@@ -135,28 +128,29 @@ export default class WalletHistoryScreen extends Component {
                         </TouchableOpacity>
                     </CardView>
                 </View>
-                {addressBookShow && (
+                {addressBookShow ? (
                     <View style={styles.addressBookLayout}>
                         {/* 거래내역 조회 로직 */}
-                        <AddressBookMiniComponent />
+                        <AddressBookMiniComponent onActive={this.onActiveMini} />
+                    </View>
+                ) : (
+                    <View style={styles.itemListLayout}>
+                        <FlatList
+                            data={data}
+                            renderItem={({ item }) => <WalletHistoryComponent navigation={navigation} send={item.send} status={item.status} date={item.date} value={item.value} />}
+                            keyExtractor={(item, index) => index.toString()}
+                            extraData={this.state}
+                            refreshing={refreshing}
+                            onRefresh={() => {
+                                this.onRefresh();
+                            }}
+                            onEndReached={() => {
+                                this.getData(page);
+                            }}
+                            onEndReachedThreshold={0.2}
+                        />
                     </View>
                 )}
-                <View style={styles.itemListLayout}>
-                    <FlatList
-                        data={data}
-                        renderItem={({ item }) => <WalletHistoryComponent navigation={navigation} send={item.send} status={item.status} date={item.date} value={item.value} />}
-                        keyExtractor={(item, index) => index.toString()}
-                        extraData={this.state}
-                        refreshing={refreshing}
-                        onRefresh={() => {
-                            this.onRefresh();
-                        }}
-                        onEndReached={() => {
-                            this.getData(page);
-                        }}
-                        onEndReachedThreshold={0.2}
-                    />
-                </View>
             </KeyboardAvoidingView>
         );
     }
@@ -172,4 +166,5 @@ WalletHistoryScreen.proptpes = {
     getData: PropTypes.func,
     getAddressData: PropTypes.func,
     setType: PropTypes.func,
+    onActiveMini: PropTypes.func,
 };

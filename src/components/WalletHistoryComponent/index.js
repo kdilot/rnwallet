@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
+import { setAddressBookApi } from 'api/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -35,14 +36,16 @@ class WalletHistoryComponent extends Component {
         this.props.navigation.navigate('Send', { address });
     };
 
-    addAddressBook = () => {
+    addAddressBook = async () => {
         const { AddressAction, address } = this.props;
         const { name } = this.state;
-        AddressAction.resetAddressBook(); // 임시로 데이터 강제 리셋
-        AddressAction.setAddressBook({ address, nickname: name });
-        setTimeout(() => {
-            AddressAction.getAddressBook(); // 페이지 로드마다 주소록 정보 불러오기
-        }, 2000);
+        await setAddressBookApi({ address, nickname: name }).then(res => {
+            if (res) {
+                AddressAction.setAddressBook(res);
+            } else {
+                console.error('ADDRESSBOOK LOAD ERROR');
+            }
+        });
     };
 
     render() {

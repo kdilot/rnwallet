@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
+import { setAddressBookApi } from 'api/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import { dividerLightColor, dividerDarkColor } from 'constants/Color';
@@ -27,10 +28,17 @@ class AddressBookComponent extends Component {
         this.setState({ nickname: text });
     };
 
-    onSend = () => {
+    onSend = async () => {
         const { AddressAction, address } = this.props;
         const { nickname } = this.state;
-        AddressAction.setAddressBook({ address, nickname });
+
+        await setAddressBookApi({ address, nickname }).then(res => {
+            if (res) {
+                AddressAction.setAddressBook(res);
+            } else {
+                console.error('ADDRESSBOOK LOAD ERROR');
+            }
+        });
     };
 
     onHistory = () => {

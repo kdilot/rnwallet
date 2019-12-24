@@ -10,6 +10,7 @@ import styles from './styles';
 class AddressBookMiniComponent extends Component {
     render() {
         const { list } = this.props.addressBook;
+        const { onActive } = this.props;
         // const { getHistoryData } = this.props;   //  거래내역 조회 로직
         return (
             <View style={styles.container}>
@@ -22,6 +23,7 @@ class AddressBookMiniComponent extends Component {
                         <TouchableOpacity
                             style={styles.addressBookTextStyle}
                             onPress={() => {
+                                onActive(false);
                                 // getHistoryData(item.address);    //  거래내역 조회 로직
                             }}>
                             {list.length > 0 ? <Text>{item.nickname}</Text> : <PlaceholderLayout />}
@@ -36,7 +38,7 @@ class AddressBookMiniComponent extends Component {
 
 AddressBookMiniComponent.proptypes = {
     list: PropTypes.array,
-    getAddressData: PropTypes.func,
+    onActive: PropTypes.func,
 };
 
 export default connect(

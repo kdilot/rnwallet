@@ -33,8 +33,9 @@ class AddressBookComponent extends Component {
         const { nickname } = this.state;
 
         await setAddressBookApi({ address, nickname }).then(res => {
-            if (res) {
-                AddressAction.setAddressBook(res);
+            if (res.data) {
+                // [ALLERT 필요 - 성공]
+                AddressAction.setAddressBook(res.data);
             } else {
                 console.error('ADDRESSBOOK LOAD ERROR');
             }

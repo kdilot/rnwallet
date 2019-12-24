@@ -19,6 +19,10 @@ export const getEthTxList = async (page, offset) => {
         if (!result || result.message !== 'OK' || !Array.isArray(result.result)) {
             return [];
         }
+        //  타임라인 색상
+        result.result.circleColor = '#009688';
+        result.result.lineColor = '#009688';
+        result.result.time = null;
 
         for (let i = 0; i < result.result.length; i++) {
             txList.push(Tx.formTxData(result.result[i]));

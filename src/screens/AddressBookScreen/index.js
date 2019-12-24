@@ -23,8 +23,8 @@ class AddressBookScreen extends Component {
         this.focusListener = navigation.addListener('didFocus', payload => {
             getAddressBookApi().then(res => {
                 //  주소록 가져오기
-                if (res) {
-                    AddressAction.setAddressBook(res);
+                if (res.data) {
+                    AddressAction.setAddressBook(res.data);
                     this.setState({ addressBookLoad: true });
                 } else {
                     console.error('ADDRESSBOOK LOAD ERROR');

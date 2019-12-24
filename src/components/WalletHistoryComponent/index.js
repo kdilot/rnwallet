@@ -40,8 +40,9 @@ class WalletHistoryComponent extends Component {
         const { AddressAction, address } = this.props;
         const { name } = this.state;
         await setAddressBookApi({ address, nickname: name }).then(res => {
-            if (res) {
-                AddressAction.setAddressBook(res);
+            if (res.data) {
+                // Alert 필요
+                AddressAction.setAddressBook(res.data);
             } else {
                 console.error('ADDRESSBOOK LOAD ERROR');
             }

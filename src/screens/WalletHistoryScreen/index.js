@@ -7,6 +7,7 @@ import CardView from 'react-native-cardview';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import Timeline from 'react-native-timeline-flatlist';
+import PlaceholderLayout from './PlaceholderLayout';
 import { getTxList, getRozTxList, getEthTxList } from 'api/etherscan-api';
 
 const ITEMTYPE_ALL = 0;
@@ -153,35 +154,25 @@ export default class WalletHistoryScreen extends Component {
                     </View>
                 ) : (
                     <View style={styles.itemListLayout}>
-                        <Timeline
-                            data={data}
-                            circleSize={20}
-                            timeContainerStyle={{ minWidth: 60 }}
-                            timeStyle={styles.timelineLayout}
-                            options={{
-                                style: { paddingTop: 5 },
-                                refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
-                                renderFooter: this.renderFooter,
-                                onEndReached: () => {
-                                    this.getData(itemType, page);
-                                },
-                            }}
-                            renderDetail={this.renderDetail}
-                        />
-                        {/* <FlatList
-                            data={data}
-                            renderItem={({ item }) => <WalletHistoryComponent navigation={navigation} send={item.send} status={item.status} date={item.date} value={item.value} />}
-                            keyExtractor={(item, index) => index.toString()}
-                            extraData={this.state}
-                            refreshing={refreshing}
-                            onRefresh={() => {
-                                this.onRefresh();
-                            }}
-                            onEndReached={() => {
-                                this.getData(itemType, page);
-                            }}
-                            onEndReachedThreshold={0.2}
-                        /> */}
+                        {data.length > 0 ? (
+                            <Timeline
+                                data={data}
+                                circleSize={20}
+                                timeContainerStyle={{ minWidth: 60 }}
+                                timeStyle={styles.timelineLayout}
+                                options={{
+                                    style: { paddingTop: 5 },
+                                    refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
+                                    renderFooter: this.renderFooter,
+                                    onEndReached: () => {
+                                        this.getData(itemType, page);
+                                    },
+                                }}
+                                renderDetail={this.renderDetail}
+                            />
+                        ) : (
+                            <PlaceholderLayout />
+                        )}
                     </View>
                 )}
             </KeyboardAvoidingView>

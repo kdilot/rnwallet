@@ -31,7 +31,7 @@ export default class WalletCreate extends Component {
     onCreate = () => {
         //  Token 생성 로직 추가
         const { navigation } = this.props;
-        navigation.navigate('TabNavigator');
+        navigation.navigate('Home');
     };
 
     checkWord = value => {

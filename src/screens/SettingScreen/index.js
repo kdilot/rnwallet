@@ -3,23 +3,9 @@ import { View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import SwitchButtonLayout from './SwitchButtonLayout';
 import SwipeablePanel from 'rn-swipeable-panel';
+import { MENU_LIST } from 'api/Setting';
 import PropTypes from 'prop-types';
 import styles from './style';
-
-const MenuList = [
-    {
-        name: 'Push',
-    },
-    {
-        name: 'Pin',
-    },
-    {
-        name: '지문인식',
-    },
-    {
-        name: '언어설정',
-    },
-];
 
 export default class SettingScreen extends Component {
     constructor(props) {
@@ -70,7 +56,7 @@ export default class SettingScreen extends Component {
                 openLarge={true}>
                 <View style={styles.panelLayout}>
                     <Text style={styles.titleLayout}>설정</Text>
-                    {MenuList.map((item, index) => (
+                    {MENU_LIST.map((item, index) => (
                         <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />
                     ))}
                 </View>

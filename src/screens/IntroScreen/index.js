@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
+import * as settingActions from 'modules/SettingReducer';
 import { getAddressBookApi } from 'api/AddressBook/AddressBookApi';
+import { getSettingApi } from 'api/Setting';
 import { Text, View } from 'react-native';
 import styles from './styles';
 
@@ -12,10 +14,11 @@ class IntroScreen extends Component {
 
         this.state = {
             addressBookLoad: false,
+            settingLoad: false,
         };
     }
-    componentDidMount() {
-        const { AddressAction } = this.props;
+    componentDidMount = () => {
+        const { AddressAction, SettingAction } = this.props;
 
         getAddressBookApi().then(res => {
             //  주소록 가져오기
@@ -27,10 +30,15 @@ class IntroScreen extends Component {
             }
         });
 
+        getSettingApi().then(res => {
+            SettingAction.setSetting(res);
+            this.setState({ settingLoad: true });
+        });
+
         setTimeout(() => {
             this.props.navigation.navigate('WalletIntro');
         }, 3000);
-    }
+    };
 
     render() {
         return (
@@ -45,8 +53,10 @@ class IntroScreen extends Component {
 export default connect(
     state => ({
         addressBook: state.AddressBookReducer,
+        setting: state.SettingReducer,
     }),
     dispatch => ({
         AddressAction: bindActionCreators(addressActions, dispatch),
+        SettingAction: bindActionCreators(settingActions, dispatch),
     }),
 )(IntroScreen);

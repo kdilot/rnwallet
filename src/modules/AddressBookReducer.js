@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 
 //  Actions Type
-export const SETADDRESS = 'locale/SETADDRESS';
+export const SETADDRESS = 'address/SETADDRESS';
 
 //  Actions
 export const setAddressBook = createAction(SETADDRESS);

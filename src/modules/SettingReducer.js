@@ -2,8 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 
 //  Actions Type
-export const SETSETTING = 'locale/SETSETTING';
-export const CHANGESETTING = 'locale/CHANGESETTING';
+export const SETSETTING = 'setting/SETSETTING';
+export const CHANGESETTING = 'setting/CHANGESETTING';
 
 //  Actions
 export const setSetting = createAction(SETSETTING);

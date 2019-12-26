@@ -20,14 +20,14 @@ export default class PinCodeScreen extends Component {
     }
 
     getPIN = async () => {
-        await AsyncStorage.getItem('pin').then(number => {
+        await AsyncStorage.getItem('pincode').then(number => {
             number && this.setState({ pinNumber: number, process: 1, pinFlag: true });
         });
     };
 
     setPIN = async () => {
         const { pinNumber } = this.state;
-        await AsyncStorage.setItem('pin', pinNumber);
+        await AsyncStorage.setItem('pincode', pinNumber);
         await this.setState({ process: 1 });
     };
 

@@ -29,6 +29,7 @@ export default handleActions(
             }),
         [SETLANGUAGE]: (state, action) =>
             produce(state, draft => {
+                draft.locale = action.locale;
                 draft.lang = LangFiles[action.locale];
             }),
     },

@@ -5,5 +5,9 @@
     "rdsi": "Redux Saga Increment",
     "rdsd": "Redux Saga Decrement",
     "slk": "Set Locale KO",
-    "sle": "Set Locale EN"
+    "sle": "Set Locale EN",
+    "push": "Push",
+    "pin": "Pin",
+    "fingerprint": "Fingerprint",
+    "language": "Language"
 }

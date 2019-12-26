@@ -5,5 +5,9 @@
     "rdsi": "리덕스 사가 증가",
     "rdsd": "리덕스 사가 감소",
     "slk": "지역설정 KO",
-    "sle": "지역설정 EN"
+    "sle": "지역설정 EN",
+    "push": "푸시",
+    "pin": "PIN설정",
+    "fingerprint": "지문인식",
+    "language": "언어"
 }

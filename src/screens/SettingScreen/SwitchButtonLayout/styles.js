@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { basicColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -17,5 +18,21 @@ export default StyleSheet.create({
     },
     textStyle: {
         fontSize: 15,
+    },
+    languageLayout: {
+        padding: 5,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    languageGroup: {
+        padding: 10,
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+    languageTextStyle: {},
+    selectedText: {
+        borderColor: basicColor,
+        color: basicColor,
+        fontWeight: 'bold',
     },
 });

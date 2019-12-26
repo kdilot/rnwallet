@@ -11,10 +11,15 @@ import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color
 import PropTypes from 'prop-types';
 import styles from './styles';
 
+const ON = 'on';
+const OFF = 'off';
+const LANGUAGE_KOREAN = 'ko';
+const LANGUAGE_ENGLISH = 'en';
+
 class SwitchButtonLayout extends Component {
     toggleSwitch = async value => {
         const { text, SettingAction } = this.props;
-        const data = { name: text, value: value ? 'on' : 'off' };
+        const data = { name: text, value: value ? ON : OFF };
         await setSettingApi(data).then();
         await SettingAction.changeSetting(data);
     };
@@ -33,27 +38,22 @@ class SwitchButtonLayout extends Component {
                     {text === 'language' ? (
                         <View style={styles.languageLayout}>
                             <TouchableOpacity
-                                style={[styles.languageGroup, locale === 'ko' && styles.selectedText, { marginRight: 10 }]}
+                                style={[styles.languageGroup, locale === LANGUAGE_KOREAN && styles.selectedText, { marginRight: 10 }]}
                                 onPress={() => {
-                                    LocaleAction.setLanguage('ko');
+                                    LocaleAction.setLanguage(LANGUAGE_KOREAN);
                                 }}>
-                                <Text style={[styles.languageTextStyle, locale === 'ko' && styles.selectedText]}>KO</Text>
+                                <Text style={[styles.languageTextStyle, locale === LANGUAGE_KOREAN && styles.selectedText]}>KO</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.languageGroup, locale === 'en' && styles.selectedText]}
+                                style={[styles.languageGroup, locale === LANGUAGE_ENGLISH && styles.selectedText]}
                                 onPress={() => {
-                                    LocaleAction.setLanguage('en');
+                                    LocaleAction.setLanguage(LANGUAGE_ENGLISH);
                                 }}>
-                                <Text style={[styles.languageTextStyle, locale === 'en' && styles.selectedText]}>EN</Text>
+                                <Text style={[styles.languageTextStyle, locale === LANGUAGE_ENGLISH && styles.selectedText]}>EN</Text>
                             </TouchableOpacity>
                         </View>
                     ) : (
-                        <Switch
-                            onValueChange={this.toggleSwitch}
-                            value={text === 'language' ? (locale === 'en' ? true : false) : list[text] === 'on' ? true : false}
-                            thumbColor={dividerLightColor}
-                            trackColor={{ false: dividerDarkColor, true: basicColor }}
-                        />
+                        <Switch onValueChange={this.toggleSwitch} value={list[text] === ON ? true : false} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
                     )}
                 </View>
             </View>
@@ -63,7 +63,9 @@ class SwitchButtonLayout extends Component {
 
 SwitchButtonLayout.propTypes = {
     switchValue: PropTypes.bool,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    locale: PropTypes.object,
+    lang: PropTypes.array,
     toggleSwitch: PropTypes.func,
 };
 

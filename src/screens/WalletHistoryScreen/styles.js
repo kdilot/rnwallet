@@ -53,4 +53,9 @@ export default StyleSheet.create({
         padding: 5,
         borderRadius: 13,
     },
+    isEmptyLayout: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

@@ -23,6 +23,7 @@ export default class WalletHistoryScreen extends Component {
         this.state = {
             page: 1,
             data: [],
+            isData: true,
             extraData: [],
             itemType: 0,
             refreshing: false,
@@ -80,6 +81,7 @@ export default class WalletHistoryScreen extends Component {
         this.setState({
             data: page !== 1 ? data.concat(txList) : txList,
             refreshing: false,
+            isData: page === 1 && txList.length === 0 ? false : true,
             page: page + 1,
         });
     };
@@ -112,7 +114,7 @@ export default class WalletHistoryScreen extends Component {
     }
 
     render() {
-        const { page, refreshing, data, itemType, addressBookShow } = this.state;
+        const { page, refreshing, data, itemType, addressBookShow, isData } = this.state;
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemTypeLayout}>
@@ -170,8 +172,12 @@ export default class WalletHistoryScreen extends Component {
                                 }}
                                 renderDetail={this.renderDetail}
                             />
-                        ) : (
+                        ) : isData ? (
                             <PlaceholderLayout />
+                        ) : (
+                            <View style={styles.isEmptyLayout}>
+                                <Text>NO DATA</Text>
+                            </View>
                         )}
                     </View>
                 )}

@@ -1,5 +1,5 @@
 import * as etherApi from 'etherscan-api';
-import { Tx } from '../model/Tx';
+import { Tx } from 'model/Tx';
 import { getAddressBookMap } from './addressbook-api';
 
 // 추후 전역 저장소에서 불러와서 사용.

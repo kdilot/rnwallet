@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import Timeline from 'react-native-timeline-flatlist';
 import PlaceholderLayout from './PlaceholderLayout';
-import { getTxList, getRozTxList, getEthTxList } from 'api/etherscan-api';
+import { getTxList, getRozTxList, getEthTxList } from 'api/WalletHistory/etherscan-api';
 
 const ITEMTYPE_ALL = 0;
 const ITEMTYPE_ROZ = 1;

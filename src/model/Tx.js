@@ -1,5 +1,5 @@
 import * as etherUtil from 'web3-utils';
-import { div } from '../api/decimal';
+import { div } from '../api/WalletHistory/decimal';
 import { plusColor, minusColor } from 'constants/Color';
 import moment from 'moment';
 // 추후 전역 저장소에서 불러와서 사용.

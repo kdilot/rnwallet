@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as addressActions from 'modules/AddressBookReducer';
 import * as localeActions from 'modules/LocaleReducer';
 import * as settingActions from 'modules/SettingReducer';
 import { Switch, Text, View, TouchableOpacity } from 'react-native';
@@ -71,12 +70,10 @@ SwitchButtonLayout.propTypes = {
 
 export default connect(
     state => ({
-        addressBook: state.AddressBookReducer,
         locale: state.LocaleReducer,
         setting: state.SettingReducer,
     }),
     dispatch => ({
-        AddressAction: bindActionCreators(addressActions, dispatch),
         LocaleAction: bindActionCreators(localeActions, dispatch),
         SettingAction: bindActionCreators(settingActions, dispatch),
     }),

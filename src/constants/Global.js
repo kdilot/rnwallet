@@ -6,7 +6,7 @@ export const USER_ETH_ADDRESS = '0xbde7cd1b49eaac57373eaf5b1e9a9D588f3e456d';
 export const EHT_START_BLOCK = 7000000;
 export const ROZ_CONTRACT_ADDRESS = '0x60ac9c7a34dbe35e7392c20d9660cfb290bb485a';
 
-export const MENU_LIST = [
+export const SETTING_MENU_LIST = [
     {
         name: 'push',
     },

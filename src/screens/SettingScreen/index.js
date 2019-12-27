@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import SwitchButtonLayout from './SwitchButtonLayout';
 import SwipeablePanel from 'rn-swipeable-panel';
-import { MENU_LIST } from 'api/Setting';
+import { SETTING_MENU_LIST } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './style';
 
@@ -56,7 +56,7 @@ export default class SettingScreen extends Component {
                 openLarge={true}>
                 <View style={styles.panelLayout}>
                     <Text style={styles.titleLayout}>설정</Text>
-                    {MENU_LIST.map((item, index) => (
+                    {SETTING_MENU_LIST.map((item, index) => (
                         <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />
                     ))}
                 </View>

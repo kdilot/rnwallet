@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { MENU_LIST } from 'constants/Global';
+import { SETTING_MENU_LIST } from 'constants/Global';
 
 const getSettingApi = async () => {
     const obj = {};
     await Promise.all(
-        MENU_LIST.map(async data => {
+        SETTING_MENU_LIST.map(async data => {
             await AsyncStorage.getItem(data.name).then(res => {
                 if (data.name !== 'language') {
                     Object.assign(obj, { [data.name]: res ? res : 'off' });
@@ -20,4 +20,4 @@ const setSettingApi = async data => {
     return await AsyncStorage.setItem(data.name, data.value);
 };
 
-export { getSettingApi, setSettingApi, MENU_LIST };
+export { getSettingApi, setSettingApi };

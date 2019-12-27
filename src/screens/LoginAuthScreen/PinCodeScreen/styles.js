@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { basicColor, whiteColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: basicColor,
     },
     textLayout: {
         flex: 3,
@@ -17,6 +19,7 @@ export default StyleSheet.create({
     },
     pinTextStyle: {
         padding: 10,
+        color: whiteColor,
         textAlign: 'center',
     },
     pinContainerStyle: {
@@ -25,7 +28,8 @@ export default StyleSheet.create({
         alignContent: 'flex-end',
     },
     pinStyle: {
-        backgroundColor: 'gray',
+        backgroundColor: whiteColor,
+        padding: 15,
         marginLeft: 10,
         marginRight: 10,
     },

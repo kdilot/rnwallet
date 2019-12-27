@@ -25,11 +25,15 @@ class AddressBookScreen extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', (payload) => {
+        this.focusListener = navigation.addListener('didFocus', payload => {
             this.setState({ addressBookLoad: false });
             this.getData();
         });
     }
+
+    componentWillUnmount = () => {
+        this.focusListener.remove();
+    };
 
     async getData() {
         const { txListStore } = this.props;
@@ -72,10 +76,10 @@ AddressBookScreen.proptpes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         txListStore: state.TxListReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         txListAction: bindActionCreators(txListActions, dispatch),
     }),
 )(AddressBookScreen);

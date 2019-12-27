@@ -40,7 +40,7 @@ class WalletHistoryScreen extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', (payload) => {
+        this.focusListener = navigation.addListener('didFocus', payload => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
                 this.setState({ itemType: payload.state.params.itemType });
@@ -50,6 +50,10 @@ class WalletHistoryScreen extends Component {
             }
         });
     }
+
+    componentWillUnmount = () => {
+        this.focusListener.remove();
+    };
 
     onRefresh = () => {
         const { itemType } = this.state;
@@ -83,7 +87,7 @@ class WalletHistoryScreen extends Component {
                 txList = await etherApi.getEthTxList(page, PAGE_COUNT);
                 break;
             case ITEMTYPE_ADDRESSBOOK:
-                convertTxListToAddressBookList(txListStore.list).then((addressBookList) => {
+                convertTxListToAddressBookList(txListStore.list).then(addressBookList => {
                     this.setState({
                         addressBookList: addressBookList,
                     });
@@ -101,11 +105,11 @@ class WalletHistoryScreen extends Component {
         });
     };
 
-    getAddressData = (address) => {
+    getAddressData = address => {
         this.setState({ addressBookShow: false });
     };
 
-    setType = (itemType) => {
+    setType = itemType => {
         this.setState({
             itemType: itemType,
             addressBookShow: itemType === ITEMTYPE_ADDRESSBOOK ? true : false, //  주소록 on/off
@@ -115,7 +119,7 @@ class WalletHistoryScreen extends Component {
         this.getData(itemType, 1);
     };
 
-    onActiveMini = (flag) => {
+    onActiveMini = flag => {
         this.setState({ addressBookShow: flag });
     };
 
@@ -244,11 +248,11 @@ WalletHistoryScreen.proptpes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         addressBookStore: state.AddressBookReducer,
         txListStore: state.TxListReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         txListAction: bindActionCreators(txListActions, dispatch),
     }),

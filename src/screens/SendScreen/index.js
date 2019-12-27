@@ -28,6 +28,10 @@ export default class SendScreen extends Component {
         });
     }
 
+    componentWillUnmount = () => {
+        this.focusListener.remove();
+    };
+
     onSearch = () => {
         this.props.navigation.navigate('QrcodeScanner', { setAddress: this.setAddress });
     };

@@ -12,7 +12,10 @@ import WalletHistoryScreen from 'screens/WalletHistoryScreen';
 import AddressBookScreen from 'screens/AddressBookScreen';
 import SendScreen from 'screens/SendScreen';
 import SettingScreen from 'screens/SettingScreen';
+import CustomerServiceScreen from 'screens/CustomerServiceScreen';
+import HomepageScreen from 'screens/HomepageScreen';
 import NoticeScreen from 'screens/NoticeScreen';
+import WalletVersionScreen from 'screens/WalletVersionScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
 import LoginAuthNavigator from 'screens/LoginAuthScreen/LoginAuthNavigator';
 import { basicColor } from 'constants/Color';
@@ -90,10 +93,28 @@ const BottomStack = createStackNavigator(
         Home: {
             screen: BottomMenuTab,
         },
+        CustomerService: {
+            screen: CustomerServiceScreen,
+            navigationOptions: {
+                headerTitle: '고객센터',
+            },
+        },
+        Homepage: {
+            screen: HomepageScreen,
+            navigationOptions: {
+                headerTitle: '홈페이지',
+            },
+        },
         Notice: {
             screen: NoticeScreen,
             navigationOptions: {
                 headerTitle: '공지사항',
+            },
+        },
+        WalletVersion: {
+            screen: WalletVersionScreen,
+            navigationOptions: {
+                headerTitle: '지갑정보',
             },
         },
         Send: {

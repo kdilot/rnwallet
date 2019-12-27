@@ -8,25 +8,25 @@ import styles from './styles';
 const MenuList = [
     {
         title: '지갑정보',
-        action: '',
+        action: 'WalletVersion',
     },
     {
         title: '공지사항',
-        action: '',
+        action: 'Notice',
     },
     {
         title: '고객센터',
-        action: '',
+        action: 'CustomerService',
     },
     {
         title: '홈페이지',
-        action: '',
+        action: 'Homepage',
     },
 ];
 
 export default class CustomDrawerScreen extends Component {
-    onClick = () => {
-        this.props.navigation.navigate('Notice');
+    onClick = view => {
+        this.props.navigation.navigate(view);
     };
     render() {
         return (
@@ -37,7 +37,7 @@ export default class CustomDrawerScreen extends Component {
                 <View style={styles.contentLayout}>
                     {MenuList.map((item, i) => (
                         // eslint-disable-next-line react-native/no-inline-styles
-                        <ListItem key={i} title={item.title} bottomDivider style={{ width: '100%' }} onPress={() => this.onClick()} chevron />
+                        <ListItem key={i} title={item.title} bottomDivider style={{ width: '100%' }} onPress={() => this.onClick(item.action)} chevron />
                     ))}
                 </View>
             </View>

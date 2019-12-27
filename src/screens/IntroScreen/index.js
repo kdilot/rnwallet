@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import * as addressActions from 'modules/AddressBookReducer';
 import * as settingActions from 'modules/SettingReducer';
-import { getAddressBookApi } from 'api/AddressBook/AddressBookApi';
-import { getSettingApi } from 'api/Setting';
-import { Text, View } from 'react-native';
+import * as txListActions from 'modules/TxListReducer';
+
+import * as addressBookApi from 'api/AddressBook/AddressBookApi';
+import * as settingApi from 'api/Setting';
+import * as etherApi from 'api/WalletHistory/etherscan-api';
+
 import styles from './styles';
+import * as Global from 'constants/Global';
 
 class IntroScreen extends Component {
     constructor(props) {
@@ -15,30 +21,54 @@ class IntroScreen extends Component {
         this.state = {
             addressBookLoad: false,
             settingLoad: false,
+            txListLoad: false,
         };
     }
     componentDidMount = () => {
-        const { AddressAction, SettingAction } = this.props;
+        this.setAddressBookMap();
+        this.setSetting();
+        this.goToWalletIntro();
+        this.setTxList();
+    };
 
-        getAddressBookApi().then(res => {
-            //  주소록 가져오기
-            if (res.data) {
-                AddressAction.setAddressBook(res.data);
-                this.setState({ addressBookLoad: true });
-            } else {
-                console.error('ADDRESSBOOK LOAD ERROR');
-            }
-        });
-
-        getSettingApi().then(res => {
-            SettingAction.setSetting(res);
-            this.setState({ settingLoad: true });
-        });
-
+    goToWalletIntro() {
         setTimeout(() => {
             this.props.navigation.navigate('WalletIntro');
         }, 3000);
-    };
+    }
+
+    setSetting() {
+        const { settingAction } = this.props;
+
+        settingApi.getSettingApi().then((res) => {
+            settingAction.setSetting(res);
+            this.setState({ settingLoad: true });
+        });
+    }
+
+    setTxList() {
+        const { txListAction } = this.props;
+        etherApi.getTxList(1, 10000).then((txList) => {
+            if (txList.length === 0) {
+                return;
+            }
+
+            txListAction.setAllTxList(txList);
+            this.setState({ txListLoad: true });
+        });
+    }
+
+    setAddressBookMap() {
+        const { addressAction } = this.props;
+
+        addressBookApi.getAddressBookMap(Global.USER_ETH_ADDRESS).then((addressBookMap) => {
+            if (addressBookMap === {}) {
+                return;
+            }
+            addressAction.setAddressBook(addressBookMap);
+            this.setState({ addressBookLoad: true });
+        });
+    }
 
     render() {
         return (
@@ -51,12 +81,14 @@ class IntroScreen extends Component {
 }
 
 export default connect(
-    state => ({
-        addressBook: state.AddressBookReducer,
-        setting: state.SettingReducer,
+    (state) => ({
+        addressBookStore: state.AddressBookReducer,
+        settingStore: state.SettingReducer,
+        txListStore: state.TxListReducer,
     }),
-    dispatch => ({
-        AddressAction: bindActionCreators(addressActions, dispatch),
-        SettingAction: bindActionCreators(settingActions, dispatch),
+    (dispatch) => ({
+        addressAction: bindActionCreators(addressActions, dispatch),
+        settingAction: bindActionCreators(settingActions, dispatch),
+        txListAction: bindActionCreators(txListActions, dispatch),
     }),
 )(IntroScreen);

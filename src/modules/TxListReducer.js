@@ -2,21 +2,21 @@ import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 
 //  Actions Type
-export const SETADDRESS = 'address/SETADDRESS';
+export const SET_ALL_TXLIST = 'txList/SETALLTXLIST';
 
 //  Actions
-export const setAddressBook = createAction(SETADDRESS);
+export const setAllTxList = createAction(SET_ALL_TXLIST);
 
 // Default State
 const initialState = {
-    map: {},
+    list: [],
 };
 
 export default handleActions(
     {
-        [SETADDRESS]: (state, action) =>
+        [SET_ALL_TXLIST]: (state, action) =>
             produce(state, (draft) => {
-                draft.map = action.payload;
+                draft.list = action.payload;
             }),
     },
     initialState,

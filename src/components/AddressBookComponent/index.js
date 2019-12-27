@@ -12,20 +12,16 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 
 class AddressBookComponent extends Component {
-    static defaultProps = {
-        address: '---------------',
-        nickname: '테스트',
-    };
-
     constructor(props) {
         super(props);
 
         this.state = {
             nickname: props.nickname,
+            address: props.address,
         };
     }
 
-    onChange = text => {
+    onChange = (text) => {
         this.setState({ nickname: text });
     };
 
@@ -33,13 +29,13 @@ class AddressBookComponent extends Component {
         const { AddressAction, address } = this.props;
         const { nickname } = this.state;
 
-        await setAddressBookApi({ address, nickname }).then(res => {
-            if (res.data) {
-                Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
-                AddressAction.setAddressBook(res.data);
-            } else {
-                console.error('ADDRESSBOOK LOAD ERROR');
+        await setAddressBookApi({ address, nickname }).then((addressBookMap) => {
+            if (!addressBookMap || addressBookMap === {}) {
+                return;
             }
+
+            Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
+            AddressAction.setAddressBook(addressBookMap);
         });
     };
 
@@ -49,15 +45,14 @@ class AddressBookComponent extends Component {
     };
 
     render() {
-        const { address } = this.props;
-        const { nickname } = this.state;
+        const { address, nickname } = this.state;
         return (
             <View style={styles.container}>
                 <Text style={styles.addressTextStyle}>{address}</Text>
                 <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
                     <View style={[styles.addressLayout, styles.borderColor(dividerLightColor)]}>
                         <View style={styles.addressTextfield}>
-                            <TextInput value={nickname} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
+                            <TextInput value={nickname} keyboardType={'default'} onChangeText={(text) => this.onChange(text)} />
                         </View>
                     </View>
                     <View style={styles.addressButtonLayout}>
@@ -83,10 +78,10 @@ AddressBookComponent.proptypes = {
 };
 
 export default connect(
-    state => ({
-        addressBook: state.AddressBookReducer,
+    (state) => ({
+        addressBookStore: state.AddressBookReducer,
     }),
-    dispatch => ({
+    (dispatch) => ({
         AddressAction: bindActionCreators(addressActions, dispatch),
     }),
 )(AddressBookComponent);

@@ -1,5 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as addressBookActions from 'modules/AddressBookReducer';
+import * as txListActions from 'modules/TxListReducer';
 import { View, Text, /*FlatList,*/ TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl } from 'react-native';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
@@ -8,7 +12,8 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import Timeline from 'react-native-timeline-flatlist';
 import PlaceholderLayout from './PlaceholderLayout';
-import { getTxList, getRozTxList, getEthTxList } from 'api/WalletHistory/etherscan-api';
+import * as etherApi from 'api/WalletHistory/etherscan-api';
+import { convertTxListToAddressBookList } from '../../api/AddressBook/AddressBookApi';
 
 const ITEMTYPE_ALL = 0;
 const ITEMTYPE_ROZ = 1;
@@ -16,7 +21,7 @@ const ITEMTYPE_ETH = 2;
 const ITEMTYPE_ADDRESSBOOK = 3;
 const PAGE_COUNT = 5;
 
-export default class WalletHistoryScreen extends Component {
+class WalletHistoryScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -28,12 +33,14 @@ export default class WalletHistoryScreen extends Component {
             itemType: 0,
             refreshing: false,
             addressBookShow: false,
+            addressBookList: [],
+            addressBookMap: {},
         };
     }
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', payload => {
+        this.focusListener = navigation.addListener('didFocus', (payload) => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
                 this.setState({ itemType: payload.state.params.itemType });
@@ -61,22 +68,30 @@ export default class WalletHistoryScreen extends Component {
 
     getData = async (itemType, page) => {
         let { data } = this.state;
+        const { addressBookStore, txListStore } = this.props;
 
         let txList = [];
 
         switch (itemType) {
             case ITEMTYPE_ALL:
-                txList = await getTxList(page, PAGE_COUNT);
+                txList = await etherApi.getTxList(page, PAGE_COUNT, addressBookStore.setAllTxList);
                 break;
             case ITEMTYPE_ROZ:
-                txList = await getRozTxList(page, PAGE_COUNT);
+                txList = await etherApi.getRozTxList(page, PAGE_COUNT);
                 break;
             case ITEMTYPE_ETH:
-                txList = await getEthTxList(page, PAGE_COUNT);
+                txList = await etherApi.getEthTxList(page, PAGE_COUNT);
                 break;
             case ITEMTYPE_ADDRESSBOOK:
+                convertTxListToAddressBookList(txListStore.list).then((addressBookList) => {
+                    this.setState({
+                        addressBookList: addressBookList,
+                    });
+                });
                 break;
         }
+
+        etherApi.setNickname(txList, addressBookStore.map);
 
         this.setState({
             data: page !== 1 ? data.concat(txList) : txList,
@@ -86,21 +101,21 @@ export default class WalletHistoryScreen extends Component {
         });
     };
 
-    getAddressData = address => {
-        console.log('ADDRESS DATA ', address);
+    getAddressData = (address) => {
         this.setState({ addressBookShow: false });
     };
 
-    setType = itemType => {
+    setType = (itemType) => {
         this.setState({
             itemType: itemType,
             addressBookShow: itemType === ITEMTYPE_ADDRESSBOOK ? true : false, //  주소록 on/off
             data: [],
         });
+
         this.getData(itemType, 1);
     };
 
-    onActiveMini = flag => {
+    onActiveMini = (flag) => {
         this.setState({ addressBookShow: flag });
     };
 
@@ -113,8 +128,33 @@ export default class WalletHistoryScreen extends Component {
         }
     }
 
+    copyArray(array) {
+        let newAray = [];
+        for (let i = 0; i < array.length; i++) {
+            newAray.push(this.copyMap(array[i]));
+        }
+
+        return newAray;
+    }
+
+    copyMap(map) {
+        if (!map) {
+            return map;
+        }
+
+        var newMap = map.constructor();
+
+        for (var attr in map) {
+            if (map.hasOwnProperty(attr)) {
+                newMap[attr] = map[attr];
+            }
+        }
+
+        return newMap;
+    }
+
     render() {
-        const { page, refreshing, data, itemType, addressBookShow, isData } = this.state;
+        const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList } = this.state;
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemTypeLayout}>
@@ -152,7 +192,7 @@ export default class WalletHistoryScreen extends Component {
                 {addressBookShow ? (
                     <View style={styles.addressBookLayout}>
                         {/* 거래내역 조회 로직 */}
-                        <AddressBookMiniComponent onActive={this.onActiveMini} />
+                        <AddressBookMiniComponent onActive={this.onActiveMini} addressBookList={addressBookList} />
                     </View>
                 ) : (
                     <View style={styles.itemListLayout}>
@@ -169,6 +209,7 @@ export default class WalletHistoryScreen extends Component {
                                     onEndReached: () => {
                                         this.getData(itemType, page);
                                     },
+                                    onEndReachedThreshold: 0.2,
                                 }}
                                 renderDetail={this.renderDetail}
                             />
@@ -199,4 +240,16 @@ WalletHistoryScreen.proptpes = {
     onActiveMini: PropTypes.func,
     renderDetail: PropTypes.func,
     renderFooter: PropTypes.func,
+    addressBookList: PropTypes.array,
 };
+
+export default connect(
+    (state) => ({
+        addressBookStore: state.AddressBookReducer,
+        txListStore: state.TxListReducer,
+    }),
+    (dispatch) => ({
+        addressBookAction: bindActionCreators(addressBookActions, dispatch),
+        txListAction: bindActionCreators(txListActions, dispatch),
+    }),
+)(WalletHistoryScreen);

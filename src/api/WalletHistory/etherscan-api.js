@@ -1,20 +1,13 @@
 import * as etherApi from 'etherscan-api';
 import { Tx } from 'model/Tx';
-import { getAddressBookMap } from './addressbook-api';
+import * as Global from 'constants/Global';
 
-// 추후 전역 저장소에서 불러와서 사용.
-const ETHSCAN_IO_API_KEY = 'ZK1MPCAYSNQACVGRRA2XT9UQH3US3UBHWH';
-const ETH_NETWORK_MODE = 'ropsten';
-const USER_ETH_ADDRESS = '0xbde7cd1b49eaac57373eaf5b1e9a9D588f3e456d';
-const EHT_START_BLOCK = 6990000;
-const ROZ_CONTRACT_ADDRESS = '0x4930765ee872f0907f14accf4ca67d958fbaab5e';
-
-const ethClient = etherApi.init(ETHSCAN_IO_API_KEY, ETH_NETWORK_MODE, 3000);
+const ethClient = etherApi.init(Global.ETHSCAN_IO_API_KEY, Global.ETH_NETWORK_MODE, 3000);
 
 export const getEthTxList = async (page, offset) => {
     let txList = [];
     try {
-        let result = await ethClient.account.txlist(USER_ETH_ADDRESS, EHT_START_BLOCK, 'latest', page, offset, 'desc');
+        let result = await ethClient.account.txlist(Global.USER_ETH_ADDRESS, Global.EHT_START_BLOCK, 'latest', page, offset, 'desc');
 
         if (!result || result.message !== 'OK' || !Array.isArray(result.result)) {
             return [];
@@ -28,13 +21,6 @@ export const getEthTxList = async (page, offset) => {
             txList.push(Tx.formTxData(result.result[i]));
         }
         console.log('getETH');
-        let addressBookMap = await getAddressBookMap(USER_ETH_ADDRESS);
-        if (Object.keys(addressBookMap).length !== 0) {
-            for (let i = 0; i < txList.length; i++) {
-                txList[i].nickname = txList[i].send ? addressBookMap[txList[i].to] : addressBookMap[txList[i].from];
-            }
-        }
-        console.log('getETHADD');
     } catch (err) {
         console.log(err);
         return [];
@@ -47,7 +33,7 @@ export const getEthTxList = async (page, offset) => {
 export const getRozTxList = async (page, offset) => {
     let txList = [];
     try {
-        let result = await ethClient.account.tokentx(USER_ETH_ADDRESS, ROZ_CONTRACT_ADDRESS, EHT_START_BLOCK, 'latest', page, offset, 'desc');
+        let result = await ethClient.account.tokentx(Global.USER_ETH_ADDRESS, Global.ROZ_CONTRACT_ADDRESS, Global.EHT_START_BLOCK, 'latest', page, offset, 'desc');
 
         if (!result || result.message !== 'OK' || !Array.isArray(result.result)) {
             return [];
@@ -57,14 +43,6 @@ export const getRozTxList = async (page, offset) => {
             txList.push(Tx.formTxData(result.result[i]));
         }
         console.log('getRoz');
-
-        let addressBookMap = await getAddressBookMap(USER_ETH_ADDRESS);
-        if (Object.keys(addressBookMap).length !== 0) {
-            for (let i = 0; i < txList.length; i++) {
-                txList[i].nickname = txList[i].send ? addressBookMap[txList[i].to] : addressBookMap[txList[i].from];
-            }
-        }
-        console.log('getROZADD');
     } catch (err) {
         console.log(err);
         return [];
@@ -73,7 +51,8 @@ export const getRozTxList = async (page, offset) => {
     return txList;
 };
 
-export const getTxList = async (page, offset) => {
+// txList를 redux store에 넣기 위해 storeFunc을 직접 받음.
+export const getTxList = async (page, offset, storeFunc) => {
     let txList = [];
 
     let ethTxList = await getEthTxList();
@@ -86,5 +65,19 @@ export const getTxList = async (page, offset) => {
         return a.ts > b.ts ? -1 : a.ts < b.ts ? 1 : 0;
     });
 
+    if (storeFunc) {
+        storeFunc(txList);
+    }
+
     return txList.slice((page - 1) * offset, page * offset);
+};
+
+export const setNickname = (txList, addressBookMap) => {
+    if (!Array.isArray(txList) || txList.length === 0 || !addressBookMap || addressBookMap === {}) {
+        return;
+    }
+
+    for (let i = 0; i < txList.length; i++) {
+        txList[i].nickname = txList[i].send ? addressBookMap[txList[i].to] : addressBookMap[txList[i].from];
+    }
 };

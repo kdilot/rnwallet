@@ -26,24 +26,24 @@ class WalletHistoryComponent extends Component {
         };
     }
 
-    onChange = text => {
+    onChange = (text) => {
         this.setState({ name: text });
     };
 
-    onSend = address => {
+    onSend = (address) => {
         this.props.navigation.navigate('Send', { address });
     };
 
     addAddressBook = async () => {
         const { AddressAction } = this.props;
         const { name, to } = this.state;
-        await setAddressBookApi({ address: to, nickname: name }).then(res => {
-            if (res.data) {
-                Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
-                AddressAction.setAddressBook(res.data);
-            } else {
-                console.error('ADDRESSBOOK LOAD ERROR');
+        await setAddressBookApi({ address: to, nickname: name }).then((addressBookMap) => {
+            if (!addressBookMap || addressBookMap === {}) {
+                return;
             }
+
+            Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
+            AddressAction.setAddressBook(addressBookMap);
         });
     };
 
@@ -54,7 +54,7 @@ class WalletHistoryComponent extends Component {
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(send ? plusColor : minusColor)]}>
                     <View style={styles.addressTextfield}>
-                        <TextInput value={name} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
+                        <TextInput value={name} keyboardType={'default'} onChangeText={(text) => this.onChange(text)} />
                     </View>
                 </View>
                 <View style={styles.addressButtonLayout}>
@@ -98,10 +98,10 @@ WalletHistoryComponent.proptypes = {
 };
 
 export default connect(
-    state => ({
-        addressBook: state.AddressBookReducer,
+    (state) => ({
+        addressBookStore: state.AddressBookReducer,
     }),
-    dispatch => ({
+    (dispatch) => ({
         AddressAction: bindActionCreators(addressActions, dispatch),
     }),
 )(WalletHistoryComponent);

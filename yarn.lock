@@ -5870,13 +5870,6 @@ react-native-permissions@^2.0.2, react-native-permissions@^2.0.8:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.8.tgz#e6d20a7b6e3df5333a3d80cc83024686fa2f49e3"
   integrity sha512-qK8Thp+9PTl/YjhKkRr8LPHfX5Evv5Zj/3CmAiqE45qCTB5UbWTKBWUfg3iqfMrjv9nE2rcS1PrIjZCDh6s/gQ==
 
-react-native-pin-view@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-pin-view/-/react-native-pin-view-2.4.2.tgz#e1185a14c6cccd41f6906c0cf0d3445876680ab8"
-  integrity sha512-AHegXev0uEg0Fh4GCFD+sCOvn7qebbCYZiAWhKCm4yoFe5IEehI3ufxoa7yMMUnzTJdNyXJcRRb4QFoGei1cWg==
-  dependencies:
-    prop-types "^15.7.2"
-
 react-native-pins@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-pins/-/react-native-pins-1.0.2.tgz#4e9aa68fddc5aecf0167a0a144ca8b8e6b64e386"

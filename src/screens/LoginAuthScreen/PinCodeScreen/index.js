@@ -1,62 +1,140 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { View, Text, Alert } from 'react-native';
-import PinCode from 'screens/LoginAuthScreen/PinCodeScreen/PinCode';
+import { View, Text } from 'react-native';
+import { PinInput } from 'react-native-pins';
+import { VirtualKeyboard } from 'react-native-screen-keyboard';
 import AsyncStorage from '@react-native-community/async-storage';
+import PropTypes from 'prop-types';
+import styles from './styles';
 
-const PinText = ['PIN 등록', 'PIN 입력', 'PIN 재입력'];
+const NEW_PIN = 1;
+const CONFIRM_PIN = 2;
+const ACCESS_PIN = 3;
 
-export default class PinCodeScreen extends Component {
+export default class PinCode extends Component {
+    static defaultProps = {
+        maxPin: 6,
+        maxCount: 5,
+        status: NEW_PIN,
+    };
     constructor(props) {
         super(props);
+
         this.state = {
-            process: 0,
-            pinNumber: 0,
+            pinNumber: new Array(0),
+            newPinNumber: null, // Async 키 정보
+            isCount: 1,
+            status: props.status,
         };
     }
 
     componentDidMount() {
-        this.getPIN();
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', payload => {
+            this.getPin();
+        });
     }
 
-    getPIN = async () => {
+    componentWillUnmount() {
+        this.focusListener.remove();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        const { maxPin, maxCount } = this.props;
+        const { newPinNumber, status, isCount } = this.state;
+        const confirmPinNumber = nextState.pinNumber.join('');
+        if (nextState.pinNumber.length === maxPin && status === NEW_PIN && !nextState.newPinNumber) {
+            this.setState({
+                newPinNumber: confirmPinNumber,
+                status: CONFIRM_PIN,
+                pinNumber: new Array(0),
+            });
+            this.blockKeyboard(500);
+        } else if (nextState.pinNumber.length === maxPin && status === CONFIRM_PIN) {
+            if (confirmPinNumber === newPinNumber) {
+                AsyncStorage.setItem('pincode', newPinNumber);
+                this.setState({
+                    status: ACCESS_PIN,
+                    pinNumber: new Array(0),
+                });
+                this.blockKeyboard(500);
+            } else {
+                this.setState({
+                    status: NEW_PIN,
+                    newPinNumber: null,
+                    pinNumber: new Array(0),
+                });
+                this.blockKeyboard(1500, 'WRONG CONFIRM PIN NUMBER');
+            }
+        } else if (nextState.pinNumber.length === maxPin && status === ACCESS_PIN) {
+            if (confirmPinNumber === newPinNumber) {
+                this.props.navigation.navigate('Home');
+            } else {
+                this.setState({
+                    pinNumber: new Array(0),
+                    isCount: isCount + 1,
+                });
+                maxCount === isCount ? this.blockKeyboard(30000, 'YOU CAN TRY AFTER 30 SEC') : this.blockKeyboard(1500, 'WRONG PIN NUMBER');
+            }
+        }
+        return true;
+    }
+
+    getPin = async () => {
         await AsyncStorage.getItem('pincode').then(number => {
-            number && this.setState({ pinNumber: number, process: 1, pinFlag: true });
+            number && this.setState({ newPinNumber: number, status: ACCESS_PIN });
         });
     };
 
-    setPIN = async () => {
+    blockKeyboard = (timer, msg = null) => {
+        this.keyboard.disable();
+        msg && this.keyboard.displayMessage(msg);
+        setTimeout(() => {
+            msg && this.keyboard.clearMessage();
+            this.keyboard.enable();
+        }, timer);
+    };
+
+    keyDown = key => {
         const { pinNumber } = this.state;
-        await AsyncStorage.setItem('pincode', pinNumber);
-        await this.setState({ process: 1 });
+        this.setState({ pinNumber: key === 'back' ? pinNumber.pop() : pinNumber.concat(key) });
     };
-
-    authSuccess = () => {
-        this.props.navigation.navigate('Home');
-    };
-
-    onAction = ({ number }) => {
-        const { process, pinNumber } = this.state;
-        if (process === 1) {
-            pinNumber === number ? this.authSuccess() : Alert.alert('Incorrect'); // 계속 실패시 처리로직;
-        } else if (process === 2) {
-            if (pinNumber === number) {
-                this.setPIN();
-            } else {
-                this.setState({ process: 0 });
-                Alert.alert('password Incorrect');
-            }
-        } else if (process === 0) {
-            this.setState({ pinNumber: number, process: 2 });
-        }
-    };
-
     render() {
+        const { pinNumber, status, newPinNumber } = this.state;
+        const { maxPin } = this.props;
         return (
-            <View style={{ flex: 1, alignItems: 'center' }}>
-                <Text>{this.state.pinNumber}</Text>
-                <PinCode text={PinText[this.state.process]} action={this.onAction} />
+            <View style={styles.container}>
+                <View style={styles.textLayout}>
+                    <Text style={styles.pinTextStyle}>{newPinNumber}</Text>
+                    <Text style={styles.pinTextStyle}>{status === NEW_PIN ? 'New PIN' : status === CONFIRM_PIN ? 'Confirm PIN' : 'Access PIN'}</Text>
+                </View>
+                <View style={styles.pinLayout}>
+                    <PinInput
+                        onRef={ref => (this.pin = ref)}
+                        numberOfPins={maxPin}
+                        numberOfPinsActive={pinNumber.length ? pinNumber.length : 0}
+                        containerStyle={styles.pinContainerStyle}
+                        pinStyle={styles.pinStyle}
+                        pinActiveStyle={styles.pinActiveStyle}
+                    />
+                </View>
+                <View style={styles.inputLayout}>
+                    <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} />
+                </View>
             </View>
         );
     }
 }
+
+PinCode.proptpes = {
+    NEW_PIN: PropTypes.number.isRequired,
+    CONFIRM_PIN: PropTypes.number.isRequired,
+    ACCESS_PIN: PropTypes.number.isRequired,
+    maxPin: PropTypes.number.isRequired,
+    maxCount: PropTypes.number.isRequired,
+    isCount: PropTypes.number,
+    status: PropTypes.number.isRequired,
+    pinNumber: PropTypes.number.array,
+    newPinNumber: PropTypes.number.string,
+    keyDown: PropTypes.func,
+    blockKeyboard: PropTypes.func,
+};

@@ -1,19 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-
-const MENU_LIST = [
-    {
-        name: 'push',
-    },
-    {
-        name: 'pin',
-    },
-    {
-        name: 'fingerprint',
-    },
-    {
-        name: 'language',
-    },
-];
+import { MENU_LIST } from 'constants/Global';
 
 const getSettingApi = async () => {
     const obj = {};

@@ -6,7 +6,7 @@ export default class NoticeScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text> This is Notice Page </Text>
+                <Text> 서비스 준비중 </Text>
             </View>
         );
     }

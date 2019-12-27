@@ -67,8 +67,6 @@ export default class PinCode extends Component {
             }
         } else if (nextState.pinNumber.length === maxPin && status === ACCESS_PIN) {
             if (confirmPinNumber === newPinNumber) {
-                this.keyboard.disable();
-                this.keyboard.displayMessage('SUCCESS');
                 this.props.navigation.navigate('Home');
             } else {
                 this.setState({
@@ -111,7 +109,7 @@ export default class PinCode extends Component {
                 </View>
                 <View style={styles.pinLayout}>
                     <PinInput
-                        onRef={ref => (this.keyboard = ref)}
+                        onRef={ref => (this.pin = ref)}
                         numberOfPins={maxPin}
                         numberOfPinsActive={pinNumber.length ? pinNumber.length : 0}
                         containerStyle={styles.pinContainerStyle}

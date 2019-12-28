@@ -10,11 +10,11 @@ function* setSetting() {
             await AsyncStorage.getItem(data.name).then(res => {
                 if (data.name !== 'language') {
                     Object.assign(payload, { [data.name]: res ? res : 'off' });
-                    console.log(`[SAGA SETTING GET API ${data.name} CALL]`);
                 }
             });
         }),
     );
+    console.log(`[GET SETTING]`);
     yield put({ type: SET_SETTING, payload });
 }
 

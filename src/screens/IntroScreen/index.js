@@ -8,7 +8,6 @@ import * as settingActions from 'modules/SettingReducer';
 import * as txListActions from 'modules/TxListReducer';
 
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
-import * as settingApi from 'api/Setting';
 import * as etherApi from 'api/WalletHistory/etherscan-api';
 
 import styles from './styles';
@@ -39,11 +38,7 @@ class IntroScreen extends Component {
 
     setSetting() {
         const { settingAction } = this.props;
-
-        settingApi.getSettingApi().then((res) => {
-            settingAction.setSetting(res);
-            this.setState({ settingLoad: true });
-        });
+        settingAction.setSetting();
     }
 
     setTxList() {

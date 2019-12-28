@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import * as localeActions from 'modules/LocaleReducer';
 import * as settingActions from 'modules/SettingReducer';
 import { Switch, Text, View, TouchableOpacity } from 'react-native';
-import { setSettingApi } from 'api/Setting';
 import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -19,7 +18,6 @@ class SwitchButtonLayout extends Component {
     toggleSwitch = async value => {
         const { text, SettingAction } = this.props;
         const data = { name: text, value: value ? ON : OFF };
-        await setSettingApi(data).then();
         await SettingAction.changeSetting(data);
     };
 
@@ -52,8 +50,8 @@ class SwitchButtonLayout extends Component {
                             </TouchableOpacity>
                         </View>
                     ) : (
-                        <Switch onValueChange={this.toggleSwitch} value={list[text] === ON ? true : false} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
-                    )}
+                            <Switch onValueChange={this.toggleSwitch} value={list[text] === ON ? true : false} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
+                        )}
                 </View>
             </View>
         );

@@ -44,6 +44,7 @@ export default class SettingScreen extends Component {
 
     render() {
         const { panelActive } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <SwipeablePanel
                 fullWidth
@@ -55,7 +56,7 @@ export default class SettingScreen extends Component {
                 showCloseButton={true}
                 openLarge={true}>
                 <View style={styles.panelLayout}>
-                    <Text style={styles.titleLayout}>설정</Text>
+                    <Text style={styles.titleLayout}>{lang.setting}</Text>
                     {SETTING_MENU_LIST.map((item, index) => (
                         <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />
                     ))}

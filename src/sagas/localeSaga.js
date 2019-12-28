@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import * as RNLocalize from 'react-native-localize';
 import { takeEvery, put } from 'redux-saga/effects';
-import { GETLOCALE, GETLOCALE_SAGA, SETLANGUAGE, SETLANGUAGE_SAGA } from 'modules/LocaleReducer';
+import { GET_LOCALE, GET_LOCALE_SAGA, SET_LANGUAGE, SET_LANGUAGE_SAGA } from 'modules/LocaleReducer';
 
 function* getLocale() {
     let locale = null;
@@ -13,11 +13,11 @@ function* getLocale() {
             locale = _locale;
         }
     });
-    yield put({ type: GETLOCALE, locale });
+    yield put({ type: GET_LOCALE, locale });
 }
 
 export function* watchGetLocale() {
-    yield takeEvery(GETLOCALE_SAGA, getLocale);
+    yield takeEvery(GET_LOCALE_SAGA, getLocale);
 }
 
 function* setLanguage(param) {
@@ -25,9 +25,9 @@ function* setLanguage(param) {
     const language = param.payload;
     locale = language !== 'ko' ? 'en' : language;
     yield AsyncStorage.setItem('locale', locale);
-    yield put({ type: SETLANGUAGE, locale });
+    yield put({ type: SET_LANGUAGE, locale });
 }
 
 export function* watchSetLanguage() {
-    yield takeEvery(SETLANGUAGE_SAGA, setLanguage);
+    yield takeEvery(SET_LANGUAGE_SAGA, setLanguage);
 }

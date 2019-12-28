@@ -9,5 +9,6 @@
     "push": "Push",
     "pin": "Pin",
     "fingerprint": "Fingerprint",
-    "language": "Language"
+    "language": "Language",
+    "setting": "Setting"
 }

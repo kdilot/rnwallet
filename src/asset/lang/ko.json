@@ -9,5 +9,6 @@
     "push": "푸시",
     "pin": "PIN설정",
     "fingerprint": "지문인식",
-    "language": "언어"
+    "language": "언어",
+    "setting": "설정"
 }

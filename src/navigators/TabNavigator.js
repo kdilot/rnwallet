@@ -95,45 +95,45 @@ const BottomStack = createStackNavigator(
         },
         CustomerService: {
             screen: CustomerServiceScreen,
-            navigationOptions: {
-                headerTitle: '고객센터',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.customerService,
+            }),
         },
         Homepage: {
             screen: HomepageScreen,
-            navigationOptions: {
-                headerTitle: '홈페이지',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.homepage,
+            }),
         },
         Notice: {
             screen: NoticeScreen,
-            navigationOptions: {
-                headerTitle: '공지사항',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.notice,
+            }),
         },
         WalletVersion: {
             screen: WalletVersionScreen,
-            navigationOptions: {
-                headerTitle: '지갑정보',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.walletInfo,
+            }),
         },
         Send: {
             screen: SendScreen,
-            navigationOptions: {
-                headerTitle: '보내기',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.send,
+            }),
         },
         QrcodeText: {
             screen: QrcodeTextScreen,
-            navigationOptions: {
-                headerTitle: '받기',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.receive,
+            }),
         },
         QrcodeScanner: {
             screen: QrcodeScannerScreen,
-            navigationOptions: {
-                headerTitle: '주소스캔',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.qrcode,
+            }),
         },
         LoginAuth: {
             screen: LoginAuthNavigator,

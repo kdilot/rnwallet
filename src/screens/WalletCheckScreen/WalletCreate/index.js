@@ -36,12 +36,13 @@ export default class WalletCreate extends Component {
 
     checkWord = value => {
         const { text, randomNumber, createDisable } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         if (createDisable) {
             if (text[randomNumber - 1] === value) {
                 this.setState({ createDisable: false });
-                Alert.alert('확인되었습니다.');
+                Alert.alert(lang.pressCreateMsg);
             } else {
-                Alert.alert('다시 확인해주세요.');
+                Alert.alert(lang.checkAgainMsg);
             }
         }
     };
@@ -60,18 +61,19 @@ export default class WalletCreate extends Component {
 
     render() {
         const { text, createDisable, randomNumber, shuffleText } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <View style={styles.textareaLayout}>
                     <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={text.join('   ')} />
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComponent name={'복사하기'} outline={true} onPress={this.onCopy} />
+                    <ButtonComponent name={lang.copy} outline={true} onPress={this.onCopy} />
                 </View>
                 <View style={styles.confirmLayout}>
                     <View style={styles.confirmTextLayout}>
-                        <Text>별도로 텍스트를 보관해주세요.</Text>
-                        <Text>{`확인을 위해 ${randomNumber} 번째 단어를 선택해주세요.`}</Text>
+                        <Text>{lang.createSaveTextMsg}</Text>
+                        <Text>{lang.createConfirmWordMsgOne}{` [ ${randomNumber} ] `}{lang.createConfirmWordMsgTwo}</Text>
                     </View>
                     <View style={styles.confirmGridLayout}>
                         <FlatGrid
@@ -90,7 +92,7 @@ export default class WalletCreate extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComponent name={'생성하기'} disable={createDisable} onPress={this.onCreate} />
+                    <ButtonComponent name={lang.create} disable={createDisable} onPress={this.onCreate} />
                 </View>
             </View>
         );

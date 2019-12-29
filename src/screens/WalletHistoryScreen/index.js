@@ -159,6 +159,7 @@ class WalletHistoryScreen extends Component {
 
     render() {
         const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemTypeLayout}>
@@ -168,7 +169,7 @@ class WalletHistoryScreen extends Component {
                             onPress={() => {
                                 this.setType(ITEMTYPE_ALL);
                             }}>
-                            <Text style={[styles.textStyle, itemType === ITEMTYPE_ALL && styles.typeSelectedText]}>전체</Text>
+                            <Text style={[styles.textStyle, itemType === ITEMTYPE_ALL && styles.typeSelectedText]}>{lang.all}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[styles.alignCenter, itemType === ITEMTYPE_ROZ && styles.typeSelected]}
@@ -189,7 +190,7 @@ class WalletHistoryScreen extends Component {
                             onPress={() => {
                                 this.setType(ITEMTYPE_ADDRESSBOOK);
                             }}>
-                            <Text style={[styles.textStyle, itemType === 3 && styles.typeSelectedText]}>주소록</Text>
+                            <Text style={[styles.textStyle, itemType === 3 && styles.typeSelectedText]}>{lang.addressBook}</Text>
                         </TouchableOpacity>
                     </CardView>
                 </View>
@@ -199,33 +200,33 @@ class WalletHistoryScreen extends Component {
                         <AddressBookMiniComponent onActive={this.onActiveMini} addressBookList={addressBookList} />
                     </View>
                 ) : (
-                    <View style={styles.itemListLayout}>
-                        {data.length > 0 ? (
-                            <Timeline
-                                data={data}
-                                circleSize={20}
-                                timeContainerStyle={{ minWidth: 60 }}
-                                timeStyle={styles.timelineLayout}
-                                options={{
-                                    style: { paddingTop: 5 },
-                                    refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
-                                    renderFooter: this.renderFooter,
-                                    onEndReached: () => {
-                                        this.getData(itemType, page);
-                                    },
-                                    onEndReachedThreshold: 0.2,
-                                }}
-                                renderDetail={this.renderDetail}
-                            />
-                        ) : isData ? (
-                            <PlaceholderLayout />
-                        ) : (
-                            <View style={styles.isEmptyLayout}>
-                                <Text>NO DATA</Text>
-                            </View>
-                        )}
-                    </View>
-                )}
+                        <View style={styles.itemListLayout}>
+                            {data.length > 0 ? (
+                                <Timeline
+                                    data={data}
+                                    circleSize={20}
+                                    timeContainerStyle={{ minWidth: 60 }}
+                                    timeStyle={styles.timelineLayout}
+                                    options={{
+                                        style: { paddingTop: 5 },
+                                        refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
+                                        renderFooter: this.renderFooter,
+                                        onEndReached: () => {
+                                            this.getData(itemType, page);
+                                        },
+                                        onEndReachedThreshold: 0.2,
+                                    }}
+                                    renderDetail={this.renderDetail}
+                                />
+                            ) : isData ? (
+                                <PlaceholderLayout />
+                            ) : (
+                                        <View style={styles.isEmptyLayout}>
+                                            <Text>NO DATA</Text>
+                                        </View>
+                                    )}
+                        </View>
+                    )}
             </KeyboardAvoidingView>
         );
     }

@@ -9,6 +9,7 @@
     "createSaveTextMsg": "Please save the words.",
     "createConfirmWordMsgOne": "Please select your words to verify.",
     "createConfirmWordMsgTwo": "",
+    "saveAddressMsg": "Save to Abook",
     "push": "Push",
     "pin": "Pin",
     "price": "Price",
@@ -16,7 +17,11 @@
     "fees": "Fees",
     "slow": "Slow",
     "fast": "Fast",
+    "all": "All",
+    "addressBook": "Abook",
     "send": "Send",
+    "save": "Save",
+    "saveMsg": "Saved",
     "receive": "Receive",
     "qrcode": "QR Code",
     "fingerprint": "Fingerprint",
@@ -24,6 +29,7 @@
     "walletInfo": "Wallet Infomation",
     "notice": "Notice",
     "customerService": "Customer Service",
+    "walletHistory": "Wallet History",
     "homepage": "Hompage",
     "setting": "Setting"
 }

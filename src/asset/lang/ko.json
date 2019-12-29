@@ -9,6 +9,7 @@
     "createSaveTextMsg": "별도로 단어를 보관해주세요.",
     "createConfirmWordMsgOne": "확인을 위해",
     "createConfirmWordMsgTwo": "번째 단어를 선택해주세요.",
+    "saveAddressMsg": "주소록에 저장",
     "push": "푸시",
     "pin": "PIN설정",
     "price": "Price",
@@ -16,7 +17,11 @@
     "fees": "Fees",
     "slow": "느림",
     "fast": "빠름",
+    "all": "전체",
+    "addressBook": "주소록",
     "send": "보내기",
+    "save": "저장",
+    "saveMsg": "저장성공",
     "receive": "받기",
     "qrcode": "QR 코드",
     "fingerprint": "지문인식",
@@ -24,6 +29,7 @@
     "walletInfo": "지갑정보",
     "notice": "공지사항",
     "customerService": "고객센터",
+    "walletHistory": "거래내역",
     "homepage": "홈페이지",
     "setting": "설정"
 }

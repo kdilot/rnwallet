@@ -10,7 +10,6 @@ import styles from './styles';
 
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
-import * as etherApi from 'api/WalletHistory/etherscan-api';
 
 class AddressBookScreen extends Component {
     constructor(props) {
@@ -52,18 +51,11 @@ class AddressBookScreen extends Component {
                             data={addressBookList}
                             renderItem={({ item }) => <AddressBookComponent navigation={navigation} nickname={item.nickname} address={item.address} />}
                             keyExtractor={(item, index) => index.toString()}
-                            // refreshing={refreshing}
-                            // onRefresh={() => {
-                            //     this.onRefresh();
-                            // }}
-                            // onEndReached={() => {
-                            //     this.getData(page);
-                            // }}
                             onEndReachedThreshold={0.2}
                         />
                     ) : (
-                        <Placeholderlayout />
-                    )}
+                            <Placeholderlayout />
+                        )}
                 </View>
             </KeyboardAvoidingView>
         );

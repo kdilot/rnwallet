@@ -22,7 +22,13 @@ export default class AddressBookMiniComponent extends Component {
                                 onActive(false);
                                 // getHistoryData(item.address);    //  거래내역 조회 로직
                             }}>
-                            {addressBookList.length > 0 ? <Text>{item.nickname ? item.nickname : item.address}</Text> : <PlaceholderLayout />}
+                            {addressBookList.length > 0 ? (
+                                <Text numberOfLines={1} ellipsizeMode="middle">
+                                    {item.nickname ? item.nickname : item.address}
+                                </Text>
+                            ) : (
+                                <PlaceholderLayout />
+                            )}
                         </TouchableOpacity>
                     )}
                     keyExtractor={(item, index) => index.toString()}

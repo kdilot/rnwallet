@@ -28,14 +28,7 @@ export default class PinCode extends Component {
     }
 
     componentDidMount() {
-        const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', payload => {
-            this.getPin();
-        });
-    }
-
-    componentWillUnmount() {
-        this.focusListener.remove();
+        this.getPin();
     }
 
     shouldComponentUpdate(nextProps, nextState) {

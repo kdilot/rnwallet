@@ -41,13 +41,14 @@ class WalletHistoryScreen extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', payload => {
+        this.focusListener = navigation.addListener('didFocus', async payload => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
-                this.setState({ itemType: payload.state.params.itemType });
-                this.getAddressData(payload.state.params.address);
+                const { itemType, address } = payload.state.params;
+                await this.setState({ addressBookShow: false, itemType, address, data: [] });
+                await this.getAddressData();
             } else {
-                this.getData(ITEMTYPE_ALL, 1);
+                await this.getData(ITEMTYPE_ALL, 1);
             }
         });
         this.getData(ITEMTYPE_ALL, 1);
@@ -75,7 +76,6 @@ class WalletHistoryScreen extends Component {
     getData = async (itemType, page) => {
         let { data, address } = this.state;
         const { addressBookStore, txListAction } = this.props;
-
         let txList = [];
 
         switch (itemType) {
@@ -103,8 +103,8 @@ class WalletHistoryScreen extends Component {
         });
     };
 
-    getAddressData = address => {
-        this.setState({ addressBookShow: false });
+    getAddressData = () => {
+        this.getData(ITEMTYPE_ADDRESSBOOK, 1);
     };
 
     setType = itemType => {

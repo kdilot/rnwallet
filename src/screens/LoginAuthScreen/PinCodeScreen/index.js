@@ -34,7 +34,7 @@ export default class PinCode extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         const { maxPin, maxCount } = this.props;
         const { newPinNumber, status, isCount } = this.state;
-        const confirmPinNumber = nextState.pinNumber.join('');
+        const confirmPinNumber = nextState.pinNumber ? nextState.pinNumber.join('') : [];
         if (nextState.pinNumber.length === maxPin && status === NEW_PIN && !nextState.newPinNumber) {
             this.setState({
                 newPinNumber: confirmPinNumber,
@@ -89,7 +89,8 @@ export default class PinCode extends Component {
 
     keyDown = key => {
         const { pinNumber } = this.state;
-        this.setState({ pinNumber: key === 'back' ? pinNumber.pop() : pinNumber.concat(key) });
+        const length = pinNumber.length;
+        this.setState({ pinNumber: key === 'back' ? length > 0 && pinNumber.slice(0, length - 1) : pinNumber.concat(key) });
     };
     render() {
         const { pinNumber, status, newPinNumber } = this.state;

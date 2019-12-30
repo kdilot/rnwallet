@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     lineLayout: {
-        borderRadius: 10,
+        borderRadius: 5,
     },
 });

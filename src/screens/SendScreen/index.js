@@ -23,7 +23,7 @@ class SendScreen extends Component {
             gas: 1,
             gasMinValue: 0,
             gasMaxValue: 0,
-            isGas: false,
+            isGasDisable: true,
         };
     }
 
@@ -33,7 +33,7 @@ class SendScreen extends Component {
             getGasPrice().then(res => {
                 if (res) {
                     this.setState({
-                        isGas: true,
+                        isGasDisable: false,
                         gas: Number(parseFloat(res.standard).toFixed(1)),
                         gasMinValue: Number(parseFloat(res.safeLow).toFixed(1)),
                         gasMaxValue: Number(parseFloat(res.fastest).toFixed(1)),
@@ -65,7 +65,7 @@ class SendScreen extends Component {
     };
 
     render() {
-        const { price, address, isGas, gas, gasMinValue, gasMaxValue } = this.state;
+        const { price, address, isGasDisable, gas, gasMinValue, gasMaxValue } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
@@ -95,7 +95,9 @@ class SendScreen extends Component {
                     </View>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.fees}</Text>
-                        {isGas ? (
+                        {isGasDisable ? (
+                            <PlaceholderLayout />
+                        ) : (
                             <>
                                 <TextInput
                                     style={styles.textInputStyle}
@@ -125,13 +127,12 @@ class SendScreen extends Component {
                                 </View>
                                 <Text style={{ textAlign: 'center' }}>Value: {gas}</Text>
                             </>
-                        ) : (
-                            <PlaceholderLayout />
                         )}
                     </View>
                 </View>
                 <View style={styles.buttonLayout}>
                     <ButtonComponent
+                        disable={isGasDisable}
                         name={lang.send}
                         onPress={() => {
                             this.onSend();
@@ -147,7 +148,7 @@ SendScreen.proptypes = {
     value: PropTypes.number,
     gas: PropTypes.number,
     address: PropTypes.string,
-    isGas: PropTypes.bool,
+    isGasDisable: PropTypes.bool,
     gasMinValue: PropTypes.number,
     gasMaxValue: PropTypes.number,
     onSearch: PropTypes.func,

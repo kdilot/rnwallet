@@ -1,5 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as settingActions from 'modules/SettingReducer';
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,7 +11,7 @@ import { basicColor } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class SendScreen extends Component {
+class SendScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -41,7 +44,9 @@ export default class SendScreen extends Component {
     };
 
     onSend = () => {
-        this.props.navigation.navigate('LoginAuth');
+        const { list } = this.props.settingStore;
+        // 데이터 전송 로직 필요
+        this.props.navigation.navigate(list.fingerprint === 'on' ? 'FingerPrint' : list.pin === 'on' ? 'PinCode' : 'Home');
     };
 
     render() {
@@ -119,3 +124,12 @@ SendScreen.proptypes = {
     onSend: PropTypes.func,
     setAddress: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        settingStore: state.SettingReducer,
+    }),
+    dispatch => ({
+        settingAction: bindActionCreators(settingActions, dispatch),
+    }),
+)(SendScreen);

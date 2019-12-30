@@ -17,7 +17,8 @@ import HomepageScreen from 'screens/HomepageScreen';
 import NoticeScreen from 'screens/NoticeScreen';
 import WalletVersionScreen from 'screens/WalletVersionScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
-import LoginAuthNavigator from 'screens/LoginAuthScreen/LoginAuthNavigator';
+import FingerPrintScreen from 'screens/LoginAuthScreen/FingerPrintScreen/FingerPrint';
+import PinCodeScreen from 'screens/LoginAuthScreen/PinCodeScreen';
 import { basicColor } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
@@ -135,8 +136,14 @@ const BottomStack = createStackNavigator(
                 headerTitle: screenProps.lang.qrcode,
             }),
         },
-        LoginAuth: {
-            screen: LoginAuthNavigator,
+        FingerPrint: {
+            screen: FingerPrintScreen,
+            navigationOptions: {
+                header: null,
+            },
+        },
+        PinCode: {
+            screen: PinCodeScreen,
             navigationOptions: {
                 header: null,
             },

@@ -20,7 +20,10 @@ export const getEthTxList = async (page, offset) => {
         for (let i = 0; i < result.result.length; i++) {
             txList.push(Tx.formTxData(result.result[i]));
         }
-        console.log('getETH');
+
+        if (Global.PROD_MODE === 'DEV') {
+            console.log('getEthTxList: suc');
+        }
     } catch (err) {
         console.log(err);
         return [];
@@ -42,7 +45,10 @@ export const getRozTxList = async (page, offset) => {
         for (let i = 0; i < result.result.length; i++) {
             txList.push(Tx.formTxData(result.result[i]));
         }
-        console.log('getRoz');
+
+        if (Global.PROD_MODE === 'DEV') {
+            console.log('getRozTxList: suc');
+        }
     } catch (err) {
         console.log(err);
         return [];
@@ -66,7 +72,11 @@ export const getTxList = async (page, offset, storeFunc) => {
     });
 
     if (storeFunc) {
-        storeFunc(txList);
+        storeFunc(copyArray(txList));
+    }
+
+    if (Global.PROD_MODE === 'DEV') {
+        console.log('getTxList: suc');
     }
 
     return txList.slice((page - 1) * offset, page * offset);
@@ -80,4 +90,50 @@ export const setNickname = (txList, addressBookMap) => {
     for (let i = 0; i < txList.length; i++) {
         txList[i].nickname = txList[i].send ? addressBookMap[txList[i].to] : addressBookMap[txList[i].from];
     }
+
+    if (Global.PROD_MODE === 'DEV') {
+        console.log('setNickname: suc');
+    }
+};
+
+export const getTxListByAddress = async (page, offset, address) => {
+    let txList = await getTxList(1, 10000);
+
+    let newTxList = [];
+
+    for (let i = 0; i < txList.length; i++) {
+        if (txList[i].from === address || txList[i].to === address) {
+            newTxList.push(txList[i]);
+        }
+    }
+
+    if (Global.PROD_MODE === 'DEV') {
+        console.log('getTxListByAddress: suc');
+    }
+    return newTxList.slice((page - 1) * offset, page * offset);
+};
+
+const copyMap = (map) => {
+    if (!map) {
+        return map;
+    }
+
+    var newMap = map.constructor();
+
+    for (var attr in map) {
+        if (map.hasOwnProperty(attr)) {
+            newMap[attr] = map[attr];
+        }
+    }
+
+    return newMap;
+};
+
+const copyArray = (array) => {
+    let newAray = [];
+    for (let i = 0; i < array.length; i++) {
+        newAray.push(copyMap(array[i]));
+    }
+
+    return newAray;
 };

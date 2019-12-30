@@ -9,8 +9,9 @@ import Placeholderlayout from './PlaceholderLayout';
 import styles from './styles';
 
 import * as txListActions from 'modules/TxListReducer';
+import * as addressBookActions from 'modules/AddressBookReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
-import * as etherApi from 'api/WalletHistory/etherscan-api';
+import * as Global from 'constants/Global';
 
 class AddressBookScreen extends Component {
     constructor(props) {
@@ -29,12 +30,25 @@ class AddressBookScreen extends Component {
             this.setState({ addressBookLoad: false });
             this.getData();
         });
+        this.setAddressBookMap();
     }
 
     async getData() {
         const { txListStore } = this.props;
         let addressBookList = await addressBookApi.convertTxListToAddressBookList(txListStore.list);
         this.setState({ addressBookList: addressBookList, addressBookLoad: true });
+    }
+
+    setAddressBookMap() {
+        const { addressBookAction } = this.props;
+
+        addressBookApi.getAddressBookMap(Global.USER_ETH_ADDRESS).then((addressBookMap) => {
+            if (addressBookMap === {}) {
+                return;
+            }
+            addressBookAction.setAddressBook(addressBookMap);
+            this.setState({ addressBookLoad: true });
+        });
     }
 
     render() {
@@ -74,8 +88,10 @@ AddressBookScreen.proptpes = {
 export default connect(
     (state) => ({
         txListStore: state.TxListReducer,
+        addressStore: state.AddressBookReducer,
     }),
     (dispatch) => ({
         txListAction: bindActionCreators(txListActions, dispatch),
+        addressBookAction: bindActionCreators(addressBookActions, dispatch),
     }),
 )(AddressBookScreen);

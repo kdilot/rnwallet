@@ -29,6 +29,10 @@ export const getAddressBookMap = async (address) => {
         }
 
         addressBookMap = convertAddressBookListToMap(result.data);
+
+        if (Global.PROD_MODE === 'DEV') {
+            console.log('getAddressBookMap: suc');
+        }
     } catch (err) {
         console.log(err);
         return {};
@@ -49,6 +53,10 @@ export const setAddressBookApi = async (param) => {
         });
         return response.json().then((res) => {
             if (res.code === 200) {
+                if (Global.PROD_MODE === 'DEV') {
+                    console.log('setAddressBookApi: suc');
+                }
+
                 return getAddressBookMap(Global.USER_ETH_ADDRESS);
             }
         });
@@ -84,6 +92,10 @@ export const convertTxListToAddressBookList = async (txList) => {
             nickname: addressMap[addressBookKeys[i]],
             address: addressBookKeys[i],
         });
+    }
+
+    if (Global.PROD_MODE === 'DEV') {
+        console.log('convertTxListToAddressBookList: suc');
     }
 
     return addressBookList;

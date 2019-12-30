@@ -35,6 +35,7 @@ class WalletHistoryScreen extends Component {
             addressBookShow: false,
             addressBookList: [],
             addressBookMap: {},
+            address: '',
         };
     }
 
@@ -49,6 +50,7 @@ class WalletHistoryScreen extends Component {
                 this.getData(ITEMTYPE_ALL, 1);
             }
         });
+        this.getData(ITEMTYPE_ALL, 1);
     }
 
     onRefresh = () => {
@@ -67,14 +69,14 @@ class WalletHistoryScreen extends Component {
     };
 
     getData = async (itemType, page) => {
-        let { data } = this.state;
-        const { addressBookStore, txListStore } = this.props;
+        let { data, address } = this.state;
+        const { addressBookStore, txListAction } = this.props;
 
         let txList = [];
 
         switch (itemType) {
             case ITEMTYPE_ALL:
-                txList = await etherApi.getTxList(page, PAGE_COUNT, addressBookStore.setAllTxList);
+                txList = await etherApi.getTxList(page, PAGE_COUNT, txListAction.setAllTxList);
                 break;
             case ITEMTYPE_ROZ:
                 txList = await etherApi.getRozTxList(page, PAGE_COUNT);
@@ -83,11 +85,7 @@ class WalletHistoryScreen extends Component {
                 txList = await etherApi.getEthTxList(page, PAGE_COUNT);
                 break;
             case ITEMTYPE_ADDRESSBOOK:
-                convertTxListToAddressBookList(txListStore.list).then((addressBookList) => {
-                    this.setState({
-                        addressBookList: addressBookList,
-                    });
-                });
+                txList = await etherApi.getTxListByAddress(page, PAGE_COUNT, address);
                 break;
         }
 
@@ -106,17 +104,30 @@ class WalletHistoryScreen extends Component {
     };
 
     setType = (itemType) => {
+        const { txListStore } = this.props;
+
         this.setState({
             itemType: itemType,
             addressBookShow: itemType === ITEMTYPE_ADDRESSBOOK ? true : false, //  주소록 on/off
             data: [],
         });
 
+        if (itemType === ITEMTYPE_ADDRESSBOOK) {
+            convertTxListToAddressBookList(txListStore.list).then((addressBookList) => {
+                this.setState({
+                    addressBookList: addressBookList,
+                });
+            });
+            return;
+        }
+
         this.getData(itemType, 1);
     };
 
-    onActiveMini = (flag) => {
-        this.setState({ addressBookShow: flag });
+    onActiveMini = (address) => {
+        this.setState({ addressBookShow: false, address: address }, () => {
+            this.getData(ITEMTYPE_ADDRESSBOOK, 1);
+        });
     };
 
     renderFooter() {
@@ -126,31 +137,6 @@ class WalletHistoryScreen extends Component {
         } else {
             return <Text />;
         }
-    }
-
-    copyArray(array) {
-        let newAray = [];
-        for (let i = 0; i < array.length; i++) {
-            newAray.push(this.copyMap(array[i]));
-        }
-
-        return newAray;
-    }
-
-    copyMap(map) {
-        if (!map) {
-            return map;
-        }
-
-        var newMap = map.constructor();
-
-        for (var attr in map) {
-            if (map.hasOwnProperty(attr)) {
-                newMap[attr] = map[attr];
-            }
-        }
-
-        return newMap;
     }
 
     render() {
@@ -206,9 +192,9 @@ class WalletHistoryScreen extends Component {
                                     style: { paddingTop: 5 },
                                     refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
                                     renderFooter: this.renderFooter,
-                                    onEndReached: () => {
+                                    /* onEndReached: () => {
                                         this.getData(itemType, page);
-                                    },
+                                    }, */
                                     onEndReachedThreshold: 0.2,
                                 }}
                                 renderDetail={this.renderDetail}

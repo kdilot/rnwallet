@@ -25,11 +25,11 @@ class AddressBookComponent extends Component {
         this.setState({ nickname: text });
     };
 
-    onSend = async () => {
+    onSend = () => {
         const { AddressAction, address } = this.props;
         const { nickname } = this.state;
 
-        await setAddressBookApi({ address, nickname }).then((addressBookMap) => {
+        setAddressBookApi({ address, nickname }).then((addressBookMap) => {
             if (!addressBookMap || addressBookMap === {}) {
                 return;
             }

@@ -26,7 +26,8 @@ export default class WalletInfoComponent extends Component {
     };
 
     render() {
-        const { logo, address, name, coin, value } = this.props;
+        const { logo, address, name, coin, value, navigation } = this.props;
+        const { lang } = navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <CardView cardElevation={10} cornerRadius={10} style={styles.cardLayout}>
@@ -54,14 +55,14 @@ export default class WalletInfoComponent extends Component {
                             onPress={() => {
                                 this.onReceive();
                             }}>
-                            <Text style={styles.buttonTextStyle}>받기</Text>
+                            <Text style={styles.buttonTextStyle}>{lang.receive}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.buttonGroup}
                             onPress={() => {
                                 this.onSend();
                             }}>
-                            <Text style={styles.buttonTextStyle}>보내기</Text>
+                            <Text style={styles.buttonTextStyle}>{lang.send}</Text>
                         </TouchableOpacity>
                     </View>
                 </CardView>

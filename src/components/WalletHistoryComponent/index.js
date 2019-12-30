@@ -36,19 +36,21 @@ class WalletHistoryComponent extends Component {
 
     addAddressBook = async () => {
         const { AddressAction } = this.props;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const { name, to } = this.state;
         await setAddressBookApi({ address: to, nickname: name }).then((addressBookMap) => {
             if (!addressBookMap || addressBookMap === {}) {
                 return;
             }
 
-            Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
+            Toast.show(lang.saveMsg, { duration: Toast.durations.SHORT, position: 50 });
             AddressAction.setAddressBook(addressBookMap);
         });
     };
 
     render() {
         const { ts, value, status, send, from, to } = this.props.data;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const { name, address } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
@@ -59,10 +61,10 @@ class WalletHistoryComponent extends Component {
                 </View>
                 <View style={styles.addressButtonLayout}>
                     <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.addAddressBook()}>
-                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>주소록에 저장</Text>
+                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.saveAddressMsg}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(address)}>
-                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>보내기</Text>
+                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.send}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentLayout}>

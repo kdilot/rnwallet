@@ -12,9 +12,13 @@ import WalletHistoryScreen from 'screens/WalletHistoryScreen';
 import AddressBookScreen from 'screens/AddressBookScreen';
 import SendScreen from 'screens/SendScreen';
 import SettingScreen from 'screens/SettingScreen';
+import CustomerServiceScreen from 'screens/CustomerServiceScreen';
+import HomepageScreen from 'screens/HomepageScreen';
 import NoticeScreen from 'screens/NoticeScreen';
+import WalletVersionScreen from 'screens/WalletVersionScreen';
 import CustomSidebarMenu from 'screens/CustomDrawerScreen';
-import LoginAuthNavigator from 'screens/LoginAuthScreen/LoginAuthNavigator';
+import FingerPrintScreen from 'screens/LoginAuthScreen/FingerPrintScreen/FingerPrint';
+import PinCodeScreen from 'screens/LoginAuthScreen/PinCodeScreen';
 import { basicColor } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
@@ -90,32 +94,56 @@ const BottomStack = createStackNavigator(
         Home: {
             screen: BottomMenuTab,
         },
+        CustomerService: {
+            screen: CustomerServiceScreen,
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.customerService,
+            }),
+        },
+        Homepage: {
+            screen: HomepageScreen,
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.homepage,
+            }),
+        },
         Notice: {
             screen: NoticeScreen,
-            navigationOptions: {
-                headerTitle: '공지사항',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.notice,
+            }),
+        },
+        WalletVersion: {
+            screen: WalletVersionScreen,
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.walletInfo,
+            }),
         },
         Send: {
             screen: SendScreen,
-            navigationOptions: {
-                headerTitle: '보내기',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.send,
+            }),
         },
         QrcodeText: {
             screen: QrcodeTextScreen,
-            navigationOptions: {
-                headerTitle: '받기',
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.receive,
+            }),
         },
         QrcodeScanner: {
             screen: QrcodeScannerScreen,
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.qrcode,
+            }),
+        },
+        FingerPrint: {
+            screen: FingerPrintScreen,
             navigationOptions: {
-                headerTitle: '주소스캔',
+                header: null,
             },
         },
-        LoginAuth: {
-            screen: LoginAuthNavigator,
+        PinCode: {
+            screen: PinCodeScreen,
             navigationOptions: {
                 header: null,
             },

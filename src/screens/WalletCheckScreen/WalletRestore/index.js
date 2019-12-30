@@ -26,14 +26,15 @@ export default class WalletRestore extends Component {
 
     render() {
         const { text, restoreDisable } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.textareaLayout}>
-                    <Text style={styles.textStyle}>보관하셨던 단어 12개를 순서대로 입력해주세요.</Text>
+                    <Text style={styles.textStyle}>{lang.restoreInputMsg}</Text>
                     <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComponent name={'복구하기'} disable={restoreDisable} onPress={this.onRestore} />
+                    <ButtonComponent name={lang.restore} disable={restoreDisable} onPress={this.onRestore} />
                 </View>
             </KeyboardAvoidingView>
         );

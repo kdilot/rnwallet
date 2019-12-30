@@ -7,28 +7,31 @@ import styles from './styles';
 
 const MenuList = [
     {
-        title: '지갑정보',
-        action: '',
+        title: 'walletInfo',
+        action: 'WalletVersion',
     },
     {
-        title: '공지사항',
-        action: '',
+        title: 'notice',
+        action: 'Notice',
     },
     {
-        title: '고객센터',
-        action: '',
+        title: 'customerService',
+        action: 'CustomerService',
     },
     {
-        title: '홈페이지',
-        action: '',
+        title: 'homepage',
+        action: 'Homepage',
     },
 ];
 
 export default class CustomDrawerScreen extends Component {
-    onClick = () => {
-        this.props.navigation.navigate('Notice');
+
+    onClick = view => {
+        this.props.navigation.navigate(view);
     };
+
     render() {
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <View style={styles.logoLayout}>
@@ -37,7 +40,7 @@ export default class CustomDrawerScreen extends Component {
                 <View style={styles.contentLayout}>
                     {MenuList.map((item, i) => (
                         // eslint-disable-next-line react-native/no-inline-styles
-                        <ListItem key={i} title={item.title} bottomDivider style={{ width: '100%' }} onPress={() => this.onClick()} chevron />
+                        <ListItem key={i} title={lang[item.title]} bottomDivider style={{ width: '100%' }} onPress={() => this.onClick(item.action)} chevron />
                     ))}
                 </View>
             </View>

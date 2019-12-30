@@ -17,6 +17,7 @@ export default class WalletCheckScreen extends Component {
     };
 
     render() {
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <View style={styles.logoLayout}>
@@ -25,10 +26,10 @@ export default class WalletCheckScreen extends Component {
                 </View>
                 <View style={styles.buttonLayout}>
                     <View style={styles.buttonStyle}>
-                        <ButtonComponent name={'복구하기'} color={rozeusColor} outline={true} onPress={this.onRestore} />
+                        <ButtonComponent name={lang.restore} color={rozeusColor} outline={true} onPress={this.onRestore} />
                     </View>
                     <View style={styles.buttonStyle}>
-                        <ButtonComponent name={'생성하기'} color={rozeusColor} onPress={this.onCreate} />
+                        <ButtonComponent name={lang.create} color={rozeusColor} onPress={this.onCreate} />
                     </View>
                 </View>
             </View>

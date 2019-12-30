@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 
 import * as settingActions from 'modules/SettingReducer';
 
-import * as settingApi from 'api/Setting';
-
 import styles from './styles';
 
 class IntroScreen extends Component {
@@ -32,11 +30,7 @@ class IntroScreen extends Component {
 
     setSetting() {
         const { settingAction } = this.props;
-
-        settingApi.getSettingApi().then((res) => {
-            settingAction.setSetting(res);
-            this.setState({ settingLoad: true });
-        });
+        settingAction.setSetting();
     }
 
     render() {

@@ -33,6 +33,10 @@ class AddressBookScreen extends Component {
         this.setAddressBookMap();
     }
 
+    componentWillUnmount = () => {
+        this.focusListener.remove();
+    };
+
     async getData() {
         const { txListStore } = this.props;
         let addressBookList = await addressBookApi.convertTxListToAddressBookList(txListStore.list);
@@ -62,13 +66,6 @@ class AddressBookScreen extends Component {
                             data={addressBookList}
                             renderItem={({ item }) => <AddressBookComponent navigation={navigation} nickname={item.nickname} address={item.address} />}
                             keyExtractor={(item, index) => index.toString()}
-                            // refreshing={refreshing}
-                            // onRefresh={() => {
-                            //     this.onRefresh();
-                            // }}
-                            // onEndReached={() => {
-                            //     this.getData(page);
-                            // }}
                             onEndReachedThreshold={0.2}
                         />
                     ) : (

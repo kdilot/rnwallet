@@ -41,6 +41,7 @@ export default class QrcodeText extends Component {
 
     render() {
         const { text } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <View style={styles.qrLayout}>
@@ -48,8 +49,8 @@ export default class QrcodeText extends Component {
                     <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComponent style={styles.buttonStyle} name={'복사하기'} outline={true} onPress={this.onCopy} />
-                    <ButtonComponent style={styles.buttonStyle} name={'공유하기'} onPress={this.onShare} />
+                    <ButtonComponent style={styles.buttonStyle} name={lang.copy} outline={true} onPress={this.onCopy} />
+                    <ButtonComponent style={styles.buttonStyle} name={lang.share} onPress={this.onShare} />
                 </View>
             </View>
         );

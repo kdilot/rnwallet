@@ -20,7 +20,13 @@ export default class AddressBookMiniComponent extends Component {
                             onPress={() => {
                                 onActive(item.address);
                             }}>
-                            {addressBookList.length > 0 ? <Text>{item.nickname}</Text> : <PlaceholderLayout />}
+                            {addressBookList.length > 0 ? (
+                                <Text numberOfLines={1} ellipsizeMode="middle">
+                                    {item.nickname ? item.nickname : item.address}
+                                </Text>
+                            ) : (
+                                <PlaceholderLayout />
+                            )}
                         </TouchableOpacity>
                     )}
                     keyExtractor={(item, index) => index.toString()}

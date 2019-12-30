@@ -27,6 +27,7 @@ class AddressBookComponent extends Component {
 
     onSend = () => {
         const { AddressAction, address } = this.props;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const { nickname } = this.state;
 
         setAddressBookApi({ address, nickname }).then((addressBookMap) => {
@@ -34,7 +35,7 @@ class AddressBookComponent extends Component {
                 return;
             }
 
-            Toast.show('저장성공', { duration: Toast.durations.SHORT, position: 50 });
+            Toast.show(lang.saveMsg, { duration: Toast.durations.SHORT, position: 50 });
             AddressAction.setAddressBook(addressBookMap);
         });
     };
@@ -46,6 +47,7 @@ class AddressBookComponent extends Component {
 
     render() {
         const { address, nickname } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <Text style={styles.addressTextStyle}>{address}</Text>
@@ -57,10 +59,10 @@ class AddressBookComponent extends Component {
                     </View>
                     <View style={styles.addressButtonLayout}>
                         <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onHistory()}>
-                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>거래내역</Text>
+                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.walletHistory}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend()}>
-                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>저장</Text>
+                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.save}</Text>
                         </TouchableOpacity>
                     </View>
                 </CardView>

@@ -8,12 +8,12 @@ import { View, Text, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, 
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
-import PropTypes from 'prop-types';
-import styles from './styles';
 import Timeline from 'react-native-timeline-flatlist';
 import PlaceholderLayout from './PlaceholderLayout';
 import * as etherApi from 'api/WalletHistory/etherscan-api';
-import { convertTxListToAddressBookList } from '../../api/AddressBook/AddressBookApi';
+import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
+import PropTypes from 'prop-types';
+import styles from './styles';
 
 const ITEMTYPE_ALL = 0;
 const ITEMTYPE_ROZ = 1;

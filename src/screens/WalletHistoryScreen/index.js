@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as txListActions from 'modules/TxListReducer';
-import { View, Text, /*FlatList,*/ TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl } from 'react-native';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
@@ -41,7 +41,7 @@ class WalletHistoryScreen extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', (payload) => {
+        this.focusListener = navigation.addListener('didFocus', payload => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
                 this.setState({ itemType: payload.state.params.itemType });
@@ -103,11 +103,11 @@ class WalletHistoryScreen extends Component {
         });
     };
 
-    getAddressData = (address) => {
+    getAddressData = address => {
         this.setState({ addressBookShow: false });
     };
 
-    setType = (itemType) => {
+    setType = itemType => {
         const { txListStore } = this.props;
 
         this.setState({
@@ -117,7 +117,7 @@ class WalletHistoryScreen extends Component {
         });
 
         if (itemType === ITEMTYPE_ADDRESSBOOK) {
-            convertTxListToAddressBookList(txListStore.list).then((addressBookList) => {
+            convertTxListToAddressBookList(txListStore.list).then(addressBookList => {
                 this.setState({
                     addressBookList: addressBookList,
                 });
@@ -128,7 +128,7 @@ class WalletHistoryScreen extends Component {
         this.getData(itemType, 1);
     };
 
-    onActiveMini = (address) => {
+    onActiveMini = address => {
         this.setState({ addressBookShow: false, address: address }, () => {
             this.getData(ITEMTYPE_ADDRESSBOOK, 1);
         });
@@ -197,9 +197,12 @@ class WalletHistoryScreen extends Component {
                                     style: { paddingTop: 5 },
                                     refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
                                     renderFooter: this.renderFooter,
-                                    /* onEndReached: () => {
+                                    onEndReached: () => {
+                                        //  [임시조건 적용]
+                                        if (data.length % PAGE_COUNT === 0) {
                                             this.getData(itemType, page);
-                                        }, */
+                                        }
+                                    },
                                     onEndReachedThreshold: 0.2,
                                 }}
                                 renderDetail={this.renderDetail}
@@ -235,11 +238,11 @@ WalletHistoryScreen.proptpes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         addressBookStore: state.AddressBookReducer,
         txListStore: state.TxListReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         txListAction: bindActionCreators(txListActions, dispatch),
     }),

@@ -1,4 +1,5 @@
 export const ROZEUS_WALLET_API_URI = 'https://asia-northeast1-rozeus-4321c.cloudfunctions.net/rozeuswallet';
+export const ETHERCHAIN_GAS_PRICE_API_URL = 'https://www.etherchain.org/api/gasPriceOracle';
 
 export const ETHSCAN_IO_API_KEY = 'ZK1MPCAYSNQACVGRRA2XT9UQH3US3UBHWH';
 export const ETH_NETWORK_MODE = 'ropsten';

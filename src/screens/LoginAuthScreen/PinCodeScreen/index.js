@@ -9,6 +9,7 @@ import styles from './styles';
 const NEW_PIN = 1;
 const CONFIRM_PIN = 2;
 const ACCESS_PIN = 3;
+const RESET_ARRAY = new Array(0);
 
 export default class PinCode extends Component {
     static defaultProps = {
@@ -20,7 +21,7 @@ export default class PinCode extends Component {
         super(props);
 
         this.state = {
-            pinNumber: new Array(0),
+            pinNumber: RESET_ARRAY,
             newPinNumber: null, // Async 키 정보
             isCount: 1,
             status: props.status,
@@ -34,12 +35,12 @@ export default class PinCode extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         const { maxPin, maxCount } = this.props;
         const { newPinNumber, status, isCount } = this.state;
-        const confirmPinNumber = nextState.pinNumber.join('');
+        const confirmPinNumber = nextState.pinNumber ? nextState.pinNumber.join('') : RESET_ARRAY;
         if (nextState.pinNumber.length === maxPin && status === NEW_PIN && !nextState.newPinNumber) {
             this.setState({
                 newPinNumber: confirmPinNumber,
                 status: CONFIRM_PIN,
-                pinNumber: new Array(0),
+                pinNumber: RESET_ARRAY,
             });
             this.blockKeyboard(500);
         } else if (nextState.pinNumber.length === maxPin && status === CONFIRM_PIN) {
@@ -47,14 +48,14 @@ export default class PinCode extends Component {
                 AsyncStorage.setItem('pincode', newPinNumber);
                 this.setState({
                     status: ACCESS_PIN,
-                    pinNumber: new Array(0),
+                    pinNumber: RESET_ARRAY,
                 });
                 this.blockKeyboard(500);
             } else {
                 this.setState({
                     status: NEW_PIN,
                     newPinNumber: null,
-                    pinNumber: new Array(0),
+                    pinNumber: RESET_ARRAY,
                 });
                 this.blockKeyboard(1500, 'WRONG CONFIRM PIN NUMBER');
             }
@@ -63,7 +64,7 @@ export default class PinCode extends Component {
                 this.props.navigation.navigate('Home');
             } else {
                 this.setState({
-                    pinNumber: new Array(0),
+                    pinNumber: RESET_ARRAY,
                     isCount: isCount + 1,
                 });
                 maxCount === isCount ? this.blockKeyboard(30000, 'YOU CAN TRY AFTER 30 SEC') : this.blockKeyboard(1500, 'WRONG PIN NUMBER');
@@ -89,7 +90,8 @@ export default class PinCode extends Component {
 
     keyDown = key => {
         const { pinNumber } = this.state;
-        this.setState({ pinNumber: key === 'back' ? pinNumber.pop() : pinNumber.concat(key) });
+        const length = pinNumber.length;
+        this.setState({ pinNumber: key === 'back' ? (length > 0 ? pinNumber.slice(0, length - 1) : RESET_ARRAY) : pinNumber.concat(key) });
     };
     render() {
         const { pinNumber, status, newPinNumber } = this.state;

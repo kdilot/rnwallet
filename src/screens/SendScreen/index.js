@@ -7,6 +7,8 @@ import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'r
 import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ButtonComponent from 'components/ButtonComponent';
+import { getGasPrice } from 'api/EtherChain';
+import PlaceholderLayout from './PlaceholderLayout';
 import { basicColor } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -16,15 +18,28 @@ class SendScreen extends Component {
         super(props);
 
         this.state = {
-            value: 999,
+            price: 999,
             address: null,
-            fee: 1,
+            gas: 1,
+            gasMinValue: 0,
+            gasMaxValue: 0,
+            isGasDisable: true,
         };
     }
 
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', payload => {
+            getGasPrice().then(res => {
+                if (res) {
+                    this.setState({
+                        isGasDisable: false,
+                        gas: Number(parseFloat(res.standard).toFixed(1)),
+                        gasMinValue: Number(parseFloat(res.safeLow).toFixed(1)),
+                        gasMaxValue: Number(parseFloat(res.fastest).toFixed(1)),
+                    });
+                }
+            });
             if (payload.state.params) {
                 this.setState({ address: payload.state.params.address });
             }
@@ -50,14 +65,14 @@ class SendScreen extends Component {
     };
 
     render() {
-        const { value, address, fee } = this.state;
+        const { price, address, isGasDisable, gas, gasMinValue, gasMaxValue } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.headerLayout}>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.price}</Text>
-                        <TextInput style={styles.textInputStyle} placeholder={lang.price} keyboardType="phone-pad" onChangeText={text => this.setState({ value: text })} value={value.toString()} />
+                        <TextInput style={styles.textInputStyle} placeholder={lang.price} keyboardType="phone-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
                     </View>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.address}</Text>
@@ -80,31 +95,44 @@ class SendScreen extends Component {
                     </View>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.fees}</Text>
-                        <TextInput
-                            style={styles.textInputStyle}
-                            placeholder={lang.fees}
-                            keyboardType="phone-pad"
-                            onChangeText={text => this.setState({ fee: text > 10 ? 10 : Number(text) })}
-                            value={fee.toString()}
-                        />
-                        <Slider
-                            value={fee}
-                            onValueChange={data => this.setState({ fee: Number(data.toFixed(1)) })}
-                            thumbTintColor={basicColor}
-                            minimumTrackTintColor={basicColor}
-                            minimumValue={1}
-                            maximumValue={10}
-                            step={0.1}
-                        />
-                        <View style={styles.feeTextLayout}>
-                            <Text style={styles.feeTextStyle}>{lang.slow}</Text>
-                            <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>{lang.fast}</Text>
-                        </View>
-                        <Text style={{ textAlign: 'center' }}>Value: {fee}</Text>
+                        {isGasDisable ? (
+                            <PlaceholderLayout />
+                        ) : (
+                            <>
+                                <TextInput
+                                    style={styles.textInputStyle}
+                                    placeholder={lang.fees}
+                                    keyboardType="phone-pad"
+                                    onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(parseFloat(text).toFixed(1)) })}
+                                    value={gas.toString()}
+                                />
+                                <Slider
+                                    value={gas}
+                                    onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
+                                    thumbTintColor={basicColor}
+                                    minimumTrackTintColor={basicColor}
+                                    minimumValue={gasMinValue}
+                                    maximumValue={gasMaxValue}
+                                    step={0.1}
+                                />
+                                <View style={styles.feeTextLayout}>
+                                    <Text style={styles.feeTextStyle}>
+                                        {lang.slow}
+                                        {`(${gasMinValue})`}
+                                    </Text>
+                                    <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>
+                                        {lang.fast}
+                                        {`(${gasMaxValue})`}
+                                    </Text>
+                                </View>
+                                <Text style={{ textAlign: 'center' }}>Value: {gas}</Text>
+                            </>
+                        )}
                     </View>
                 </View>
                 <View style={styles.buttonLayout}>
                     <ButtonComponent
+                        disable={isGasDisable}
                         name={lang.send}
                         onPress={() => {
                             this.onSend();
@@ -118,8 +146,11 @@ class SendScreen extends Component {
 
 SendScreen.proptypes = {
     value: PropTypes.number,
-    fee: PropTypes.number,
+    gas: PropTypes.number,
     address: PropTypes.string,
+    isGasDisable: PropTypes.bool,
+    gasMinValue: PropTypes.number,
+    gasMaxValue: PropTypes.number,
     onSearch: PropTypes.func,
     onSend: PropTypes.func,
     setAddress: PropTypes.func,

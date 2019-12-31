@@ -71,7 +71,7 @@ class AddressBookComponent extends Component {
     }
 }
 
-AddressBookComponent.proptypes = {
+AddressBookComponent.propTypes = {
     address: PropTypes.string,
     nickname: PropTypes.string,
     onChange: PropTypes.func,

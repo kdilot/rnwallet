@@ -64,7 +64,7 @@ class AddressBookComponent extends Component {
                             <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.walletHistory}</Text>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={styles.sendButtonLayout} onPress={() => this.onSend()}>
+                    <TouchableOpacity style={[styles.sendButtonLayout, styles.borderColor(dividerLightColor)]} onPress={() => this.onSend()}>
                         <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.save}</Text>
                     </TouchableOpacity>
                 </CardView>

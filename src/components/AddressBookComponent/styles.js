@@ -7,21 +7,25 @@ export default StyleSheet.create({
     },
 
     cardLayout: {
-        padding: 10,
-        paddingHorizontal: 15,
         flexDirection: 'row',
     },
     textLayout: {
-        flex: 15,
+        flex: 9,
+        paddingVertical: 10,
+        paddingLeft: 15,
+        paddingRight: 0,
     },
     textInputLayout: {
         height: 40,
         justifyContent: 'center',
+        borderBottomWidth: 2,
     },
     sendButtonLayout: {
-        flex: 2,
+        flex: 1,
+        padding: 10,
+        borderLeftWidth: 2,
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        alignItems: 'center',
     },
     historyButtonLayout: {
         paddingTop: 10,
@@ -34,8 +38,7 @@ export default StyleSheet.create({
     },
 
     borderColor: color => ({
-        borderBottomWidth: 2,
-        borderBottomColor: color,
+        borderColor: color,
     }),
 
     TextColor: color => ({

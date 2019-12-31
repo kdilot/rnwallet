@@ -50,21 +50,23 @@ class AddressBookComponent extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
-                <Text style={styles.addressTextStyle}>{address}</Text>
-                <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
-                    <View style={[styles.addressLayout, styles.borderColor(dividerLightColor)]}>
-                        <View style={styles.addressTextfield}>
+                <CardView cardElevation={5} cornerRadius={0} style={styles.cardLayout}>
+                    <View style={styles.textLayout}>
+                        <View style={[styles.textInputLayout, styles.borderColor(dividerLightColor)]}>
                             <TextInput value={nickname ? nickname : address} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
                         </View>
-                    </View>
-                    <View style={styles.addressButtonLayout}>
-                        <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onHistory()}>
+                        <View>
+                            <Text style={styles.addressTextStyle} numberOfLines={1} ellipsizeMode="middle">
+                                {address}
+                            </Text>
+                        </View>
+                        <TouchableOpacity style={styles.historyButtonLayout} onPress={() => this.onHistory()}>
                             <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.walletHistory}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend()}>
-                            <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.save}</Text>
-                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity style={styles.sendButtonLayout} onPress={() => this.onSend()}>
+                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.save}</Text>
+                    </TouchableOpacity>
                 </CardView>
             </View>
         );

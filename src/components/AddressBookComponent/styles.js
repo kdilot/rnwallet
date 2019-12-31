@@ -2,40 +2,42 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        margin: 7,
+        margin: 5,
+        marginVertical: 7,
     },
-    addressTextStyle: {
-        marginBottom: 5,
-        fontWeight: 'bold',
-    },
+
     cardLayout: {
-        height: 70,
+        padding: 10,
+        paddingHorizontal: 15,
+        flexDirection: 'row',
     },
-    addressLayout: {
-        flex: 2,
+    textLayout: {
+        flex: 15,
+    },
+    textInputLayout: {
+        height: 40,
         justifyContent: 'center',
     },
-    addressTextfield: {
-        paddingHorizontal: 10,
-        height: 40,
+    sendButtonLayout: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
     },
+    historyButtonLayout: {
+        paddingTop: 10,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    },
+    addressTextStyle: {
+        fontSize: 11,
+        paddingTop: 4,
+    },
+
     borderColor: color => ({
         borderBottomWidth: 2,
         borderBottomColor: color,
     }),
-    addressButtonLayout: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'flex-end',
-        padding: 10,
-    },
-    addressButtonGroup: {
-        flex: 1,
-    },
-    addressButtonTextStlye: {
-        fontSize: 13,
-    },
+
     TextColor: color => ({
         color: color,
         fontWeight: 'bold',

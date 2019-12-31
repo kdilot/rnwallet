@@ -12,7 +12,6 @@ export default class Placeholderlayout extends Component {
                 <PlaceholderLine style={styles.line} />
                 <PlaceholderLine style={styles.line} />
                 <PlaceholderLine style={styles.line} />
-                <PlaceholderLine style={styles.line} />
             </Placeholder>
         );
     }
@@ -20,7 +19,7 @@ export default class Placeholderlayout extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 100,
     },
     line: {
         height: '100%',

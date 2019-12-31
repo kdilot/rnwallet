@@ -7,5 +7,6 @@ module.exports = {
         'comma-dangle': 0,
         'no-trailing-spaces': 0,
         'self-closing-comp': 0,
+        'react-hooks/exhaustive-deps': 0,
     },
 };

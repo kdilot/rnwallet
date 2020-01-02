@@ -1,23 +1,57 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as walletActions from 'modules/WalletReducer';
+import { Text, View, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
 import ButtonComponent from 'components/ButtonComponent';
+import { ethers } from 'ethers';
+import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class WalletRestore extends Component {
+class WalletRestore extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             text: null,
-            restoreDisable: true,
+            restoreDisable: false,
         };
     }
-    onRestore = () => {
-        //  mnemonic 데이터 복구 로직 추가
 
-        const { navigation } = this.props;
-        navigation.navigate('TabNavigator');
+    onRestore = async () => {
+        //  Token 생성 로직 추가
+        await this.setState({ restoreDisable: true });
+        await setTimeout(() => {
+            this.onKeyStore();
+        }, 100);
+    };
+
+    onKeyStore = () => {
+        const { lang } = this.props.navigation.getScreenProps('locale');
+        const { navigation, walletAction } = this.props;
+        const { text } = this.state;
+        try {
+            const keys = ethers.Wallet.fromMnemonic(text);
+            const address = keys.address;
+            const privateKey = keys.privateKey;
+            if (address) {
+                const wallet = {
+                    //  임시
+                    name: '이더리움',
+                    coinType: 'ETH',
+                    symbol: 'ETH',
+                    address: address,
+                };
+                RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
+                    await walletAction.setWalletAddress({ wallet, async: true });
+                    await navigation.navigate('Home');
+                });
+            }
+        } catch (e) {
+            Alert.alert(lang.mnemonicMsg);
+            this.setState({ restoreDisable: false, text: null });
+        }
     };
 
     onChangeText = text => {
@@ -44,4 +78,16 @@ export default class WalletRestore extends Component {
 WalletRestore.propTypes = {
     text: PropTypes.string,
     restoreDisable: PropTypes.bool,
+    onChangeText: PropTypes.func,
+    onRestore: PropTypes.func,
+    onKeyStore: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        walletStore: state.WalletReducer,
+    }),
+    dispatch => ({
+        walletAction: bindActionCreators(walletActions, dispatch),
+    }),
+)(WalletRestore);

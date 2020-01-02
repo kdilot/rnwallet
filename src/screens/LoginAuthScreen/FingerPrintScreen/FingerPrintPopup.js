@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
-import ShakingText from './ShakingText';
+import AnimationText from './styles.animation';
 import styles from './FingerPrintPopup.styles';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -58,13 +58,13 @@ class FingerPrintPopup extends Component {
                         <Ionicons name="fingerprint" color={'black'} size={100} />
                     </View>
                     <View style={styles.message}>
-                        <ShakingText
+                        <AnimationText
                             ref={instance => {
                                 this.description = instance;
                             }}
                             style={styles.description(errorMessage)}>
                             {errorMessage || '지문을 인식해주세요'}
-                        </ShakingText>
+                        </AnimationText>
                     </View>
 
                     <TouchableOpacity

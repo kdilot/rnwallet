@@ -47,7 +47,7 @@ class WalletCreate extends Component {
         await Alert.alert(text.join('   '));
     };
 
-    onCreate = async () => {
+    onCreate = () => {
         //  Token 생성 로직 추가
         const { address, privateKey } = this.state;
         const { navigation, walletAction } = this.props;
@@ -59,7 +59,7 @@ class WalletCreate extends Component {
                 symbol: 'ETH',
                 address: address,
             };
-            await RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
+            RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
                 await walletAction.setWalletAddress({ wallet, async: true });
                 await navigation.navigate('Home');
             });

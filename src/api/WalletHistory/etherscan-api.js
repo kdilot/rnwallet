@@ -4,6 +4,39 @@ import * as Global from 'constants/Global';
 
 const ethClient = etherApi.init(Global.ETHSCAN_IO_API_KEY, Global.ETH_NETWORK_MODE, 3000);
 
+export const getEthBalance = async () => {
+    let ethBalance = 0;
+    try {
+        let result = await ethClient.account.balance(Global.USER_ETH_ADDRESS);
+        if (!result || result.message !== 'OK' || !result.result) {
+            return 0;
+        }
+
+        ethBalance = result.result;
+    } catch (err) {
+        console.log(err);
+    }
+
+    return ethBalance;
+};
+
+export const getRozBalance = async () => {
+    let rozBalance = 0;
+    try {
+        let result = await ethClient.account.tokenbalance(Global.USER_ETH_ADDRESS, '', '0x60ac9c7a34dbe35e7392c20d9660cfb290bb485a');
+
+        if (!result || result.message !== 'OK' || !result.result) {
+            return 0;
+        }
+
+        rozBalance = result.result;
+    } catch (err) {
+        console.log(err);
+    }
+
+    return rozBalance;
+};
+
 export const getEthTxList = async (page, offset) => {
     let txList = [];
     try {

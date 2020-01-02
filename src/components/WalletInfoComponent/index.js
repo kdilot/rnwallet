@@ -46,7 +46,9 @@ export default class WalletInfoComponent extends Component {
                             <Text style={styles.listTextSubStyle}>{coin}</Text>
                         </View>
                         <View style={[styles.contentTextGroup, styles.alignRight]}>
-                            <Text style={styles.listTextStyle}>{`$${value}`}</Text>
+                            <Text style={styles.listTextStyle}>
+                                {value} {coin === 'ETH' ? 'ETH' : 'ROZ'}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.footerLayout}>

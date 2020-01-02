@@ -13,31 +13,47 @@ import * as walletActions from 'modules/WalletReducer';
 import * as etherApi from 'api/WalletHistory/etherscan-api';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
+import * as etherjs from 'api/etherjs';
 
 class MainScreen extends PureComponent {
     constructor(props) {
         super(props);
+
+        this.state = {
+            ethBalance: 0,
+            rozBalance: 0,
+        };
     }
 
     componentDidMount() {
-        this._loadInitDatas();
+        this.loadInitDatas();
     }
 
-    _loadInitDatas() {
-        this._getTxList().then(txList => {
-            this._setTxListToStore(txList);
+    loadInitDatas() {
+        this.getTxList().then((txList) => {
+            this.setTxListToStore(txList);
         });
 
-        this._getAddressBookMap().then(addressBookMap => {
-            this._setAddressBookMapToStore(addressBookMap);
+        this.getAddressBookMap().then((addressBookMap) => {
+            this.setAddressBookMapToStore(addressBookMap);
         });
+
+        setTimeout(() => {
+            this.getEthBalance().then((ethBalance) => {
+                this.setEthBalance(ethBalance);
+            });
+
+            this.getRozBalance().then((rozBalance) => {
+                this.setRozBalance(rozBalance);
+            });
+        }, 3000);
     }
 
-    _getTxList() {
-        return etherApi.getTxList(1, 10000, undefined);
+    getTxList() {
+        return etherApi.getTxList(1, 10000);
     }
 
-    _setTxListToStore(txList) {
+    setTxListToStore(txList) {
         let { txListAction } = this.props;
 
         if (!Array.isArray(txList) || txList.length === 0) {
@@ -47,11 +63,11 @@ class MainScreen extends PureComponent {
         txListAction.setAllTxList(txList);
     }
 
-    _getAddressBookMap() {
+    getAddressBookMap() {
         return addressBookApi.getAddressBookMap(Global.USER_ETH_ADDRESS);
     }
 
-    _setAddressBookMapToStore(addressBookMap) {
+    setAddressBookMapToStore(addressBookMap) {
         let { addressBookAction } = this.props;
 
         if (!addressBookMap || addressBookMap === {}) {
@@ -61,22 +77,45 @@ class MainScreen extends PureComponent {
         addressBookAction.setAddressBook(addressBookMap);
     }
 
+    async getEthBalance() {
+        let ethBalance = await etherApi.getEthBalance();
+        return etherjs.formatUnits(ethBalance, 18);
+    }
+
+    setEthBalance(ethBalance) {
+        this.setState({
+            ethBalance: ethBalance,
+        });
+    }
+
+    async getRozBalance() {
+        let rozBalance = await etherApi.getRozBalance();
+        return etherjs.formatUnits(rozBalance, 8);
+    }
+
+    setRozBalance(rozBalance) {
+        this.setState({
+            rozBalance: rozBalance,
+        });
+    }
+
     render() {
         const { navigation } = this.props;
+        const { ethBalance, rozBalance } = this.state;
         return (
             <View style={styles.container}>
-                <WalletInfoComponent navigation={navigation} />
-                <WalletInfoComponent navigation={navigation} logo={'logo-github'} name={'Ethereum'} coin={'ETH'} value={1372} />
+                <WalletInfoComponent navigation={navigation} value={rozBalance} />
+                <WalletInfoComponent navigation={navigation} logo={'logo-github'} name={'Ethereum'} coin={'ETH'} value={ethBalance} />
             </View>
         );
     }
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         walletStore: state.WalletReducer,
     }),
-    dispatch => ({
+    (dispatch) => ({
         txListAction: bindActionCreators(txListActions, dispatch),
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         walletAction: bindActionCreators(walletActions, dispatch),

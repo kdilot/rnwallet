@@ -7,11 +7,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         marginVertical: 15,
     },
-    cardLayout: {
+    cardLayout: isLoad => ({
         width: '100%',
         height: 200,
-        padding: 15,
-    },
+        padding: isLoad ? 15 : 0,
+    }),
     headerLayout: {
         flex: 1,
         paddingBottom: 20,

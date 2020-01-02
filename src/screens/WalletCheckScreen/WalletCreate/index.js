@@ -60,7 +60,7 @@ class WalletCreate extends Component {
                 address: address,
             };
             await RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
-                await walletAction.setWalletAddress(wallet);
+                await walletAction.setWalletAddress({ wallet, async: true });
                 await navigation.navigate('Home');
             });
         }

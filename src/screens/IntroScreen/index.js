@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import * as settingActions from 'modules/SettingReducer';
-
+import * as walletActions from 'modules/WalletReducer';
+// import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles';
 
 class IntroScreen extends Component {
@@ -12,26 +12,32 @@ class IntroScreen extends Component {
         super(props);
 
         this.state = {
-            addressBookLoad: false,
+            walletLoad: false,
             settingLoad: false,
-            txListLoad: false,
         };
     }
-    componentDidMount = () => {
-        this.setSetting();
-        this.goToWalletIntro();
+    componentDidMount = async () => {
+        // AsyncStorage.removeItem('wallets');
+        await this.setWallet();
+        await this.setSetting();
+        await this.goToWalletIntro();
     };
 
-    goToWalletIntro() {
-        setTimeout(() => {
+    goToWalletIntro = async () => {
+        await setTimeout(() => {
             this.props.navigation.navigate('WalletIntro');
         }, 3000);
-    }
+    };
 
-    setSetting() {
+    setSetting = () => {
         const { settingAction } = this.props;
         settingAction.setSetting();
-    }
+    };
+
+    setWallet = () => {
+        const { walletAction } = this.props;
+        walletAction.setWallet();
+    };
 
     render() {
         return (
@@ -44,10 +50,12 @@ class IntroScreen extends Component {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         settingStore: state.SettingReducer,
+        walletStore: state.WalletReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         settingAction: bindActionCreators(settingActions, dispatch),
+        walletAction: bindActionCreators(walletActions, dispatch),
     }),
 )(IntroScreen);

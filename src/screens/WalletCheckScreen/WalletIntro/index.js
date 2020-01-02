@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as walletActions from 'modules/WalletReducer';
 import { Text, View } from 'react-native';
-import PropTypes from 'prop-types';
 import ButtonComponent from 'components/ButtonComponent';
 import { rozeusColor } from 'constants/Color';
 import styles from './styles';
+import PropTypes from 'prop-types';
 
-export default class WalletCheckScreen extends Component {
+class WalletCheckScreen extends Component {
+    componentDidMount() {
+        const { navigation, walletStore } = this.props;
+        if (walletStore.wallets) {
+            navigation.navigate('Home');
+        }
+    }
+
     onCreate = () => {
         const { navigation } = this.props;
         navigation.navigate('WalletCreate');
@@ -40,3 +50,12 @@ export default class WalletCheckScreen extends Component {
 WalletCheckScreen.propTypes = {
     onCreate: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        walletStore: state.WalletReducer,
+    }),
+    dispatch => ({
+        walletAction: bindActionCreators(walletActions, dispatch),
+    }),
+)(WalletCheckScreen);

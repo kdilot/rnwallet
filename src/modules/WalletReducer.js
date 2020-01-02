@@ -3,10 +3,10 @@ import produce from 'immer';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //  Actions Type
-const SET_WALLET_ADDRESS = 'wallet/SET_WALLET_ADDRESS';
+export const SET_WALLET_ADDRESS = 'wallet/SET_WALLET_ADDRESS';
 
 //  Acttions Saga
-const SET_WALLET_SAGA = 'wallet/SET_WALLET_SAGA';
+export const SET_WALLET_SAGA = 'wallet/SET_WALLET_SAGA';
 
 //  Actions
 export const setWalletAddress = createAction(SET_WALLET_ADDRESS);

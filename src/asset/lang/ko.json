@@ -31,5 +31,6 @@
     "customerService": "고객센터",
     "walletHistory": "거래내역",
     "homepage": "홈페이지",
-    "setting": "설정"
+    "setting": "설정",
+    "mnemonicMsg": "잘 못된 니모닉 입니다."
 }

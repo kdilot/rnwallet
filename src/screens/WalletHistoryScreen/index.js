@@ -80,7 +80,9 @@ class WalletHistoryScreen extends Component {
 
         switch (itemType) {
             case ITEMTYPE_ALL:
-                txList = await etherApi.getTxList(page, PAGE_COUNT, txListAction.setAllTxList);
+                txList = await etherApi.getTxList(1, 10000);
+                txListAction.setAllTxList(this.copyArray(txList));
+                txList = txList.slice((page - 1) * PAGE_COUNT, page * PAGE_COUNT);
                 break;
             case ITEMTYPE_ROZ:
                 txList = await etherApi.getRozTxList(page, PAGE_COUNT);
@@ -101,6 +103,31 @@ class WalletHistoryScreen extends Component {
             isData: page === 1 && txList.length === 0 ? false : true,
             page: page + 1,
         });
+    };
+
+    copyMap = (map) => {
+        if (!map) {
+            return map;
+        }
+
+        var newMap = map.constructor();
+
+        for (var attr in map) {
+            if (map.hasOwnProperty(attr)) {
+                newMap[attr] = map[attr];
+            }
+        }
+
+        return newMap;
+    };
+
+    copyArray = (array) => {
+        let newAray = [];
+        for (let i = 0; i < array.length; i++) {
+            newAray.push(this.copyMap(array[i]));
+        }
+
+        return newAray;
     };
 
     getAddressData = () => {

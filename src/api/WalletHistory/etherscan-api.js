@@ -58,7 +58,7 @@ export const getRozTxList = async (page, offset) => {
 };
 
 // txList를 redux store에 넣기 위해 storeFunc을 직접 받음.
-export const getTxList = async (page, offset, storeFunc) => {
+export const getTxList = async (page, offset) => {
     let txList = [];
 
     let ethTxList = await getEthTxList();
@@ -70,10 +70,6 @@ export const getTxList = async (page, offset, storeFunc) => {
     txList.sort((a, b) => {
         return a.ts > b.ts ? -1 : a.ts < b.ts ? 1 : 0;
     });
-
-    if (storeFunc) {
-        storeFunc(copyArray(txList));
-    }
 
     if (Global.PROD_MODE === 'DEV') {
         console.log('getTxList: suc');
@@ -111,29 +107,4 @@ export const getTxListByAddress = async (page, offset, address) => {
         console.log('getTxListByAddress: suc');
     }
     return newTxList.slice((page - 1) * offset, page * offset);
-};
-
-const copyMap = (map) => {
-    if (!map) {
-        return map;
-    }
-
-    var newMap = map.constructor();
-
-    for (var attr in map) {
-        if (map.hasOwnProperty(attr)) {
-            newMap[attr] = map[attr];
-        }
-    }
-
-    return newMap;
-};
-
-const copyArray = (array) => {
-    let newAray = [];
-    for (let i = 0; i < array.length; i++) {
-        newAray.push(copyMap(array[i]));
-    }
-
-    return newAray;
 };

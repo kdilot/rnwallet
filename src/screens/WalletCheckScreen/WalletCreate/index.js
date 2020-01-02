@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as walletActions from 'modules/WalletReducer';
 import { Text, View, TextInput, Clipboard, Alert, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import ButtonComponent from 'components/ButtonComponent';
+import { ethers } from 'ethers';
+import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class WalletCreate extends Component {
+const MNEMONIC = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16), ethers.wordlists.en);
+
+class WalletCreate extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            text: ['seal', 'economist', 'compact', 'concept', 'screw', 'celebration', 'poison', 'articulate', 'create', 'great', 'sheep', 'translate'],
+            text: MNEMONIC.split(' '),
+            wallet: ethers.Wallet.fromMnemonic(MNEMONIC),
+            privateKey: null,
+            address: null,
             shuffleText: [],
             createDisable: true,
             randomNumber: Math.floor(Math.random() * 12) + 1,
@@ -20,6 +30,15 @@ export default class WalletCreate extends Component {
     componentDidMount = () => {
         const { text } = this.state;
         this.shuffleWords(text);
+        this.setWalletInfo();
+    };
+
+    setWalletInfo = () => {
+        const { wallet } = this.state;
+        this.setState({
+            privateKey: wallet.privateKey,
+            address: wallet.address,
+        });
     };
 
     onCopy = async () => {
@@ -28,10 +47,23 @@ export default class WalletCreate extends Component {
         await Alert.alert(text.join('   '));
     };
 
-    onCreate = () => {
+    onCreate = async () => {
         //  Token 생성 로직 추가
-        const { navigation } = this.props;
-        navigation.navigate('Home');
+        const { address, privateKey } = this.state;
+        const { navigation, walletAction } = this.props;
+        if (address) {
+            const wallet = {
+                //  임시
+                name: '이더리움',
+                coinType: 'ETH',
+                symbol: 'ETH',
+                address: address,
+            };
+            await RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
+                await walletAction.setWalletAddress(wallet);
+                await navigation.navigate('Home');
+            });
+        }
     };
 
     checkWord = value => {
@@ -73,7 +105,11 @@ export default class WalletCreate extends Component {
                 <View style={styles.confirmLayout}>
                     <View style={styles.confirmTextLayout}>
                         <Text>{lang.createSaveTextMsg}</Text>
-                        <Text>{lang.createConfirmWordMsgOne}{` [ ${randomNumber} ] `}{lang.createConfirmWordMsgTwo}</Text>
+                        <Text>
+                            {lang.createConfirmWordMsgOne}
+                            {` [ ${randomNumber} ] `}
+                            {lang.createConfirmWordMsgTwo}
+                        </Text>
                     </View>
                     <View style={styles.confirmGridLayout}>
                         <FlatGrid
@@ -100,6 +136,9 @@ export default class WalletCreate extends Component {
 }
 
 WalletCreate.proptypes = {
+    wallet: PropTypes.object,
+    privateKey: PropTypes.string,
+    address: PropTypes.string,
     text: PropTypes.array,
     shuffleText: PropTypes.array,
     createDisable: PropTypes.bool,
@@ -107,4 +146,14 @@ WalletCreate.proptypes = {
     onCopy: PropTypes.func,
     checkWord: PropTypes.func,
     shuffleWords: PropTypes.func,
+    setWalletInfo: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        walletStore: state.WalletReducer,
+    }),
+    dispatch => ({
+        walletAction: bindActionCreators(walletActions, dispatch),
+    }),
+)(WalletCreate);

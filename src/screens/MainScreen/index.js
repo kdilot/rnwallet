@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import styles from './styles';
 
 import WalletInfoComponent from 'components/WalletInfoComponent';
-import PlaceholderLayout from './PlaceholderLayout';
 
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
@@ -31,7 +30,7 @@ class MainScreen extends PureComponent {
     componentDidMount() {
         const { navigation } = this.props;
 
-        this.focusListener = navigation.addListener('didFocus', async (payload) => {
+        this.focusListener = navigation.addListener('didFocus', async payload => {
             this.loadInitDatas();
         });
     }
@@ -45,11 +44,11 @@ class MainScreen extends PureComponent {
             isEthLoad: false,
             isRozLoad: false,
         });
-        this.getTxList().then((txList) => {
+        this.getTxList().then(txList => {
             this.setTxListToStore(txList);
         });
 
-        this.getAddressBookMap().then((addressBookMap) => {
+        this.getAddressBookMap().then(addressBookMap => {
             this.setAddressBookMapToStore(addressBookMap);
         });
 
@@ -86,6 +85,9 @@ class MainScreen extends PureComponent {
     }
 
     async getEthBalance() {
+        this.setState({
+            isEthLoad: false,
+        });
         let ethBalance = await etherApi.getEthBalance();
 
         if (!ethBalance) {
@@ -100,6 +102,9 @@ class MainScreen extends PureComponent {
     }
 
     async getRozBalance() {
+        this.setState({
+            isRozLoad: false,
+        });
         let rozBalance = await etherApi.getRozBalance();
 
         if (!rozBalance) {
@@ -119,18 +124,18 @@ class MainScreen extends PureComponent {
         const { ethBalance, rozBalance, isEthLoad, isRozLoad } = this.state;
         return (
             <View style={styles.container}>
-                {isEthLoad ? <WalletInfoComponent navigation={navigation} value={rozBalance} /> : <PlaceholderLayout />}
-                {isRozLoad ? <WalletInfoComponent navigation={navigation} logo={'logo-github'} name={'Ethereum'} coin={'ETH'} value={ethBalance} /> : <PlaceholderLayout />}
+                <WalletInfoComponent navigation={navigation} isLoad={isRozLoad} refresh={() => this.getRozBalance()} value={rozBalance} />
+                <WalletInfoComponent navigation={navigation} isLoad={isEthLoad} refresh={() => this.getEthBalance()} logo={'logo-github'} name={'Ethereum'} coin={'ETH'} value={ethBalance} />
             </View>
         );
     }
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         walletStore: state.WalletReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         txListAction: bindActionCreators(txListActions, dispatch),
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         walletAction: bindActionCreators(walletActions, dispatch),

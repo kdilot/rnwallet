@@ -10,47 +10,41 @@ import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const MNEMONIC = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16), ethers.wordlists.en);
-
 class WalletCreate extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            text: MNEMONIC.split(' '),
-            wallet: ethers.Wallet.fromMnemonic(MNEMONIC),
-            privateKey: null,
-            address: null,
-            shuffleText: [],
             createDisable: true,
             randomNumber: Math.floor(Math.random() * 12) + 1,
         };
     }
 
     componentDidMount = () => {
-        const { text } = this.state;
-        this.shuffleWords(text);
-        this.setWalletInfo();
-    };
-
-    setWalletInfo = () => {
-        const { wallet } = this.state;
-        this.setState({
-            privateKey: wallet.privateKey,
-            address: wallet.address,
-        });
+        const { walletAction } = this.props;
+        walletAction.setMnemonic();
     };
 
     onCopy = async () => {
-        const { text } = this.state;
-        await Clipboard.setString(text.join('   '));
-        await Alert.alert(text.join('   '));
+        const { mnemonic } = this.props.walletStore;
+        await Clipboard.setString(mnemonic);
+        await Alert.alert(mnemonic);
     };
 
-    onCreate = () => {
+    onCreate = async () => {
         //  Token 생성 로직 추가
-        const { address, privateKey } = this.state;
+        await this.setState({ createDisable: true });
+        await setTimeout(() => {
+            this.onKeyStore();
+        }, 100);
+    };
+
+    onKeyStore = () => {
         const { navigation, walletAction } = this.props;
+        const { mnemonic } = this.props.walletStore;
+        const walletInfo = ethers.Wallet.fromMnemonic(mnemonic);
+        const address = walletInfo.address;
+        const privateKey = walletInfo.privateKey;
         if (address) {
             const wallet = {
                 //  임시
@@ -67,10 +61,11 @@ class WalletCreate extends Component {
     };
 
     checkWord = value => {
-        const { text, randomNumber, createDisable } = this.state;
+        const { randomNumber, createDisable } = this.state;
+        const { mnemonic } = this.props.walletStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         if (createDisable) {
-            if (text[randomNumber - 1] === value) {
+            if (mnemonic.split(' ')[randomNumber - 1] === value) {
                 this.setState({ createDisable: false });
                 Alert.alert(lang.pressCreateMsg);
             } else {
@@ -79,25 +74,14 @@ class WalletCreate extends Component {
         }
     };
 
-    shuffleWords = array => {
-        let arr = array.slice();
-        let j, x, i;
-        for (i = arr.length; i; i -= 1) {
-            j = Math.floor(Math.random() * i);
-            x = arr[i - 1];
-            arr[i - 1] = arr[j];
-            arr[j] = x;
-        }
-        this.setState({ shuffleText: arr });
-    };
-
     render() {
-        const { text, createDisable, randomNumber, shuffleText } = this.state;
+        const { createDisable, randomNumber } = this.state;
+        const { mnemonic, shuffleMnemonic } = this.props.walletStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <View style={styles.textareaLayout}>
-                    <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={text.join('   ')} />
+                    <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
                 </View>
                 <View style={styles.buttonLayout}>
                     <ButtonComponent name={lang.copy} outline={true} onPress={this.onCopy} />
@@ -113,7 +97,7 @@ class WalletCreate extends Component {
                     </View>
                     <View style={styles.confirmGridLayout}>
                         <FlatGrid
-                            items={shuffleText}
+                            items={shuffleMnemonic}
                             spacing={12}
                             itemDimension={(Dimensions.get('window').width - 50) / 4}
                             renderItem={({ item, index }) => (
@@ -139,14 +123,13 @@ WalletCreate.proptypes = {
     wallet: PropTypes.object,
     privateKey: PropTypes.string,
     address: PropTypes.string,
-    text: PropTypes.array,
-    shuffleText: PropTypes.array,
+    mnemonic: PropTypes.string,
+    shuffleMnemonic: PropTypes.array,
     createDisable: PropTypes.bool,
     randomNumber: PropTypes.number,
     onCopy: PropTypes.func,
     checkWord: PropTypes.func,
-    shuffleWords: PropTypes.func,
-    setWalletInfo: PropTypes.func,
+    onKeyStore: PropTypes.func,
 };
 
 export default connect(

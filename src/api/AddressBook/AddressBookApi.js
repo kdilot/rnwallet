@@ -66,9 +66,8 @@ export const setAddressBookApi = async (param) => {
     }
 };
 
-export const convertTxListToAddressBookList = async (txList) => {
+export const convertTxListToAddressBookList = async (txList, addressBookMap) => {
     let newTxList = copyArray(txList);
-    let addressBookMap = await getAddressBookMap(Global.USER_ETH_ADDRESS);
     etherApi.setNickname(newTxList, addressBookMap);
 
     let addressMap = {};

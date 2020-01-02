@@ -8,10 +8,8 @@ import AddressBookComponent from 'components/AddressBookComponent';
 import Placeholderlayout from './PlaceholderLayout';
 import styles from './styles';
 
-import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
-import * as Global from 'constants/Global';
 
 class AddressBookScreen extends Component {
     constructor(props) {
@@ -30,29 +28,36 @@ class AddressBookScreen extends Component {
             this.setState({ addressBookLoad: false });
             this.getData();
         });
-        this.setAddressBookMap();
     }
 
     componentWillUnmount = () => {
         this.focusListener.remove();
     };
 
-    async getData() {
-        const { txListStore } = this.props;
-        let addressBookList = await addressBookApi.convertTxListToAddressBookList(txListStore.list);
-        this.setState({ addressBookList: addressBookList, addressBookLoad: true });
+    componentDidUpdate(nextProps, nextState) {
+        if (nextProps.txListStore && this.isUpdatedTxList(nextProps.txListStore.list)) {
+            this.getData();
+        }
     }
 
-    setAddressBookMap() {
-        const { addressBookAction } = this.props;
+    isUpdatedTxList(txList) {
+        const { txListStore } = this.props;
 
-        addressBookApi.getAddressBookMap(Global.USER_ETH_ADDRESS).then((addressBookMap) => {
-            if (addressBookMap === {}) {
-                return;
+        let oldTxList = txListStore.list;
+
+        for (let i = 0; i < txList.length; i++) {
+            if (txList[i] !== oldTxList[i]) {
+                return true;
             }
-            addressBookAction.setAddressBook(addressBookMap);
-            this.setState({ addressBookLoad: true });
-        });
+        }
+
+        return false;
+    }
+
+    async getData() {
+        const { txListStore, addressBookStore } = this.props;
+        let addressBookList = await addressBookApi.convertTxListToAddressBookList(txListStore.list, addressBookStore.map);
+        this.setState({ addressBookList: addressBookList, addressBookLoad: true });
     }
 
     render() {
@@ -85,10 +90,9 @@ AddressBookScreen.proptpes = {
 export default connect(
     (state) => ({
         txListStore: state.TxListReducer,
-        addressStore: state.AddressBookReducer,
+        addressBookStore: state.AddressBookReducer,
     }),
     (dispatch) => ({
-        txListAction: bindActionCreators(txListActions, dispatch),
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
     }),
 )(AddressBookScreen);

@@ -41,17 +41,16 @@ class WalletHistoryScreen extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', async payload => {
+        this.focusListener = navigation.addListener('didFocus', async (payload) => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
                 const { itemType, address } = payload.state.params;
-                await this.setState({ addressBookShow: false, itemType, address, data: [] });
-                await this.getAddressData();
+                this.setState({ addressBookShow: false, itemType, address, data: [] });
+                this.getAddressData();
             } else {
-                await this.getData(ITEMTYPE_ALL, 1);
+                this.getData(ITEMTYPE_ALL, 1);
             }
         });
-        this.getData(ITEMTYPE_ALL, 1);
     }
 
     componentWillUnmount = () => {
@@ -107,8 +106,8 @@ class WalletHistoryScreen extends Component {
         this.getData(ITEMTYPE_ADDRESSBOOK, 1);
     };
 
-    setType = itemType => {
-        const { txListStore } = this.props;
+    setType = (itemType) => {
+        const { txListStore, addressBookStore } = this.props;
 
         this.setState({
             itemType: itemType,
@@ -117,7 +116,7 @@ class WalletHistoryScreen extends Component {
         });
 
         if (itemType === ITEMTYPE_ADDRESSBOOK) {
-            convertTxListToAddressBookList(txListStore.list).then(addressBookList => {
+            convertTxListToAddressBookList(txListStore.list, addressBookStore.map).then((addressBookList) => {
                 this.setState({
                     addressBookList: addressBookList,
                 });
@@ -128,7 +127,7 @@ class WalletHistoryScreen extends Component {
         this.getData(itemType, 1);
     };
 
-    onActiveMini = address => {
+    onActiveMini = (address) => {
         this.setState({ addressBookShow: false, address: address }, () => {
             this.getData(ITEMTYPE_ADDRESSBOOK, 1);
         });
@@ -238,11 +237,11 @@ WalletHistoryScreen.proptpes = {
 };
 
 export default connect(
-    state => ({
+    (state) => ({
         addressBookStore: state.AddressBookReducer,
         txListStore: state.TxListReducer,
     }),
-    dispatch => ({
+    (dispatch) => ({
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         txListAction: bindActionCreators(txListActions, dispatch),
     }),

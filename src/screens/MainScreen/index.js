@@ -1,9 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { View } from 'react-native';
-import WalletInfoComponent from 'components/WalletInfoComponent';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import styles from './styles';
 
-export default class MainScreen extends Component {
+import WalletInfoComponent from 'components/WalletInfoComponent';
+
+import * as txListActions from 'modules/TxListReducer';
+import * as addressBookActions from 'modules/AddressBookReducer';
+import * as etherApi from 'api/WalletHistory/etherscan-api';
+import * as addressBookApi from 'api/AddressBook/AddressBookApi';
+import * as Global from 'constants/Global';
+
+class MainScreen extends PureComponent {
+    constructor(props) {
+        super(props);
+
+        this._loadInitDatas();
+    }
+
+    _loadInitDatas() {
+        this._getTxList().then((txList) => {
+            this._setTxListToStore(txList);
+        });
+
+        this._getAddressBookMap().then((addressBookMap) => {
+            this._setAddressBookMapToStore(addressBookMap);
+        });
+    }
+
+    _getTxList() {
+        return etherApi.getTxList(1, 10000, undefined);
+    }
+
+    _setTxListToStore(txList) {
+        let { txListAction } = this.props;
+
+        if (!Array.isArray(txList) || txList.length === 0) {
+            return;
+        }
+
+        txListAction.setAllTxList(txList);
+    }
+
+    _getAddressBookMap() {
+        return addressBookApi.getAddressBookMap(Global.USER_ETH_ADDRESS);
+    }
+
+    _setAddressBookMapToStore(addressBookMap) {
+        let { addressBookAction } = this.props;
+
+        if (!addressBookMap || addressBookMap === {}) {
+            return;
+        }
+
+        addressBookAction.setAddressBook(addressBookMap);
+    }
+
     render() {
         const { navigation } = this.props;
         return (
@@ -14,3 +68,11 @@ export default class MainScreen extends Component {
         );
     }
 }
+
+export default connect(
+    (state) => ({}),
+    (dispatch) => ({
+        txListAction: bindActionCreators(txListActions, dispatch),
+        addressBookAction: bindActionCreators(addressBookActions, dispatch),
+    }),
+)(MainScreen);

@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
-import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import { dividerLightColor, dividerDarkColor } from 'constants/Color';
 import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
+
+import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 
 class AddressBookComponent extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class AddressBookComponent extends Component {
         };
     }
 
-    onChange = text => {
+    onChange = (text) => {
         this.setState({ nickname: text });
     };
 
@@ -30,7 +31,7 @@ class AddressBookComponent extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         const { nickname } = this.state;
 
-        setAddressBookApi({ address, nickname }).then(addressBookMap => {
+        addressBookApi.setAddressBookApi({ address, nickname }).then((addressBookMap) => {
             if (!addressBookMap || addressBookMap === {}) {
                 return;
             }
@@ -53,7 +54,7 @@ class AddressBookComponent extends Component {
                 <CardView cardElevation={5} cornerRadius={0} style={styles.cardLayout}>
                     <View style={styles.textLayout}>
                         <View style={[styles.textInputLayout, styles.borderColor(dividerLightColor)]}>
-                            <TextInput value={nickname ? nickname : address} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
+                            <TextInput value={nickname ? nickname : address} keyboardType={'default'} onChangeText={(text) => this.onChange(text)} />
                         </View>
                         <View>
                             <Text style={styles.addressTextStyle} numberOfLines={1} ellipsizeMode="middle">
@@ -82,10 +83,8 @@ AddressBookComponent.propTypes = {
 };
 
 export default connect(
-    state => ({
-        addressBookStore: state.AddressBookReducer,
-    }),
-    dispatch => ({
+    (state) => ({}),
+    (dispatch) => ({
         AddressAction: bindActionCreators(addressActions, dispatch),
     }),
 )(AddressBookComponent);

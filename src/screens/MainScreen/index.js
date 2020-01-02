@@ -20,7 +20,6 @@ class MainScreen extends PureComponent {
     }
 
     componentDidMount() {
-        console.log(this.props.walletStore);
         this._loadInitDatas();
     }
 

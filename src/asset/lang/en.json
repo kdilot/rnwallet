@@ -31,5 +31,6 @@
     "customerService": "Customer Service",
     "walletHistory": "Wallet History",
     "homepage": "Hompage",
-    "setting": "Setting"
+    "setting": "Setting",
+    "mnemonicMsg": "Wrong mnemonics."
 }

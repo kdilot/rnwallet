@@ -32,7 +32,6 @@ class WalletCreate extends Component {
     };
 
     onCreate = async () => {
-        //  Token 생성 로직 추가
         await this.setState({ createDisable: true });
         await setTimeout(() => {
             this.onKeyStore();
@@ -40,23 +39,29 @@ class WalletCreate extends Component {
     };
 
     onKeyStore = () => {
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const { navigation, walletAction } = this.props;
         const { mnemonic } = this.props.walletStore;
-        const walletInfo = ethers.Wallet.fromMnemonic(mnemonic);
-        const address = walletInfo.address;
-        const privateKey = walletInfo.privateKey;
-        if (address) {
-            const wallet = {
-                //  임시
-                name: '이더리움',
-                coinType: 'ETH',
-                symbol: 'ETH',
-                address: address,
-            };
-            RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
-                await walletAction.setWalletAddress({ wallet, async: true });
-                await navigation.navigate('Home');
-            });
+        try {
+            const keys = ethers.Wallet.fromMnemonic(mnemonic);
+            const address = keys.address;
+            const privateKey = keys.privateKey;
+            if (address) {
+                const wallet = {
+                    //  임시
+                    name: '이더리움',
+                    coinType: 'ETH',
+                    symbol: 'ETH',
+                    address: address,
+                };
+                RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
+                    await walletAction.setWalletAddress({ wallet, async: true });
+                    await navigation.navigate('Home');
+                });
+            }
+        } catch (e) {
+            Alert.alert(lang.mnemonicMsg);
+            this.setState({ restoreDisable: false, text: null });
         }
     };
 

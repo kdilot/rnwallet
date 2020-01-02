@@ -24,15 +24,27 @@ class MainScreen extends PureComponent {
             ethBalance: 0,
             rozBalance: 0,
             isEthLoad: false,
-            isRozLoading: false,
+            isRozLoad: false,
         };
     }
 
     componentDidMount() {
-        this.loadInitDatas();
+        const { navigation } = this.props;
+
+        this.focusListener = navigation.addListener('didFocus', async payload => {
+            this.loadInitDatas();
+        });
+    }
+
+    componentWillUnmount() {
+        this.focusListener.remove();
     }
 
     loadInitDatas() {
+        this.setState({
+            isEthLoad: false,
+            isRozLoad: false,
+        });
         this.getTxList().then(txList => {
             this.setTxListToStore(txList);
         });

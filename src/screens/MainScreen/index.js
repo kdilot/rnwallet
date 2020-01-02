@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,6 +9,7 @@ import WalletInfoComponent from 'components/WalletInfoComponent';
 
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
+import * as walletActions from 'modules/WalletReducer';
 import * as etherApi from 'api/WalletHistory/etherscan-api';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
@@ -16,16 +17,19 @@ import * as Global from 'constants/Global';
 class MainScreen extends PureComponent {
     constructor(props) {
         super(props);
+    }
 
+    componentDidMount() {
+        console.log(this.props.walletStore);
         this._loadInitDatas();
     }
 
     _loadInitDatas() {
-        this._getTxList().then((txList) => {
+        this._getTxList().then(txList => {
             this._setTxListToStore(txList);
         });
 
-        this._getAddressBookMap().then((addressBookMap) => {
+        this._getAddressBookMap().then(addressBookMap => {
             this._setAddressBookMapToStore(addressBookMap);
         });
     }
@@ -70,9 +74,12 @@ class MainScreen extends PureComponent {
 }
 
 export default connect(
-    (state) => ({}),
-    (dispatch) => ({
+    state => ({
+        walletStore: state.WalletReducer,
+    }),
+    dispatch => ({
         txListAction: bindActionCreators(txListActions, dispatch),
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
+        walletAction: bindActionCreators(walletActions, dispatch),
     }),
 )(MainScreen);

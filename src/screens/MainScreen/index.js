@@ -31,7 +31,7 @@ class MainScreen extends PureComponent {
     componentDidMount() {
         const { navigation } = this.props;
 
-        this.focusListener = navigation.addListener('didFocus', async payload => {
+        this.focusListener = navigation.addListener('didFocus', async (payload) => {
             this.loadInitDatas();
         });
     }
@@ -45,21 +45,16 @@ class MainScreen extends PureComponent {
             isEthLoad: false,
             isRozLoad: false,
         });
-        this.getTxList().then(txList => {
+        this.getTxList().then((txList) => {
             this.setTxListToStore(txList);
         });
 
-        this.getAddressBookMap().then(addressBookMap => {
+        this.getAddressBookMap().then((addressBookMap) => {
             this.setAddressBookMapToStore(addressBookMap);
         });
 
-        this.getEthBalance().then(ethBalance => {
-            this.setEthBalance(ethBalance);
-        });
-
-        this.getRozBalance().then(rozBalance => {
-            this.setRozBalance(rozBalance);
-        });
+        this.getEthBalance();
+        this.getRozBalance();
     }
 
     getTxList() {
@@ -92,10 +87,12 @@ class MainScreen extends PureComponent {
 
     async getEthBalance() {
         let ethBalance = await etherApi.getEthBalance();
-        return etherjs.formatUnits(ethBalance, 18);
-    }
 
-    setEthBalance(ethBalance) {
+        if (!ethBalance) {
+            return;
+        }
+        ethBalance = etherjs.formatUnits(ethBalance, 18);
+
         this.setState({
             ethBalance: ethBalance,
             isEthLoad: true,
@@ -104,10 +101,13 @@ class MainScreen extends PureComponent {
 
     async getRozBalance() {
         let rozBalance = await etherApi.getRozBalance();
-        return etherjs.formatUnits(rozBalance, 8);
-    }
 
-    setRozBalance(rozBalance) {
+        if (!rozBalance) {
+            return 0;
+        }
+
+        rozBalance = etherjs.formatUnits(rozBalance, 8);
+
         this.setState({
             rozBalance: rozBalance,
             isRozLoad: true,
@@ -127,10 +127,10 @@ class MainScreen extends PureComponent {
 }
 
 export default connect(
-    state => ({
+    (state) => ({
         walletStore: state.WalletReducer,
     }),
-    dispatch => ({
+    (dispatch) => ({
         txListAction: bindActionCreators(txListActions, dispatch),
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         walletAction: bindActionCreators(walletActions, dispatch),

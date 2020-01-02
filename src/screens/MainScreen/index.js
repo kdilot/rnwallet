@@ -38,15 +38,13 @@ class MainScreen extends PureComponent {
             this.setAddressBookMapToStore(addressBookMap);
         });
 
-        setTimeout(() => {
-            this.getEthBalance().then((ethBalance) => {
-                this.setEthBalance(ethBalance);
-            });
+        this.getEthBalance().then((ethBalance) => {
+            this.setEthBalance(ethBalance);
+        });
 
-            this.getRozBalance().then((rozBalance) => {
-                this.setRozBalance(rozBalance);
-            });
-        }, 3000);
+        this.getRozBalance().then((rozBalance) => {
+            this.setRozBalance(rozBalance);
+        });
     }
 
     getTxList() {

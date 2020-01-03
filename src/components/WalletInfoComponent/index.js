@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as walletActions from 'modules/WalletReducer';
 import { Text, View, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -6,10 +9,9 @@ import PlaceholderLayout from './PlaceholderLayout';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class WalletInfoComponent extends Component {
+class WalletInfoComponent extends Component {
     static defaultProps = {
         logo: 'logo-slack',
-        address: '0x8A52B2a07CE959B54c6dB876CBcb2850A35E37aB',
         name: 'Rozeus',
         coin: 'ROZ',
         value: 999,
@@ -22,12 +24,12 @@ export default class WalletInfoComponent extends Component {
     };
 
     onSend = () => {
-        const { navigation } = this.props;
-        navigation.navigate('Send');
+        const { navigation, coin } = this.props;
+        navigation.navigate('Send', { coin });
     };
 
     render() {
-        const { logo, address, name, coin, value, navigation, refresh, isLoad } = this.props;
+        const { logo, name, coin, value, navigation, refresh, isLoad } = this.props;
         const { lang } = navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
@@ -43,7 +45,7 @@ export default class WalletInfoComponent extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.contentAddressLayout}>
-                                <Text style={styles.addressTextStyle}>{address}</Text>
+                                <Text style={styles.addressTextStyle}>{this.props.walletStore.wallets.address}</Text>
                             </View>
                             <View style={styles.contentLayout}>
                                 <View style={styles.contentIconStyle}>
@@ -87,7 +89,6 @@ export default class WalletInfoComponent extends Component {
 
 WalletInfoComponent.proptypes = {
     logo: PropTypes.string,
-    address: PropTypes.string,
     name: PropTypes.string,
     coin: PropTypes.string,
     value: PropTypes.number,
@@ -96,3 +97,12 @@ WalletInfoComponent.proptypes = {
     refresh: PropTypes.func,
     navigation: PropTypes.object,
 };
+
+export default connect(
+    state => ({
+        walletStore: state.WalletReducer,
+    }),
+    dispatch => ({
+        walletAction: bindActionCreators(walletActions, dispatch),
+    }),
+)(WalletInfoComponent);

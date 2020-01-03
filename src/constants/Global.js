@@ -23,3 +23,44 @@ export const SETTING_MENU_LIST = [
 ];
 
 export const PROD_MODE = 'DEV';
+
+export const SEND_TYPE = {
+    ropsten: {
+        contractAddress: '0x60ac9c7a34dbe35e7392c20d9660cfb290bb485a',
+        abi: [
+            // balanceOf
+            {
+                constant: true,
+                inputs: [{ name: '_owner', type: 'address' }],
+                name: 'balanceOf',
+                outputs: [{ name: 'balance', type: 'uint256' }],
+                type: 'function',
+            },
+            // decimals
+            {
+                constant: true,
+                inputs: [],
+                name: 'decimals',
+                outputs: [{ name: '', type: 'uint8' }],
+                type: 'function',
+            },
+            {
+                name: 'transfer',
+                type: 'function',
+                inputs: [
+                    {
+                        name: '_to',
+                        type: 'address',
+                    },
+                    {
+                        type: 'uint256',
+                        name: '_tokens',
+                    },
+                ],
+                constant: false,
+                outputs: [],
+                payable: false,
+            },
+        ],
+    },
+};

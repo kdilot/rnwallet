@@ -1,41 +1,40 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Share, Clipboard, Alert } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as walletActions from 'modules/WalletReducer';
+import { View, Text, Dimensions, Share, Clipboard } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-// import Button from 'react-native-button';
 import ButtonComponent from 'components/ButtonComponent';
+import ToastComponent from 'components/ToastComponent';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class QrcodeText extends Component {
+class QrcodeText extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            text: 'Qrcode sample text data',
+            text: props.walletStore.wallets.address,
         };
     }
 
     onCopy = async () => {
         const { text } = this.state;
         await Clipboard.setString(text);
-        await Alert.alert(text);
+        this.toast.showToast(text);
     };
 
     onShare = async () => {
         const { text } = this.state;
-        Share.share({
-            message: text,
-        });
         try {
             const result = await Share.share({
                 message: text,
             });
-
             if (result.action === Share.sharedAction) {
-                Alert.alert(text);
+                this.toast.showToast(text);
             }
         } catch (error) {
-            Alert.alert(error.message);
+            this.toast.showToast(error.message);
         }
     };
 
@@ -44,6 +43,11 @@ export default class QrcodeText extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
+                <ToastComponent
+                    ref={ref => {
+                        this.toast = ref;
+                    }}
+                />
                 <View style={styles.qrLayout}>
                     <QRCode size={200} value={text} />
                     <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
@@ -62,3 +66,12 @@ QrcodeText.propTypes = {
     onCopy: PropTypes.func,
     onShare: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        walletStore: state.WalletReducer,
+    }),
+    dispatch => ({
+        walletAction: bindActionCreators(walletActions, dispatch),
+    }),
+)(QrcodeText);

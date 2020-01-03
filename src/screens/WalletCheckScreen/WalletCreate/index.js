@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View, TextInput, Clipboard, Alert, Dimensions } from 'react-native';
+import { Text, View, TextInput, Clipboard, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import ButtonComponent from 'components/ButtonComponent';
+import ToastComponent from 'components/ToastComponent';
 import { ethers } from 'ethers';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
@@ -27,8 +28,9 @@ class WalletCreate extends Component {
 
     onCopy = async () => {
         const { mnemonic } = this.props.walletStore;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         await Clipboard.setString(mnemonic);
-        await Alert.alert(mnemonic);
+        await this.toast.showToast(lang.mnemonicCopyMsg);
     };
 
     onCreate = async () => {
@@ -60,7 +62,7 @@ class WalletCreate extends Component {
                 });
             }
         } catch (e) {
-            Alert.alert(lang.mnemonicMsg);
+            this.toast.showToast(lang.mnemonicMsg);
             this.setState({ restoreDisable: false, text: null });
         }
     };
@@ -72,9 +74,9 @@ class WalletCreate extends Component {
         if (createDisable) {
             if (mnemonic.split(' ')[randomNumber - 1] === value) {
                 this.setState({ createDisable: false });
-                Alert.alert(lang.pressCreateMsg);
+                this.toast.showToast(lang.pressCreateMsg);
             } else {
-                Alert.alert(lang.checkAgainMsg);
+                this.toast.showToast(lang.checkAgainMsg);
             }
         }
     };
@@ -119,6 +121,11 @@ class WalletCreate extends Component {
                 <View style={styles.buttonLayout}>
                     <ButtonComponent name={lang.create} disable={createDisable} onPress={this.onCreate} />
                 </View>
+                <ToastComponent
+                    ref={ref => {
+                        this.toast = ref;
+                    }}
+                />
             </View>
         );
     }

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
+import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import ButtonComponent from 'components/ButtonComponent';
+import ToastComponent from 'components/ToastComponent';
 import { ethers } from 'ethers';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
@@ -49,7 +50,7 @@ class WalletRestore extends Component {
                 });
             }
         } catch (e) {
-            Alert.alert(lang.mnemonicMsg);
+            this.toast.showToast(lang.mnemonicMsg);
             this.setState({ restoreDisable: false, text: null });
         }
     };
@@ -70,6 +71,11 @@ class WalletRestore extends Component {
                 <View style={styles.buttonLayout}>
                     <ButtonComponent name={lang.restore} disable={restoreDisable} onPress={this.onRestore} />
                 </View>
+                <ToastComponent
+                    ref={ref => {
+                        this.toast = ref;
+                    }}
+                />
             </KeyboardAvoidingView>
         );
     }

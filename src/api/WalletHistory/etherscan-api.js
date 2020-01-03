@@ -108,7 +108,7 @@ export const getTxList = async (page, offset) => {
     txList = txList.concat(rozTxList);
 
     txList.sort((a, b) => {
-        return a.ts > b.ts ? -1 : a.ts < b.ts ? 1 : 0;
+        return a.time > b.time ? -1 : a.time < b.time ? 1 : 0;
     });
 
     if (PROD_MODE === 'DEV') {

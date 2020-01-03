@@ -8,5 +8,6 @@ module.exports = {
         'no-trailing-spaces': 0,
         'self-closing-comp': 0,
         'react-hooks/exhaustive-deps': 0,
+        'dot-notation': 0,
     },
 };

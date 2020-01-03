@@ -1,7 +1,11 @@
 import * as Global from 'constants/Global';
 import * as etherApi from 'api/WalletHistory/etherscan-api';
 
-const convertAddressBookListToMap = async (addressBookList) => {
+const ROZEUS_WALLET_API_URI = Global.ROZEUS_WALLET_API_URI;
+const PROD_MODE = Global.PROD_MODE;
+const USER_ETH_ADDRESS = Global.USER_ETH_ADDRESS;
+
+const convertAddressBookListToMap = async addressBookList => {
     if (!Array.isArray(addressBookList)) {
         return {};
     }
@@ -14,14 +18,14 @@ const convertAddressBookListToMap = async (addressBookList) => {
     return addressBookMap;
 };
 
-export const getAddressBookMap = async (address) => {
+export const getAddressBookMap = async address => {
     if (!address) {
         return {};
     }
 
     let addressBookMap = {};
     try {
-        let fetchResult = await fetch(Global.ROZEUS_WALLET_API_URI + '/addressbookList?owner=' + address);
+        let fetchResult = await fetch(ROZEUS_WALLET_API_URI + '/addressbookList?owner=' + address);
         let result = await fetchResult.json();
 
         if (result.code !== 200 || !Array.isArray(result.data)) {
@@ -30,7 +34,7 @@ export const getAddressBookMap = async (address) => {
 
         addressBookMap = convertAddressBookListToMap(result.data);
 
-        if (Global.PROD_MODE === 'DEV') {
+        if (PROD_MODE === 'DEV') {
             console.log('getAddressBookMap: suc');
         }
     } catch (err) {
@@ -41,23 +45,23 @@ export const getAddressBookMap = async (address) => {
     return addressBookMap;
 };
 
-export const setAddressBookApi = async (param) => {
+export const setAddressBookApi = async param => {
     try {
-        const response = await fetch(Global.ROZEUS_WALLET_API_URI + '/addressbook', {
+        const response = await fetch(ROZEUS_WALLET_API_URI + '/addressbook', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(Object.assign(param, { owner: Global.USER_ETH_ADDRESS })), //  개인키 적용필요
+            body: JSON.stringify(Object.assign(param, { owner: USER_ETH_ADDRESS })), //  개인키 적용필요
         });
-        return response.json().then((res) => {
+        return response.json().then(res => {
             if (res.code === 200) {
-                if (Global.PROD_MODE === 'DEV') {
+                if (PROD_MODE === 'DEV') {
                     console.log('setAddressBookApi: suc');
                 }
 
-                return getAddressBookMap(Global.USER_ETH_ADDRESS);
+                return getAddressBookMap(USER_ETH_ADDRESS);
             }
         });
     } catch (e) {
@@ -93,14 +97,14 @@ export const convertTxListToAddressBookList = async (txList, addressBookMap) => 
         });
     }
 
-    if (Global.PROD_MODE === 'DEV') {
+    if (PROD_MODE === 'DEV') {
         console.log('convertTxListToAddressBookList: suc');
     }
 
     return addressBookList;
 };
 
-const copyMap = (map) => {
+const copyMap = map => {
     if (!map) {
         return map;
     }
@@ -115,7 +119,7 @@ const copyMap = (map) => {
 
     return newMap;
 };
-const copyArray = (array) => {
+const copyArray = array => {
     let newAray = [];
     for (let i = 0; i < array.length; i++) {
         newAray.push(copyMap(array[i]));

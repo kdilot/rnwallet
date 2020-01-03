@@ -26,13 +26,15 @@ class MainScreen extends PureComponent {
             isEthLoad: false,
             isRozLoad: false,
         };
+
+        this.loadInitDatas();
     }
 
     componentDidMount() {
         const { navigation } = this.props;
-
-        this.focusListener = navigation.addListener('didFocus', async (payload) => {
-            this.loadInitDatas();
+        this.focusListener = navigation.addListener('didFocus', async payload => {
+            this.getEthBalance();
+            this.getRozBalance();
         });
     }
 
@@ -45,11 +47,11 @@ class MainScreen extends PureComponent {
             isEthLoad: false,
             isRozLoad: false,
         });
-        this.getTxList().then((txList) => {
+        this.getTxList().then(txList => {
             this.setTxListToStore(txList);
         });
 
-        this.getAddressBookMap().then((addressBookMap) => {
+        this.getAddressBookMap().then(addressBookMap => {
             this.setAddressBookMapToStore(addressBookMap);
         });
 
@@ -127,10 +129,10 @@ class MainScreen extends PureComponent {
 }
 
 export default connect(
-    (state) => ({
+    state => ({
         walletStore: state.WalletReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         txListAction: bindActionCreators(txListActions, dispatch),
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
         walletAction: bindActionCreators(walletActions, dispatch),

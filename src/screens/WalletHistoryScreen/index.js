@@ -48,7 +48,7 @@ class WalletHistoryScreen extends Component {
                 this.setState({ addressBookShow: false, itemType, address, data: [] });
                 this.getAddressData();
             } else {
-                this.setState({ itemType: ITEMTYPE_ALL, data: [] });
+                this.setState({ itemType: ITEMTYPE_ALL, data: [], addressBookShow: false });
                 this.getData(ITEMTYPE_ALL, 1);
             }
         });
@@ -105,7 +105,7 @@ class WalletHistoryScreen extends Component {
         });
     };
 
-    copyMap = (map) => {
+    copyMap = map => {
         if (!map) {
             return map;
         }
@@ -121,7 +121,7 @@ class WalletHistoryScreen extends Component {
         return newMap;
     };
 
-    copyArray = (array) => {
+    copyArray = array => {
         let newAray = [];
         for (let i = 0; i < array.length; i++) {
             newAray.push(this.copyMap(array[i]));

@@ -2,12 +2,19 @@ import * as etherApi from 'etherscan-api';
 import { Tx } from 'model/Tx';
 import * as Global from 'constants/Global';
 
-const ethClient = etherApi.init(Global.ETHSCAN_IO_API_KEY, Global.ETH_NETWORK_MODE, 3000);
+const USER_ETH_ADDRESS = Global.USER_ETH_ADDRESS;
+const ETH_NETWORK_MODE = Global.ETH_NETWORK_MODE;
+const ETHSCAN_IO_API_KEY = Global.ETHSCAN_IO_API_KEY;
+const ROZ_CONTRACT_ADDRESS = Global.ROZ_CONTRACT_ADDRESS;
+const EHT_START_BLOCK = Global.EHT_START_BLOCK;
+const PROD_MODE = Global.PROD_MODE;
+
+const ethClient = etherApi.init(ETHSCAN_IO_API_KEY, ETH_NETWORK_MODE, 3000);
 
 export const getEthBalance = async () => {
     let ethBalance = 0;
     try {
-        let result = await ethClient.account.balance(Global.USER_ETH_ADDRESS);
+        let result = await ethClient.account.balance(USER_ETH_ADDRESS);
         if (!result || result.message !== 'OK' || !result.result) {
             return 0;
         }
@@ -23,7 +30,7 @@ export const getEthBalance = async () => {
 export const getRozBalance = async () => {
     let rozBalance = 0;
     try {
-        let result = await ethClient.account.tokenbalance(Global.USER_ETH_ADDRESS, '', '0x60ac9c7a34dbe35e7392c20d9660cfb290bb485a');
+        let result = await ethClient.account.tokenbalance(USER_ETH_ADDRESS, '', ROZ_CONTRACT_ADDRESS);
 
         if (!result || result.message !== 'OK' || !result.result) {
             return 0;
@@ -40,7 +47,7 @@ export const getRozBalance = async () => {
 export const getEthTxList = async (page, offset) => {
     let txList = [];
     try {
-        let result = await ethClient.account.txlist(Global.USER_ETH_ADDRESS, Global.EHT_START_BLOCK, 'latest', page, offset, 'desc');
+        let result = await ethClient.account.txlist(USER_ETH_ADDRESS, EHT_START_BLOCK, 'latest', page, offset, 'desc');
 
         if (!result || result.message !== 'OK' || !Array.isArray(result.result)) {
             return [];
@@ -54,7 +61,7 @@ export const getEthTxList = async (page, offset) => {
             txList.push(Tx.formTxData(result.result[i]));
         }
 
-        if (Global.PROD_MODE === 'DEV') {
+        if (PROD_MODE === 'DEV') {
             console.log('getEthTxList: suc');
         }
     } catch (err) {
@@ -69,7 +76,7 @@ export const getEthTxList = async (page, offset) => {
 export const getRozTxList = async (page, offset) => {
     let txList = [];
     try {
-        let result = await ethClient.account.tokentx(Global.USER_ETH_ADDRESS, Global.ROZ_CONTRACT_ADDRESS, Global.EHT_START_BLOCK, 'latest', page, offset, 'desc');
+        let result = await ethClient.account.tokentx(USER_ETH_ADDRESS, ROZ_CONTRACT_ADDRESS, EHT_START_BLOCK, 'latest', page, offset, 'desc');
 
         if (!result || result.message !== 'OK' || !Array.isArray(result.result)) {
             return [];
@@ -79,7 +86,7 @@ export const getRozTxList = async (page, offset) => {
             txList.push(Tx.formTxData(result.result[i]));
         }
 
-        if (Global.PROD_MODE === 'DEV') {
+        if (PROD_MODE === 'DEV') {
             console.log('getRozTxList: suc');
         }
     } catch (err) {
@@ -94,8 +101,8 @@ export const getRozTxList = async (page, offset) => {
 export const getTxList = async (page, offset) => {
     let txList = [];
 
-    let ethTxList = await getEthTxList();
-    let rozTxList = await getRozTxList();
+    let ethTxList = await getEthTxList(1, 10000);
+    let rozTxList = await getRozTxList(1, 10000);
 
     txList = txList.concat(ethTxList);
     txList = txList.concat(rozTxList);
@@ -104,7 +111,7 @@ export const getTxList = async (page, offset) => {
         return a.ts > b.ts ? -1 : a.ts < b.ts ? 1 : 0;
     });
 
-    if (Global.PROD_MODE === 'DEV') {
+    if (PROD_MODE === 'DEV') {
         console.log('getTxList: suc');
     }
 
@@ -120,7 +127,7 @@ export const setNickname = (txList, addressBookMap) => {
         txList[i].nickname = txList[i].send ? addressBookMap[txList[i].to] : addressBookMap[txList[i].from];
     }
 
-    if (Global.PROD_MODE === 'DEV') {
+    if (PROD_MODE === 'DEV') {
         console.log('setNickname: suc');
     }
 };
@@ -136,7 +143,7 @@ export const getTxListByAddress = async (page, offset, address) => {
         }
     }
 
-    if (Global.PROD_MODE === 'DEV') {
+    if (PROD_MODE === 'DEV') {
         console.log('getTxListByAddress: suc');
     }
     return newTxList.slice((page - 1) * offset, page * offset);

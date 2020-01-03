@@ -25,13 +25,15 @@ class MainScreen extends PureComponent {
             isEthLoad: false,
             isRozLoad: false,
         };
+
+        this.loadInitDatas();
     }
 
     componentDidMount() {
         const { navigation } = this.props;
-
         this.focusListener = navigation.addListener('didFocus', async payload => {
-            this.loadInitDatas();
+            this.getEthBalance();
+            this.getRozBalance();
         });
     }
 

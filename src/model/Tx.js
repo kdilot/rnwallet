@@ -1,6 +1,8 @@
 import * as etherjs from 'api/etherjs';
 import { plusColor, minusColor } from 'constants/Color';
 import moment from 'moment';
+require('moment-timezone');
+moment.tz.setDefault('Asia/Seoul');
 
 // 추후 전역 저장소에서 불러와서 사용.
 const USER_ETH_ADDRESS = '0xbde7cd1b49eaac57373eaf5b1e9a9D588f3e456d';
@@ -15,7 +17,7 @@ export class Tx {
     status; // number. only for ETH
     contractAddress; // string. only for ERC20
 
-    static formTxData = (tx) => {
+    static formTxData = tx => {
         if (!tx) {
             return undefined;
         }

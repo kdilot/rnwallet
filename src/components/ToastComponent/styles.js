@@ -10,5 +10,5 @@ export default StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 15,
     },
-    textStyle: { color: 'white', fontSize: 13 },
+    textStyle: { color: 'white', fontSize: 14 },
 });

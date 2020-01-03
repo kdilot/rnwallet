@@ -5,7 +5,7 @@ export default StyleSheet.create({
         position: 'absolute',
         zIndex: 9999,
         height: 50,
-        backgroundColor: '#b4b4b4',
+        backgroundColor: '#454547',
         alignItems: 'flex-start',
         justifyContent: 'center',
         paddingHorizontal: 15,

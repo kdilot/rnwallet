@@ -32,5 +32,6 @@
     "walletHistory": "Wallet History",
     "homepage": "Hompage",
     "setting": "Setting",
-    "mnemonicMsg": "Wrong mnemonics."
+    "mnemonicMsg": "Wrong mnemonics.",
+    "mnemonicCopyMsg": "Copied Mnemonics."
 }

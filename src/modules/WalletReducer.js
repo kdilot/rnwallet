@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 import AsyncStorage from '@react-native-community/async-storage';
-import { ethers } from 'ethers';
+import { entropyToMnemonic } from 'api/etherjs';
 
 //  Actions Type
 export const SET_WALLET_ADDRESS = 'wallet/SET_WALLET_ADDRESS';
@@ -46,7 +46,7 @@ export default handleActions(
             }),
         [SET_MNEMONIC]: (state, action) =>
             produce(state, draft => {
-                const mnemonic = ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16), ethers.wordlists.en);
+                const mnemonic = entropyToMnemonic();
                 draft.mnemonic = mnemonic;
                 draft.shuffleMnemonic = shuffleWords(mnemonic.split(' '));
             }),

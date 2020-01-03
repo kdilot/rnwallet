@@ -6,7 +6,7 @@ import { Text, View, TextInput, Clipboard, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
-import { ethers } from 'ethers';
+import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -45,15 +45,11 @@ class WalletCreate extends Component {
         const { navigation, walletAction } = this.props;
         const { mnemonic } = this.props.walletStore;
         try {
-            const keys = ethers.Wallet.fromMnemonic(mnemonic);
+            const keys = fromMnemonic(mnemonic);
             const address = keys.address;
             const privateKey = keys.privateKey;
             if (address) {
                 const wallet = {
-                    //  임시
-                    name: '이더리움',
-                    coinType: 'ETH',
-                    symbol: 'ETH',
                     address: address,
                 };
                 RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
@@ -63,7 +59,7 @@ class WalletCreate extends Component {
             }
         } catch (e) {
             this.toast.showToast(lang.mnemonicMsg);
-            this.setState({ restoreDisable: false, text: null });
+            this.setState({ createDisable: false, text: null });
         }
     };
 

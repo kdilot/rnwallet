@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as walletActions from 'modules/WalletReducer';
 import { View, Text, Dimensions, Share, Clipboard } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
+import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-class QrcodeText extends Component {
+export default class QrcodeText extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            text: props.walletStore.wallets.address,
+            text: USER_ETH_ADDRESS,
         };
     }
 
@@ -66,12 +64,3 @@ QrcodeText.propTypes = {
     onCopy: PropTypes.func,
     onShare: PropTypes.func,
 };
-
-export default connect(
-    state => ({
-        walletStore: state.WalletReducer,
-    }),
-    dispatch => ({
-        walletAction: bindActionCreators(walletActions, dispatch),
-    }),
-)(QrcodeText);

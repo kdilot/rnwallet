@@ -1,13 +1,13 @@
 import * as etherApi from 'etherscan-api';
 import { Tx } from 'model/Tx';
-import * as Global from 'constants/Global';
+import { USER_ETH_ADDRESS, ETH_NETWORK_MODE, ETHSCAN_IO_API_KEY, ROZ_CONTRACT_ADDRESS, EHT_START_BLOCK, PROD_MODE } from 'constants/Global';
 
-const USER_ETH_ADDRESS = Global.USER_ETH_ADDRESS;
-const ETH_NETWORK_MODE = Global.ETH_NETWORK_MODE;
-const ETHSCAN_IO_API_KEY = Global.ETHSCAN_IO_API_KEY;
-const ROZ_CONTRACT_ADDRESS = Global.ROZ_CONTRACT_ADDRESS;
-const EHT_START_BLOCK = Global.EHT_START_BLOCK;
-const PROD_MODE = Global.PROD_MODE;
+// const USER_ETH_ADDRESS = Global.USER_ETH_ADDRESS;
+// const ETH_NETWORK_MODE = Global.ETH_NETWORK_MODE;
+// const ETHSCAN_IO_API_KEY = Global.ETHSCAN_IO_API_KEY;
+// const ROZ_CONTRACT_ADDRESS = Global.ROZ_CONTRACT_ADDRESS;
+// const EHT_START_BLOCK = Global.EHT_START_BLOCK;
+// const PROD_MODE = Global.PROD_MODE;
 
 const ethClient = etherApi.init(ETHSCAN_IO_API_KEY, ETH_NETWORK_MODE, 3000);
 

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as walletActions from 'modules/WalletReducer';
 import { Text, View, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PlaceholderLayout from './PlaceholderLayout';
+import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-class WalletInfoComponent extends Component {
+export default class WalletInfoComponent extends Component {
     static defaultProps = {
         logo: 'logo-slack',
         name: 'Rozeus',
@@ -45,7 +43,7 @@ class WalletInfoComponent extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.contentAddressLayout}>
-                                <Text style={styles.addressTextStyle}>{this.props.walletStore.wallets.address}</Text>
+                                <Text style={styles.addressTextStyle}>{USER_ETH_ADDRESS}</Text>
                             </View>
                             <View style={styles.contentLayout}>
                                 <View style={styles.contentIconStyle}>
@@ -97,12 +95,3 @@ WalletInfoComponent.proptypes = {
     refresh: PropTypes.func,
     navigation: PropTypes.object,
 };
-
-export default connect(
-    state => ({
-        walletStore: state.WalletReducer,
-    }),
-    dispatch => ({
-        walletAction: bindActionCreators(walletActions, dispatch),
-    }),
-)(WalletInfoComponent);

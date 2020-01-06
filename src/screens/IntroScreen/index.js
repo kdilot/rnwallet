@@ -17,7 +17,7 @@ class IntroScreen extends Component {
         };
     }
     componentDidMount = async () => {
-        // AsyncStorage.removeItem('wallets');
+        // AsyncStorage.removeItem('walletAddress');
         await this.setWallet();
         await this.setSetting();
         await this.goToWalletIntro();

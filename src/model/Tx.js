@@ -32,8 +32,8 @@ export class Tx {
 
             formedTx = {
                 send: send,
-                circleColor: send ? plusColor : minusColor,
-                lineColor: send ? plusColor : minusColor,
+                circleColor: send ? minusColor : plusColor,
+                lineColor: send ? minusColor : plusColor,
                 hash: tx.hash,
                 nickname: '',
                 from: tx.from,

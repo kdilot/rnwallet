@@ -29,7 +29,6 @@ export default class WalletInfoComponent extends Component {
 
     render() {
         const { icon, name, coin, value, navigation, refresh, isLoad } = this.props;
-        console.log(icon);
         const { lang } = navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>

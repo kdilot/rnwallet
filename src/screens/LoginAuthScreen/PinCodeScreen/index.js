@@ -25,12 +25,24 @@ export default class PinCode extends Component {
             newPinNumber: null, // Async 키 정보
             isCount: 1,
             status: props.status,
+            sendData: {},
         };
     }
 
     componentDidMount() {
+        const { navigation } = this.props;
         this.getPin();
+        this.focusListener = navigation.addListener('didFocus', payload => {
+            if (payload.state.params) {
+                const { sendData } = payload.state.params;
+                this.setState({ sendData: sendData });
+            }
+        });
     }
+
+    componentWillUnmount = () => {
+        this.focusListener.remove();
+    };
 
     shouldComponentUpdate(nextProps, nextState) {
         const { maxPin, maxCount } = this.props;
@@ -61,7 +73,8 @@ export default class PinCode extends Component {
             }
         } else if (nextState.pinNumber.length === maxPin && status === ACCESS_PIN) {
             if (confirmPinNumber === newPinNumber) {
-                this.props.navigation.navigate('Home');
+                const { sendData } = this.state;
+                this.props.navigation.navigate('Send', { sendData });
             } else {
                 this.setState({
                     pinNumber: RESET_ARRAY,

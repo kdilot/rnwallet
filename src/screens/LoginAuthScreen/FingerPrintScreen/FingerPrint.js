@@ -25,6 +25,7 @@ class FingerPrint extends Component {
     }
 
     detectFingerprintAvailable = () => {
+        const { sendData } = this.props.navigation.state.params;
         FingerprintScanner.isSensorAvailable()
             .then(res =>
                 this.setState({
@@ -33,7 +34,7 @@ class FingerPrint extends Component {
             )
             .catch(e => {
                 this.setState({ errorMessage: e.message });
-                this.props.navigation.replace('PinCode');
+                this.props.navigation.replace('PinCode', { sendData });
             });
     };
 

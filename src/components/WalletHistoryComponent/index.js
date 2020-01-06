@@ -51,10 +51,10 @@ class WalletHistoryComponent extends Component {
     render() {
         const { ts, value, status, send, from, to } = this.props.data;
         const { lang } = this.props.navigation.getScreenProps('locale');
-        const { name, address } = this.state;
+        const { name } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
-                <View style={[styles.addressLayout, styles.borderColor(send ? plusColor : minusColor)]}>
+                <View style={[styles.addressLayout, styles.borderColor(send ? minusColor : plusColor)]}>
                     <View style={styles.addressTextfield}>
                         <TextInput value={name} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
                     </View>
@@ -63,7 +63,7 @@ class WalletHistoryComponent extends Component {
                     <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.addAddressBook()}>
                         <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.saveAddressMsg}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(address)}>
+                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
                         <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.send}</Text>
                     </TouchableOpacity>
                 </View>
@@ -83,7 +83,7 @@ class WalletHistoryComponent extends Component {
                         <Text style={[styles.contentTextStyle, styles.alignRight]}>{ts}</Text>
                     </View>
                     <View style={styles.contentTextGroup}>
-                        <Text style={[styles.contentTextStyle, styles.TextColor(send ? plusColor : minusColor)]}>{send ? 'Sent' : 'Receive'}</Text>
+                        <Text style={[styles.contentTextStyle, styles.TextColor(send ? minusColor : plusColor)]}>{send ? 'Sent' : 'Receive'}</Text>
                         <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`$${value}`}</Text>
                     </View>
                 </View>

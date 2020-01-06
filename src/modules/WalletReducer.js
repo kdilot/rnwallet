@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Global from 'constants/Global';
 import { entropyToMnemonic } from 'api/etherjs';
 
 //  Actions Type
@@ -17,7 +18,7 @@ export const setMnemonic = createAction(SET_MNEMONIC);
 
 // Default State
 const initialState = {
-    wallets: [],
+    walletAddress: null,
     mnemonic: ' ',
     shuffleMnemonic: [],
 };
@@ -38,11 +39,13 @@ export default handleActions(
     {
         [SET_WALLET_ADDRESS]: (state, action) =>
             produce(state, draft => {
-                const { wallet, async } = action.payload;
+                const { walletAddress, async } = action.payload;
                 if (async) {
-                    AsyncStorage.setItem('wallets', JSON.stringify(wallet));
+                    AsyncStorage.setItem('walletAddress', walletAddress);
                 }
-                draft.wallets = wallet;
+                //  개인 지갑주소 GLOBAL 값 변경
+                // Global.USER_ETH_ADDRESS = walletAddress;    //  [테스트] 주소 값 저장안함
+                draft.walletAddress = walletAddress;
             }),
         [SET_MNEMONIC]: (state, action) =>
             produce(state, draft => {

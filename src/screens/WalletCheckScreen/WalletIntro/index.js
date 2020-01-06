@@ -5,13 +5,14 @@ import * as walletActions from 'modules/WalletReducer';
 import { Text, View } from 'react-native';
 import ButtonComponent from 'components/ButtonComponent';
 import { rozeusColor } from 'constants/Color';
+import { USER_ETH_ADDRESS } from 'constants/Global';
 import styles from './styles';
 import PropTypes from 'prop-types';
 
 class WalletCheckScreen extends Component {
     componentDidMount() {
-        const { navigation, walletStore } = this.props;
-        if (walletStore.wallets) {
+        const { navigation } = this.props;
+        if (USER_ETH_ADDRESS) {
             navigation.navigate('Home');
         }
     }

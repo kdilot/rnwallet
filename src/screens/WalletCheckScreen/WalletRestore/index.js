@@ -37,11 +37,8 @@ class WalletRestore extends Component {
             const address = keys.address;
             const privateKey = keys.privateKey;
             if (address) {
-                const wallet = {
-                    address: address,
-                };
                 RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
-                    await walletAction.setWalletAddress({ wallet, async: true });
+                    await walletAction.setWalletAddress({ walletAddress: address, async: true });
                     await navigation.navigate('Home');
                 });
             }

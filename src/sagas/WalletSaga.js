@@ -1,11 +1,14 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import { SET_WALLET_SAGA, SET_WALLET_ADDRESS } from 'modules/WalletReducer';
+import * as Global from 'constants/Global';
 import AsyncStorage from '@react-native-community/async-storage';
 
 function* setWalletSaga() {
     let payload = {};
-    yield AsyncStorage.getItem('wallets').then(res => {
-        payload.wallet = JSON.parse(res);
+    yield AsyncStorage.getItem('walletAddress').then(res => {
+        payload.walletAddress = res;
+        //  개인 지갑주소 GLOBAL 값 변경
+        // Global.USER_ETH_ADDRESS = res;   [테스트] 고정 값 변경 안함
         console.log('[GET WALLETS]');
     });
     yield put({ type: SET_WALLET_ADDRESS, payload });

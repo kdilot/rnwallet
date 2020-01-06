@@ -16,7 +16,6 @@ export default StyleSheet.create({
         paddingRight: 0,
     },
     textInputLayout: {
-        height: 40,
         justifyContent: 'center',
         borderBottomWidth: 2,
     },

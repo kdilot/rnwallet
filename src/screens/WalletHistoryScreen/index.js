@@ -231,6 +231,7 @@ class WalletHistoryScreen extends Component {
                                         }
                                     },
                                     onEndReachedThreshold: 0.2,
+                                    removeClippedSubviews: false,
                                 }}
                                 renderDetail={this.renderDetail}
                             />

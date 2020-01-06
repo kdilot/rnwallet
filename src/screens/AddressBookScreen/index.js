@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, KeyboardAvoidingView } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -24,7 +24,7 @@ class AddressBookScreen extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', (payload) => {
+        this.focusListener = navigation.addListener('didFocus', payload => {
             this.setState({ addressBookLoad: false });
             this.getData();
         });
@@ -64,20 +64,18 @@ class AddressBookScreen extends Component {
         const { navigation } = this.props;
         const { addressBookLoad, addressBookList } = this.state;
         return (
-            <KeyboardAvoidingView style={styles.container}>
-                <View style={styles.itemListLayout}>
-                    {addressBookLoad ? (
-                        <FlatList
-                            data={addressBookList}
-                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} nickname={item.nickname} address={item.address} />}
-                            keyExtractor={(item, index) => index.toString()}
-                            onEndReachedThreshold={0.2}
-                        />
-                    ) : (
-                        <Placeholderlayout />
-                    )}
-                </View>
-            </KeyboardAvoidingView>
+            <View style={styles.container}>
+                {addressBookLoad ? (
+                    <FlatList
+                        data={addressBookList}
+                        renderItem={({ item }) => <AddressBookComponent navigation={navigation} nickname={item.nickname} address={item.address} />}
+                        keyExtractor={(item, index) => index.toString()}
+                        removeClippedSubviews={false}
+                    />
+                ) : (
+                    <Placeholderlayout />
+                )}
+            </View>
         );
     }
 }
@@ -88,11 +86,11 @@ AddressBookScreen.proptpes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         txListStore: state.TxListReducer,
         addressBookStore: state.AddressBookReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
     }),
 )(AddressBookScreen);

@@ -125,8 +125,8 @@ class MainScreen extends PureComponent {
         const { ethBalance, rozBalance, isEthLoad, isRozLoad } = this.state;
         return (
             <View style={styles.container}>
-                <WalletInfoComponent navigation={navigation} isLoad={isRozLoad} refresh={() => this.getRozBalance()} value={rozBalance} />
-                <WalletInfoComponent navigation={navigation} isLoad={isEthLoad} refresh={() => this.getEthBalance()} logo={'logo-github'} name={'Ethereum'} coin={'ETH'} value={ethBalance} />
+                <WalletInfoComponent navigation={navigation} isLoad={isRozLoad} refresh={() => this.getRozBalance()} icon={'roz'} value={rozBalance} />
+                <WalletInfoComponent navigation={navigation} isLoad={isEthLoad} refresh={() => this.getEthBalance()} icon={'eth'} name={'Ethereum'} coin={'ETH'} value={ethBalance} />
             </View>
         );
     }

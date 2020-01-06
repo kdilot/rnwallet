@@ -3,13 +3,14 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PlaceholderLayout from './PlaceholderLayout';
+import Icon from 'components/IconComponent';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 export default class WalletInfoComponent extends Component {
     static defaultProps = {
-        logo: 'logo-slack',
+        icon: 'roz',
         name: 'Rozeus',
         coin: 'ROZ',
         value: 999,
@@ -27,7 +28,7 @@ export default class WalletInfoComponent extends Component {
     };
 
     render() {
-        const { logo, name, coin, value, navigation, refresh, isLoad } = this.props;
+        const { icon, name, coin, value, navigation, refresh, isLoad } = this.props;
         const { lang } = navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
@@ -47,7 +48,7 @@ export default class WalletInfoComponent extends Component {
                             </View>
                             <View style={styles.contentLayout}>
                                 <View style={styles.contentIconStyle}>
-                                    <Ionicons name={logo} size={45} />
+                                    <Icon name={icon} size={45} />
                                 </View>
                                 <View style={styles.contentTextGroup}>
                                     <Text style={styles.listTextStyle}>{name}</Text>
@@ -86,7 +87,7 @@ export default class WalletInfoComponent extends Component {
 }
 
 WalletInfoComponent.proptypes = {
-    logo: PropTypes.string,
+    icon: PropTypes.string,
     name: PropTypes.string,
     coin: PropTypes.string,
     value: PropTypes.number,

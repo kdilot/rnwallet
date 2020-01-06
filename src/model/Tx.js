@@ -16,6 +16,7 @@ export class Tx {
     ts; // string. timestamp
     status; // number. only for ETH
     contractAddress; // string. only for ERC20
+    isRoz; // boolean.
 
     static formTxData = tx => {
         if (!tx) {
@@ -38,6 +39,7 @@ export class Tx {
                 nickname: '',
                 from: tx.from,
                 to: tx.to,
+                isRoz: isRoz,
                 value: value,
                 time: moment(Number(tx.timeStamp) * 1000).format('YY-MM-DD[\n]HH:mm:ss'),
                 status: status,

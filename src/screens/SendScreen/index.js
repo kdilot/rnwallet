@@ -36,11 +36,16 @@ class SendScreen extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', async payload => {
+            console.log(payload);
             if (payload.state.params.sendData) {
                 const { address, price, gas } = payload.state.params.sendData;
                 await this.setState({ address, price, gas });
                 await this.onSend();
             } else {
+                if (payload.state.params.address) {
+                    console.log(payload.state.params.address);
+                    this.setState({ address: payload.state.params.address });
+                }
                 getGasPrice().then(res => {
                     if (res) {
                         this.setState({

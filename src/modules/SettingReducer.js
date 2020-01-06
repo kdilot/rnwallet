@@ -27,7 +27,7 @@ export default handleActions(
         [CHANGE_SETTING]: (state, action) =>
             produce(state, draft => {
                 const { name, value } = action.payload;
-                AsyncStorage.setItem(name, value);
+                AsyncStorage.setItem(name, JSON.stringify(value));
                 draft.list[name] = value;
             }),
     },

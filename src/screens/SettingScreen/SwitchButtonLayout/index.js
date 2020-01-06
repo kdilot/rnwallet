@@ -9,15 +9,13 @@ import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const ON = 'on';
-const OFF = 'off';
 const LANGUAGE_KOREAN = 'ko';
 const LANGUAGE_ENGLISH = 'en';
 
 class SwitchButtonLayout extends Component {
     toggleSwitch = async value => {
         const { text, SettingAction } = this.props;
-        const data = { name: text, value: value ? ON : OFF };
+        const data = { name: text, value: value };
         await SettingAction.changeSetting(data);
     };
 
@@ -50,8 +48,8 @@ class SwitchButtonLayout extends Component {
                             </TouchableOpacity>
                         </View>
                     ) : (
-                            <Switch onValueChange={this.toggleSwitch} value={list[text] === ON ? true : false} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
-                        )}
+                        <Switch onValueChange={this.toggleSwitch} value={list[text]} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
+                    )}
                 </View>
             </View>
         );

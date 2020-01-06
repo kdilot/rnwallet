@@ -9,7 +9,7 @@ function* setSetting() {
         SETTING_MENU_LIST.map(async data => {
             await AsyncStorage.getItem(data.name).then(res => {
                 if (data.name !== 'language') {
-                    Object.assign(payload, { [data.name]: res ? res : 'off' });
+                    Object.assign(payload, { [data.name]: JSON.parse(res) });
                 }
             });
         }),

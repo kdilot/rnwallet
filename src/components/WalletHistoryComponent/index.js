@@ -7,6 +7,7 @@ import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import { plusColor, minusColor, dividerDarkColor } from 'constants/Color';
+import Icon from 'components/IconComponent';
 import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -49,11 +50,14 @@ class WalletHistoryComponent extends Component {
     };
 
     render() {
-        const { ts, value, status, send, from, to } = this.props.data;
+        const { ts, value, status, send, from, to, isRoz } = this.props.data;
         const { lang } = this.props.navigation.getScreenProps('locale');
         const { name } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
+                <View>
+                    <Icon name={isRoz ? 'roz' : 'eth'} size={30} />
+                </View>
                 <View style={[styles.addressLayout, styles.borderColor(send ? minusColor : plusColor)]}>
                     <View style={styles.addressTextfield}>
                         <TextInput value={name} keyboardType={'default'} onChangeText={text => this.onChange(text)} />

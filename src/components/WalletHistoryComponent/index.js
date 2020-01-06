@@ -26,19 +26,19 @@ class WalletHistoryComponent extends Component {
         };
     }
 
-    onChange = (text) => {
+    onChange = text => {
         this.setState({ name: text });
     };
 
-    onSend = (address) => {
-        this.props.navigation.navigate('Send', { address });
+    onSend = address => {
+        this.props.navigation.navigate('Send', { address, send: true });
     };
 
     addAddressBook = async () => {
         const { AddressAction } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         const { name, to } = this.state;
-        await setAddressBookApi({ address: to, nickname: name }).then((addressBookMap) => {
+        await setAddressBookApi({ address: to, nickname: name }).then(addressBookMap => {
             if (!addressBookMap || addressBookMap === {}) {
                 return;
             }
@@ -56,7 +56,7 @@ class WalletHistoryComponent extends Component {
             <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(send ? plusColor : minusColor)]}>
                     <View style={styles.addressTextfield}>
-                        <TextInput value={name} keyboardType={'default'} onChangeText={(text) => this.onChange(text)} />
+                        <TextInput value={name} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
                     </View>
                 </View>
                 <View style={styles.addressButtonLayout}>
@@ -100,10 +100,10 @@ WalletHistoryComponent.proptypes = {
 };
 
 export default connect(
-    (state) => ({
+    state => ({
         addressBookStore: state.AddressBookReducer,
     }),
-    (dispatch) => ({
+    dispatch => ({
         AddressAction: bindActionCreators(addressActions, dispatch),
     }),
 )(WalletHistoryComponent);

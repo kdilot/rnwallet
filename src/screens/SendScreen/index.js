@@ -29,6 +29,7 @@ class SendScreen extends Component {
             gasMinValue: 0,
             gasMaxValue: 0,
             isSendDisable: true,
+            send: props.navigation.state.params.send,
             coin: props.navigation.state.params.coin,
         };
     }
@@ -36,14 +37,12 @@ class SendScreen extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', async payload => {
-            console.log(payload);
             if (payload.state.params.sendData) {
                 const { address, price, gas } = payload.state.params.sendData;
                 await this.setState({ address, price, gas });
                 await this.onSend();
             } else {
-                if (payload.state.params.address) {
-                    console.log(payload.state.params.address);
+                if (payload.state.params.address && this.state.send) {
                     this.setState({ address: payload.state.params.address });
                 }
                 getGasPrice().then(res => {
@@ -69,7 +68,7 @@ class SendScreen extends Component {
     };
 
     setAddress = address => {
-        this.setState({ address });
+        this.setState({ address, send: false });
     };
 
     getEthBalance = async () => {

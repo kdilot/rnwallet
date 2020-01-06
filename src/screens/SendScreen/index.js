@@ -102,66 +102,68 @@ class SendScreen extends Component {
         }
     };
 
+    sendEth = async (privateKey, to, value, gas) => {
+        const { navigation } = this.props;
+
+        let amount = etherjs.parseEther(String(value));
+        let estimateFee = etherjs.parseUnits(String(gas), 'gwei').mul(String(21000));
+        let totalAmount = amount.add(estimateFee);
+        let ethBalance = await this.getEthBalance();
+
+        if (etherjs.parseEther(String(ethBalance)).lt(totalAmount)) {
+            this.onToast('ETH 부족');
+            return;
+        }
+
+        let result = await etherjs.sendEth(privateKey, to, value, gas);
+        if (!result) {
+            this.onToast('ETH 전송 실패');
+            return;
+        }
+
+        navigation.navigate('Home');
+    };
+
+    sendRoz = async (privateKey, to, value, gas) => {
+        const { navigation } = this.props;
+
+        let amount = etherjs.parseEther(String(value));
+        let estimateFee = etherjs.parseUnits(String(gas), 'gwei').mul(String(21000));
+        let totalAmount = amount.add(estimateFee);
+        let ethBalance = await this.getEthBalance();
+
+        if (etherjs.parseEther(String(ethBalance)).lt(totalAmount)) {
+            this.onToast('Roz 부족');
+            return;
+        }
+
+        let result = await etherjs.sendRoz(privateKey, to, value, gas);
+        if (!result) {
+            this.onToast('ROZ 전송 실패');
+            return;
+        }
+
+        navigation.navigate('Home');
+    };
+
     onSend = async () => {
         const { coin, price, gas, address } = this.state;
         this.setState({ isSendDisable: true });
-        // const to = address;
-        const to = '0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3';
-        const value = coin === 'ROZ' ? etherjs.parseUnits(String(price), 8) : etherjs.parseEther(String(price));
-        const gasPrice = etherjs.parseUnits(String(gas), 'gwei');
-        const gasLimit = etherjs.bigNumberify(coin === 'ROZ' ? 2100000 : 21000);
-        //  예상 가스값
-        const estimateFee = etherjs.parseUnits(String(gas), 'gwei').mul(String(coin === 'ROZ' ? 2100000 : 21000));
-        //  예상 발생 ETH 값
-        const totalAmount = coin === 'ROZ' ? estimateFee : value.add(estimateFee);
 
         if (!price || !gas || !address) {
             this.onToast('입력값 확인');
+            return;
+        }
+
+        // let privateKey = await RNSecureKeyStore.get('0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3');
+        let privateKey = '271D78A7A394B840EF3D04591E7CCEC4A524113F27F0B45C8BFDBC62F84CDF1B';
+        // const to = address;
+        const to = '0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3';
+
+        if (coin === 'ROZ') {
+            this.sendRoz(privateKey, to, price, gas);
         } else {
-            const provider = etherjs.getDefaultProvider(Global.ETH_NETWORK_MODE);
-            // const privateKey = await RNSecureKeyStore.get('0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3');
-            const privateKey = '271D78A7A394B840EF3D04591E7CCEC4A524113F27F0B45C8BFDBC62F84CDF1B';
-            const ethWallet = etherjs.etherWallet(privateKey, provider);
-            const ethBalance = await this.getEthBalance();
-
-            if (etherjs.parseEther(String(ethBalance)).lt(totalAmount)) {
-                this.onToast('ETH 부족');
-            } else if (coin === 'ROZ') {
-                const rozBalance = await this.getRozBalance();
-                if (etherjs.parseEther(String(rozBalance)).lt(etherjs.parseEther(String(price)))) {
-                    this.onToast('ROZ 부족');
-                } else {
-                    try {
-                        const contract = etherjs.contract(Global.SEND_TYPE[Global.ETH_NETWORK_MODE].contractAddress, Global.SEND_TYPE[Global.ETH_NETWORK_MODE].abi, ethWallet);
-                        const options = { gasLimit, gasPrice };
-
-                        await contract.transfer(to, value, options).then(tx => {
-                            console.log('ROZ 송금이 정상적으로 완료되었습니다. txid=' + tx.hash);
-                            this.props.navigation.navigate('Home');
-                        });
-                    } catch (e) {
-                        console.log('ROZ 송금 중 오류가 발생되었습니다. Err=');
-                        console.log(e);
-                        this.onToast('ROZ 송금오류');
-                    }
-                }
-            } else {
-                // ETH
-                const nonce = await provider.getTransactionCount(Global.USER_ETH_ADDRESS);
-                // #3 .TX 생성
-                const transaction = { to, value, gasPrice, gasLimit, nonce, data: '' };
-                // #6. 이더리움 서명
-                const sign = await ethWallet.sign(transaction);
-                // #7. 이더리움 TX 배포
-                try {
-                    const tx = await provider.sendTransaction(sign);
-                    console.log('ETH 송금이 정상적으로 완료되었습니다. txid=' + tx.hash);
-                    this.props.navigation.navigate('Home');
-                } catch (error) {
-                    console.log('ETH 송금 ERROR', `${error.code}\n${error.message}`);
-                    this.onToast('ETH 송금오류');
-                }
-            }
+            this.sendEth(privateKey, to, price, gas);
         }
     };
 

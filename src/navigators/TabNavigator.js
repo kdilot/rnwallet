@@ -4,7 +4,7 @@ import { createAppContainer } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Feather';
 import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
 import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
 import MainScreen from 'screens/MainScreen';
@@ -26,25 +26,25 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         Home: {
             screen: MainScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-home" size={35} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="server" size={25} color={focused ? 'white' : 'white'} />,
             },
         },
         WalletHistory: {
             screen: WalletHistoryScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-list-box" size={35} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="file-text" size={25} color={focused ? 'white' : 'white'} />,
             },
         },
         AddressBook: {
             screen: AddressBookScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-contact" size={35} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="book" size={25} color={focused ? 'white' : 'white'} />,
             },
         },
         Setting: {
             screen: SettingScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Ionicons name="md-settings" size={35} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="settings" size={25} color={focused ? 'white' : 'white'} />,
             },
         },
     },
@@ -55,7 +55,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         initialRouteName: 'Home',
         tabBarOptions: {
             tabStyle: {
-                margin: 6,
+                margin: 3,
             },
             iconStyle: {
                 width: '100%',
@@ -65,8 +65,8 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             showIcon: true,
             showLabel: false,
             indicatorStyle: {
-                borderBottomColor: basicColor,
-                borderBottomWidth: 2,
+                borderBottomColor: 'white',
+                borderBottomWidth: 3,
             },
         },
     },
@@ -74,16 +74,12 @@ const BottomMenuTab = createMaterialTopTabNavigator(
 
 BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
     title: 'ROZ',
-    headerStyle: {
-        backgroundColor: basicColor,
-    },
-    headerTintColor: '#FFFFFF',
     headerLeft: (
         <TouchableOpacity
             onPress={() => {
                 navigation.openDrawer();
             }}>
-            <Ionicons name="md-menu" size={30} color={'white'} />
+            <Icon name="menu" size={30} color={'white'} />
         </TouchableOpacity>
     ),
     headerLeftContainerStyle: { marginLeft: 20 },

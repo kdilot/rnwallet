@@ -41,7 +41,7 @@ export class Tx {
                 to: tx.to,
                 isRoz: isRoz,
                 value: value,
-                time: moment(Number(tx.timeStamp) * 1000).format('YY-MM-DD[\n]HH:mm:ss'),
+                time: moment(Number(tx.timeStamp) * 1000).format('YY-MM-DD HH:mm:ss'),
                 status: status,
                 contractAddress: isRoz ? tx.contractAddress : undefined,
             };

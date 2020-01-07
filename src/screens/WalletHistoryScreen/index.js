@@ -1,14 +1,13 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as txListActions from 'modules/TxListReducer';
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl, FlatList } from 'react-native';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
+import ToastComponent from 'components/ToastComponent';
 import CardView from 'react-native-cardview';
-import Timeline from 'react-native-timeline-flatlist';
 import PlaceholderLayout from './PlaceholderLayout';
 import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
@@ -172,11 +171,12 @@ class WalletHistoryScreen extends Component {
 
     render() {
         const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList } = this.state;
+        const { navigation } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.itemTypeLayout}>
-                    <CardView cardElevation={5} cornerRadius={10} style={styles.typeLayout}>
+                    <CardView cardElevation={5} cornerRadius={0} style={styles.typeLayout}>
                         <TouchableOpacity
                             style={[styles.alignCenter, itemType === ITEMTYPE_ALL && styles.typeSelected]}
                             onPress={() => {
@@ -215,25 +215,20 @@ class WalletHistoryScreen extends Component {
                 ) : (
                     <View style={styles.itemListLayout}>
                         {data.length > 0 ? (
-                            <Timeline
+                            <FlatList
                                 data={data}
-                                circleSize={20}
-                                timeContainerStyle={{ minWidth: 60 }}
-                                timeStyle={styles.timelineLayout}
-                                options={{
-                                    style: { paddingTop: 5 },
-                                    refreshControl: <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />,
-                                    renderFooter: this.renderFooter,
-                                    onEndReached: () => {
-                                        //  [임시조건 적용]
-                                        if (data.length % PAGE_COUNT === 0) {
-                                            this.getData(itemType, page);
-                                        }
-                                    },
-                                    onEndReachedThreshold: 0.2,
-                                    removeClippedSubviews: false,
+                                renderItem={({ item }) => <WalletHistoryComponent navigation={navigation} toast={this.toast} data={item} />}
+                                keyExtractor={(item, index) => index.toString()}
+                                removeClippedSubviews={false}
+                                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />}
+                                renderFooter={this.renderFooter}
+                                onEndReached={() => {
+                                    //  [임시조건 적용]
+                                    if (data.length % PAGE_COUNT === 0) {
+                                        this.getData(itemType, page);
+                                    }
                                 }}
-                                renderDetail={this.renderDetail}
+                                onEndReachedThreshold={0.2}
                             />
                         ) : isData ? (
                             <PlaceholderLayout />
@@ -244,6 +239,11 @@ class WalletHistoryScreen extends Component {
                         )}
                     </View>
                 )}
+                <ToastComponent
+                    ref={ref => {
+                        this.toast = ref;
+                    }}
+                />
             </KeyboardAvoidingView>
         );
     }

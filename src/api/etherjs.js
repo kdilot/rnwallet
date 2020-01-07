@@ -3,12 +3,15 @@ import * as ethers from 'ethers';
 
 import { Tx } from 'model/Tx';
 import { SEND_TYPE, USER_ETH_ADDRESS, ETH_NETWORK_MODE, ETHSCAN_IO_API_KEY, ROZ_CONTRACT_ADDRESS, EHT_START_BLOCK, PROD_MODE } from 'constants/Global';
-import { formatEther } from 'ethers/utils';
 
 const ethClient = etherApi.init(ETHSCAN_IO_API_KEY, ETH_NETWORK_MODE, 3000);
 
 export const formatUnits = (balance, decimal) => {
     return ethers.utils.formatUnits(balance, decimal);
+};
+
+export const formatEther = balance => {
+    return ethers.utils.formatEther(balance);
 };
 
 //  Address 생성
@@ -96,7 +99,7 @@ export const sendRoz = async (privateKey, to, value, gas) => {
 };
 
 export const isEnoughEthFee = async gas => {
-    try {
+    /*     try {
         let parsedEthBalance = ethers.utils.parseEther(await getEthBalance());
         let estimateFee = ethers.utils.formatUnits((String(gas), 'gwei').mul(String(21000)));
 
@@ -106,7 +109,7 @@ export const isEnoughEthFee = async gas => {
     } catch (err) {
         console.log('isEnoughFee' + err);
         return false;
-    }
+    } */
 
     return true;
 };

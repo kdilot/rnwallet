@@ -99,9 +99,9 @@ export const sendRoz = async (privateKey, to, value, gas) => {
 };
 
 export const isEnoughEthFee = async gas => {
-    /*     try {
+    try {
         let parsedEthBalance = ethers.utils.parseEther(await getEthBalance());
-        let estimateFee = ethers.utils.formatUnits((String(gas), 'gwei').mul(String(21000)));
+        let estimateFee = ethers.utils.parseUnits(String(gas), 'gwei').mul(String(21000));
 
         if (parsedEthBalance.lt(estimateFee)) {
             return false;
@@ -109,7 +109,7 @@ export const isEnoughEthFee = async gas => {
     } catch (err) {
         console.log('isEnoughFee' + err);
         return false;
-    } */
+    }
 
     return true;
 };
@@ -118,7 +118,7 @@ export const isEnoughEth = async (value, gas) => {
     try {
         let parsedEthBalance = ethers.utils.parseEther(await getEthBalance());
         let parsedValue = ethers.utils.parseEther(String(value));
-        let estimateFee = ethers.utils.formatUnits((String(gas), 'gwei').mul(String(21000)));
+        let estimateFee = ethers.utils.parseUnits(String(gas), 'gwei').mul(String(21000));
         let parsedTotalValue = estimateFee.add(parsedValue);
 
         if (parsedEthBalance.lt(parsedTotalValue)) {
@@ -134,7 +134,7 @@ export const isEnoughEth = async (value, gas) => {
 
 export const isEnoughRoz = async value => {
     try {
-        let parsedRozBalance = ethers.utils.parseUnits((await getRozBalance(), 8));
+        let parsedRozBalance = ethers.utils.parseUnits(await getRozBalance(), 8);
         let parsedValue = ethers.utils.parseUnits(String(value), 8);
 
         if (parsedRozBalance.lt(parsedValue)) {

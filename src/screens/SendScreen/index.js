@@ -86,6 +86,7 @@ class SendScreen extends Component {
 
     onSend = async () => {
         const { coin, price, gas, address } = this.state;
+        const { navigation } = this.props;
         this.setState({ isSendDisable: true });
 
         if (!price || !gas || !address) {
@@ -110,7 +111,7 @@ class SendScreen extends Component {
             }
             result = etherjs.sendRoz(privateKey, to, price, gas);
         } else {
-            if (!(await etherjs.isEnoughEth(price))) {
+            if (!(await etherjs.isEnoughEth(price, gas))) {
                 this.onToast('ETH 잔액 부족');
                 return;
             }
@@ -123,6 +124,7 @@ class SendScreen extends Component {
         }
 
         this.onToast('전송 성공');
+        navigation.navigate('Home');
     };
 
     render() {

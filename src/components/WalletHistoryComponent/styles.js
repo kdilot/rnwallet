@@ -12,6 +12,7 @@ export default StyleSheet.create({
     },
     addressLayout: {
         flex: 1,
+        paddingRight: 25,
         paddingVertical: 5,
         justifyContent: 'center',
     },
@@ -35,7 +36,6 @@ export default StyleSheet.create({
     },
     headerTextGroup: {
         flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
     },
     contentTextGroup: {
@@ -49,9 +49,9 @@ export default StyleSheet.create({
         borderBottomColor: color,
     }),
     addressButtonGroup: {
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
+        position: 'absolute',
+        right: 0,
+        bottom: 5,
     },
     addressButtonTextStlye: {
         flex: 1,

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
 import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View, TouchableOpacity, Clipboard } from 'react-native';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import CardView from 'react-native-cardview';
 import { plusColor, minusColor, successColor, failColor } from 'constants/Color';
 import Icon from 'components/IconComponent';
@@ -65,6 +65,9 @@ class WalletHistoryComponent extends Component {
             <CardView cardElevation={5} cornerRadius={2} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(send ? minusColor : plusColor)]}>
                     <Text numberOfLines={1}>{name}</Text>
+                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
+                        <Feather name="send" size={20} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.timeLayout}>
                     <Text style={styles.timeTextStyle}>{time}</Text>
@@ -81,9 +84,6 @@ class WalletHistoryComponent extends Component {
                             </View>
                             <View style={[styles.headerTextGroup]}>
                                 <Text style={styles.BoxTextColor(status ? successColor : failColor, 0.6)}>{status ? lang.success : lang.fail}</Text>
-                                <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
-                                    <Ionicons name="file-send" size={20} />
-                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -100,7 +100,7 @@ class WalletHistoryComponent extends Component {
                                         onPress={() => {
                                             this.onCopy(hash);
                                         }}>
-                                        <Ionicons name="content-copy" size={20} />
+                                        <Feather name="copy" size={20} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -117,7 +117,7 @@ class WalletHistoryComponent extends Component {
                                         onPress={() => {
                                             this.onCopy(from);
                                         }}>
-                                        <Ionicons name="content-copy" size={20} />
+                                        <Feather name="copy" size={20} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -134,7 +134,7 @@ class WalletHistoryComponent extends Component {
                                         onPress={() => {
                                             this.onCopy(to);
                                         }}>
-                                        <Ionicons name="content-copy" size={20} />
+                                        <Feather name="copy" size={20} />
                                     </TouchableOpacity>
                                 </View>
                             </View>

@@ -1,65 +1,97 @@
 import { StyleSheet } from 'react-native';
-import { dividerLightColor, dividerDarkColor } from 'constants/Color';
+import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
-    cardLayout: {
-        height: 230,
-        margin: 7,
+    cardLayout: { padding: 15, margin: 10 },
+    timeLayout: {
+        flex: 1,
+    },
+    timeTextStyle: {
+        textAlign: 'right',
+        opacity: 0.7,
     },
     addressLayout: {
-        flex: 2,
+        flex: 1,
+        paddingVertical: 5,
         justifyContent: 'center',
+    },
+    contentLayout: {
+        flex: 8,
+    },
+    contentHeaderLayout: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    headerIconLayout: {
+        flex: 1,
+        paddingRight: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    headerTextLayout: {
+        flex: 7,
+    },
+    headerTextGroup: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    contentTextGroup: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 2,
     },
     borderColor: color => ({
         borderBottomWidth: 2,
         borderBottomColor: color,
     }),
-    addressButtonLayout: {
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingTop: 5,
-    },
     addressButtonGroup: {
         flex: 1,
-        margin: 5,
-        paddingHorizontal: 15,
+        alignItems: 'flex-end',
         justifyContent: 'center',
     },
     addressButtonTextStlye: {
         flex: 1,
         fontSize: 13,
     },
-    addressTextfield: {
-        paddingHorizontal: 10,
-        height: 40,
-    },
-    contentLayout: {
-        flex: 7,
-        paddingHorizontal: 10,
-    },
     contentAddressGroup: {
-        marginBottom: 5,
-        paddingBottom: 5,
-        borderBottomWidth: 1,
-        borderColor: dividerLightColor,
+        marginTop: 10,
     },
-    contentAddressStyle: {
+    contentAddressTitle: {
+        width: 50,
+        padding: 0.5,
+        fontSize: 12,
+        textAlign: 'center',
         color: dividerDarkColor,
+        borderWidth: 1,
+        borderColor: dividerDarkColor,
+        borderRadius: 2,
     },
-    contentTextGroup: {
-        flexDirection: 'row',
-    },
-    IconColor: color => ({
-        backgroundColor: color,
+    TextIsSendStyle: color => ({
+        borderWidth: 1,
+        borderColor: color,
+        color: color,
+        textAlign: 'center',
     }),
     TextColor: color => ({
         color: color,
         fontWeight: 'bold',
     }),
+    BoxTextColor: (color, opacity) => ({
+        width: 70,
+        color: 'white',
+        opacity,
+        padding: 0.5,
+        backgroundColor: color,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    }),
     contentTextStyle: {
-        flex: 1,
-        paddingRight: 15,
+        flex: 4,
+        fontSize: 17,
     },
     alignRight: {
         textAlign: 'right',

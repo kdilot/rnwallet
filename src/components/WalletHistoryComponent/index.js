@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
 import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Clipboard } from 'react-native';
+import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CardView from 'react-native-cardview';
-import { plusColor, minusColor, dividerDarkColor } from 'constants/Color';
+import { plusColor, minusColor, successColor, failColor } from 'constants/Color';
 import Icon from 'components/IconComponent';
 import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
@@ -49,46 +50,95 @@ class WalletHistoryComponent extends Component {
         });
     };
 
+    onCopy = text => {
+        const { toast } = this.props;
+        const { lang } = this.props.navigation.getScreenProps('locale');
+        Clipboard.setString(text);
+        toast.showToast(lang.copy);
+    };
+
     render() {
-        const { ts, value, status, send, from, to, isRoz } = this.props.data;
+        const { time, value, status, send, from, to, isRoz, hash } = this.props.data;
         const { lang } = this.props.navigation.getScreenProps('locale');
         const { name } = this.state;
         return (
-            <CardView cardElevation={5} cornerRadius={10} style={styles.cardLayout}>
-                <View>
-                    <Icon name={isRoz ? 'roz' : 'eth'} size={30} />
-                </View>
+            <CardView cardElevation={5} cornerRadius={2} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(send ? minusColor : plusColor)]}>
-                    <View style={styles.addressTextfield}>
-                        <TextInput value={name} keyboardType={'default'} onChangeText={text => this.onChange(text)} />
-                    </View>
+                    <Text numberOfLines={1}>{name}</Text>
                 </View>
-                <View style={styles.addressButtonLayout}>
-                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.addAddressBook()}>
-                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.saveAddressMsg}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
-                        <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor), { textAlign: 'right' }]}>{lang.send}</Text>
-                    </TouchableOpacity>
+                <View style={styles.timeLayout}>
+                    <Text style={styles.timeTextStyle}>{time}</Text>
                 </View>
                 <View style={styles.contentLayout}>
+                    <View style={styles.contentHeaderLayout}>
+                        <View style={styles.headerIconLayout}>
+                            <Icon name={isRoz ? 'roz' : 'eth'} size={40} />
+                        </View>
+                        <View style={styles.headerTextLayout}>
+                            <View style={[styles.headerTextGroup]}>
+                                <Text style={styles.BoxTextColor(send ? minusColor : plusColor, 1)}>{send ? lang.sentBtn : lang.receiveBtn}</Text>
+                                <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`${value} ${isRoz ? 'ROZ' : 'ETH'}`}</Text>
+                            </View>
+                            <View style={[styles.headerTextGroup]}>
+                                <Text style={styles.BoxTextColor(status ? successColor : failColor, 0.6)}>{status ? lang.success : lang.fail}</Text>
+                                <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
+                                    <Ionicons name="file-send" size={20} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
                     <View style={styles.contentAddressGroup}>
-                        <Text style={styles.contentAddressStyle}>from</Text>
-                        <Text numberOfLines={1} ellipsizeMode="middle">
-                            {from}
-                        </Text>
-                        <Text style={styles.contentAddressStyle}>to</Text>
-                        <Text numberOfLines={1} ellipsizeMode="middle">
-                            {to}
-                        </Text>
-                    </View>
-                    <View style={styles.contentTextGroup}>
-                        <Text style={styles.contentTextStyle}>{status}</Text>
-                        <Text style={[styles.contentTextStyle, styles.alignRight]}>{ts}</Text>
-                    </View>
-                    <View style={styles.contentTextGroup}>
-                        <Text style={[styles.contentTextStyle, styles.TextColor(send ? minusColor : plusColor)]}>{send ? 'Sent' : 'Receive'}</Text>
-                        <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`$${value}`}</Text>
+                        <View>
+                            <Text style={styles.contentAddressTitle}>Hash</Text>
+                            <View style={styles.contentTextGroup}>
+                                <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
+                                    {hash}
+                                </Text>
+                                <View style={[styles.alignRight, { flex: 1 }]}>
+                                    <TouchableOpacity
+                                        style={{ alignItems: 'flex-end' }}
+                                        onPress={() => {
+                                            this.onCopy(hash);
+                                        }}>
+                                        <Ionicons name="content-copy" size={20} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                        {/* <View>
+                            <Text style={styles.contentAddressTitle}>From</Text>
+                            <View style={styles.contentTextGroup}>
+                                <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
+                                    {from}
+                                </Text>
+                                <View style={[styles.alignRight, { flex: 1 }]}>
+                                    <TouchableOpacity
+                                        style={{ alignItems: 'flex-end' }}
+                                        onPress={() => {
+                                            this.onCopy(from);
+                                        }}>
+                                        <Ionicons name="content-copy" size={20} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                        <View>
+                            <Text style={styles.contentAddressTitle}>To</Text>
+                            <View style={styles.contentTextGroup}>
+                                <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
+                                    {to}
+                                </Text>
+                                <View style={[styles.alignRight, { flex: 1 }]}>
+                                    <TouchableOpacity
+                                        style={{ alignItems: 'flex-end' }}
+                                        onPress={() => {
+                                            this.onCopy(to);
+                                        }}>
+                                        <Ionicons name="content-copy" size={20} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View> */}
                     </View>
                 </View>
             </CardView>
@@ -100,6 +150,7 @@ WalletHistoryComponent.proptypes = {
     data: PropTypes.number,
     onChange: PropTypes.func,
     onSend: PropTypes.func,
+    onCopy: PropTypes.func,
     addAddressBook: PropTypes.func,
 };
 

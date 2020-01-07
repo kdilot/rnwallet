@@ -10,8 +10,6 @@ import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
 import { getGasPrice } from 'api/EtherChain';
 import * as etherjs from 'api/etherjs';
-import * as Global from 'constants/Global';
-import * as etherApi from 'api/WalletHistory/etherscan-api';
 // import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PlaceholderLayout from './PlaceholderLayout';
 import { basicColor } from 'constants/Color';
@@ -71,22 +69,6 @@ class SendScreen extends Component {
         this.setState({ address, send: false });
     };
 
-    getEthBalance = async () => {
-        let ethBalance = await etherApi.getEthBalance();
-        if (!ethBalance) {
-            return;
-        }
-        return etherjs.formatUnits(ethBalance, 18);
-    };
-
-    getRozBalance = async () => {
-        let rozBalance = await etherApi.getRozBalance();
-        if (!rozBalance) {
-            return;
-        }
-        return etherjs.formatUnits(rozBalance, 8);
-    };
-
     onToast = message => {
         this.toast.showToast(message);
         this.setState({ isSendDisable: false });
@@ -102,50 +84,6 @@ class SendScreen extends Component {
         }
     };
 
-    sendEth = async (privateKey, to, value, gas) => {
-        const { navigation } = this.props;
-
-        let amount = etherjs.parseEther(String(value));
-        let estimateFee = etherjs.parseUnits(String(gas), 'gwei').mul(String(21000));
-        let totalAmount = amount.add(estimateFee);
-        let ethBalance = await this.getEthBalance();
-
-        if (etherjs.parseEther(String(ethBalance)).lt(totalAmount)) {
-            this.onToast('ETH 부족');
-            return;
-        }
-
-        let result = await etherjs.sendEth(privateKey, to, value, gas);
-        if (!result) {
-            this.onToast('ETH 전송 실패');
-            return;
-        }
-
-        navigation.navigate('Home');
-    };
-
-    sendRoz = async (privateKey, to, value, gas) => {
-        const { navigation } = this.props;
-
-        let amount = etherjs.parseEther(String(value));
-        let estimateFee = etherjs.parseUnits(String(gas), 'gwei').mul(String(21000));
-        let totalAmount = amount.add(estimateFee);
-        let ethBalance = await this.getEthBalance();
-
-        if (etherjs.parseEther(String(ethBalance)).lt(totalAmount)) {
-            this.onToast('Roz 부족');
-            return;
-        }
-
-        let result = await etherjs.sendRoz(privateKey, to, value, gas);
-        if (!result) {
-            this.onToast('ROZ 전송 실패');
-            return;
-        }
-
-        navigation.navigate('Home');
-    };
-
     onSend = async () => {
         const { coin, price, gas, address } = this.state;
         this.setState({ isSendDisable: true });
@@ -155,16 +93,36 @@ class SendScreen extends Component {
             return;
         }
 
+        if (!(await etherjs.isEnoughEthFee(gas))) {
+            this.onToast('ETH Fee 부족');
+            return;
+        }
+
         // let privateKey = await RNSecureKeyStore.get('0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3');
         let privateKey = '271D78A7A394B840EF3D04591E7CCEC4A524113F27F0B45C8BFDBC62F84CDF1B';
-        // const to = address;
-        const to = '0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3';
+        const to = address;
 
+        let result;
         if (coin === 'ROZ') {
-            this.sendRoz(privateKey, to, price, gas);
+            if (!(await etherjs.isEnoughRoz(price))) {
+                this.onToast('ROZ 잔액 부족');
+                return;
+            }
+            result = etherjs.sendRoz(privateKey, to, price, gas);
         } else {
-            this.sendEth(privateKey, to, price, gas);
+            if (!(await etherjs.isEnoughEth(price))) {
+                this.onToast('ETH 잔액 부족');
+                return;
+            }
+            result = etherjs.sendEth(privateKey, to, price, gas);
         }
+
+        if (!result) {
+            this.onToast('전송 실패');
+            return;
+        }
+
+        this.onToast('전송 성공');
     };
 
     render() {

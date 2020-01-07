@@ -10,10 +10,9 @@ import WalletInfoComponent from 'components/WalletInfoComponent';
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as walletActions from 'modules/WalletReducer';
-import * as etherApi from 'api/WalletHistory/etherscan-api';
+import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
-import * as etherjs from 'api/etherjs';
 
 class MainScreen extends PureComponent {
     constructor(props) {
@@ -58,7 +57,7 @@ class MainScreen extends PureComponent {
     }
 
     getTxList() {
-        return etherApi.getTxList(1, 10000);
+        return etherjs.getTxList(1, 10000);
     }
 
     setTxListToStore(txList) {
@@ -89,12 +88,8 @@ class MainScreen extends PureComponent {
         this.setState({
             isEthLoad: false,
         });
-        let ethBalance = await etherApi.getEthBalance();
 
-        if (!ethBalance) {
-            return;
-        }
-        ethBalance = etherjs.formatUnits(ethBalance, 18);
+        let ethBalance = await etherjs.getEthBalance();
 
         this.setState({
             ethBalance: ethBalance,
@@ -106,13 +101,7 @@ class MainScreen extends PureComponent {
         this.setState({
             isRozLoad: false,
         });
-        let rozBalance = await etherApi.getRozBalance();
-
-        if (!rozBalance) {
-            return 0;
-        }
-
-        rozBalance = etherjs.formatUnits(rozBalance, 8);
+        let rozBalance = await etherjs.getRozBalance();
 
         this.setState({
             rozBalance: rozBalance,

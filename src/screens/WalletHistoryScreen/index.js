@@ -10,7 +10,7 @@ import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import CardView from 'react-native-cardview';
 import Timeline from 'react-native-timeline-flatlist';
 import PlaceholderLayout from './PlaceholderLayout';
-import * as etherApi from 'api/WalletHistory/etherscan-api';
+import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -80,22 +80,22 @@ class WalletHistoryScreen extends Component {
 
         switch (itemType) {
             case ITEMTYPE_ALL:
-                txList = await etherApi.getTxList(1, 10000);
+                txList = await etherjs.getTxList(1, 10000);
                 txListAction.setAllTxList(this.copyArray(txList));
                 txList = txList.slice((page - 1) * PAGE_COUNT, page * PAGE_COUNT);
                 break;
             case ITEMTYPE_ROZ:
-                txList = await etherApi.getRozTxList(page, PAGE_COUNT);
+                txList = await etherjs.getRozTxList(page, PAGE_COUNT);
                 break;
             case ITEMTYPE_ETH:
-                txList = await etherApi.getEthTxList(page, PAGE_COUNT);
+                txList = await etherjs.getEthTxList(page, PAGE_COUNT);
                 break;
             case ITEMTYPE_ADDRESSBOOK:
-                txList = await etherApi.getTxListByAddress(page, PAGE_COUNT, address);
+                txList = await etherjs.getTxListByAddress(page, PAGE_COUNT, address);
                 break;
         }
 
-        etherApi.setNickname(txList, addressBookStore.map);
+        etherjs.setNickname(txList, addressBookStore.map);
 
         this.setState({
             data: page !== 1 ? data.concat(txList) : txList,

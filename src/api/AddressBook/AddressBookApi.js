@@ -1,5 +1,5 @@
 import * as Global from 'constants/Global';
-import * as etherApi from 'api/WalletHistory/etherscan-api';
+import * as etherjs from 'api/etherjs';
 
 const ROZEUS_WALLET_API_URI = Global.ROZEUS_WALLET_API_URI;
 const PROD_MODE = Global.PROD_MODE;
@@ -72,7 +72,7 @@ export const setAddressBookApi = async param => {
 
 export const convertTxListToAddressBookList = async (txList, addressBookMap) => {
     let newTxList = copyArray(txList);
-    etherApi.setNickname(newTxList, addressBookMap);
+    etherjs.setNickname(newTxList, addressBookMap);
 
     let addressMap = {};
 

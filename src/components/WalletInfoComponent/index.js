@@ -4,7 +4,6 @@ import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PlaceholderLayout from './PlaceholderLayout';
 import Icon from 'components/IconComponent';
-import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -36,6 +35,9 @@ export default class WalletInfoComponent extends Component {
                     {isLoad ? (
                         <>
                             <View style={styles.headerLayout}>
+                                <View style={styles.contentTextGroup}>
+                                    <Text style={styles.headerTextStyle}>{name}</Text>
+                                </View>
                                 <TouchableOpacity
                                     onPress={() => {
                                         refresh();
@@ -43,21 +45,13 @@ export default class WalletInfoComponent extends Component {
                                     <Ionicons name="md-refresh" size={35} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.contentAddressLayout}>
-                                <Text style={styles.addressTextStyle}>{USER_ETH_ADDRESS}</Text>
-                            </View>
                             <View style={styles.contentLayout}>
                                 <View style={styles.contentIconStyle}>
                                     <Icon name={icon} size={45} />
                                 </View>
-                                <View style={styles.contentTextGroup}>
-                                    <Text style={styles.listTextStyle}>{name}</Text>
-                                    <Text style={styles.listTextSubStyle}>{coin}</Text>
-                                </View>
                                 <View style={[styles.contentTextGroup, styles.alignRight]}>
-                                    <Text style={styles.listTextStyle}>
-                                        {value} {coin === 'ETH' ? 'ETH' : 'ROZ'}
-                                    </Text>
+                                    <Text style={styles.contentTextStyle}>{value}</Text>
+                                    <Text style={styles.contentCoinTextStyle}>{coin === 'ETH' ? 'ETH' : 'ROZ'}</Text>
                                 </View>
                             </View>
                             <View style={styles.footerLayout}>

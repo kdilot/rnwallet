@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -10,60 +11,55 @@ export default StyleSheet.create({
     cardLayout: isLoad => ({
         width: '100%',
         height: 200,
-        padding: isLoad ? 15 : 0,
+        paddingHorizontal: isLoad ? 15 : 0,
     }),
     headerLayout: {
         flex: 1,
-        paddingBottom: 20,
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        paddingTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    headerTextStyle: {
+        fontSize: 20,
     },
     contentLayout: {
-        flex: 3,
+        flex: 2,
         padding: 5,
-        justifyContent: 'center',
         flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     contentIconStyle: {
-        flex: 2,
+        flex: 1,
         alignItems: 'flex-start',
     },
     contentTextGroup: {
         flex: 4,
     },
     alignRight: {
-        paddingRight: 25,
         alignItems: 'flex-end',
     },
-    listTextStyle: {
-        fontWeight: 'bold',
-        fontSize: 20,
-    },
-    listTextSubStyle: {
-        fontWeight: 'bold',
-        fontSize: 15,
-        color: '#8A8A8A',
-    },
-    contentAddressLayout: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    addressTextStyle: {
-        fontSize: 11,
+    contentTextStyle: {
         textAlign: 'center',
+        fontSize: 25,
+    },
+    contentCoinTextStyle: {
+        fontSize: 35,
+        fontWeight: 'bold',
     },
     footerLayout: {
-        flex: 2,
+        flex: 1,
         flexDirection: 'row',
         marginTop: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
+        borderTopWidth: 1,
+        borderTopColor: dividerDarkColor,
     },
     buttonGroup: {
         flex: 1,
         height: '100%',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
     buttonTextStyle: {
         fontSize: 15,

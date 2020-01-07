@@ -7,7 +7,7 @@ import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View, TouchableOpacity, Clipboard } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import CardView from 'react-native-cardview';
-import { plusColor, minusColor, successColor, failColor } from 'constants/Color';
+import { plusColor, minusColor, successColor, failColor, dividerDarkColor } from 'constants/Color';
 import Icon from 'components/IconComponent';
 import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
@@ -63,7 +63,7 @@ class WalletHistoryComponent extends Component {
         const { name } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={2} style={styles.cardLayout}>
-                <View style={[styles.addressLayout, styles.borderColor(send ? minusColor : plusColor)]}>
+                <View style={[styles.addressLayout, styles.borderColor(dividerDarkColor)]}>
                     <Text numberOfLines={1}>{name}</Text>
                     <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
                         <Feather name="send" size={20} />

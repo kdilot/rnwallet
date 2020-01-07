@@ -13,6 +13,9 @@ import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
+const STATUS_SUCCESS = 1;
+const STATUS_PENDING = 2;
+
 class WalletHistoryComponent extends Component {
     static defaultProps = {
         data: [],
@@ -65,9 +68,11 @@ class WalletHistoryComponent extends Component {
             <CardView cardElevation={5} cornerRadius={2} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(dividerDarkColor)]}>
                     <Text numberOfLines={1}>{name}</Text>
-                    <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
-                        <Feather name="send" size={20} />
-                    </TouchableOpacity>
+                    {name && (
+                        <TouchableOpacity style={styles.addressButtonGroup} onPress={() => this.onSend(send ? to : from)}>
+                            <Feather name="send" size={20} />
+                        </TouchableOpacity>
+                    )}
                 </View>
                 <View style={styles.timeLayout}>
                     <Text style={styles.timeTextStyle}>{time}</Text>
@@ -79,11 +84,13 @@ class WalletHistoryComponent extends Component {
                         </View>
                         <View style={styles.headerTextLayout}>
                             <View style={[styles.headerTextGroup]}>
-                                <Text style={styles.BoxTextColor(send ? minusColor : plusColor, 1)}>{send ? lang.sentBtn : lang.receiveBtn}</Text>
-                                <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`${value} ${isRoz ? 'ROZ' : 'ETH'}`}</Text>
+                                {send >= 0 && <Text style={styles.BoxTextColor(send ? minusColor : plusColor, 1)}>{send ? lang.sentBtn : lang.receiveBtn}</Text>}
+                                {value >= 0 && <Text style={[styles.contentTextStyle, styles.alignRight, { fontWeight: 'bold' }]}>{`${value} ${isRoz ? 'ROZ' : 'ETH'}`}</Text>}
                             </View>
                             <View style={[styles.headerTextGroup]}>
-                                <Text style={styles.BoxTextColor(status ? successColor : failColor, 0.6)}>{status ? lang.success : lang.fail}</Text>
+                                <Text style={styles.BoxTextColor(status === STATUS_SUCCESS ? successColor : status === STATUS_PENDING ? '#a63393' : failColor, 0.6)}>
+                                    {status === STATUS_SUCCESS ? lang.success : status === STATUS_PENDING ? 'Pending' : lang.fail}
+                                </Text>
                             </View>
                         </View>
                     </View>

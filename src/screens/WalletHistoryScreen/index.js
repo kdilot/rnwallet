@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as txListActions from 'modules/TxListReducer';
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, RefreshControl, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, RefreshControl, FlatList } from 'react-native';
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import ToastComponent from 'components/ToastComponent';
+import AsyncStorage from '@react-native-community/async-storage';
 import CardView from 'react-native-cardview';
 import PlaceholderLayout from './PlaceholderLayout';
 import * as etherjs from 'api/etherjs';
@@ -39,7 +40,7 @@ class WalletHistoryScreen extends Component {
     }
 
     componentDidMount() {
-        const { navigation } = this.props;
+        const { navigation, txListAction } = this.props;
         this.focusListener = navigation.addListener('didFocus', async payload => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
@@ -49,6 +50,11 @@ class WalletHistoryScreen extends Component {
             } else {
                 this.setState({ itemType: ITEMTYPE_ALL, data: [], addressBookShow: false });
                 this.getData(ITEMTYPE_ALL, 1);
+            }
+            // 거래내역 Pending List
+            const pendingList = await AsyncStorage.getItem('pendingTxList');
+            if (pendingList) {
+                await txListAction.setPendingTxList(JSON.parse(pendingList));
             }
         });
     }
@@ -160,18 +166,10 @@ class WalletHistoryScreen extends Component {
         });
     };
 
-    renderFooter() {
-        const { refreshing } = this.state;
-        if (refreshing) {
-            return <ActivityIndicator />;
-        } else {
-            return <Text />;
-        }
-    }
-
     render() {
         const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList } = this.state;
         const { navigation } = this.props;
+        const { pendingTxList } = this.props.txListStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
@@ -217,11 +215,18 @@ class WalletHistoryScreen extends Component {
                         {data.length > 0 ? (
                             <FlatList
                                 data={data}
+                                ListHeaderComponent={
+                                    <View>
+                                        {pendingTxList.length > 0 &&
+                                            pendingTxList.map((pendingItem, index) => {
+                                                return <WalletHistoryComponent key={index} navigation={navigation} toast={this.toast} data={{ hash: pendingItem, status: 2 }} />;
+                                            })}
+                                    </View>
+                                }
                                 renderItem={({ item }) => <WalletHistoryComponent navigation={navigation} toast={this.toast} data={item} />}
                                 keyExtractor={(item, index) => index.toString()}
                                 removeClippedSubviews={false}
                                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />}
-                                renderFooter={this.renderFooter}
                                 onEndReached={() => {
                                     //  [임시조건 적용]
                                     if (data.length % PAGE_COUNT === 0) {

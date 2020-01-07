@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
+import * as txListActions from 'modules/TxListReducer';
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -123,6 +124,9 @@ class SendScreen extends Component {
             return;
         }
 
+        // const { txListAction } = this.props;
+        // txListAction.addPendingTxList({ txId: 'TX HASH 값' });
+
         this.onToast('전송 성공');
         navigation.navigate('Home');
     };
@@ -231,8 +235,10 @@ SendScreen.proptypes = {
 export default connect(
     state => ({
         settingStore: state.SettingReducer,
+        txListStore: state.TxListReducer,
     }),
     dispatch => ({
         settingAction: bindActionCreators(settingActions, dispatch),
+        txListAction: bindActionCreators(txListActions, dispatch),
     }),
 )(SendScreen);

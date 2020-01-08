@@ -50,6 +50,7 @@ class FingerPrintPopup extends Component {
     render() {
         const { errorMessage } = this.state;
         const { style, navigation } = this.props;
+        const { lang } = this.props.navigation.getScreenProps('locale');
 
         return (
             <View style={styles.container}>
@@ -63,7 +64,7 @@ class FingerPrintPopup extends Component {
                                 this.description = instance;
                             }}
                             style={styles.description(errorMessage)}>
-                            {errorMessage || '지문을 인식해주세요'}
+                            {errorMessage || lang.fingerprintMsg}
                         </AnimationText>
                     </View>
 
@@ -72,7 +73,7 @@ class FingerPrintPopup extends Component {
                         onPress={() => {
                             navigation.navigate('PinCode');
                         }}>
-                        <Text style={styles.buttonText}>USE PIN CODE</Text>
+                        <Text style={styles.buttonText}>{lang.usePinMsg}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

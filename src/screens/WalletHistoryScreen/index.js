@@ -286,6 +286,7 @@ WalletHistoryScreen.proptpes = {
     onActiveMini: PropTypes.func,
     renderDetail: PropTypes.func,
     renderFooter: PropTypes.func,
+    getPendingTxList: PropTypes.func,
     addressBookList: PropTypes.array,
 };
 

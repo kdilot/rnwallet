@@ -135,6 +135,7 @@ WalletCreate.proptypes = {
     mnemonic: PropTypes.string,
     shuffleMnemonic: PropTypes.array,
     createDisable: PropTypes.bool,
+    isVisible: PropTypes.bool,
     randomNumber: PropTypes.number,
     onCopy: PropTypes.func,
     checkWord: PropTypes.func,

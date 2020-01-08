@@ -30,6 +30,9 @@ export default StyleSheet.create({
         flex: 2,
         justifyContent: 'flex-end',
     },
+    sliderLayout: {
+        marginVertical: 10,
+    },
     feeTextLayout: {
         paddingHorizontal: 10,
         flexDirection: 'row',

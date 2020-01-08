@@ -78,11 +78,12 @@ class SendScreen extends Component {
     };
 
     onCheckAuth = () => {
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const { list } = this.props.settingStore;
         const { price, gas, address } = this.state;
 
         if (!price || !gas || !address) {
-            this.onToast('입력값 확인');
+            this.onToast(lang.inputErrorMsg);
             return;
         }
 
@@ -94,19 +95,20 @@ class SendScreen extends Component {
     };
 
     onSend = async () => {
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const { coin, price, gas, address } = this.state;
         const { navigation } = this.props;
         this.setState({ isSendDisable: true, isVisible: true });
 
         if (!price || !gas || !address) {
             this.setState({ isVisible: false });
-            this.onToast('입력값 확인');
+            this.onToast(lang.inputErrorMsg);
             return;
         }
 
         if (!(await etherjs.isEnoughEthFee(gas))) {
             this.setState({ isVisible: false });
-            this.onToast('ETH Fee 부족');
+            this.onToast(`${lang.notEnoughMsg} [ETH Fee]`);
             return;
         }
 
@@ -118,14 +120,14 @@ class SendScreen extends Component {
         if (coin === 'ROZ') {
             if (!(await etherjs.isEnoughRoz(price))) {
                 this.setState({ isVisible: false });
-                this.onToast('ROZ 잔액 부족');
+                this.onToast(`${lang.notEnoughMsg} [ROZ]`);
                 return;
             }
             result = await etherjs.sendRoz(privateKey, to, price, gas);
         } else {
             if (!(await etherjs.isEnoughEth(price, gas))) {
                 this.setState({ isVisible: false });
-                this.onToast('ETH 잔액 부족');
+                this.onToast(`${lang.notEnoughMsg} [ETH]`);
                 return;
             }
             result = await etherjs.sendEth(privateKey, to, price, gas);
@@ -133,7 +135,7 @@ class SendScreen extends Component {
 
         if (!result) {
             this.setState({ isVisible: false });
-            this.onToast('전송 실패');
+            this.onToast(lang.TranFailMsg);
             return;
         }
 
@@ -141,7 +143,7 @@ class SendScreen extends Component {
         txListAction.addPendingTxList({ txId: result });
 
         this.setState({ isVisible: false });
-        this.onToast('전송 성공');
+        this.onToast(lang.TranSucMsg);
         navigation.navigate('Home');
     };
 
@@ -191,15 +193,17 @@ class SendScreen extends Component {
                                     onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
                                     value={gas.toString()}
                                 />
-                                <Slider
-                                    value={gas}
-                                    onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
-                                    thumbTintColor={basicColor}
-                                    minimumTrackTintColor={basicColor}
-                                    minimumValue={gasMinValue}
-                                    maximumValue={gasMaxValue}
-                                    step={0.1}
-                                />
+                                <View style={styles.sliderLayout}>
+                                    <Slider
+                                        value={gas}
+                                        onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
+                                        thumbTintColor={basicColor}
+                                        minimumTrackTintColor={basicColor}
+                                        minimumValue={gasMinValue}
+                                        maximumValue={gasMaxValue}
+                                        step={0.1}
+                                    />
+                                </View>
                                 <View style={styles.feeTextLayout}>
                                     <Text style={styles.feeTextStyle}>
                                         {lang.slow}

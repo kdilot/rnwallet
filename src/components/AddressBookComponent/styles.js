@@ -2,8 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        margin: 5,
-        marginVertical: 7,
+        margin: 4,
     },
 
     cardLayout: {

@@ -8,7 +8,13 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
     },
     headerLayout: {
-        height: 200,
+        height: 250,
+    },
+    coinTextStyle: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        paddingBottom: 5,
+        marginBottom: 10,
     },
     textareaLayout: {
         flex: 1,

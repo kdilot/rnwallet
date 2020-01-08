@@ -28,6 +28,7 @@ class WalletHistoryComponent extends Component {
             name: props.data.nickname ? props.data.nickname : props.data.send ? props.data.to : props.data.from,
             address: props.data.send ? props.data.from : props.data.to, //  본인주소
             to: props.data.to,
+            isView: false,
         };
     }
 
@@ -60,10 +61,15 @@ class WalletHistoryComponent extends Component {
         toast.showToast(lang.copy);
     };
 
+    onView = () => {
+        const { isView } = this.state;
+        this.setState({ isView: !isView });
+    };
+
     render() {
         const { time, value, status, send, from, to, isRoz, hash } = this.props.data;
         const { lang } = this.props.navigation.getScreenProps('locale');
-        const { name } = this.state;
+        const { name, isView } = this.state;
         return (
             <CardView cardElevation={5} cornerRadius={2} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(dividerDarkColor)]}>
@@ -95,57 +101,64 @@ class WalletHistoryComponent extends Component {
                         </View>
                     </View>
                     <View style={styles.contentAddressGroup}>
-                        <View>
-                            <Text style={styles.contentAddressTitle}>Hash</Text>
-                            <View style={styles.contentTextGroup}>
-                                <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
-                                    {hash}
-                                </Text>
-                                <View style={[styles.alignRight, { flex: 1 }]}>
-                                    <TouchableOpacity
-                                        style={{ alignItems: 'flex-end' }}
-                                        onPress={() => {
-                                            this.onCopy(hash);
-                                        }}>
-                                        <Feather name="copy" size={20} />
-                                    </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onView()}>
+                            <Feather name={isView ? 'minus-square' : 'plus-square'} size={20} />
+                        </TouchableOpacity>
+                        {isView && (
+                            <>
+                                <View style={styles.contentAddressListLayout}>
+                                    <Text style={styles.contentAddressTitle}>Hash</Text>
+                                    <View style={styles.contentTextGroup}>
+                                        <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
+                                            {hash}
+                                        </Text>
+                                        <View style={[styles.alignRight, { flex: 1 }]}>
+                                            <TouchableOpacity
+                                                style={{ alignItems: 'flex-end' }}
+                                                onPress={() => {
+                                                    this.onCopy(hash);
+                                                }}>
+                                                <Feather name="copy" size={20} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        </View>
-                        {/* <View>
-                            <Text style={styles.contentAddressTitle}>From</Text>
-                            <View style={styles.contentTextGroup}>
-                                <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
-                                    {from}
-                                </Text>
-                                <View style={[styles.alignRight, { flex: 1 }]}>
-                                    <TouchableOpacity
-                                        style={{ alignItems: 'flex-end' }}
-                                        onPress={() => {
-                                            this.onCopy(from);
-                                        }}>
-                                        <Feather name="copy" size={20} />
-                                    </TouchableOpacity>
+                                <View>
+                                    <Text style={styles.contentAddressTitle}>From</Text>
+                                    <View style={styles.contentTextGroup}>
+                                        <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
+                                            {from}
+                                        </Text>
+                                        <View style={[styles.alignRight, { flex: 1 }]}>
+                                            <TouchableOpacity
+                                                style={{ alignItems: 'flex-end' }}
+                                                onPress={() => {
+                                                    this.onCopy(from);
+                                                }}>
+                                                <Feather name="copy" size={20} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        </View>
-                        <View>
-                            <Text style={styles.contentAddressTitle}>To</Text>
-                            <View style={styles.contentTextGroup}>
-                                <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
-                                    {to}
-                                </Text>
-                                <View style={[styles.alignRight, { flex: 1 }]}>
-                                    <TouchableOpacity
-                                        style={{ alignItems: 'flex-end' }}
-                                        onPress={() => {
-                                            this.onCopy(to);
-                                        }}>
-                                        <Feather name="copy" size={20} />
-                                    </TouchableOpacity>
+                                <View>
+                                    <Text style={styles.contentAddressTitle}>To</Text>
+                                    <View style={styles.contentTextGroup}>
+                                        <Text style={{ flex: 7 }} numberOfLines={1} ellipsizeMode="middle">
+                                            {to}
+                                        </Text>
+                                        <View style={[styles.alignRight, { flex: 1 }]}>
+                                            <TouchableOpacity
+                                                style={{ alignItems: 'flex-end' }}
+                                                onPress={() => {
+                                                    this.onCopy(to);
+                                                }}>
+                                                <Feather name="copy" size={20} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        </View> */}
+                            </>
+                        )}
                     </View>
                 </View>
             </CardView>
@@ -155,9 +168,14 @@ class WalletHistoryComponent extends Component {
 
 WalletHistoryComponent.proptypes = {
     data: PropTypes.number,
+    name: PropTypes.string,
+    address: PropTypes.string,
+    to: PropTypes.string,
+    isView: PropTypes.bool,
     onChange: PropTypes.func,
     onSend: PropTypes.func,
     onCopy: PropTypes.func,
+    onView: PropTypes.func,
     addAddressBook: PropTypes.func,
 };
 

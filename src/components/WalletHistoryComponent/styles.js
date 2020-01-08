@@ -60,6 +60,9 @@ export default StyleSheet.create({
     contentAddressGroup: {
         marginTop: 10,
     },
+    contentAddressListLayout: {
+        marginTop: 5,
+    },
     contentAddressTitle: {
         width: 50,
         padding: 0.5,

@@ -3,13 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
-import { setAddressBookApi } from 'api/AddressBook/AddressBookApi';
 import { Text, View, TouchableOpacity, Clipboard } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import CardView from 'react-native-cardview';
 import { plusColor, minusColor, successColor, failColor, dividerDarkColor } from 'constants/Color';
 import Icon from 'components/IconComponent';
-import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -38,20 +36,6 @@ class WalletHistoryComponent extends Component {
 
     onSend = address => {
         this.props.navigation.navigate('Send', { address, send: true });
-    };
-
-    addAddressBook = async () => {
-        const { AddressAction } = this.props;
-        const { lang } = this.props.navigation.getScreenProps('locale');
-        const { name, to } = this.state;
-        await setAddressBookApi({ address: to, nickname: name }).then(addressBookMap => {
-            if (!addressBookMap || addressBookMap === {}) {
-                return;
-            }
-
-            Toast.show(lang.saveMsg, { duration: Toast.durations.SHORT, position: 50 });
-            AddressAction.setAddressBook(addressBookMap);
-        });
     };
 
     onCopy = text => {
@@ -176,7 +160,6 @@ WalletHistoryComponent.proptypes = {
     onSend: PropTypes.func,
     onCopy: PropTypes.func,
     onView: PropTypes.func,
-    addAddressBook: PropTypes.func,
 };
 
 export default connect(

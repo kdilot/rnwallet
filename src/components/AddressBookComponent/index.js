@@ -7,7 +7,6 @@ import { Text, View, TextInput, TouchableOpacity, Clipboard } from 'react-native
 import CardView from 'react-native-cardview';
 import Feather from 'react-native-vector-icons/Feather';
 import { dividerLightColor, dividerDarkColor } from 'constants/Color';
-import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -28,7 +27,7 @@ class AddressBookComponent extends Component {
     };
 
     onSend = () => {
-        const { AddressAction, address } = this.props;
+        const { AddressAction, address, toast } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         const { nickname } = this.state;
 
@@ -37,8 +36,8 @@ class AddressBookComponent extends Component {
                 return;
             }
 
-            Toast.show(lang.saveMsg, { duration: Toast.durations.SHORT, position: 50 });
             AddressAction.setAddressBook(addressBookMap);
+            toast.showToast(lang.saveMsg);
         });
     };
 

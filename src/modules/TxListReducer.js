@@ -17,7 +17,7 @@ export const removePendingTxList = createAction(REMOVE_PENDING_TXLIST);
 // Default State
 const initialState = {
     list: [],
-    pendingTxList: [],
+    pendingHashList: [],
 };
 
 export default handleActions(
@@ -28,21 +28,22 @@ export default handleActions(
             }),
         [SET_PENDING_TXLIST]: (state, action) =>
             produce(state, draft => {
-                draft.pendingTxList = action.payload;
+                draft.pendingHashList = action.payload;
             }),
         [ADD_PENDING_TXLIST]: (state, action) =>
             produce(state, draft => {
                 const { txId } = action.payload;
-                const pendingList = state.pendingTxList.concat(txId);
-                AsyncStorage.setItem('pendingTxList', JSON.stringify(pendingList));
-                draft.pendingTxList = pendingList;
+                const pendingHashList = state.pendingHashList.concat(txId);
+                AsyncStorage.setItem('pendingHashList', JSON.stringify(pendingHashList));
+                draft.pendingHashList = pendingHashList;
             }),
         [REMOVE_PENDING_TXLIST]: (state, action) =>
             produce(state, draft => {
                 const { txId } = action.payload;
-                const pendingList = state.pendingTxList.filter(id => id !== txId);
-                AsyncStorage.setItem('pendingTxList', JSON.stringify(pendingList));
-                draft.pendingTxList = pendingList;
+                const pendingHashList = state.pendingHashList.filter(id => id !== txId);
+                console.log('1', pendingHashList, txId);
+                AsyncStorage.setItem('pendingHashList', JSON.stringify(pendingHashList));
+                draft.pendingHashList = pendingHashList;
             }),
     },
     initialState,

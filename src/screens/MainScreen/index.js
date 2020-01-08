@@ -13,6 +13,7 @@ import * as walletActions from 'modules/WalletReducer';
 import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
+import { AsyncStorage } from '@react-native-community/async-storage';
 
 class MainScreen extends PureComponent {
     constructor(props) {
@@ -54,6 +55,17 @@ class MainScreen extends PureComponent {
 
         this.getEthBalance();
         this.getRozBalance();
+        this.getPendingTxList();
+    }
+
+    async getPendingTxList() {
+        const { txListAction } = this.props;
+
+        // 거래내역 Pending List
+        const pendingList = await AsyncStorage.getItem('pendingTxList');
+        if (pendingList) {
+            await txListAction.setPendingTxList(JSON.parse(pendingList));
+        }
     }
 
     getTxList() {

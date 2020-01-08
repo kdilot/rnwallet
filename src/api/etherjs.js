@@ -52,6 +52,8 @@ export const sendEth = async (privateKey, to, value, gas) => {
     if (!privateKey || !to || !value || !gas) {
         return false;
     }
+
+    let txhash;
     try {
         let gasPrice = parseUnits(String(gas), 'gwei');
         let gasLimit = bigNumberify(21000);
@@ -64,12 +66,18 @@ export const sendEth = async (privateKey, to, value, gas) => {
         const sign = await ethWallet.sign(transaction);
         const tx = await provider.sendTransaction(sign);
         console.log('ETH 송금이 정상적으로 완료되었습니다. txid=' + tx.hash);
+
+        if (!tx || !tx.hash) {
+            return false;
+        }
+
+        txhash = tx.hash;
     } catch (error) {
         console.log('ETH 송금 ERROR', `${error.code}\n${error.message}`);
         return false;
     }
 
-    return true;
+    return txhash;
 };
 
 export const sendRoz = async (privateKey, to, value, gas) => {
@@ -77,6 +85,7 @@ export const sendRoz = async (privateKey, to, value, gas) => {
         return false;
     }
 
+    let txhash;
     try {
         let gasPrice = parseUnits(String(gas), 'gwei');
         let gasLimit = bigNumberify(2100000);
@@ -87,15 +96,39 @@ export const sendRoz = async (privateKey, to, value, gas) => {
 
         let options = { gasLimit, gasPrice };
 
-        await rozContract.transfer(to, amount, options).then(tx => {
-            console.log('ROZ 송금이 정상적으로 완료되었습니다. txid=' + tx.hash);
-        });
+        let tx = await rozContract.transfer(to, amount, options);
+
+        console.log('ROZ 송금이 정상적으로 완료되었습니다. txid=' + tx.hash);
+
+        if (!tx || !tx.hash) {
+            return false;
+        }
+
+        txhash = tx.hash;
     } catch (e) {
         console.log('ROZ 송금 중 오류가 발생되었습니다. Err=', e);
         return false;
     }
 
-    return true;
+    return txhash;
+};
+
+export const getTx = async txhash => {
+    let tx;
+    try {
+        let result = await ethClient.proxy.eth_getTransactionByHash(txhash);
+
+        if (!result || !result.result) {
+            return undefined;
+        }
+
+        tx = result.result;
+    } catch (err) {
+        console.log('getTx: ' + err);
+        return undefined;
+    }
+
+    return tx;
 };
 
 export const isEnoughEthFee = async gas => {
@@ -282,4 +315,30 @@ export const getTxListByAddress = async (page, offset, address) => {
         console.log('getTxListByAddress: suc');
     }
     return newTxList.slice((page - 1) * offset, page * offset);
+};
+
+export const decodeInputData = inputData => {
+    if (inputData === '0x') {
+        return undefined;
+    }
+
+    let data = { address: '', amount: '' };
+
+    try {
+        let decodedData = ethers.utils.defaultAbiCoder.decode(
+            [
+                { name: '_to', type: 'address' },
+                { name: '_value', type: 'uint256' },
+            ],
+            '0x' + inputData.substring(10),
+        );
+
+        data.address = decodedData[0];
+        data.amount = formatUnits(decodedData[1]['_hex'], 8);
+    } catch (err) {
+        console.log(err);
+        return undefined;
+    }
+
+    return data;
 };

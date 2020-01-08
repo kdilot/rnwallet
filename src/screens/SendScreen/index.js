@@ -110,13 +110,13 @@ class SendScreen extends Component {
                 this.onToast('ROZ 잔액 부족');
                 return;
             }
-            result = etherjs.sendRoz(privateKey, to, price, gas);
+            result = await etherjs.sendRoz(privateKey, to, price, gas);
         } else {
             if (!(await etherjs.isEnoughEth(price, gas))) {
                 this.onToast('ETH 잔액 부족');
                 return;
             }
-            result = etherjs.sendEth(privateKey, to, price, gas);
+            result = await etherjs.sendEth(privateKey, to, price, gas);
         }
 
         if (!result) {
@@ -124,8 +124,8 @@ class SendScreen extends Component {
             return;
         }
 
-        // const { txListAction } = this.props;
-        // txListAction.addPendingTxList({ txId: 'TX HASH 값' });
+        const { txListAction } = this.props;
+        txListAction.addPendingTxList({ txId: result });
 
         this.onToast('전송 성공');
         navigation.navigate('Home');

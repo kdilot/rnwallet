@@ -64,6 +64,7 @@ class WalletHistoryComponent extends Component {
         const { time, value, status, send, from, to, isRoz, hash } = this.props.data;
         const { lang } = this.props.navigation.getScreenProps('locale');
         const { name } = this.state;
+
         return (
             <CardView cardElevation={5} cornerRadius={2} style={styles.cardLayout}>
                 <View style={[styles.addressLayout, styles.borderColor(dividerDarkColor)]}>

@@ -7,13 +7,13 @@ import { View, Text, TouchableOpacity, KeyboardAvoidingView, RefreshControl, Fla
 import WalletHistoryComponent from 'components/WalletHistoryComponent';
 import AddressBookMiniComponent from 'components/AddressBookMiniComponent';
 import ToastComponent from 'components/ToastComponent';
-import AsyncStorage from '@react-native-community/async-storage';
 import CardView from 'react-native-cardview';
 import PlaceholderLayout from './PlaceholderLayout';
 import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import { Tx } from 'model/Tx';
 
 const ITEMTYPE_ALL = 0;
 const ITEMTYPE_ROZ = 1;
@@ -36,11 +36,12 @@ class WalletHistoryScreen extends Component {
             addressBookList: [],
             addressBookMap: {},
             address: '',
+            pendingTxList: [],
         };
     }
 
     componentDidMount() {
-        const { navigation, txListAction } = this.props;
+        const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', async payload => {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
@@ -50,11 +51,6 @@ class WalletHistoryScreen extends Component {
             } else {
                 this.setState({ itemType: ITEMTYPE_ALL, data: [], addressBookShow: false });
                 this.getData(ITEMTYPE_ALL, 1);
-            }
-            // 거래내역 Pending List
-            const pendingList = await AsyncStorage.getItem('pendingTxList');
-            if (pendingList) {
-                await txListAction.setPendingTxList(JSON.parse(pendingList));
             }
         });
     }
@@ -78,10 +74,34 @@ class WalletHistoryScreen extends Component {
         return <WalletHistoryComponent navigation={navigation} data={data[sectionID]} />;
     };
 
+    getPendingTxList = async () => {
+        const { pendingHashList } = this.props.txListStore;
+        const { txListAction } = this.props;
+
+        let pendingTxList = [];
+
+        for (let i = 0; i < pendingHashList.length; i++) {
+            let tx = await etherjs.getTx(pendingHashList[i]);
+
+            if (!tx || tx.blockNumber) {
+                txListAction.removePendingTxList({ txId: pendingHashList[i] });
+                continue;
+            }
+
+            pendingTxList.push(Tx.formPendingTxData(tx));
+        }
+
+        this.setState({
+            pendingTxList: pendingTxList,
+        });
+    };
+
     getData = async (itemType, page) => {
         let { data, address } = this.state;
         const { addressBookStore, txListAction } = this.props;
         let txList = [];
+
+        this.getPendingTxList();
 
         switch (itemType) {
             case ITEMTYPE_ALL:
@@ -167,9 +187,8 @@ class WalletHistoryScreen extends Component {
     };
 
     render() {
-        const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList } = this.state;
+        const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList, pendingTxList } = this.state;
         const { navigation } = this.props;
-        const { pendingTxList } = this.props.txListStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
@@ -219,7 +238,7 @@ class WalletHistoryScreen extends Component {
                                     <View>
                                         {pendingTxList.length > 0 &&
                                             pendingTxList.map((pendingItem, index) => {
-                                                return <WalletHistoryComponent key={index} navigation={navigation} toast={this.toast} data={{ hash: pendingItem, status: 2 }} />;
+                                                return <WalletHistoryComponent key={index} navigation={navigation} toast={this.toast} data={pendingItem} />;
                                             })}
                                     </View>
                                 }

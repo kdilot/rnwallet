@@ -2,18 +2,15 @@ import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import styles from './styles';
-
 import WalletInfoComponent from 'components/WalletInfoComponent';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as walletActions from 'modules/WalletReducer';
 import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
-import { AsyncStorage } from '@react-native-community/async-storage';
+import styles from './styles';
 
 class MainScreen extends PureComponent {
     constructor(props) {

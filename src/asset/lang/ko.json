@@ -46,5 +46,9 @@
     "homepage": "홈페이지",
     "setting": "설정",
     "mnemonicMsg": "잘 못된 니모닉 입니다.",
-    "mnemonicCopyMsg": "니모닉 복사"
+    "mnemonicCopyMsg": "니모닉 복사",
+    "inputErrorMsg": "입력값을 확인해주세요.",
+    "notEnoughMsg": "잔액부족",
+    "TranSucMsg": "전송성공",
+    "TranFailMsg": "전송실패"
 }

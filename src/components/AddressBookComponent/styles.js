@@ -32,8 +32,14 @@ export default StyleSheet.create({
         alignItems: 'flex-start',
     },
     addressTextStyle: {
-        fontSize: 11,
-        paddingTop: 4,
+        flex: 2,
+        fontSize: 12,
+        paddingVertical: 5,
+    },
+    addressCopyStyle: {
+        flex: 1,
+        paddingLeft: 5,
+        alignItems: 'flex-start',
     },
 
     borderColor: color => ({

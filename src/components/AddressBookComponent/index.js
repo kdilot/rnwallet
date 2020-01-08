@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Clipboard } from 'react-native';
 import CardView from 'react-native-cardview';
+import Feather from 'react-native-vector-icons/Feather';
 import { dividerLightColor, dividerDarkColor } from 'constants/Color';
 import Toast from 'react-native-root-toast';
 import PropTypes from 'prop-types';
@@ -46,6 +47,13 @@ class AddressBookComponent extends Component {
         this.props.navigation.navigate('WalletHistory', { itemType: 3, address });
     };
 
+    onCopy = text => {
+        const { toast } = this.props;
+        const { lang } = this.props.navigation.getScreenProps('locale');
+        Clipboard.setString(text);
+        toast.showToast(lang.copy);
+    };
+
     render() {
         const { address, nickname } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
@@ -60,10 +68,17 @@ class AddressBookComponent extends Component {
                                 <TextInput placeholder="nickname" keyboardType={'default'} onChangeText={text => this.onChange(text)} />
                             )}
                         </View>
-                        <View>
+                        <View style={{ flexDirection: 'row' }}>
                             <Text style={styles.addressTextStyle} numberOfLines={1} ellipsizeMode="middle">
                                 {address}
                             </Text>
+                            <TouchableOpacity
+                                style={[styles.addressTextStyle, styles.addressCopyStyle]}
+                                onPress={() => {
+                                    this.onCopy(address);
+                                }}>
+                                <Feather name="copy" size={20} />
+                            </TouchableOpacity>
                         </View>
                         <TouchableOpacity style={styles.historyButtonLayout} onPress={() => this.onHistory()}>
                             <Text style={[styles.addressButtonTextStlye, styles.TextColor(dividerDarkColor)]}>{lang.walletHistory}</Text>
@@ -84,6 +99,7 @@ AddressBookComponent.propTypes = {
     onChange: PropTypes.func,
     onSend: PropTypes.func,
     onHistory: PropTypes.func,
+    onCopy: PropTypes.func,
 };
 
 export default connect(

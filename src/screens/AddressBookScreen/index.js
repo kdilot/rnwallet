@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
 import AddressBookComponent from 'components/AddressBookComponent';
+import ToastComponent from 'components/ToastComponent';
 import Placeholderlayout from './PlaceholderLayout';
 import styles from './styles';
 
@@ -64,18 +65,25 @@ class AddressBookScreen extends Component {
         const { navigation } = this.props;
         const { addressBookLoad, addressBookList } = this.state;
         return (
-            <View style={styles.container}>
-                {addressBookLoad ? (
-                    <FlatList
-                        data={addressBookList}
-                        renderItem={({ item }) => <AddressBookComponent navigation={navigation} nickname={item.nickname} address={item.address} />}
-                        keyExtractor={(item, index) => index.toString()}
-                        removeClippedSubviews={false}
-                    />
-                ) : (
-                    <Placeholderlayout />
-                )}
-            </View>
+            <>
+                <View style={styles.container}>
+                    {addressBookLoad ? (
+                        <FlatList
+                            data={addressBookList}
+                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
+                            keyExtractor={(item, index) => index.toString()}
+                            removeClippedSubviews={false}
+                        />
+                    ) : (
+                        <Placeholderlayout />
+                    )}
+                </View>
+                <ToastComponent
+                    ref={ref => {
+                        this.toast = ref;
+                    }}
+                />
+            </>
         );
     }
 }

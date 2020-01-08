@@ -47,6 +47,7 @@ export default class PinCode extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         const { maxPin, maxCount } = this.props;
         const { newPinNumber, status, isCount } = this.state;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         const confirmPinNumber = nextState.pinNumber ? nextState.pinNumber.join('') : RESET_ARRAY;
         if (nextState.pinNumber.length === maxPin && status === NEW_PIN && !nextState.newPinNumber) {
             this.setState({
@@ -69,7 +70,7 @@ export default class PinCode extends Component {
                     newPinNumber: null,
                     pinNumber: RESET_ARRAY,
                 });
-                this.blockKeyboard(1500, 'WRONG CONFIRM PIN NUMBER');
+                this.blockKeyboard(1500, lang.confirmPinMsg);
             }
         } else if (nextState.pinNumber.length === maxPin && status === ACCESS_PIN) {
             if (confirmPinNumber === newPinNumber) {
@@ -80,7 +81,7 @@ export default class PinCode extends Component {
                     pinNumber: RESET_ARRAY,
                     isCount: isCount + 1,
                 });
-                maxCount === isCount ? this.blockKeyboard(30000, 'YOU CAN TRY AFTER 30 SEC') : this.blockKeyboard(1500, 'WRONG PIN NUMBER');
+                maxCount === isCount ? this.blockKeyboard(30000, lang.pinTimeoutMsg) : this.blockKeyboard(1500, lang.accessPinMsg);
             }
         }
         return true;
@@ -107,13 +108,13 @@ export default class PinCode extends Component {
         this.setState({ pinNumber: key === 'back' ? (length > 0 ? pinNumber.slice(0, length - 1) : RESET_ARRAY) : pinNumber.concat(key) });
     };
     render() {
-        const { pinNumber, status, newPinNumber } = this.state;
+        const { pinNumber, status } = this.state;
         const { maxPin } = this.props;
+        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
                 <View style={styles.textLayout}>
-                    <Text style={styles.pinTextStyle}>{newPinNumber}</Text>
-                    <Text style={styles.pinTextStyle}>{status === NEW_PIN ? 'New PIN' : status === CONFIRM_PIN ? 'Confirm PIN' : 'Access PIN'}</Text>
+                    <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : lang.accessPin}</Text>
                 </View>
                 <View style={styles.pinLayout}>
                     <PinInput

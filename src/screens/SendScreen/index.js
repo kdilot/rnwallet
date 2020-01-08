@@ -9,6 +9,7 @@ import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
+import OverlayComponent from 'components/OverlayComponent';
 import { getGasPrice } from 'api/EtherChain';
 import * as etherjs from 'api/etherjs';
 // import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
@@ -28,6 +29,7 @@ class SendScreen extends Component {
             gasMinValue: 0,
             gasMaxValue: 0,
             isSendDisable: true,
+            isVisible: false,
             send: props.navigation.state.params.send,
             coin: props.navigation.state.params.coin,
         };
@@ -78,6 +80,12 @@ class SendScreen extends Component {
     onCheckAuth = () => {
         const { list } = this.props.settingStore;
         const { price, gas, address } = this.state;
+
+        if (!price || !gas || !address) {
+            this.onToast('입력값 확인');
+            return;
+        }
+
         if (list.fingerprint || list.pin) {
             this.props.navigation.navigate(list.fingerprint ? 'FingerPrint' : 'PinCode', { sendData: { price, gas, address } });
         } else {
@@ -88,14 +96,16 @@ class SendScreen extends Component {
     onSend = async () => {
         const { coin, price, gas, address } = this.state;
         const { navigation } = this.props;
-        this.setState({ isSendDisable: true });
+        this.setState({ isSendDisable: true, isVisible: true });
 
         if (!price || !gas || !address) {
+            this.setState({ isVisible: false });
             this.onToast('입력값 확인');
             return;
         }
 
         if (!(await etherjs.isEnoughEthFee(gas))) {
+            this.setState({ isVisible: false });
             this.onToast('ETH Fee 부족');
             return;
         }
@@ -107,12 +117,14 @@ class SendScreen extends Component {
         let result;
         if (coin === 'ROZ') {
             if (!(await etherjs.isEnoughRoz(price))) {
+                this.setState({ isVisible: false });
                 this.onToast('ROZ 잔액 부족');
                 return;
             }
             result = await etherjs.sendRoz(privateKey, to, price, gas);
         } else {
             if (!(await etherjs.isEnoughEth(price, gas))) {
+                this.setState({ isVisible: false });
                 this.onToast('ETH 잔액 부족');
                 return;
             }
@@ -120,6 +132,7 @@ class SendScreen extends Component {
         }
 
         if (!result) {
+            this.setState({ isVisible: false });
             this.onToast('전송 실패');
             return;
         }
@@ -127,16 +140,21 @@ class SendScreen extends Component {
         const { txListAction } = this.props;
         txListAction.addPendingTxList({ txId: result });
 
+        this.setState({ isVisible: false });
         this.onToast('전송 성공');
         navigation.navigate('Home');
     };
 
     render() {
-        const { price, address, isSendDisable, gas, gasMinValue, gasMaxValue } = this.state;
+        const { price, address, isSendDisable, gas, gasMinValue, gasMaxValue, coin, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
+                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                 <View style={styles.headerLayout}>
+                    <View>
+                        <Text style={styles.coinTextStyle}>{coin}</Text>
+                    </View>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.price}</Text>
                         <TextInput style={styles.textInputStyle} placeholder={lang.price} keyboardType="phone-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
@@ -221,6 +239,7 @@ SendScreen.proptypes = {
     gas: PropTypes.number,
     address: PropTypes.string,
     isSendDisable: PropTypes.bool,
+    isVisible: PropTypes.bool,
     gasMinValue: PropTypes.number,
     gasMaxValue: PropTypes.number,
     onSearch: PropTypes.func,

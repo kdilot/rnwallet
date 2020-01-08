@@ -6,6 +6,7 @@ import { Text, View, TextInput, Clipboard, Dimensions } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
+import OverlayComponent from 'components/OverlayComponent';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
@@ -16,6 +17,7 @@ class WalletCreate extends Component {
         super(props);
 
         this.state = {
+            isVisible: false,
             createDisable: true,
             randomNumber: Math.floor(Math.random() * 12) + 1,
         };
@@ -34,7 +36,7 @@ class WalletCreate extends Component {
     };
 
     onCreate = async () => {
-        await this.setState({ createDisable: true });
+        await this.setState({ createDisable: true, isVisible: true });
         await setTimeout(() => {
             this.onKeyStore();
         }, 100);
@@ -51,6 +53,7 @@ class WalletCreate extends Component {
             if (address) {
                 RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
                     await walletAction.setWalletAddress({ walletAddress: address, async: true });
+                    await this.setState({ isVisible: false });
                     await navigation.navigate('Home');
                 });
             }
@@ -75,11 +78,12 @@ class WalletCreate extends Component {
     };
 
     render() {
-        const { createDisable, randomNumber } = this.state;
+        const { createDisable, randomNumber, isVisible } = this.state;
         const { mnemonic, shuffleMnemonic } = this.props.walletStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
+                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                 <View style={styles.textareaLayout}>
                     <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
                 </View>
@@ -131,6 +135,7 @@ WalletCreate.proptypes = {
     mnemonic: PropTypes.string,
     shuffleMnemonic: PropTypes.array,
     createDisable: PropTypes.bool,
+    isVisible: PropTypes.bool,
     randomNumber: PropTypes.number,
     onCopy: PropTypes.func,
     checkWord: PropTypes.func,

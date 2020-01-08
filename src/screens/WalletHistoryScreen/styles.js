@@ -4,18 +4,16 @@ import { basicColor, whiteColor } from 'constants/Color';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingVertical: 10,
     },
     itemTypeLayout: {
         height: 70,
-        paddingHorizontal: 15,
         alignItems: 'center',
         justifyContent: 'center',
     },
     itemListLayout: {
         flex: 7,
         paddingVertical: 5,
-        paddingHorizontal: 15,
+        paddingHorizontal: 5,
         width: '100%',
     },
     typeLayout: {

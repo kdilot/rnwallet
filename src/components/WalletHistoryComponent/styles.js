@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
-    cardLayout: { padding: 15, margin: 10 },
+    cardLayout: { padding: 15, margin: 2, marginVertical: 4 },
     timeLayout: {
         flex: 1,
     },

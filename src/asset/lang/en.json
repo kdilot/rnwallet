@@ -35,6 +35,7 @@
     "pinTimeoutMsg": "YOU CAN TRY AFTER 30 SEC",
     "fingerprintMsg": "Place your finger",
     "usePinMsg": "USE PIN CODE",
+    "inProgressMsg": "In Progress...",
     "qrcode": "QR Code",
     "fingerprint": "Fingerprint",
     "language": "Language",

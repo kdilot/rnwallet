@@ -5,6 +5,7 @@ import * as walletActions from 'modules/WalletReducer';
 import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
+import OverlayComponent from 'components/OverlayComponent';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
@@ -16,13 +17,14 @@ class WalletRestore extends Component {
 
         this.state = {
             text: null,
+            isVisible: false,
             restoreDisable: false,
         };
     }
 
     onRestore = async () => {
         //  Token 생성 로직 추가
-        await this.setState({ restoreDisable: true });
+        await this.setState({ restoreDisable: true, isVisible: true });
         await setTimeout(() => {
             this.onKeyStore();
         }, 100);
@@ -39,6 +41,7 @@ class WalletRestore extends Component {
             if (address) {
                 RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
                     await walletAction.setWalletAddress({ walletAddress: address, async: true });
+                    await this.setState({ isVisible: false });
                     await navigation.navigate('Home');
                 });
             }
@@ -53,10 +56,11 @@ class WalletRestore extends Component {
     };
 
     render() {
-        const { text, restoreDisable } = this.state;
+        const { text, restoreDisable, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={styles.container}>
+                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                 <View style={styles.textareaLayout}>
                     <Text style={styles.textStyle}>{lang.restoreInputMsg}</Text>
                     <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
@@ -77,6 +81,7 @@ class WalletRestore extends Component {
 WalletRestore.propTypes = {
     text: PropTypes.string,
     restoreDisable: PropTypes.bool,
+    isVisible: PropTypes.bool,
     onChangeText: PropTypes.func,
     onRestore: PropTypes.func,
     onKeyStore: PropTypes.func,

@@ -12,7 +12,8 @@ import ToastComponent from 'components/ToastComponent';
 import OverlayComponent from 'components/OverlayComponent';
 import { getGasPrice } from 'api/EtherChain';
 import * as etherjs from 'api/etherjs';
-// import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
+import RNSecureKeyStore from 'react-native-secure-key-store';
+import { USER_ETH_ADDRESS } from 'constants/Global';
 import PlaceholderLayout from './PlaceholderLayout';
 import { basicColor } from 'constants/Color';
 import PropTypes from 'prop-types';
@@ -112,8 +113,8 @@ class SendScreen extends Component {
             return;
         }
 
-        // let privateKey = await RNSecureKeyStore.get('0x656e05B4DcAb9996584FF7a0709fD0C5e22997e3');
-        let privateKey = '271D78A7A394B840EF3D04591E7CCEC4A524113F27F0B45C8BFDBC62F84CDF1B';
+        let privateKey = await RNSecureKeyStore.get(USER_ETH_ADDRESS);
+        // let privateKey = '271D78A7A394B840EF3D04591E7CCEC4A524113F27F0B45C8BFDBC62F84CDF1B'; // [테스트]
         const to = address;
 
         let result;

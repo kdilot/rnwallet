@@ -153,8 +153,6 @@ class MainScreen extends PureComponent {
                     sliderWidth={WIDTH}
                     itemWidth={WIDTH * 0.8}
                 />
-                {/* <WalletInfoComponent navigation={navigation} isLoad={isRozLoad} refresh={() => this.getRozBalance()} icon={'roz'} value={rozBalance} />
-                <WalletInfoComponent navigation={navigation} isLoad={isEthLoad} refresh={() => this.getEthBalance()} icon={'eth'} name={'Ethereum'} coin={'ETH'} value={ethBalance} /> */}
             </View>
         );
     }

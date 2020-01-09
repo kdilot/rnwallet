@@ -160,7 +160,7 @@ class SendScreen extends Component {
                     </View>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.price}</Text>
-                        <TextInput style={styles.textInputStyle} placeholder={lang.price} keyboardType="phone-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
+                        <TextInput style={styles.textInputStyle} placeholder={lang.price} keyboardType="decimal-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
                     </View>
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.address}</Text>
@@ -190,7 +190,7 @@ class SendScreen extends Component {
                                 <TextInput
                                     style={styles.textInputStyle}
                                     placeholder={lang.fees}
-                                    keyboardType="phone-pad"
+                                    keyboardType="decimal-pad"
                                     onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
                                     value={gas.toString()}
                                 />

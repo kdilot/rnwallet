@@ -153,6 +153,7 @@ class MainScreen extends PureComponent {
                     sliderWidth={WIDTH}
                     itemWidth={WIDTH * 0.8}
                 />
+                <View style={styles.contentLayout} />
             </View>
         );
     }

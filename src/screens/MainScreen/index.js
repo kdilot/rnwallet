@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
-import { View } from 'react-native';
+import { View, Text, Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import WalletInfoComponent from 'components/WalletInfoComponent';
 import AsyncStorage from '@react-native-community/async-storage';
+import Carousel from 'react-native-snap-carousel';
+import { animationAction, animationStyles } from './animation';
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as walletActions from 'modules/WalletReducer';
@@ -11,6 +13,9 @@ import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
 import styles from './styles';
+
+const CARD = ['roz', 'eth'];
+const WIDTH = Dimensions.get('window').width;
 
 class MainScreen extends PureComponent {
     constructor(props) {
@@ -31,8 +36,8 @@ class MainScreen extends PureComponent {
             this.getEthBalance();
             this.getRozBalance();
         });
+        animationAction();
     }
-
     componentWillUnmount() {
         this.focusListener.remove();
     }
@@ -123,8 +128,33 @@ class MainScreen extends PureComponent {
         const { ethBalance, rozBalance, isEthLoad, isRozLoad } = this.state;
         return (
             <View style={styles.container}>
-                <WalletInfoComponent navigation={navigation} isLoad={isRozLoad} refresh={() => this.getRozBalance()} icon={'roz'} value={rozBalance} />
-                <WalletInfoComponent navigation={navigation} isLoad={isEthLoad} refresh={() => this.getEthBalance()} icon={'eth'} name={'Ethereum'} coin={'ETH'} value={ethBalance} />
+                <View style={styles.contentLayout}>
+                    <Animated.View style={[animationStyles]}>
+                        <Text style={styles.contentText}>Rozeus Wallet</Text>
+                    </Animated.View>
+                </View>
+                <Carousel
+                    ref={c => {
+                        this.carousel = c;
+                    }}
+                    data={CARD}
+                    renderItem={(i, index) => (
+                        <WalletInfoComponent
+                            key={index}
+                            navigation={navigation}
+                            isLoad={i.item === 'roz' ? isRozLoad : isEthLoad}
+                            refresh={() => this.getEthBalance()}
+                            icon={i.item}
+                            name={i.item === 'roz' ? 'Rozeus' : 'Ethereum'}
+                            coin={i.item.toUpperCase()}
+                            value={i.item === 'roz' ? rozBalance : ethBalance}
+                        />
+                    )}
+                    sliderWidth={WIDTH}
+                    itemWidth={WIDTH * 0.8}
+                />
+                {/* <WalletInfoComponent navigation={navigation} isLoad={isRozLoad} refresh={() => this.getRozBalance()} icon={'roz'} value={rozBalance} />
+                <WalletInfoComponent navigation={navigation} isLoad={isEthLoad} refresh={() => this.getEthBalance()} icon={'eth'} name={'Ethereum'} coin={'ETH'} value={ethBalance} /> */}
             </View>
         );
     }

@@ -2,7 +2,8 @@ export const ROZEUS_WALLET_API_URI = 'https://asia-northeast1-rozeus-4321c.cloud
 export const ETHERCHAIN_GAS_PRICE_API_URL = 'https://www.etherchain.org/api/gasPriceOracle';
 
 //  개인 주소만 초기 로딩시 초기화 후 고정 ([테스트] 주소)
-export let USER_ETH_ADDRESS = '0xBde7Cd1b49EaAc57373eaF5b1E9A9D588F3e456d';
+// export let USER_ETH_ADDRESS = '0xBde7Cd1b49EaAc57373eaF5b1E9A9D588F3e456d';
+export let USER_ETH_ADDRESS = '';
 
 export const ETHSCAN_IO_API_KEY = 'ZK1MPCAYSNQACVGRRA2XT9UQH3US3UBHWH';
 export const ETH_NETWORK_MODE = 'ropsten';

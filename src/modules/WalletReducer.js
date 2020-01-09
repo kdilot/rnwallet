@@ -44,7 +44,7 @@ export default handleActions(
                     AsyncStorage.setItem('walletAddress', walletAddress);
                 }
                 //  개인 지갑주소 GLOBAL 값 변경
-                // Global.USER_ETH_ADDRESS = walletAddress;    //  [테스트] 주소 값 저장안함
+                Global.USER_ETH_ADDRESS = walletAddress;
                 draft.walletAddress = walletAddress;
             }),
         [SET_MNEMONIC]: (state, action) =>

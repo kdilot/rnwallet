@@ -8,7 +8,7 @@ function* setWalletSaga() {
     yield AsyncStorage.getItem('walletAddress').then(res => {
         payload.walletAddress = res;
         //  개인 지갑주소 GLOBAL 값 변경
-        // Global.USER_ETH_ADDRESS = res;   [테스트] 고정 값 변경 안함
+        Global.USER_ETH_ADDRESS = res;
         console.log('[GET WALLETS]');
     });
     yield put({ type: SET_WALLET_ADDRESS, payload });

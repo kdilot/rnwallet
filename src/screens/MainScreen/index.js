@@ -143,7 +143,7 @@ class MainScreen extends PureComponent {
                             key={index}
                             navigation={navigation}
                             isLoad={i.item === 'roz' ? isRozLoad : isEthLoad}
-                            refresh={() => this.getEthBalance()}
+                            refresh={() => (i.item === 'roz' ? this.getRozBalance() : this.getEthBalance())}
                             icon={i.item}
                             name={i.item === 'roz' ? 'Rozeus' : 'Ethereum'}
                             coin={i.item.toUpperCase()}

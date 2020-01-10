@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "713913930896",
+    "firebase_url": "https://rozeus-4321c.firebaseio.com",
+    "project_id": "rozeus-4321c",
+    "storage_bucket": "rozeus-4321c.appspot.com"
+  },
+  "client": [    
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713913930896:android:15273f4617703309217415",
+        "android_client_info": {
+          "package_name": "com.rwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713913930896-ht3qgi5l0i0j3momt1oc8epvsevqgshk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq0f8kk9Pxd6N2B3Wwlbpi8nJyA2plVaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713913930896-ht3qgi5l0i0j3momt1oc8epvsevqgshk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

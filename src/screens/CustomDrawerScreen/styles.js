@@ -22,11 +22,11 @@ export default StyleSheet.create({
     itemLayout: {
         flex: 1,
         width: '100%',
-        padding: 10,
+        padding: 15,
     },
     itemArrowLayout: {
         position: 'absolute',
-        right: 10,
+        right: 0,
     },
     dividerStyle: {
         height: 1,

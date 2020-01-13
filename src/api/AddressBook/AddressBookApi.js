@@ -65,9 +65,9 @@ export const setAddressBookApi = async param => {
                 return getAddressBookMap(USER_ETH_ADDRESS);
             }
         });
-    } catch (e) {
-        logUtil.log('setAddressBookApi: ' + JSON.stringify(err));
-        return { error: e };
+    } catch (error) {
+        logUtil.log('setAddressBookApi: ' + JSON.stringify(error));
+        return { error };
     }
 };
 

@@ -43,7 +43,7 @@ export class Tx {
                 contractAddress: isRoz ? tx.contractAddress : undefined,
             };
         } catch (err) {
-            console.log(err);
+            logUtil.log('formTxData: ' + JSON.stringify(err));
             return undefined;
         }
 

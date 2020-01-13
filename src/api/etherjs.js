@@ -74,7 +74,7 @@ export const sendEth = async (privateKey, to, value, gas) => {
 
         txhash = tx.hash;
     } catch (error) {
-        logUtil.log('sendEth: ' + JSON.stringify(err));
+        logUtil.log('sendEth: ' + JSON.stringify(error));
         return false;
     }
 
@@ -106,8 +106,8 @@ export const sendRoz = async (privateKey, to, value, gas) => {
         }
 
         txhash = tx.hash;
-    } catch (e) {
-        logUtil.log('sendRoz: ' + JSON.stringify(err));
+    } catch (error) {
+        logUtil.log('sendRoz: ' + JSON.stringify(error));
         return false;
     }
 

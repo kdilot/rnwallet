@@ -29,7 +29,7 @@ export const PROD_MODE = 'DEV';
 
 export const SEND_TYPE = {
     ropsten: {
-        contractAddress: '0x60ac9c7a34dbe35e7392c20d9660cfb290bb485a',
+        contractAddress: ROZ_CONTRACT_ADDRESS,
         abi: [
             // balanceOf
             {

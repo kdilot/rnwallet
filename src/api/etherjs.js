@@ -73,7 +73,7 @@ export const sendEth = async (privateKey, to, value, gas) => {
 
         txhash = tx.hash;
     } catch (error) {
-        console.log('ETH 송금 ERROR', `${error.code}\n${error.message}`);
+        logUtil.log('sendEth: ' + JSON.stringify(err));
         return false;
     }
 
@@ -106,7 +106,7 @@ export const sendRoz = async (privateKey, to, value, gas) => {
 
         txhash = tx.hash;
     } catch (e) {
-        console.log('ROZ 송금 중 오류가 발생되었습니다. Err=', e);
+        logUtil.log('sendRoz: ' + JSON.stringify(err));
         return false;
     }
 
@@ -124,7 +124,7 @@ export const getTx = async txhash => {
 
         tx = result.result;
     } catch (err) {
-        console.log('getTx: ' + err);
+        logUtil.log('getTx: ' + JSON.stringify(err));
         return undefined;
     }
 
@@ -140,7 +140,7 @@ export const isEnoughEthFee = async gas => {
             return false;
         }
     } catch (err) {
-        console.log('isEnoughFee' + err);
+        logUtil.log('isEnoughEthFee: ' + JSON.stringify(err));
         return false;
     }
 
@@ -158,7 +158,7 @@ export const isEnoughEth = async (value, gas) => {
             return false;
         }
     } catch (err) {
-        console.log('isEnoughEth', err);
+        logUtil.log('isEnoughEth: ' + JSON.stringify(err));
         return false;
     }
 
@@ -174,7 +174,7 @@ export const isEnoughRoz = async value => {
             return false;
         }
     } catch (err) {
-        console.log('isEnoughRoz', err);
+        logUtil.log('isEnoughRoz: ' + JSON.stringify(err));
         return false;
     }
 
@@ -191,7 +191,7 @@ export const getEthBalance = async () => {
 
         ethBalance = result.result;
     } catch (err) {
-        console.log(err);
+        logUtil.log('getEthBalance: ' + JSON.stringify(err));
         return 0;
     }
 
@@ -209,7 +209,7 @@ export const getRozBalance = async () => {
 
         rozBalance = result.result;
     } catch (err) {
-        console.log(err);
+        logUtil.log('getRozBalance: ' + JSON.stringify(err));
         return 0;
     }
 
@@ -233,7 +233,7 @@ export const getEthTxList = async (page, offset) => {
             console.log('getEthTxList: suc');
         }
     } catch (err) {
-        console.log(err);
+        logUtil.log('getEthTxList: ' + JSON.stringify(err));
         return [];
     }
 
@@ -258,7 +258,7 @@ export const getRozTxList = async (page, offset) => {
             console.log('getRozTxList: suc');
         }
     } catch (err) {
-        console.log(err);
+        logUtil.log('getRozTxList: ' + JSON.stringify(err));
         return [];
     }
 
@@ -336,7 +336,7 @@ export const decodeInputData = inputData => {
         data.address = decodedData[0];
         data.amount = formatUnits(decodedData[1]['_hex'], 8);
     } catch (err) {
-        console.log(err);
+        logUtil.log('decodeInputData: ' + JSON.stringify(err));
         return undefined;
     }
 

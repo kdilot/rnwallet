@@ -40,8 +40,7 @@ export default handleActions(
         [REMOVE_PENDING_TXLIST]: (state, action) =>
             produce(state, draft => {
                 const { txId } = action.payload;
-                const pendingHashList = state.pendingHashList.filter(id => id !== txId);
-                console.log('1', pendingHashList, txId);
+                const pendingHashList = state.pendingHashList.filter(id => id !== txId);                
                 AsyncStorage.setItem('pendingHashList', JSON.stringify(pendingHashList));
                 draft.pendingHashList = pendingHashList;
             }),

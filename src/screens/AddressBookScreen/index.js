@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -63,16 +63,23 @@ class AddressBookScreen extends Component {
     render() {
         const { navigation } = this.props;
         const { addressBookLoad, addressBookList } = this.state;
+        console.log(addressBookLoad);
         return (
             <>
                 <View style={styles.container}>
                     {addressBookLoad ? (
-                        <FlatList
-                            data={addressBookList}
-                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
-                            keyExtractor={(item, index) => index.toString()}
-                            removeClippedSubviews={false}
-                        />
+                        addressBookList.length > 0 ? (
+                            <FlatList
+                                data={addressBookList}
+                                renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
+                                keyExtractor={(item, index) => index.toString()}
+                                removeClippedSubviews={false}
+                            />
+                        ) : (
+                            <View style={styles.isEmptyLayout}>
+                                <Text>NO DATA</Text>
+                            </View>
+                        )
                     ) : (
                         <Placeholderlayout />
                     )}

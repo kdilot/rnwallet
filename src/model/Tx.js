@@ -2,6 +2,7 @@ import * as etherjs from 'api/etherjs';
 import { plusColor, minusColor } from 'constants/Color';
 import moment from 'moment';
 import { USER_ETH_ADDRESS, ROZ_CONTRACT_ADDRESS } from 'constants/Global';
+import { logUtil } from 'log/log';
 
 require('moment-timezone');
 moment.tz.setDefault('Asia/Seoul');

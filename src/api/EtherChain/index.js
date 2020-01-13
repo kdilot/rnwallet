@@ -1,4 +1,5 @@
 import { ETHERCHAIN_GAS_PRICE_API_URL } from 'constants/Global';
+import { logUtil } from 'log/log';
 
 export const getGasPrice = async () => {
     try {
@@ -7,7 +8,7 @@ export const getGasPrice = async () => {
 
         return result;
     } catch (err) {
-        console.log(err);
+        logUtil.log('getGasPrice: ' + JSON.stringify(err));
         return {};
     }
 };

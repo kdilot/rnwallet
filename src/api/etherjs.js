@@ -1,5 +1,6 @@
 import * as etherApi from 'etherscan-api';
 import * as ethers from 'ethers';
+import { logUtil } from 'log/log';
 
 import { Tx } from 'model/Tx';
 import { SEND_TYPE, USER_ETH_ADDRESS, ETH_NETWORK_MODE, ETHSCAN_IO_API_KEY, ROZ_CONTRACT_ADDRESS, EHT_START_BLOCK, PROD_MODE } from 'constants/Global';
@@ -233,7 +234,7 @@ export const getEthTxList = async (page, offset) => {
             console.log('getEthTxList: suc');
         }
     } catch (err) {
-        logUtil.log('getEthTxList: ' + JSON.stringify(err));
+        logUtil.log('getEthTxList: ' + JSON.stringify(err), false);
         return [];
     }
 
@@ -258,7 +259,7 @@ export const getRozTxList = async (page, offset) => {
             console.log('getRozTxList: suc');
         }
     } catch (err) {
-        logUtil.log('getRozTxList: ' + JSON.stringify(err));
+        logUtil.log('getRozTxList: ' + JSON.stringify(err), false);
         return [];
     }
 
@@ -271,7 +272,6 @@ export const getTxList = async (page, offset) => {
 
     let ethTxList = await getEthTxList(1, 10000);
     let rozTxList = await getRozTxList(1, 10000);
-
     txList = txList.concat(ethTxList);
     txList = txList.concat(rozTxList);
 

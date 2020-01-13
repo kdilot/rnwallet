@@ -1,13 +1,17 @@
 import crashlytics from '@react-native-firebase/crashlytics';
-import { PROD_MODE } from 'constants/Global'
+import { PROD_MODE } from 'constants/Global';
 
-const log = (log) => {
+const log = (log, report = true) => {
     if (!log) {
         return;
     }
 
     if (PROD_MODE === 'DEV') {
-        console.log(log);        
+        console.log(log);
+    }
+
+    if (!report) {
+        return;
     }
 
     crashlytics().log(log);

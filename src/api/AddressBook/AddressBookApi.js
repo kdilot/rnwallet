@@ -1,6 +1,6 @@
 import * as Global from 'constants/Global';
 import * as etherjs from 'api/etherjs';
-import { logUtil } from '../../util/log';
+import { logUtil } from 'log/log';
 
 const ROZEUS_WALLET_API_URI = Global.ROZEUS_WALLET_API_URI;
 const PROD_MODE = Global.PROD_MODE;
@@ -38,7 +38,7 @@ export const getAddressBookMap = async address => {
         if (PROD_MODE === 'DEV') {
             console.log('getAddressBookMap: suc');
         }
-    } catch (err) {        
+    } catch (err) {
         logUtil.log('getAddressBookMap: ' + JSON.stringify(err));
         return {};
     }

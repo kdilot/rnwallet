@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { View, FlatList, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MenuList = [
     {
@@ -25,7 +25,6 @@ const MenuList = [
 ];
 
 export default class CustomDrawerScreen extends Component {
-
     onClick = view => {
         this.props.navigation.navigate(view);
     };
@@ -38,10 +37,24 @@ export default class CustomDrawerScreen extends Component {
                     <Ionicons name="logo-xbox" size={100} color="white" />
                 </View>
                 <View style={styles.contentLayout}>
-                    {MenuList.map((item, i) => (
-                        // eslint-disable-next-line react-native/no-inline-styles
-                        <ListItem key={i} title={lang[item.title]} bottomDivider style={{ width: '100%' }} onPress={() => this.onClick(item.action)} chevron />
-                    ))}
+                    <FlatList
+                        data={MenuList}
+                        ItemSeparatorComponent={() => {
+                            return <View style={styles.dividerStyle} />;
+                        }}
+                        ListFooterComponent={() => {
+                            return <View style={styles.dividerStyle} />;
+                        }}
+                        renderItem={({ item }) => (
+                            <View style={styles.itemLayout}>
+                                <TouchableOpacity onPress={() => this.onClick(item.action)}>
+                                    <Text>{lang[item.title]}</Text>
+                                    <Ionicons name="md-arrow-forward" style={styles.itemArrowLayout} size={20} />
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
                 </View>
             </View>
         );

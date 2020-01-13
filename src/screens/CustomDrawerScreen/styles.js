@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { basicColor } from 'constants/Color';
+import { basicColor, dividerLightColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -18,7 +18,18 @@ export default StyleSheet.create({
     contentLayout: {
         flex: 5,
         width: '100%',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+    },
+    itemLayout: {
+        flex: 1,
+        width: '100%',
+        padding: 10,
+    },
+    itemArrowLayout: {
+        position: 'absolute',
+        right: 10,
+    },
+    dividerStyle: {
+        height: 1,
+        backgroundColor: dividerLightColor,
     },
 });

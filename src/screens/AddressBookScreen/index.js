@@ -63,7 +63,6 @@ class AddressBookScreen extends Component {
     render() {
         const { navigation } = this.props;
         const { addressBookLoad, addressBookList } = this.state;
-        console.log(addressBookLoad);
         return (
             <>
                 <View style={styles.container}>

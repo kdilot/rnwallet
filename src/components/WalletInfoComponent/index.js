@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PlaceholderLayout from './PlaceholderLayout';
-import Icon from 'components/IconComponent';
+import { IconComponent } from 'components';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -47,7 +47,7 @@ export default class WalletInfoComponent extends Component {
                             </View>
                             <View style={styles.contentLayout}>
                                 <View style={styles.contentIconStyle}>
-                                    <Icon name={icon} size={45} />
+                                    <IconComponent name={icon} size={45} />
                                 </View>
                                 <View style={[styles.contentTextGroup, styles.alignRight]}>
                                     <Text style={styles.contentTextStyle}>{value}</Text>

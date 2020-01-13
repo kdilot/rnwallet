@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Text, Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import WalletInfoComponent from 'components/WalletInfoComponent';
+import { WalletInfoComponent } from 'components';
 import AsyncStorage from '@react-native-community/async-storage';
 import Carousel from 'react-native-snap-carousel';
 import { animationAction, animationStyles } from './animation';

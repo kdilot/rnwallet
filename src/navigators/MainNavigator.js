@@ -3,11 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as localeActions from 'modules/LocaleReducer';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import IntroScreen from 'screens/IntroScreen';
-import TabNavigatorScreen from 'navigators/TabNavigator';
-import WalletIntroScreen from 'screens/WalletCheckScreen/WalletIntro';
-import WalletCreateScreen from 'screens/WalletCheckScreen/WalletCreate';
-import WalletRestoreScreen from 'screens/WalletCheckScreen/WalletRestore';
+import TabNavigator from './TabNavigator';
+import { IntroScreen, WalletIntroScreen, WalletCreateScreen, WalletRestoreScreen } from 'screens';
 
 class MainNavigator extends Component {
     componentDidMount() {
@@ -27,7 +24,7 @@ const Screens = createAppContainer(
                 screen: IntroScreen,
             },
             TabNavigator: {
-                screen: TabNavigatorScreen,
+                screen: TabNavigator,
             },
             WalletIntro: {
                 screen: WalletIntroScreen,

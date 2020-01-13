@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
 import { Text, View } from 'react-native';
-import ButtonComponent from 'components/ButtonComponent';
+import { ButtonComponent } from 'components';
 import { rozeusColor } from 'constants/Color';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import styles from './styles';

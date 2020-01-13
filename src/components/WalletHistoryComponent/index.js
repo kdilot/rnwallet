@@ -7,7 +7,7 @@ import { Text, View, TouchableOpacity, Clipboard } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import CardView from 'react-native-cardview';
 import { plusColor, minusColor, successColor, failColor, dividerDarkColor } from 'constants/Color';
-import Icon from 'components/IconComponent';
+import { IconComponent } from 'components';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -70,7 +70,7 @@ class WalletHistoryComponent extends Component {
                 <View style={styles.contentLayout}>
                     <View style={styles.contentHeaderLayout}>
                         <View style={styles.headerIconLayout}>
-                            <Icon name={isRoz ? 'roz' : 'eth'} size={40} />
+                            <IconComponent name={isRoz ? 'roz' : 'eth'} size={40} />
                         </View>
                         <View style={styles.headerTextLayout}>
                             <View style={[styles.headerTextGroup]}>

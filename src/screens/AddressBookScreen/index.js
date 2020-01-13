@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import AddressBookComponent from 'components/AddressBookComponent';
-import ToastComponent from 'components/ToastComponent';
+import { AddressBookComponent, ToastComponent } from 'components';
 import Placeholderlayout from './PlaceholderLayout';
 import styles from './styles';
 

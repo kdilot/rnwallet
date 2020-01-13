@@ -5,20 +5,22 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Icon from 'react-native-vector-icons/Feather';
-import QrcodeTextScreen from 'screens/QrcodeScreen/QrcodeText';
-import QrcodeScannerScreen from 'screens/QrcodeScreen/QrcodeScanner';
-import MainScreen from 'screens/MainScreen';
-import WalletHistoryScreen from 'screens/WalletHistoryScreen';
-import AddressBookScreen from 'screens/AddressBookScreen';
-import SendScreen from 'screens/SendScreen';
-import SettingScreen from 'screens/SettingScreen';
-import CustomerServiceScreen from 'screens/CustomerServiceScreen';
-import HomepageScreen from 'screens/HomepageScreen';
-import NoticeScreen from 'screens/NoticeScreen';
-import WalletVersionScreen from 'screens/WalletVersionScreen';
-import CustomSidebarMenu from 'screens/CustomDrawerScreen';
-import FingerPrintScreen from 'screens/LoginAuthScreen/FingerPrintScreen/FingerPrint';
-import PinCodeScreen from 'screens/LoginAuthScreen/PinCodeScreen';
+import {
+    QrcodeTextScreen,
+    QrcodeScannerScreen,
+    MainScreen,
+    WalletHistoryScreen,
+    AddressBookScreen,
+    SendScreen,
+    SettingScreen,
+    CustomerServiceScreen,
+    HomepageScreen,
+    NoticeScreen,
+    WalletVersionScreen,
+    CustomDrawerScreen,
+    FingerPrintScreen,
+    PinCodeScreen,
+} from 'screens';
 import { basicColor } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
@@ -165,7 +167,7 @@ const MainNavigator = createDrawerNavigator(
     },
     {
         drawerType: 'slide',
-        contentComponent: CustomSidebarMenu,
+        contentComponent: CustomDrawerScreen,
     },
 );
 

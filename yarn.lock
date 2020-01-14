@@ -2532,6 +2532,11 @@ escape-html@~1.0.3:
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
 
+escape-string-regexp@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
+  integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
+
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
@@ -3620,7 +3625,7 @@ inquirer@^7.0.0:
     strip-ansi "^5.1.0"
     through "^2.3.6"
 
-invariant@^2.2.4:
+invariant@2.2.4, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -6074,6 +6079,14 @@ react-native-vector-icons@^6.6.0:
     prop-types "^15.6.2"
     yargs "^13.2.2"
 
+react-native-webview@^8.0.3:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-8.0.3.tgz#1dcd30de28aa4bdb314b4fa8a60e0abc2431a9d4"
+  integrity sha512-Uhd3o73HcqiQ0GWxyz5G5+Jkh1dd1A8Kz/rCYHiX/Ctkg3KO9qrZUmzRetq5y9X1+fUH9XJt6+LO3iO/Dxopfw==
+  dependencies:
+    escape-string-regexp "2.0.0"
+    invariant "2.2.4"
+
 react-native@0.61.5:
   version "0.61.5"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.61.5.tgz#6e21acb56cbd75a3baeb1f70201a66f42600bba8"
@@ -6486,13 +6499,6 @@ rn-placeholder@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/rn-placeholder/-/rn-placeholder-3.0.0.tgz#d51063cfc20cf702547205b936d934e92c4941b0"
   integrity sha512-ydlIDoth4uvj9PPEOZLZxgNtNJlmUR49IGFtRKM7FWcKuMG2hC89kIPa8xRCO5vfxSDPwMGTyshYGGsQXOJJNA==
-
-rn-swipeable-panel@^1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/rn-swipeable-panel/-/rn-swipeable-panel-1.0.18.tgz#2862db5bab322f7c7fd4f1ea58ba786e2c61c38c"
-  integrity sha512-4n1kEPbAeUC20PFPQPT+gOt4izQ6aHUn3bzBfwpl+X4BzMzElh196uvMe6JnrjU1AJ0bVNbZdseYaAeH/ozeMA==
-  dependencies:
-    prop-types "^15.7.2"
 
 rsvp@^4.8.4:
   version "4.8.5"

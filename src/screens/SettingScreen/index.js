@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import SwitchButtonLayout from './SwitchButtonLayout';
-import SwipeablePanel from 'rn-swipeable-panel';
+import { View, FlatList } from 'react-native';
+import { SwitchButtonComponent } from 'components';
 import { SETTING_MENU_LIST } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './style';
@@ -43,25 +41,16 @@ export default class SettingScreen extends Component {
     };
 
     render() {
-        const { panelActive } = this.state;
-        const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SwipeablePanel
-                fullWidth
-                isActive={panelActive}
-                onClose={this.closePanel}
-                onPressCloseButton={() => {
-                    this.closePanel(true);
-                }}
-                showCloseButton={true}
-                openLarge={true}>
-                <View style={styles.panelLayout}>
-                    <Text style={styles.titleLayout}>{lang.setting}</Text>
-                    {SETTING_MENU_LIST.map((item, index) => (
-                        <ListItem key={index} title={<SwitchButtonLayout text={item.name} />} bottomDivider />
-                    ))}
-                </View>
-            </SwipeablePanel>
+            <View style={styles.panelLayout}>
+                <FlatList
+                    data={SETTING_MENU_LIST}
+                    ItemSeparatorComponent={() => <View style={styles.dividerStyle} />}
+                    ListFooterComponent={() => <View style={styles.dividerStyle} />}
+                    renderItem={({ item }) => <SwitchButtonComponent text={item.name} />}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
         );
     }
 }

@@ -67,3 +67,5 @@ export const SEND_TYPE = {
         ],
     },
 };
+
+export const LANG_TYPE = ['ko', 'en', 'cn'];

@@ -31,6 +31,7 @@ class SwitchButtonComponent extends Component {
                 .then()
                 .catch(() => {
                     onToast(lang.fingerprintSettingMsg);
+                    SettingAction.changeSetting({ name, value: false });
                 });
         }
     };

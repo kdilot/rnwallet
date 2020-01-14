@@ -23,7 +23,7 @@ export function* watchGetLocale() {
 function* setLanguage(param) {
     let locale = null;
     const language = param.payload;
-    locale = language !== 'ko' ? 'en' : language;
+    locale = language;
     yield AsyncStorage.setItem('locale', locale);
     yield put({ type: SET_LANGUAGE, locale });
 }

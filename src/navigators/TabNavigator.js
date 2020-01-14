@@ -74,8 +74,15 @@ const BottomMenuTab = createMaterialTopTabNavigator(
     },
 );
 
+const ROUTE = {
+    Home: 'home',
+    WalletHistory: 'walletHistory',
+    AddressBook: 'addressBook',
+    Setting: 'setting',
+};
+
 BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
-    title: 'ROZ',
+    title: screenProps.lang[ROUTE[navigation.state.routes[navigation.state.index].routeName]],
     headerLeft: (
         <TouchableOpacity
             onPress={() => {

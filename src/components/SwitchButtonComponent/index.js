@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,13 +5,11 @@ import * as localeActions from 'modules/LocaleReducer';
 import * as settingActions from 'modules/SettingReducer';
 import { Switch, Text, View, TouchableOpacity } from 'react-native';
 import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color';
+import { LANG_TYPE } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const LANGUAGE_KOREAN = 'ko';
-const LANGUAGE_ENGLISH = 'en';
-
-class SwitchButtonLayout extends Component {
+class SwitchButtonComponent extends Component {
     toggleSwitch = async value => {
         const { text, SettingAction } = this.props;
         const data = { name: text, value: value };
@@ -32,20 +29,16 @@ class SwitchButtonLayout extends Component {
                 <View style={styles.toggleLayout}>
                     {text === 'language' ? (
                         <View style={styles.languageLayout}>
-                            <TouchableOpacity
-                                style={[styles.languageGroup, locale === LANGUAGE_KOREAN && styles.selectedText, { marginRight: 10 }]}
-                                onPress={() => {
-                                    LocaleAction.setLanguage(LANGUAGE_KOREAN);
-                                }}>
-                                <Text style={[styles.languageTextStyle, locale === LANGUAGE_KOREAN && styles.selectedText]}>KO</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[styles.languageGroup, locale === LANGUAGE_ENGLISH && styles.selectedText]}
-                                onPress={() => {
-                                    LocaleAction.setLanguage(LANGUAGE_ENGLISH);
-                                }}>
-                                <Text style={[styles.languageTextStyle, locale === LANGUAGE_ENGLISH && styles.selectedText]}>EN</Text>
-                            </TouchableOpacity>
+                            {LANG_TYPE.map((language, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    style={[styles.languageGroup, locale === language && styles.selectedText]}
+                                    onPress={() => {
+                                        LocaleAction.setLanguage(language);
+                                    }}>
+                                    <Text style={[styles.languageTextStyle, locale === language && styles.selectedText]}>{language.toUpperCase()}</Text>
+                                </TouchableOpacity>
+                            ))}
                         </View>
                     ) : (
                         <Switch onValueChange={this.toggleSwitch} value={list[text]} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
@@ -56,7 +49,7 @@ class SwitchButtonLayout extends Component {
     }
 }
 
-SwitchButtonLayout.propTypes = {
+SwitchButtonComponent.propTypes = {
     switchValue: PropTypes.bool,
     text: PropTypes.string,
     locale: PropTypes.object,
@@ -73,4 +66,4 @@ export default connect(
         LocaleAction: bindActionCreators(localeActions, dispatch),
         SettingAction: bindActionCreators(settingActions, dispatch),
     }),
-)(SwitchButtonLayout);
+)(SwitchButtonComponent);

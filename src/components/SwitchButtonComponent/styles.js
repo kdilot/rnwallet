@@ -6,7 +6,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'stretch',
-        paddingHorizontal: 10,
+        padding: 20,
     },
     textLayout: {
         flex: 1,
@@ -20,14 +20,14 @@ export default StyleSheet.create({
         fontSize: 15,
     },
     languageLayout: {
-        padding: 5,
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
     languageGroup: {
-        padding: 10,
+        padding: 5,
+        marginLeft: 10,
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 5,
     },
     languageTextStyle: {},
     selectedText: {

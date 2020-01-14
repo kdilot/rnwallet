@@ -6,3 +6,4 @@ export { default as OverlayComponent } from './OverlayComponent';
 export { default as ToastComponent } from './ToastComponent';
 export { default as WalletHistoryComponent } from './WalletHistoryComponent';
 export { default as WalletInfoComponent } from './WalletInfoComponent';
+export { default as SwitchButtonComponent } from './SwitchButtonComponent';

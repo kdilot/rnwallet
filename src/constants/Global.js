@@ -68,4 +68,5 @@ export const SEND_TYPE = {
     },
 };
 
-export const LANG_TYPE = ['ko', 'en', 'cn'];
+export const DEFAULT_LANGUAGE = 'ko';
+export const LANG_TYPE = ['ko', 'en', 'zh'];

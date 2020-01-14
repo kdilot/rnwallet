@@ -3,7 +3,7 @@ import { dividerLightColor } from 'constants/Color';
 
 export default StyleSheet.create({
     panelLayout: {
-        width: '100%',
+        flex: 1,
     },
     titleLayout: {
         textAlign: 'center',

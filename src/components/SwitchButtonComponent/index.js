@@ -6,26 +6,32 @@ import * as settingActions from 'modules/SettingReducer';
 import { Switch, Text, View, TouchableOpacity } from 'react-native';
 import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color';
 import AsyncStorage from '@react-native-community/async-storage';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 import { LANG_TYPE } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 const PIN = 'pin';
-// const FINGERPRINT = 'fingerprint';
+const FINGERPRINT = 'fingerprint';
 
 class SwitchButtonComponent extends Component {
     toggleSwitch = async value => {
-        const { name, SettingAction, navigation } = this.props;
+        const { name, SettingAction, navigation, onToast } = this.props;
+        const { lang } = this.props.locale;
         const { list } = this.props.setting;
+        const data = { name, value };
         let pincode = null;
-        if (name === PIN) {
-            pincode = await AsyncStorage.getItem('pincode');
-        }
+
+        await SettingAction.changeSetting(data);
+        pincode = await AsyncStorage.getItem('pincode');
         if (name === PIN && !list.pin && !pincode) {
-            navigation.navigate('PinCode');
-        } else {
-            const data = { name, value };
-            await SettingAction.changeSetting(data);
+            await navigation.navigate('PinCode');
+        } else if (name === FINGERPRINT && !list.fingerprint) {
+            FingerprintScanner.isSensorAvailable()
+                .then()
+                .catch(() => {
+                    onToast(lang.fingerprintSettingMsg);
+                });
         }
     };
 
@@ -54,7 +60,14 @@ class SwitchButtonComponent extends Component {
                             ))}
                         </View>
                     ) : (
-                        <Switch onValueChange={this.toggleSwitch} value={list[name]} thumbColor={dividerLightColor} trackColor={{ false: dividerDarkColor, true: basicColor }} />
+                        <Switch
+                            onValueChange={value => {
+                                this.toggleSwitch(value);
+                            }}
+                            value={list[name]}
+                            thumbColor={dividerLightColor}
+                            trackColor={{ false: dividerDarkColor, true: basicColor }}
+                        />
                     )}
                 </View>
             </View>

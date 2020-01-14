@@ -11,7 +11,7 @@ export default class HomePageScreen extends Component {
         return (
             <WebView
                 source={{ uri: 'https://rozeus.io/' }}
-                style={[styles.container, { width: WIDTH }]}
+                style={[styles.container, { width: WIDTH, height: HEIGHT }]}
                 startInLoadingState={true}
                 renderLoading={() => (
                     <View style={[styles.loadingLayout, { width: WIDTH, height: HEIGHT }]}>

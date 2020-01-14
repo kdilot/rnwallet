@@ -34,6 +34,7 @@
     "accessPinMsg": "WRONG PIN NUMBER",
     "pinTimeoutMsg": "YOU CAN TRY AFTER 30 SEC",
     "fingerprintMsg": "Place your finger",
+    "fingerprintSettingMsg": "Check the fingerprint settings on your device.",
     "usePinMsg": "USE PIN CODE",
     "inProgressMsg": "In Progress...",
     "qrcode": "QR Code",

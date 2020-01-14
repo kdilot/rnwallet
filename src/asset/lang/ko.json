@@ -34,6 +34,7 @@
     "accessPinMsg": "PIN번호가 일치하지 않습니다.",
     "pinTimeoutMsg": "30초 후에 다시 시도해주세요.",
     "fingerprintMsg": "지문을 인식해주세요",
+    "fingerprintSettingMsg": "휴대폰의 지문 설정을 확인해주세요.",
     "usePinMsg": "PIN번호 사용",
     "inProgressMsg": "진행중...",
     "qrcode": "QR 코드",

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Dimensions } from 'react-native';
+import { WebView } from 'react-native-webview';
 import styles from './styles';
+
+const WIDTH = Dimensions.get('window').width;
 
 export default class HomePageScreen extends Component {
     render() {
-        return (
-            <View style={styles.container}>
-                <Text> 홈페이지 서비스 준비중 </Text>
-            </View>
-        );
+        return <WebView source={{ uri: 'https://rozeus.io/' }} style={[styles.container, { width: WIDTH }]} />;
     }
 }

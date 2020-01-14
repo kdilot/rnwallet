@@ -42,7 +42,12 @@ class SwitchButtonComponent extends Component {
         const { locale, lang } = this.props.locale;
 
         return (
-            <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.container}
+                activeOpacity={1}
+                onPress={() => {
+                    name !== 'language' && this.toggleSwitch(!list[name]);
+                }}>
                 <View style={styles.textLayout}>
                     <Text style={styles.textStyle}>{lang[name]}</Text>
                 </View>
@@ -62,16 +67,16 @@ class SwitchButtonComponent extends Component {
                         </View>
                     ) : (
                         <Switch
-                            onValueChange={value => {
-                                this.toggleSwitch(value);
-                            }}
+                            // onValueChange={value => {
+                            //     this.toggleSwitch(value);
+                            // }}
                             value={list[name]}
                             thumbColor={dividerLightColor}
                             trackColor={{ false: dividerDarkColor, true: basicColor }}
                         />
                     )}
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }

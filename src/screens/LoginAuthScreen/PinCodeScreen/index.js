@@ -25,7 +25,7 @@ export default class PinCode extends Component {
             newPinNumber: null, // Async 키 정보
             isCount: 1,
             status: props.status,
-            sendData: {},
+            sendData: null,
         };
     }
 
@@ -46,7 +46,7 @@ export default class PinCode extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         const { maxPin, maxCount } = this.props;
-        const { newPinNumber, status, isCount } = this.state;
+        const { newPinNumber, status, isCount, sendData } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         const confirmPinNumber = nextState.pinNumber ? nextState.pinNumber.join('') : RESET_ARRAY;
         if (nextState.pinNumber.length === maxPin && status === NEW_PIN && !nextState.newPinNumber) {
@@ -59,11 +59,15 @@ export default class PinCode extends Component {
         } else if (nextState.pinNumber.length === maxPin && status === CONFIRM_PIN) {
             if (confirmPinNumber === newPinNumber) {
                 AsyncStorage.setItem('pincode', newPinNumber);
-                this.setState({
-                    status: ACCESS_PIN,
-                    pinNumber: RESET_ARRAY,
-                });
-                this.blockKeyboard(500);
+                if (sendData) {
+                    this.setState({
+                        status: ACCESS_PIN,
+                        pinNumber: RESET_ARRAY,
+                    });
+                    this.blockKeyboard(500);
+                } else {
+                    this.props.navigation.navigate('Setting', { name: 'pin' });
+                }
             } else {
                 this.setState({
                     status: NEW_PIN,
@@ -74,7 +78,6 @@ export default class PinCode extends Component {
             }
         } else if (nextState.pinNumber.length === maxPin && status === ACCESS_PIN) {
             if (confirmPinNumber === newPinNumber) {
-                const { sendData } = this.state;
                 this.props.navigation.navigate('Send', { sendData });
             } else {
                 this.setState({

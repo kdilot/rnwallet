@@ -1,53 +1,42 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as settingActions from 'modules/SettingReducer';
 import { SwitchButtonComponent } from 'components';
 import { SETTING_MENU_LIST } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './style';
 
-export default class SettingScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            panelActive: false,
-        };
-    }
-
+class SettingScreen extends Component {
     componentDidMount = () => {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener('didFocus', () => {
-            this.openPanel();
-        });
-        this.blurListener = navigation.addListener('didBlur', () => {
-            this.closePanel();
+        this.focusListener = navigation.addListener('didFocus', payload => {
+            if (payload.state.params) {
+                this.onSwitch(payload.state.params.name);
+            }
         });
     };
 
     componentWillUnmount = () => {
         this.focusListener.remove();
-        this.blurListener.remove();
     };
 
-    openPanel = () => {
-        this.setState({ panelActive: true });
-    };
-
-    closePanel = flag => {
-        const { navigation } = this.props;
-        this.setState({ panelActive: false });
-        if (flag) {
-            navigation.navigate('Home');
-        }
+    onSwitch = async name => {
+        const { SettingAction } = this.props;
+        const data = { name, value: true };
+        await SettingAction.changeSetting(data);
     };
 
     render() {
+        const { navigation } = this.props;
         return (
             <View style={styles.panelLayout}>
                 <FlatList
                     data={SETTING_MENU_LIST}
                     ItemSeparatorComponent={() => <View style={styles.dividerStyle} />}
                     ListFooterComponent={() => <View style={styles.dividerStyle} />}
-                    renderItem={({ item }) => <SwitchButtonComponent text={item.name} />}
+                    renderItem={({ item }) => <SwitchButtonComponent name={item.name} navigation={navigation} />}
                     keyExtractor={(item, index) => index.toString()}
                 />
             </View>
@@ -56,10 +45,16 @@ export default class SettingScreen extends Component {
 }
 
 SettingScreen.propTypes = {
-    panelActive: PropTypes.string,
     navigation: PropTypes.object.isRequired,
     focusListener: PropTypes.func,
     blurListener: PropTypes.func,
-    openPanel: PropTypes.func,
-    closePanel: PropTypes.func,
 };
+
+export default connect(
+    state => ({
+        setting: state.SettingReducer,
+    }),
+    dispatch => ({
+        SettingAction: bindActionCreators(settingActions, dispatch),
+    }),
+)(SettingScreen);

@@ -67,9 +67,9 @@ class SwitchButtonComponent extends Component {
                         </View>
                     ) : (
                         <Switch
-                            // onValueChange={value => {
-                            //     this.toggleSwitch(value);
-                            // }}
+                            onValueChange={value => {
+                                this.toggleSwitch(value);
+                            }}
                             value={list[name]}
                             thumbColor={dividerLightColor}
                             trackColor={{ false: dividerDarkColor, true: basicColor }}

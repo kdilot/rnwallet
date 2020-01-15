@@ -5,6 +5,7 @@ import * as localeActions from 'modules/LocaleReducer';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import TabNavigator from './TabNavigator';
 import { IntroScreen, WalletIntroScreen, WalletCreateScreen, WalletRestoreScreen } from 'screens';
+import { PopupComponent } from 'components';
 
 class MainNavigator extends Component {
     componentDidMount() {
@@ -13,7 +14,14 @@ class MainNavigator extends Component {
     }
 
     render() {
-        return <Screens screenProps={{ lang: this.props.locale.lang }} />;
+        return (
+            <PopupComponent
+                ref={ref => {
+                    this.popup = ref;
+                }}>
+                <Screens screenProps={{ lang: this.props.locale.lang, popup: this.popup }} />
+            </PopupComponent>
+        );
     }
 }
 

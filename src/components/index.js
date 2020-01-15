@@ -7,3 +7,4 @@ export { default as ToastComponent } from './ToastComponent';
 export { default as WalletHistoryComponent } from './WalletHistoryComponent';
 export { default as WalletInfoComponent } from './WalletInfoComponent';
 export { default as SwitchButtonComponent } from './SwitchButtonComponent';
+export { default as PopupComponent } from './PopupComponent';

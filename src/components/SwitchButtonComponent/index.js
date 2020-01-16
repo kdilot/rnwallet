@@ -28,7 +28,12 @@ class SwitchButtonComponent extends Component {
             await navigation.navigate('PinCode');
         } else if (name === FINGERPRINT && !list.fingerprint) {
             FingerprintScanner.isSensorAvailable()
-                .then()
+                .then(() => {
+                    if (!list.pin) {
+                        onToast(lang.pinFirstMsg);
+                        SettingAction.changeSetting({ name, value: false });
+                    }
+                })
                 .catch(() => {
                     onToast(lang.fingerprintSettingMsg);
                     SettingAction.changeSetting({ name, value: false });

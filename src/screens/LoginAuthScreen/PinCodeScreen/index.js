@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { PinInput } from 'react-native-pins';
 import { VirtualKeyboard } from 'react-native-screen-keyboard';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -15,7 +15,7 @@ export default class PinCode extends Component {
     static defaultProps = {
         maxPin: 6,
         maxCount: 5,
-        status: NEW_PIN,
+        status: null,
     };
     constructor(props) {
         super(props);
@@ -31,8 +31,8 @@ export default class PinCode extends Component {
 
     componentDidMount() {
         const { navigation } = this.props;
-        this.getPin();
         this.focusListener = navigation.addListener('didFocus', payload => {
+            this.getPin();
             if (payload.state.params) {
                 const { sendData } = payload.state.params;
                 this.setState({ sendData: sendData });
@@ -91,9 +91,12 @@ export default class PinCode extends Component {
     }
 
     getPin = async () => {
-        await AsyncStorage.getItem('pincode').then(number => {
-            number && this.setState({ newPinNumber: number, status: ACCESS_PIN });
-        });
+        const number = await AsyncStorage.getItem('pincode');
+        if (number) {
+            this.setState({ newPinNumber: number, status: ACCESS_PIN });
+        } else {
+            this.setState({ newPinNumber: null, status: NEW_PIN });
+        }
     };
 
     blockKeyboard = (timer, msg = null) => {
@@ -111,13 +114,13 @@ export default class PinCode extends Component {
         this.setState({ pinNumber: key === 'back' ? (length > 0 ? pinNumber.slice(0, length - 1) : RESET_ARRAY) : pinNumber.concat(key) });
     };
     render() {
-        const { pinNumber, status } = this.state;
+        const { pinNumber, status, newPinNumber } = this.state;
         const { maxPin } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
-                <View style={styles.textLayout}>
-                    <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : lang.accessPin}</Text>
+                <View style={styles.titleLayout}>
+                    <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : status === ACCESS_PIN ? lang.accessPin : ''}</Text>
                 </View>
                 <View style={styles.pinLayout}>
                     <PinInput
@@ -128,6 +131,16 @@ export default class PinCode extends Component {
                         pinStyle={styles.pinStyle}
                         pinActiveStyle={styles.pinActiveStyle}
                     />
+                </View>
+                <View style={styles.restoreLayout}>
+                    {newPinNumber && status === ACCESS_PIN && (
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.navigation.navigate('PinCodeRestore', { isPinRestore: true });
+                            }}>
+                            <Text style={styles.restoreTextStyle}>Forgot PIN?</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
                 <View style={styles.inputLayout}>
                     <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} />

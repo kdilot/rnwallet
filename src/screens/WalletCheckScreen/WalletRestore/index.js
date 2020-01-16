@@ -6,6 +6,8 @@ import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
+import AsyncStorage from '@react-native-community/async-storage';
+import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -28,24 +30,41 @@ class WalletRestore extends Component {
         }, 100);
     };
 
-    onKeyStore = () => {
-        const { lang } = this.props.navigation.getScreenProps('locale');
+    onKeyStore = async () => {
         const { navigation, walletAction } = this.props;
+        const { lang } = navigation.getScreenProps('locale');
         const { text } = this.state;
-        try {
-            const keys = fromMnemonic(text);
-            const address = keys.address;
-            const privateKey = keys.privateKey;
-            if (address) {
-                RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
-                    await walletAction.setWalletAddress({ walletAddress: address, async: true });
-                    await this.setState({ isVisible: false });
-                    await navigation.navigate('Home');
-                });
+        const test = navigation.state;
+        if (typeof test.params !== 'undefined') {
+            try {
+                const keys = fromMnemonic(text);
+                const address = keys.address;
+                if (address === USER_ETH_ADDRESS) {
+                    await AsyncStorage.removeItem('pincode');
+                    await navigation.navigate('PinCode');
+                } else {
+                    this.toast.showToast(lang.IncorrectMnemonicMsg);
+                }
+            } catch (e) {
+                this.toast.showToast(lang.mnemonicMsg);
             }
-        } catch (e) {
-            this.toast.showToast(lang.mnemonicMsg);
-            this.setState({ restoreDisable: false, text: null });
+            this.setState({ restoreDisable: false, text: null, isVisible: false });
+        } else {
+            try {
+                const keys = fromMnemonic(text);
+                const address = keys.address;
+                const privateKey = keys.privateKey;
+                if (address) {
+                    RNSecureKeyStore.set(address, privateKey, { accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY }).then(async res => {
+                        await walletAction.setWalletAddress({ walletAddress: address, async: true });
+                        await this.setState({ isVisible: false });
+                        await navigation.navigate('Home');
+                    });
+                }
+            } catch (e) {
+                this.toast.showToast(lang.mnemonicMsg);
+                this.setState({ restoreDisable: false, text: null });
+            }
         }
     };
 

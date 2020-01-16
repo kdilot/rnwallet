@@ -20,6 +20,7 @@ import {
     CustomDrawerScreen,
     FingerPrintScreen,
     PinCodeScreen,
+    WalletRestoreScreen,
 } from 'screens';
 import { basicColor } from 'constants/Color';
 
@@ -149,6 +150,12 @@ const BottomStack = createStackNavigator(
         },
         PinCode: {
             screen: PinCodeScreen,
+            navigationOptions: {
+                header: null,
+            },
+        },
+        PinCodeRestore: {
+            screen: WalletRestoreScreen,
             navigationOptions: {
                 header: null,
             },

@@ -6,7 +6,7 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: basicColor,
     },
-    textLayout: {
+    titleLayout: {
         flex: 3,
         alignContent: 'center',
         justifyContent: 'flex-end',
@@ -16,6 +16,11 @@ export default StyleSheet.create({
         alignItems: 'center',
         padding: 0,
         margin: 0,
+    },
+    restoreLayout: {
+        flex: 2,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
     },
     pinTextStyle: {
         padding: 10,
@@ -36,8 +41,12 @@ export default StyleSheet.create({
     pinActiveStyle: {
         backgroundColor: 'yellow',
     },
+    restoreTextStyle: {
+        color: whiteColor,
+        textDecorationLine: 'underline',
+    },
     inputLayout: {
-        flex: 7,
+        flex: 4,
         justifyContent: 'flex-end',
     },
 });

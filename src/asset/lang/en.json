@@ -52,5 +52,7 @@
     "inputErrorMsg": "Check the input value",
     "notEnoughMsg": "Not enough",
     "TranSucMsg": "Transmission success",
-    "TranFailMsg": "Transmission fail"
+    "TranFailMsg": "Transmission fail",
+    "IncorrectMnemonicMsg": "Incorrect Mnemonic",
+    "pinFirstMsg": "Use PIN setting first"
 }

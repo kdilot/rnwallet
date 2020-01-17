@@ -35,7 +35,8 @@ class WalletHistoryComponent extends Component {
     };
 
     onSend = address => {
-        this.props.navigation.navigate('Send', { address, send: true });
+        const { isRoz } = this.props.data;
+        this.props.navigation.navigate('Send', { address, send: true, coin: isRoz ? 'ROZ' : 'ETH' });
     };
 
     onCopy = text => {

@@ -15,6 +15,7 @@ export default StyleSheet.create({
     toggleLayout: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'flex-end',
     },
     textStyle: {
         fontSize: 15,

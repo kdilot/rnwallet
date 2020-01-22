@@ -111,7 +111,9 @@ export default class PinCode extends Component {
     keyDown = key => {
         const { pinNumber } = this.state;
         const length = pinNumber.length;
-        this.setState({ pinNumber: key === 'back' ? (length > 0 ? pinNumber.slice(0, length - 1) : RESET_ARRAY) : pinNumber.concat(key) });
+        if (key !== 'custom') {
+            this.setState({ pinNumber: key === 'back' ? (length > 0 ? pinNumber.slice(0, length - 1) : RESET_ARRAY) : pinNumber.concat(key) });
+        }
     };
     render() {
         const { pinNumber, status, newPinNumber } = this.state;

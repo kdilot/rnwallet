@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Dimensions, Animated } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { WalletInfoComponent } from 'components';
 import AsyncStorage from '@react-native-community/async-storage';
 import Carousel from 'react-native-snap-carousel';
-import { animationAction, animationStyles } from './animation';
+import { animationAction } from './animation';
 import * as txListActions from 'modules/TxListReducer';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as walletActions from 'modules/WalletReducer';
@@ -26,6 +26,7 @@ class MainScreen extends PureComponent {
             rozBalance: 0,
             isEthLoad: false,
             isRozLoad: false,
+            isRoz: true,
         };
     }
 
@@ -123,20 +124,39 @@ class MainScreen extends PureComponent {
         });
     }
 
+    onSelect = () => {
+        const { isRoz } = this.state;
+        if (isRoz) {
+            this.carousel.snapToNext();
+            this.setState({ isRoz: false });
+        } else {
+            this.carousel.snapToPrev();
+            this.setState({ isRoz: true });
+        }
+    };
+
     render() {
         const { navigation } = this.props;
-        const { ethBalance, rozBalance, isEthLoad, isRozLoad } = this.state;
+        const { ethBalance, rozBalance, isEthLoad, isRozLoad, isRoz } = this.state;
+
         return (
             <View style={styles.container}>
                 <View style={styles.contentLayout}>
-                    <Animated.View style={[animationStyles]}>
-                        <Text style={styles.contentText}>Rozeus Wallet</Text>
-                    </Animated.View>
+                    <TouchableOpacity style={styles.CoinTypeView} disabled={isRoz && true} onPress={this.onSelect}>
+                        <Text style={[styles.CoinTypeText, isRoz && styles.CoinSelected(isRoz)]}>ROZ</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.CoinTypeView} disabled={!isRoz && true} onPress={this.onSelect}>
+                        <Text style={[styles.CoinTypeText, !isRoz && styles.CoinSelected(isRoz)]}>ETH</Text>
+                    </TouchableOpacity>
                 </View>
                 <Carousel
                     ref={c => {
                         this.carousel = c;
                     }}
+                    inactiveSlideOpacity={1}
+                    inactiveSlideScale={1}
+                    slideStyle={styles.sliderLayout}
+                    scrollEnabled={false}
                     data={CARD}
                     renderItem={(i, index) => (
                         <WalletInfoComponent

@@ -34,6 +34,14 @@ target 'rwallet' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  # @react-native-firebase/app
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  # @react-natvie-firebase/crashlytics
+  pod 'RNFBCrashlytics', :path => '../node_modules/@react-native-firebase/crashlytics'
+  pod 'Fabric'
+  pod 'Crashlytics'
+
   # react-native-permissions
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"

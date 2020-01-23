@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
 import * as walletActions from 'modules/WalletReducer';
 // import AsyncStorage from '@react-native-community/async-storage';
+import { rozeusColor } from 'constants/Color';
 import styles from './styles';
 
 class IntroScreen extends Component {
@@ -42,6 +43,7 @@ class IntroScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar backgroundColor={rozeusColor} />
                 <Text style={styles.text}>ROZ</Text>
                 <Text style={styles.text}>Wallet</Text>
             </View>

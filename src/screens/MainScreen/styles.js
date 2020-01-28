@@ -25,7 +25,7 @@ export default StyleSheet.create({
     contentLayout: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         flexDirection: 'row',
     },
     contentText: {

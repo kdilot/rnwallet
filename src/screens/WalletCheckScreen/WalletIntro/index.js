@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { ButtonComponent } from 'components';
 import { rozeusColor } from 'constants/Color';
 import { USER_ETH_ADDRESS } from 'constants/Global';
@@ -31,6 +31,7 @@ class WalletCheckScreen extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <View style={styles.container}>
+                <StatusBar backgroundColor={rozeusColor} />
                 <View style={styles.logoLayout}>
                     <Text style={styles.logoTextLayout}>ROZ</Text>
                     <Text style={styles.logoSubTextLayout}>Wallet</Text>

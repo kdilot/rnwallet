@@ -5,12 +5,11 @@ import * as addressBookActions from 'modules/AddressBookReducer';
 import * as txListActions from 'modules/TxListReducer';
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, RefreshControl, FlatList } from 'react-native';
 import { WalletHistoryComponent, AddressBookMiniComponent, ToastComponent } from 'components';
-import CardView from 'react-native-cardview';
 import PlaceholderLayout from './PlaceholderLayout';
 import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
 import { Tx } from 'model/Tx';
 
 const ITEMTYPE_ALL = 0;
@@ -189,46 +188,44 @@ class WalletHistoryScreen extends Component {
         const { navigation } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <KeyboardAvoidingView style={styles.container}>
-                <View style={styles.itemTypeLayout}>
-                    <CardView cardElevation={5} cornerRadius={0} style={styles.typeLayout}>
-                        <TouchableOpacity
-                            style={[styles.alignCenter, itemType === ITEMTYPE_ALL && styles.typeSelected]}
-                            onPress={() => {
-                                this.setType(ITEMTYPE_ALL);
-                            }}>
-                            <Text style={[styles.textStyle, itemType === ITEMTYPE_ALL && styles.typeSelectedText]}>{lang.all}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.alignCenter, itemType === ITEMTYPE_ROZ && styles.typeSelected]}
-                            onPress={() => {
-                                this.setType(ITEMTYPE_ROZ);
-                            }}>
-                            <Text style={[styles.textStyle, itemType === ITEMTYPE_ROZ && styles.typeSelectedText]}>ROZ</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.alignCenter, itemType === ITEMTYPE_ETH && styles.typeSelected]}
-                            onPress={() => {
-                                this.setType(ITEMTYPE_ETH);
-                            }}>
-                            <Text style={[styles.textStyle, itemType === ITEMTYPE_ETH && styles.typeSelectedText]}>ETH</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.alignCenter, itemType === ITEMTYPE_ADDRESSBOOK && styles.typeSelected]}
-                            onPress={() => {
-                                this.setType(ITEMTYPE_ADDRESSBOOK);
-                            }}>
-                            <Text style={[styles.textStyle, itemType === 3 && styles.typeSelectedText]}>{lang.addressBook}</Text>
-                        </TouchableOpacity>
-                    </CardView>
+            <KeyboardAvoidingView style={S.ContainerView}>
+                <View style={S.ItemTypeView}>
+                    <TouchableOpacity
+                        style={[S.ItemView, itemType === ITEMTYPE_ALL && S.TypeSelectedView]}
+                        onPress={() => {
+                            this.setType(ITEMTYPE_ALL);
+                        }}>
+                        <Text style={[S.ItemText, itemType === ITEMTYPE_ALL && S.TypeSelectedText]}>{lang.all}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[S.ItemView, itemType === ITEMTYPE_ROZ && S.TypeSelectedView]}
+                        onPress={() => {
+                            this.setType(ITEMTYPE_ROZ);
+                        }}>
+                        <Text style={[S.ItemText, itemType === ITEMTYPE_ROZ && S.TypeSelectedText]}>ROZ</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[S.ItemView, itemType === ITEMTYPE_ETH && S.TypeSelectedView]}
+                        onPress={() => {
+                            this.setType(ITEMTYPE_ETH);
+                        }}>
+                        <Text style={[S.ItemText, itemType === ITEMTYPE_ETH && S.TypeSelectedText]}>ETH</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[S.ItemView, itemType === ITEMTYPE_ADDRESSBOOK && S.TypeSelectedView]}
+                        onPress={() => {
+                            this.setType(ITEMTYPE_ADDRESSBOOK);
+                        }}>
+                        <Text style={[S.ItemText, itemType === 3 && S.TypeSelectedText]}>{lang.addressBook}</Text>
+                    </TouchableOpacity>
                 </View>
                 {addressBookShow ? (
-                    <View style={styles.addressBookLayout}>
+                    <View style={S.AddressBookView}>
                         {/* 거래내역 조회 로직 */}
                         <AddressBookMiniComponent onActive={this.onActiveMini} addressBookList={addressBookList} />
                     </View>
                 ) : (
-                    <View style={styles.itemListLayout}>
+                    <View style={S.ItemListView}>
                         {data.length > 0 ? (
                             <FlatList
                                 data={data}
@@ -255,7 +252,7 @@ class WalletHistoryScreen extends Component {
                         ) : isData ? (
                             <PlaceholderLayout />
                         ) : (
-                            <View style={styles.isEmptyLayout}>
+                            <View style={S.IsEmptyView}>
                                 <Text>NO DATA</Text>
                             </View>
                         )}

@@ -50,9 +50,6 @@ export default StyleSheet.create({
     },
     AddressBookView: {
         flex: 1,
-        padding: 10,
-        marginHorizontal: 15,
-        borderRadius: 5,
     },
     IsEmptyView: {
         flex: 1,

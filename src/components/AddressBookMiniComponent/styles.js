@@ -1,20 +1,32 @@
 import { StyleSheet } from 'react-native';
-import { dividerLightColor, dividerDarkColor } from 'constants/Color';
+import { dividerLightColor } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: dividerDarkColor,
+    ContainerView: {
+        flex: 1,
     },
-    addressBookTextStyle: {
-        padding: 10,
+    ListView: {
+        padding: 20,
         flex: 1,
         width: '100%',
     },
-    dividerStyle: {
+    ListGroupView: {
+        flexDirection: 'row',
+    },
+    ListTextView: {
+        flex: 8,
+    },
+    ListIconView: {
+        flex: 1,
+        alignItems: 'flex-end',
+    },
+    DividerView: {
         height: 1,
         backgroundColor: dividerLightColor,
+    },
+    IsEmptyView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });

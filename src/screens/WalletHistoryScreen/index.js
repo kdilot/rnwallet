@@ -220,8 +220,6 @@ class WalletHistoryScreen extends Component {
                             <Text style={[S.ItemText, itemType === 3 && S.TypeSelectedText]}>{lang.addressBook}</Text>
                         </TouchableOpacity>
                     </View>
-
-                    <View style={S.ItemTypeLineView} />
                 </View>
                 {addressBookShow ? (
                     <View style={S.AddressBookView}>

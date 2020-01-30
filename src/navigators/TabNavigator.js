@@ -29,25 +29,25 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         Home: {
             screen: MainScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="server" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="server" size={25} color={focused ? 'black' : 'black'} />,
             },
         },
         WalletHistory: {
             screen: WalletHistoryScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="file-text" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="file-text" size={25} color={focused ? 'black' : 'black'} />,
             },
         },
         AddressBook: {
             screen: AddressBookScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="book" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="book" size={25} color={focused ? 'black' : 'black'} />,
             },
         },
         Setting: {
             screen: SettingScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="settings" size={25} color={focused ? 'white' : 'white'} />,
+                tabBarIcon: ({ focused, tintColor }) => <Icon name="settings" size={25} color={focused ? 'black' : 'black'} />,
             },
         },
     },
@@ -57,6 +57,11 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         tabBarPosition: 'bottom',
         initialRouteName: 'Home',
         tabBarOptions: {
+            style: {
+                backgroundColor: 'white',
+                borderTopWidth: 0.5,
+                borderTopColor: 'black',
+            },
             tabStyle: {
                 margin: 3,
             },
@@ -68,7 +73,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             showIcon: true,
             showLabel: false,
             indicatorStyle: {
-                borderBottomColor: 'white',
+                borderBottomColor: 'black',
                 borderBottomWidth: 3,
             },
         },

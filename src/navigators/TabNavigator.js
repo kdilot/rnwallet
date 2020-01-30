@@ -166,9 +166,9 @@ const BottomStack = createStackNavigator(
         },
         PinCodeRestore: {
             screen: WalletRestoreScreen,
-            navigationOptions: {
-                header: null,
-            },
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: 'PIN CODE',
+            }),
         },
     },
     {

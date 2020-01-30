@@ -150,7 +150,10 @@ class MainScreen extends PureComponent {
                         <Feather name="menu" size={30} color={'white'} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.contentLayout}>
+                <View style={styles.HeaderTitleView}>
+                    <Text style={styles.HeaderTitleText}>Wallets</Text>
+                </View>
+                <View style={styles.ContentView}>
                     <TouchableOpacity style={styles.CoinTypeView} disabled={isRoz && true} onPress={this.onSelect}>
                         <Text style={[styles.CoinTypeText, isRoz && styles.CoinSelected(isRoz)]}>ROZ</Text>
                     </TouchableOpacity>
@@ -164,7 +167,7 @@ class MainScreen extends PureComponent {
                     }}
                     inactiveSlideOpacity={1}
                     inactiveSlideScale={1}
-                    slideStyle={styles.sliderLayout}
+                    slideStyle={styles.SliderView}
                     scrollEnabled={false}
                     data={CARD}
                     renderItem={(i, index) => (
@@ -182,7 +185,6 @@ class MainScreen extends PureComponent {
                     sliderWidth={WIDTH}
                     itemWidth={WIDTH * 0.8}
                 />
-                <View style={styles.contentLayout} />
             </View>
         );
     }

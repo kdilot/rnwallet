@@ -22,7 +22,6 @@ import {
     PinCodeScreen,
     WalletRestoreScreen,
 } from 'screens';
-import { basicColor } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
     {
@@ -172,9 +171,9 @@ const BottomStack = createStackNavigator(
         headerLayoutPreset: 'center',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: basicColor,
+                borderBottomWidth: 1,
+                borderBottomColor: 'gray',
             },
-            headerTintColor: '#FFFFFF',
         },
     },
 );

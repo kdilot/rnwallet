@@ -7,7 +7,7 @@ export default StyleSheet.create({
         padding: 10,
     },
     TextView: {
-        flex: 1,
+        flex: 2,
         padding: 5,
     },
     ButtonGroupView: {

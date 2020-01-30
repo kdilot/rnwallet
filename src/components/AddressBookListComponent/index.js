@@ -21,7 +21,9 @@ export default class AddressBookListComponent extends Component {
         return (
             <View style={S.ContainerView}>
                 <View style={S.TextView}>
-                    <Text>{item.nickname}</Text>
+                    <Text numberOfLines={1} ellipsizeMode="tail">
+                        {item.nickname}
+                    </Text>
                 </View>
                 <View style={S.ButtonGroupView}>
                     <TouchableOpacity

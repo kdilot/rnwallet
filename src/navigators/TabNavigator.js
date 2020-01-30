@@ -93,7 +93,7 @@ BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
             onPress={() => {
                 navigation.openDrawer();
             }}>
-            <Icon name="menu" size={30} color={'white'} />
+            <Icon name="menu" size={30} />
         </TouchableOpacity>
     ),
     header: navigation.state.index === 0 && null,
@@ -109,6 +109,11 @@ const BottomStack = createStackNavigator(
             screen: CustomerServiceScreen,
             navigationOptions: ({ screenProps }) => ({
                 headerTitle: screenProps.lang.customerService,
+                headerStyle: {
+                    elevation: 0,
+                    shadowOpacity: 0,
+                    borderBottomWidth: 0,
+                },
             }),
         },
         Homepage: {
@@ -169,12 +174,7 @@ const BottomStack = createStackNavigator(
     {
         initialRouteName: 'Home',
         headerLayoutPreset: 'center',
-        defaultNavigationOptions: {
-            headerStyle: {
-                borderBottomWidth: 1,
-                borderBottomColor: 'gray',
-            },
-        },
+        defaultNavigationOptions: {},
     },
 );
 

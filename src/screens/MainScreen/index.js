@@ -12,6 +12,7 @@ import * as walletActions from 'modules/WalletReducer';
 import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
+import Feather from 'react-native-vector-icons/Feather';
 import styles from './styles';
 
 const CARD = ['roz', 'eth'];
@@ -141,6 +142,14 @@ class MainScreen extends PureComponent {
 
         return (
             <View style={styles.container}>
+                <View style={styles.HeaderView}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.openDrawer();
+                        }}>
+                        <Feather name="menu" size={30} color={'white'} />
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.contentLayout}>
                     <TouchableOpacity style={styles.CoinTypeView} disabled={isRoz && true} onPress={this.onSelect}>
                         <Text style={[styles.CoinTypeText, isRoz && styles.CoinSelected(isRoz)]}>ROZ</Text>

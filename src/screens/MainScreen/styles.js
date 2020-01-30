@@ -7,8 +7,9 @@ export default StyleSheet.create({
         backgroundColor: '#6ab8f7',
     },
     HeaderView: {
-        height: 50,
-        padding: 20,
+        height: 20,
+        padding: 13,
+        paddingLeft: 20,
     },
     CoinTypeView: {
         padding: 20,

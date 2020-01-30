@@ -97,6 +97,7 @@ BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
             <Icon name="menu" size={30} color={'white'} />
         </TouchableOpacity>
     ),
+    header: navigation.state.index === 0 && null,
     headerLeftContainerStyle: { marginLeft: 20 },
 });
 

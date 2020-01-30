@@ -3,9 +3,21 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#6ab8f7',
+    },
+    HeaderView: {
+        justifyContent: 'center',
+        height: 60,
+        paddingLeft: 20,
+    },
+    HeaderTitleView: {
+        height: 60,
+        justifyContent: 'flex-end',
+        paddingLeft: 60,
+    },
+    HeaderTitleText: {
+        fontSize: 30,
     },
     CoinTypeView: {
         padding: 20,
@@ -22,18 +34,12 @@ export default StyleSheet.create({
         borderColor: isRoz ? 'blue' : 'orange',
         borderBottomWidth: 2,
     }),
-    contentLayout: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+    ContentView: {
         flexDirection: 'row',
+        justifyContent: 'flex-start',
+        paddingLeft: 40,
     },
-    contentText: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    sliderLayout: {
+    SliderView: {
         paddingHorizontal: 15,
     },
 });

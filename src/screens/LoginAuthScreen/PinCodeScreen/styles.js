@@ -49,4 +49,13 @@ export default StyleSheet.create({
         flex: 4,
         justifyContent: 'flex-end',
     },
+    keyStyle: {
+        borderRightColor: '#fff',
+        borderBottomColor: '#fff',
+        borderRadius: 30,
+    },
+    keyboardStyle: {
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+    },
 });

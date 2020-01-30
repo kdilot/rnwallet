@@ -145,7 +145,7 @@ export default class PinCode extends Component {
                     )}
                 </View>
                 <View style={styles.inputLayout}>
-                    <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} />
+                    <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} keyStyle={styles.keyStyle} keyboardStyle={styles.keyboardStyle} />
                 </View>
             </View>
         );

@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-const HEIHGT = Dimensions.get('window').height;
+const HEIHGT = Dimensions.get('screen').height;
 
 export default class PopupComponent extends PureComponent {
     constructor(props) {

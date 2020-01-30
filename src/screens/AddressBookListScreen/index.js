@@ -59,11 +59,12 @@ class AddressBookListScreen extends Component {
     render() {
         const { navigation } = this.props;
         const { addressBookList } = this.state;
+        const list = addressBookList.filter(f => f.nickname);
         return (
             <View style={S.ContainerView}>
-                {addressBookList.length > 0 ? (
+                {list.length > 0 ? (
                     <FlatList
-                        data={addressBookList}
+                        data={list}
                         renderItem={({ item }) => {
                             return item.nickname && <AddressBookListComponent navigation={navigation} toast={this.toast} item={item} />;
                         }}

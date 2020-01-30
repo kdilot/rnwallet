@@ -6,6 +6,8 @@ export default StyleSheet.create({
         flex: 1,
     },
     ItemTypeView: {
+        zIndex: 1,
+        paddingHorizontal: 20,
         height: 50,
         marginTop: 15,
         alignItems: 'center',
@@ -17,12 +19,19 @@ export default StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderBottomWidth: 1.5,
-        borderBottomColor: 'gray',
+    },
+    ItemTypeLineView: {
+        height: 1,
+        borderWidth: 1,
+        borderColor: 'gray',
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        zIndex: 0,
     },
     TypeSelectedView: {
         borderBottomColor: basicColor,
-        borderBottomWidth: 3,
+        borderBottomWidth: 4,
     },
     ItemText: {
         fontSize: 15,

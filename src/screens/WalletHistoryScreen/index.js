@@ -189,35 +189,39 @@ class WalletHistoryScreen extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <KeyboardAvoidingView style={S.ContainerView}>
-                <View style={S.ItemTypeView}>
-                    <TouchableOpacity
-                        style={[S.ItemView, itemType === ITEMTYPE_ALL && S.TypeSelectedView]}
-                        onPress={() => {
-                            this.setType(ITEMTYPE_ALL);
-                        }}>
-                        <Text style={[S.ItemText, itemType === ITEMTYPE_ALL && S.TypeSelectedText]}>{lang.all}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[S.ItemView, itemType === ITEMTYPE_ROZ && S.TypeSelectedView]}
-                        onPress={() => {
-                            this.setType(ITEMTYPE_ROZ);
-                        }}>
-                        <Text style={[S.ItemText, itemType === ITEMTYPE_ROZ && S.TypeSelectedText]}>ROZ</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[S.ItemView, itemType === ITEMTYPE_ETH && S.TypeSelectedView]}
-                        onPress={() => {
-                            this.setType(ITEMTYPE_ETH);
-                        }}>
-                        <Text style={[S.ItemText, itemType === ITEMTYPE_ETH && S.TypeSelectedText]}>ETH</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[S.ItemView, itemType === ITEMTYPE_ADDRESSBOOK && S.TypeSelectedView]}
-                        onPress={() => {
-                            this.setType(ITEMTYPE_ADDRESSBOOK);
-                        }}>
-                        <Text style={[S.ItemText, itemType === 3 && S.TypeSelectedText]}>{lang.addressBook}</Text>
-                    </TouchableOpacity>
+                <View>
+                    <View style={S.ItemTypeView}>
+                        <TouchableOpacity
+                            style={[S.ItemView, itemType === ITEMTYPE_ALL && S.TypeSelectedView]}
+                            onPress={() => {
+                                this.setType(ITEMTYPE_ALL);
+                            }}>
+                            <Text style={[S.ItemText, itemType === ITEMTYPE_ALL && S.TypeSelectedText]}>{lang.all}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[S.ItemView, itemType === ITEMTYPE_ROZ && S.TypeSelectedView]}
+                            onPress={() => {
+                                this.setType(ITEMTYPE_ROZ);
+                            }}>
+                            <Text style={[S.ItemText, itemType === ITEMTYPE_ROZ && S.TypeSelectedText]}>ROZ</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[S.ItemView, itemType === ITEMTYPE_ETH && S.TypeSelectedView]}
+                            onPress={() => {
+                                this.setType(ITEMTYPE_ETH);
+                            }}>
+                            <Text style={[S.ItemText, itemType === ITEMTYPE_ETH && S.TypeSelectedText]}>ETH</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[S.ItemView, itemType === ITEMTYPE_ADDRESSBOOK && S.TypeSelectedView]}
+                            onPress={() => {
+                                this.setType(ITEMTYPE_ADDRESSBOOK);
+                            }}>
+                            <Text style={[S.ItemText, itemType === 3 && S.TypeSelectedText]}>{lang.addressBook}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={S.ItemTypeLineView} />
                 </View>
                 {addressBookShow ? (
                     <View style={S.AddressBookView}>

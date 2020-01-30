@@ -2,14 +2,10 @@ import React, { PureComponent } from 'react';
 import { Text, View, SafeAreaView, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import S from './styles';
 
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import { createAppContainer } from 'react-navigation';
-
 const arr = new Array(10);
-
 class ListLayout extends PureComponent {
     render() {
-        const { navigation } = this.props.screenProps;
+        const { navigation } = this.props;
         return (
             <SafeAreaView>
                 <FlatList
@@ -28,34 +24,6 @@ class ListLayout extends PureComponent {
     }
 }
 
-const BottomMenuTab = createAppContainer(
-    createMaterialTopTabNavigator(
-        {
-            Notice: {
-                screen: ListLayout,
-                navigationOptions: {
-                    title: '공지',
-                },
-            },
-            Qna: {
-                screen: ListLayout,
-                navigationOptions: {
-                    title: 'Q&A',
-                },
-            },
-        },
-        {
-            animationEnabled: true,
-            swipeEnabled: true,
-            tabBarPosition: 'top',
-            initialRouteName: 'Notice',
-            tabBarOptions: {
-                showLabel: true,
-            },
-        },
-    ),
-);
-
 export default class NoticeScreen extends PureComponent {
     render() {
         const { params } = this.props.navigation.state;
@@ -69,7 +37,7 @@ export default class NoticeScreen extends PureComponent {
                 </ScrollView>
             </SafeAreaView>
         ) : (
-            <BottomMenuTab screenProps={{ navigation: this.props.navigation }} />
+            <ListLayout {...this.props} />
         );
     }
 }

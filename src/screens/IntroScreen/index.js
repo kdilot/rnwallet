@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StatusBar, SafeAreaView } from 'react-native';
+import { Text, StatusBar, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';

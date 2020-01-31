@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -63,25 +63,23 @@ class AddressBookScreen extends Component {
         const { navigation } = this.props;
         const { addressBookLoad, addressBookList } = this.state;
         return (
-            <>
-                <View style={styles.container}>
-                    {addressBookList.length > 0 ? (
-                        <FlatList
-                            data={addressBookList}
-                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
-                            keyExtractor={(item, index) => index.toString()}
-                            removeClippedSubviews={false}
-                        />
-                    ) : (
-                        <LoadComponent isLoad={addressBookLoad} />
-                    )}
-                </View>
+            <SafeAreaView style={styles.container}>
+                {addressBookList.length > 0 ? (
+                    <FlatList
+                        data={addressBookList}
+                        renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
+                        keyExtractor={(item, index) => index.toString()}
+                        removeClippedSubviews={false}
+                    />
+                ) : (
+                    <LoadComponent isLoad={addressBookLoad} />
+                )}
                 <ToastComponent
                     ref={ref => {
                         this.toast = ref;
                     }}
                 />
-            </>
+            </SafeAreaView>
         );
     }
 }

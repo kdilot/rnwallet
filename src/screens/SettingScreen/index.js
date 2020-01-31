@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
@@ -40,7 +40,7 @@ class SettingScreen extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <View style={styles.panelLayout}>
+            <SafeAreaView style={styles.panelLayout}>
                 <FlatList
                     data={SETTING_MENU_LIST}
                     ItemSeparatorComponent={() => <View style={styles.dividerStyle} />}
@@ -53,7 +53,7 @@ class SettingScreen extends Component {
                         this.toast = ref;
                     }}
                 />
-            </View>
+            </SafeAreaView>
         );
     }
 }

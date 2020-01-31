@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StatusBar } from 'react-native';
+import { Text, StatusBar, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
@@ -42,11 +42,11 @@ class IntroScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor={rozeusColor} />
                 <Text style={styles.text}>ROZ</Text>
                 <Text style={styles.text}>Wallet</Text>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MenuList = [
     {
@@ -32,9 +31,12 @@ export default class CustomDrawerScreen extends Component {
     render() {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.logoLayout}>
                     <Ionicons name="logo-xbox" size={100} color="white" />
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.closeDrawer()} style={styles.closeView}>
+                        <Text>X</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.contentLayout}>
                     <FlatList
@@ -56,7 +58,7 @@ export default class CustomDrawerScreen extends Component {
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -43,9 +43,4 @@ export default StyleSheet.create({
     AddressBookView: {
         flex: 1,
     },
-    IsEmptyView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
 });

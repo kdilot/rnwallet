@@ -1,11 +1,10 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#6ab8f7',
-        paddingTop: Platform.OS === 'ios' ? 40 : 0,
     },
     HeaderView: {
         justifyContent: 'center',

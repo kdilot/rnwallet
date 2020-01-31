@@ -4,7 +4,6 @@ import { dividerDarkColor } from 'constants/Color';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
         justifyContent: 'space-around',
     },
     headerLayout: {

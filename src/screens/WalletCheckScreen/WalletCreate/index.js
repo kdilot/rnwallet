@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View, TextInput, Clipboard, Dimensions } from 'react-native';
+import { Text, View, TextInput, Clipboard, Dimensions, SafeAreaView } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
 import { fromMnemonic } from 'api/etherjs';
@@ -80,48 +81,50 @@ class WalletCreate extends Component {
         const { mnemonic, shuffleMnemonic } = this.props.walletStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <View style={styles.container}>
-                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
-                <View style={styles.textareaLayout}>
-                    <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
-                </View>
-                <View style={styles.buttonLayout}>
-                    <ButtonComponent name={lang.copy} outline={true} onPress={this.onCopy} />
-                </View>
-                <View style={styles.confirmLayout}>
-                    <View style={styles.confirmTextLayout}>
-                        <Text>{lang.createSaveTextMsg}</Text>
-                        <Text>
-                            {lang.createConfirmWordMsgOne}
-                            {` [ ${randomNumber} ] `}
-                            {lang.createConfirmWordMsgTwo}
-                        </Text>
+            <SafeAreaView style={styles.container}>
+                <View style={{ flex: 1, padding: 15 }}>
+                    <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
+                    <View style={styles.textareaLayout}>
+                        <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
                     </View>
-                    <View style={styles.confirmGridLayout}>
-                        <FlatGrid
-                            items={shuffleMnemonic}
-                            spacing={12}
-                            itemDimension={(Dimensions.get('window').width - 50) / 4}
-                            renderItem={({ item, index }) => (
-                                <ButtonComponent
-                                    name={item}
-                                    onPress={() => {
-                                        this.checkWord(item);
-                                    }}
-                                />
-                            )}
-                        />
+                    <View style={styles.buttonLayout}>
+                        <ButtonComponent name={lang.copy} outline={true} onPress={this.onCopy} />
                     </View>
+                    <View style={styles.confirmLayout}>
+                        <View style={styles.confirmTextLayout}>
+                            <Text>{lang.createSaveTextMsg}</Text>
+                            <Text>
+                                {lang.createConfirmWordMsgOne}
+                                {` [ ${randomNumber} ] `}
+                                {lang.createConfirmWordMsgTwo}
+                            </Text>
+                        </View>
+                        <View style={styles.confirmGridLayout}>
+                            <FlatGrid
+                                items={shuffleMnemonic}
+                                spacing={12}
+                                itemDimension={(Dimensions.get('window').width - 50) / 4}
+                                renderItem={({ item, index }) => (
+                                    <ButtonComponent
+                                        name={item}
+                                        onPress={() => {
+                                            this.checkWord(item);
+                                        }}
+                                    />
+                                )}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.buttonLayout}>
+                        <ButtonComponent name={lang.create} disable={createDisable} onPress={this.onCreate} />
+                    </View>
+                    <ToastComponent
+                        ref={ref => {
+                            this.toast = ref;
+                        }}
+                    />
                 </View>
-                <View style={styles.buttonLayout}>
-                    <ButtonComponent name={lang.create} disable={createDisable} onPress={this.onCreate} />
-                </View>
-                <ToastComponent
-                    ref={ref => {
-                        this.toast = ref;
-                    }}
-                />
-            </View>
+            </SafeAreaView>
         );
     }
 }

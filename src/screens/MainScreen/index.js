@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { WalletInfoComponent } from 'components';
@@ -141,7 +141,7 @@ class MainScreen extends PureComponent {
         const { ethBalance, rozBalance, isEthLoad, isRozLoad, isRoz } = this.state;
 
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.HeaderView}>
                     <TouchableOpacity
                         onPress={() => {
@@ -185,7 +185,7 @@ class MainScreen extends PureComponent {
                     sliderWidth={WIDTH}
                     itemWidth={WIDTH * 0.8}
                 />
-            </View>
+            </SafeAreaView>
         );
     }
 }

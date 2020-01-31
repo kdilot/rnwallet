@@ -10,3 +10,5 @@ export { default as WalletInfoComponent } from './WalletInfoComponent';
 export { default as SwitchButtonComponent } from './SwitchButtonComponent';
 export { default as PopupComponent } from './PopupComponent';
 export { default as LoadComponent } from './LoadComponent';
+export { default as FaqComponent } from './FaqComponent';
+export { default as NoticeComponent } from './NoticeComponent';

@@ -2,54 +2,62 @@ import { StyleSheet } from 'react-native';
 import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         flex: 1,
-        justifyContent: 'space-around',
     },
-    headerLayout: {
-        height: 250,
+    HeaderView: {
+        flex: 8,
     },
-    coinTextStyle: {
-        textAlign: 'center',
-        fontWeight: 'bold',
-        paddingBottom: 5,
+    CoinView: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 10,
     },
-    textareaLayout: {
-        flex: 1,
-        height: '100%',
-        justifyContent: 'flex-start',
+    CoinIcon: {
+        width: 30,
+        height: 30,
+        borderRadius: 5,
+        borderWidth: 1,
+        marginRight: 10,
     },
-    textareaIconStyle: {
+    CoinText: {
+        fontWeight: 'bold',
+        alignSelf: 'center',
+    },
+    InputView: {
+        marginBottom: 10,
+    },
+    AddressView: {
+        flexDirection: 'row',
+    },
+    QrIcon: {
         position: 'absolute',
         top: 6,
         right: 10,
     },
-    buttonLayout: {
-        flex: 2,
+    BottomView: {
+        flex: 1,
         justifyContent: 'flex-end',
     },
-    sliderLayout: {
+    SliderView: {
         marginVertical: 10,
     },
-    feeTextLayout: {
+    FeeView: {
         paddingHorizontal: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    feeTextStyle: {
+    FeeText: {
         flex: 1,
     },
-    textStyle: {
-        paddingLeft: 5,
+    InputText: {
         paddingBottom: 5,
         fontSize: 12,
     },
-    textInputStyle: {
+    InputBoxView: {
         padding: 10,
         height: 40,
         borderColor: dividerDarkColor,
         borderWidth: 1,
-        borderRadius: 5,
     },
 });

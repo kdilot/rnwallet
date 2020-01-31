@@ -150,35 +150,30 @@ class SendScreen extends Component {
         const { price, address, isSendDisable, gas, gasMinValue, gasMaxValue, coin, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.ContainerView}>
+                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                 <KeyboardAvoidingView style={{ flex: 1, padding: 20 }}>
-                    <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
-                    <View style={styles.headerLayout}>
-                        <View>
-                            <Text style={styles.coinTextStyle}>{coin}</Text>
+                    <View style={styles.HeaderView}>
+                        <View style={styles.CoinView}>
+                            <View style={styles.CoinIcon} />
+                            <Text style={styles.CoinText}>{coin}</Text>
                         </View>
-                        <View style={styles.textareaLayout}>
-                            <Text style={styles.textStyle}>{lang.price}</Text>
-                            <TextInput
-                                style={styles.textInputStyle}
-                                placeholder={lang.price}
-                                keyboardType="decimal-pad"
-                                onChangeText={text => this.setState({ price: text })}
-                                value={price.toString()}
-                            />
+                        <View style={styles.InputView}>
+                            <Text style={styles.InputText}>{lang.price}</Text>
+                            <TextInput style={styles.InputBoxView} placeholder={lang.price} keyboardType="decimal-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
                         </View>
-                        <View style={styles.textareaLayout}>
-                            <Text style={styles.textStyle}>{lang.address}</Text>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <View style={styles.InputView}>
+                            <Text style={styles.InputText}>{lang.address}</Text>
+                            <View style={styles.AddressView}>
                                 <TextInput
-                                    style={[styles.textInputStyle, { flex: 1, paddingRight: 50 }]}
+                                    style={[styles.InputBoxView, { flex: 1, paddingRight: 50 }]}
                                     placeholder={lang.address}
                                     keyboardType="default"
                                     onChangeText={text => this.setState({ address: text })}
                                     value={address}
                                 />
                                 <TouchableOpacity
-                                    style={{ position: 'absolute', top: 6, right: 10 }}
+                                    style={styles.QrIcon}
                                     onPress={() => {
                                         this.onSearch();
                                     }}>
@@ -186,20 +181,20 @@ class SendScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.textareaLayout}>
-                            <Text style={styles.textStyle}>{lang.fees}</Text>
+                        <View style={styles.InputView}>
+                            <Text style={styles.InputText}>{lang.fees}</Text>
                             {isSendDisable ? (
                                 <PlaceholderLayout />
                             ) : (
                                 <>
                                     <TextInput
-                                        style={styles.textInputStyle}
+                                        style={styles.InputBoxView}
                                         placeholder={lang.fees}
                                         keyboardType="decimal-pad"
                                         onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
                                         value={gas.toString()}
                                     />
-                                    <View style={styles.sliderLayout}>
+                                    <View style={styles.SliderView}>
                                         <Slider
                                             value={gas}
                                             onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
@@ -210,12 +205,12 @@ class SendScreen extends Component {
                                             step={0.1}
                                         />
                                     </View>
-                                    <View style={styles.feeTextLayout}>
-                                        <Text style={styles.feeTextStyle}>
+                                    <View style={styles.FeeView}>
+                                        <Text style={styles.FeeText}>
                                             {lang.slow}
                                             {`(${gasMinValue})`}
                                         </Text>
-                                        <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>
+                                        <Text style={[styles.FeeText, { textAlign: 'right' }]}>
                                             {lang.fast}
                                             {`(${gasMaxValue})`}
                                         </Text>
@@ -225,7 +220,7 @@ class SendScreen extends Component {
                             )}
                         </View>
                     </View>
-                    <View style={styles.buttonLayout}>
+                    <View style={styles.BottomView}>
                         <ButtonComponent
                             disable={isSendDisable}
                             name={lang.send}
@@ -234,12 +229,12 @@ class SendScreen extends Component {
                             }}
                         />
                     </View>
-                    <ToastComponent
-                        ref={ref => {
-                            this.toast = ref;
-                        }}
-                    />
                 </KeyboardAvoidingView>
+                <ToastComponent
+                    ref={ref => {
+                        this.toast = ref;
+                    }}
+                />
             </SafeAreaView>
         );
     }

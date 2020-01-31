@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text, View, FlatList } from 'react-native';
 import styles from './styles';
 import { getNoticeList } from 'api/Notice/NoticeApi';
-import NoticeComponent from 'components/NoticeComponent';
+import { NoticeComponent, LoadComponent } from 'components';
 
 export default class NoticeScreen extends PureComponent {
     constructor(props) {
@@ -22,6 +22,7 @@ export default class NoticeScreen extends PureComponent {
                 inDt: '',
                 contents: '',
             },
+            isLoad: false,
         };
     }
 
@@ -42,7 +43,7 @@ export default class NoticeScreen extends PureComponent {
         let noticeList = [];
         noticeList = await getNoticeList();
 
-        this.setState({ noticeList: noticeList });
+        this.setState({ noticeList: noticeList, isLoad: true });
     };
 
     pressNotice = noticeDetail => {
@@ -50,20 +51,23 @@ export default class NoticeScreen extends PureComponent {
     };
 
     render() {
+        const { noticeList, noticeDetail, isLoad } = this.state;
         return (
             <View style={styles.container}>
                 {this.state.isOnNoticeDetail ? (
                     <View style={styles.noticeDetail}>
                         <View style={styles.noticeDetail__titleBox}>
-                            <Text style={styles.noticeDetail__title}>{this.state.noticeDetail.title}</Text>
-                            <Text style={styles.noticeDetail__inDt}>{this.state.noticeDetail.inDt}</Text>
+                            <Text style={styles.noticeDetail__title}>{noticeDetail.title}</Text>
+                            <Text style={styles.noticeDetail__inDt}>{noticeDetail.inDt}</Text>
                         </View>
                         <View style={styles.noticeDetail__contentsBox}>
-                            <Text style={styles.noticeDetail__contents}>{this.state.noticeDetail.contents}</Text>
+                            <Text style={styles.noticeDetail__contents}>{noticeDetail.contents}</Text>
                         </View>
                     </View>
+                ) : isLoad ? (
+                    <FlatList data={noticeList} renderItem={({ item }) => <NoticeComponent notice={item} pressNotice={this.pressNotice} />} keyExtractor={(item, index) => String(index)} />
                 ) : (
-                    <FlatList data={this.state.noticeList} renderItem={({ item }) => <NoticeComponent notice={item} pressNotice={this.pressNotice} />} keyExtractor={(item, index) => String(index)} />
+                    <LoadComponent isLoad={isLoad} />
                 )}
             </View>
         );

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, SafeAreaView } from 'react-native';
 import styles from './styles';
 import { getNoticeList } from 'api/Notice/NoticeApi';
 import { NoticeComponent, LoadComponent } from 'components';
@@ -53,7 +53,7 @@ export default class NoticeScreen extends PureComponent {
     render() {
         const { noticeList, noticeDetail, isLoad } = this.state;
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 {this.state.isOnNoticeDetail ? (
                     <View style={styles.noticeDetail}>
                         <View style={styles.noticeDetail__titleBox}>
@@ -69,7 +69,7 @@ export default class NoticeScreen extends PureComponent {
                 ) : (
                     <LoadComponent isLoad={isLoad} />
                 )}
-            </View>
+            </SafeAreaView>
         );
     }
 }

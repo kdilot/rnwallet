@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ToastComponent, AddressBookListComponent, LoadComponent } from 'components';
@@ -61,7 +61,7 @@ class AddressBookListScreen extends Component {
         const { addressBookList, addressBookLoad } = this.state;
         const list = addressBookList.filter(f => f.nickname);
         return (
-            <View style={S.ContainerView}>
+            <SafeAreaView style={S.ContainerView}>
                 {list.length > 0 ? (
                     <FlatList
                         data={list}
@@ -85,7 +85,7 @@ class AddressBookListScreen extends Component {
                         this.toast = ref;
                     }}
                 />
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { PinInput } from 'react-native-pins';
 import { VirtualKeyboard } from 'react-native-screen-keyboard';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -120,7 +120,7 @@ export default class PinCode extends Component {
         const { maxPin } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.titleLayout}>
                     <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : status === ACCESS_PIN ? lang.accessPin : ''}</Text>
                 </View>
@@ -147,7 +147,7 @@ export default class PinCode extends Component {
                 <View style={styles.inputLayout}>
                     <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} keyStyle={styles.keyStyle} keyboardStyle={styles.keyboardStyle} />
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { Text, View, TextInput, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
@@ -18,7 +19,7 @@ class WalletRestore extends Component {
         this.state = {
             text: null,
             isVisible: false,
-            restoreDisable: false,
+            restoreDisable: true,
         };
     }
 
@@ -63,7 +64,7 @@ class WalletRestore extends Component {
                 }
             } catch (e) {
                 this.toast.showToast(lang.mnemonicMsg);
-                this.setState({ restoreDisable: false, text: null });
+                this.setState({ restoreDisable: false, isVisible: false, text: null });
             }
         }
     };
@@ -76,21 +77,23 @@ class WalletRestore extends Component {
         const { text, restoreDisable, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <KeyboardAvoidingView style={styles.container}>
-                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
-                <View style={styles.textareaLayout}>
-                    <Text style={styles.textStyle}>{lang.restoreInputMsg}</Text>
-                    <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
-                </View>
-                <View style={styles.buttonLayout}>
-                    <ButtonComponent name={lang.restore} disable={restoreDisable} onPress={this.onRestore} />
-                </View>
-                <ToastComponent
-                    ref={ref => {
-                        this.toast = ref;
-                    }}
-                />
-            </KeyboardAvoidingView>
+            <SafeAreaView style={styles.container}>
+                <KeyboardAvoidingView style={{ flex: 1, padding: 20 }}>
+                    <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
+                    <View style={styles.textareaLayout}>
+                        <Text style={styles.textStyle}>{lang.restoreInputMsg}</Text>
+                        <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
+                    </View>
+                    <View style={styles.buttonLayout}>
+                        <ButtonComponent name={lang.restore} disable={restoreDisable} onPress={this.onRestore} />
+                    </View>
+                    <ToastComponent
+                        ref={ref => {
+                            this.toast = ref;
+                        }}
+                    />
+                </KeyboardAvoidingView>
+            </SafeAreaView>
         );
     }
 }

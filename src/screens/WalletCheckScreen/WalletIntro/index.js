@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View, StatusBar } from 'react-native';
+import { Text, View, StatusBar, SafeAreaView } from 'react-native';
 import { ButtonComponent } from 'components';
 import { rozeusColor } from 'constants/Color';
 import { USER_ETH_ADDRESS } from 'constants/Global';
@@ -30,7 +30,7 @@ class WalletCheckScreen extends Component {
     render() {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor={rozeusColor} />
                 <View style={styles.logoLayout}>
                     <Text style={styles.logoTextLayout}>ROZ</Text>
@@ -44,7 +44,7 @@ class WalletCheckScreen extends Component {
                         <ButtonComponent name={lang.create} color={rozeusColor} onPress={this.onCreate} />
                     </View>
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

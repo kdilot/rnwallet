@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
 import * as txListActions from 'modules/TxListReducer';
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, SafeAreaView } from 'react-native';
 import Slider from '@react-native-community/slider';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
@@ -150,89 +150,97 @@ class SendScreen extends Component {
         const { price, address, isSendDisable, gas, gasMinValue, gasMaxValue, coin, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <KeyboardAvoidingView style={styles.container}>
-                <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
-                <View style={styles.headerLayout}>
-                    <View>
-                        <Text style={styles.coinTextStyle}>{coin}</Text>
-                    </View>
-                    <View style={styles.textareaLayout}>
-                        <Text style={styles.textStyle}>{lang.price}</Text>
-                        <TextInput style={styles.textInputStyle} placeholder={lang.price} keyboardType="decimal-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
-                    </View>
-                    <View style={styles.textareaLayout}>
-                        <Text style={styles.textStyle}>{lang.address}</Text>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
+            <SafeAreaView style={styles.container}>
+                <KeyboardAvoidingView style={{ flex: 1, padding: 20 }}>
+                    <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
+                    <View style={styles.headerLayout}>
+                        <View>
+                            <Text style={styles.coinTextStyle}>{coin}</Text>
+                        </View>
+                        <View style={styles.textareaLayout}>
+                            <Text style={styles.textStyle}>{lang.price}</Text>
                             <TextInput
-                                style={[styles.textInputStyle, { flex: 1, paddingRight: 50 }]}
-                                placeholder={lang.address}
-                                keyboardType="default"
-                                onChangeText={text => this.setState({ address: text })}
-                                value={address}
+                                style={styles.textInputStyle}
+                                placeholder={lang.price}
+                                keyboardType="decimal-pad"
+                                onChangeText={text => this.setState({ price: text })}
+                                value={price.toString()}
                             />
-                            <TouchableOpacity
-                                style={{ position: 'absolute', top: 6, right: 10 }}
-                                onPress={() => {
-                                    this.onSearch();
-                                }}>
-                                <Ionicons name="qrcode-scan" size={25} />
-                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.textareaLayout}>
+                            <Text style={styles.textStyle}>{lang.address}</Text>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TextInput
+                                    style={[styles.textInputStyle, { flex: 1, paddingRight: 50 }]}
+                                    placeholder={lang.address}
+                                    keyboardType="default"
+                                    onChangeText={text => this.setState({ address: text })}
+                                    value={address}
+                                />
+                                <TouchableOpacity
+                                    style={{ position: 'absolute', top: 6, right: 10 }}
+                                    onPress={() => {
+                                        this.onSearch();
+                                    }}>
+                                    <Ionicons name="qrcode-scan" size={25} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View style={styles.textareaLayout}>
+                            <Text style={styles.textStyle}>{lang.fees}</Text>
+                            {isSendDisable ? (
+                                <PlaceholderLayout />
+                            ) : (
+                                <>
+                                    <TextInput
+                                        style={styles.textInputStyle}
+                                        placeholder={lang.fees}
+                                        keyboardType="decimal-pad"
+                                        onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
+                                        value={gas.toString()}
+                                    />
+                                    <View style={styles.sliderLayout}>
+                                        <Slider
+                                            value={gas}
+                                            onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
+                                            thumbTintColor={basicColor}
+                                            minimumTrackTintColor={basicColor}
+                                            minimumValue={gasMinValue}
+                                            maximumValue={gasMaxValue}
+                                            step={0.1}
+                                        />
+                                    </View>
+                                    <View style={styles.feeTextLayout}>
+                                        <Text style={styles.feeTextStyle}>
+                                            {lang.slow}
+                                            {`(${gasMinValue})`}
+                                        </Text>
+                                        <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>
+                                            {lang.fast}
+                                            {`(${gasMaxValue})`}
+                                        </Text>
+                                    </View>
+                                    <Text style={{ textAlign: 'center' }}>Value: {gas}</Text>
+                                </>
+                            )}
                         </View>
                     </View>
-                    <View style={styles.textareaLayout}>
-                        <Text style={styles.textStyle}>{lang.fees}</Text>
-                        {isSendDisable ? (
-                            <PlaceholderLayout />
-                        ) : (
-                            <>
-                                <TextInput
-                                    style={styles.textInputStyle}
-                                    placeholder={lang.fees}
-                                    keyboardType="decimal-pad"
-                                    onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
-                                    value={gas.toString()}
-                                />
-                                <View style={styles.sliderLayout}>
-                                    <Slider
-                                        value={gas}
-                                        onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
-                                        thumbTintColor={basicColor}
-                                        minimumTrackTintColor={basicColor}
-                                        minimumValue={gasMinValue}
-                                        maximumValue={gasMaxValue}
-                                        step={0.1}
-                                    />
-                                </View>
-                                <View style={styles.feeTextLayout}>
-                                    <Text style={styles.feeTextStyle}>
-                                        {lang.slow}
-                                        {`(${gasMinValue})`}
-                                    </Text>
-                                    <Text style={[styles.feeTextStyle, { textAlign: 'right' }]}>
-                                        {lang.fast}
-                                        {`(${gasMaxValue})`}
-                                    </Text>
-                                </View>
-                                <Text style={{ textAlign: 'center' }}>Value: {gas}</Text>
-                            </>
-                        )}
+                    <View style={styles.buttonLayout}>
+                        <ButtonComponent
+                            disable={isSendDisable}
+                            name={lang.send}
+                            onPress={() => {
+                                this.onCheckAuth();
+                            }}
+                        />
                     </View>
-                </View>
-                <View style={styles.buttonLayout}>
-                    <ButtonComponent
-                        disable={isSendDisable}
-                        name={lang.send}
-                        onPress={() => {
-                            this.onCheckAuth();
+                    <ToastComponent
+                        ref={ref => {
+                            this.toast = ref;
                         }}
                     />
-                </View>
-                <ToastComponent
-                    ref={ref => {
-                        this.toast = ref;
-                    }}
-                />
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </SafeAreaView>
         );
     }
 }

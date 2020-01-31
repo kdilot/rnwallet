@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import BarcodeMask from 'react-native-barcode-mask';
 import PropTypes from 'prop-types';
@@ -14,10 +14,10 @@ export default class QrcodeScan extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <QRCodeScanner onRead={this.handleAction} cameraStyle={styles.cameraStyle} />
                 <BarcodeMask edgeColor={'#62B1F6'} showAnimatedLine={false} />
-            </View>
+            </SafeAreaView>
         );
     }
 }

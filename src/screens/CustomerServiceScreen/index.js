@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, SafeAreaView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { FlatList } from 'react-navigation';
 import { FaqComponent, LoadComponent } from 'components';
@@ -44,7 +44,7 @@ export default class CustomerServiceScreen extends Component {
     render() {
         const { faqList, isOnFaqTab, isOnEmailTab, isLoad } = this.state;
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.topTab}>
                     <View style={styles.topTab__faqBox}>
                         <TouchableWithoutFeedback style={isOnFaqTab ? styles['topTab__faqTouchBox--focused'] : styles.topTab__faqTouchBox} onPress={this.pressFaqTab}>
@@ -71,7 +71,7 @@ export default class CustomerServiceScreen extends Component {
                         </View>
                     </View>
                 )}
-            </View>
+            </SafeAreaView>
         );
     }
 }

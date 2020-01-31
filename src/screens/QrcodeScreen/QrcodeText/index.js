@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Share, Clipboard } from 'react-native';
+import { View, Text, Dimensions, Share, Clipboard, SafeAreaView } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import ButtonComponent from 'components/ButtonComponent';
 import ToastComponent from 'components/ToastComponent';
@@ -40,7 +40,7 @@ export default class QrcodeText extends Component {
         const { text } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ToastComponent
                     ref={ref => {
                         this.toast = ref;
@@ -54,7 +54,7 @@ export default class QrcodeText extends Component {
                     <ButtonComponent style={styles.buttonStyle} name={lang.copy} outline={true} onPress={this.onCopy} />
                     <ButtonComponent style={styles.buttonStyle} name={lang.share} onPress={this.onShare} />
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

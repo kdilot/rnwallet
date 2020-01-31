@@ -1,4 +1,6 @@
-export default {
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
@@ -56,4 +58,4 @@ export default {
         alignItems: 'center',
     },
     contents__emaiText: {},
-};
+});

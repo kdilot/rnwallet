@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { AddressBookComponent, ToastComponent } from 'components';
-import Placeholderlayout from './PlaceholderLayout';
+import { AddressBookComponent, ToastComponent, LoadComponent } from 'components';
 import styles from './styles';
 
 import * as addressBookActions from 'modules/AddressBookReducer';
@@ -25,7 +24,7 @@ class AddressBookScreen extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', payload => {
-            this.setState({ addressBookLoad: false });
+            this.setState({ addressBookList: [], addressBookLoad: false });
             this.getData();
         });
     }
@@ -66,21 +65,15 @@ class AddressBookScreen extends Component {
         return (
             <>
                 <View style={styles.container}>
-                    {addressBookLoad ? (
-                        addressBookList.length > 0 ? (
-                            <FlatList
-                                data={addressBookList}
-                                renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
-                                keyExtractor={(item, index) => index.toString()}
-                                removeClippedSubviews={false}
-                            />
-                        ) : (
-                            <View style={styles.isEmptyLayout}>
-                                <Text>NO DATA</Text>
-                            </View>
-                        )
+                    {addressBookList.length > 0 ? (
+                        <FlatList
+                            data={addressBookList}
+                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
+                            keyExtractor={(item, index) => index.toString()}
+                            removeClippedSubviews={false}
+                        />
                     ) : (
-                        <Placeholderlayout />
+                        <LoadComponent isLoad={addressBookLoad} />
                     )}
                 </View>
                 <ToastComponent

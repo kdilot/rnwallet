@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ToastComponent, AddressBookListComponent } from 'components';
+import { ToastComponent, AddressBookListComponent, LoadComponent } from 'components';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import S from './styles';
@@ -21,7 +21,7 @@ class AddressBookListScreen extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', payload => {
-            this.setState({ addressBookLoad: false });
+            this.setState({ addressBookList: [], addressBookLoad: false });
             this.getData();
         });
     }
@@ -58,7 +58,7 @@ class AddressBookListScreen extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { addressBookList } = this.state;
+        const { addressBookList, addressBookLoad } = this.state;
         const list = addressBookList.filter(f => f.nickname);
         return (
             <View style={S.ContainerView}>
@@ -72,9 +72,7 @@ class AddressBookListScreen extends Component {
                         removeClippedSubviews={false}
                     />
                 ) : (
-                    <View style={S.IsEmptyView}>
-                        <Text>No Data</Text>
-                    </View>
+                    <LoadComponent isLoad={addressBookLoad} />
                 )}
 
                 <View style={S.AbsoluteView}>

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text, Dimensions, Animated } from 'react-native';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
 
 export default class ToastComponent extends PureComponent {
     constructor(props) {
@@ -40,13 +40,13 @@ export default class ToastComponent extends PureComponent {
         return (
             <Animated.View
                 style={[
-                    styles.container,
+                    S.ContainerView,
                     {
                         width: Dimensions.get('window').width,
                         bottom: animation,
                     },
                 ]}>
-                <Text style={styles.textStyle}>{message}</Text>
+                <Text style={S.MessageText}>{message}</Text>
             </Animated.View>
         );
     }

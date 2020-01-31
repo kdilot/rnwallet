@@ -15,6 +15,15 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    closeView: {
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        top: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     contentLayout: {
         flex: 5,
         width: '100%',

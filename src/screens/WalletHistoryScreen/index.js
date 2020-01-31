@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as txListActions from 'modules/TxListReducer';
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, RefreshControl, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, RefreshControl, FlatList, SafeAreaView } from 'react-native';
 import { WalletHistoryComponent, AddressBookMiniComponent, ToastComponent, LoadComponent } from 'components';
 import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
@@ -188,7 +188,7 @@ class WalletHistoryScreen extends Component {
         const { navigation } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <KeyboardAvoidingView style={S.ContainerView}>
+            <SafeAreaView style={S.ContainerView}>
                 <View>
                     <View style={S.ItemTypeView}>
                         <TouchableOpacity
@@ -261,7 +261,7 @@ class WalletHistoryScreen extends Component {
                         this.toast = ref;
                     }}
                 />
-            </KeyboardAvoidingView>
+            </SafeAreaView>
         );
     }
 }

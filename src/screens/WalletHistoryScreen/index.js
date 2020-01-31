@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as txListActions from 'modules/TxListReducer';
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, RefreshControl, FlatList } from 'react-native';
-import { WalletHistoryComponent, AddressBookMiniComponent, ToastComponent } from 'components';
-import PlaceholderLayout from './PlaceholderLayout';
+import { WalletHistoryComponent, AddressBookMiniComponent, ToastComponent, LoadComponent } from 'components';
 import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
 import PropTypes from 'prop-types';
@@ -25,7 +24,7 @@ class WalletHistoryScreen extends Component {
         this.state = {
             page: 1,
             data: [],
-            isData: true,
+            isLoad: false,
             extraData: [],
             itemType: 0,
             refreshing: false,
@@ -43,10 +42,10 @@ class WalletHistoryScreen extends Component {
             if (payload.state.params) {
                 //   주소록 데이터 가져오기
                 const { itemType, address } = payload.state.params;
-                this.setState({ addressBookShow: false, itemType, address, data: [] });
+                this.setState({ addressBookShow: false, itemType, address, data: [], isLoad: false });
                 this.getAddressData();
             } else {
-                this.setState({ itemType: ITEMTYPE_ALL, data: [], addressBookShow: false });
+                this.setState({ itemType: ITEMTYPE_ALL, data: [], isLoad: false, addressBookShow: false });
                 this.getData(ITEMTYPE_ALL, 1);
             }
         });
@@ -122,7 +121,7 @@ class WalletHistoryScreen extends Component {
         this.setState({
             data: page !== 1 ? data.concat(txList) : txList,
             refreshing: false,
-            isData: page === 1 && txList.length === 0 ? false : true,
+            isLoad: true,
             page: page + 1,
         });
     };
@@ -163,6 +162,7 @@ class WalletHistoryScreen extends Component {
             itemType: itemType,
             addressBookShow: itemType === ITEMTYPE_ADDRESSBOOK ? true : false, //  주소록 on/off
             data: [],
+            isLoad: false,
         });
 
         if (itemType === ITEMTYPE_ADDRESSBOOK) {
@@ -184,7 +184,7 @@ class WalletHistoryScreen extends Component {
     };
 
     render() {
-        const { page, refreshing, data, itemType, addressBookShow, isData, addressBookList, pendingTxList } = this.state;
+        const { page, refreshing, data, itemType, addressBookShow, isLoad, addressBookList, pendingTxList } = this.state;
         const { navigation } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
@@ -251,12 +251,8 @@ class WalletHistoryScreen extends Component {
                                 }}
                                 onEndReachedThreshold={0.2}
                             />
-                        ) : isData ? (
-                            <PlaceholderLayout />
                         ) : (
-                            <View style={S.IsEmptyView}>
-                                <Text>NO DATA</Text>
-                            </View>
+                            <LoadComponent isLoad={isLoad} />
                         )}
                     </View>
                 )}

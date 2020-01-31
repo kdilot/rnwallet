@@ -54,5 +54,6 @@
     "TranSucMsg": "Transmission success",
     "TranFailMsg": "Transmission fail",
     "IncorrectMnemonicMsg": "Incorrect Mnemonic",
-    "pinFirstMsg": "Use PIN setting first"
+    "pinFirstMsg": "Use PIN setting first",
+    "deleteMsg": "Deleted"
 }

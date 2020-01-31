@@ -54,5 +54,6 @@
     "TranSucMsg": "전송성공",
     "TranFailMsg": "전송실패",
     "IncorrectMnemonicMsg": "니모닉이 일치하지 않습니다.",
-    "pinFirstMsg": "PIN 설정을 해야 사용할 수 있습니다."
+    "pinFirstMsg": "PIN 설정을 해야 사용할 수 있습니다.",
+    "deleteMsg": "삭제완료"
 }

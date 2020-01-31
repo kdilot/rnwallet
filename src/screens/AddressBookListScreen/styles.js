@@ -23,9 +23,4 @@ export default StyleSheet.create({
         fontSize: 30,
         color: 'white',
     },
-    IsEmptyView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
 });

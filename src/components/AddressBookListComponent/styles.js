@@ -4,7 +4,7 @@ export default StyleSheet.create({
     ContainerView: {
         flex: 1,
         flexDirection: 'row',
-        padding: 10,
+        padding: 20,
     },
     TextView: {
         flex: 2,

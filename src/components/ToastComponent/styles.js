@@ -1,14 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         position: 'absolute',
         zIndex: 9999,
         height: 50,
         backgroundColor: '#454547',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
     },
-    textStyle: { color: 'white', fontSize: 14 },
+    MessageText: {
+        color: 'white',
+        fontSize: 14,
+        textAlign: 'center',
+    },
 });

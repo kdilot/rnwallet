@@ -1,4 +1,5 @@
 export { default as AddressBookScreen } from './AddressBookScreen';
+export { default as AddressBookListScreen } from './AddressBookListScreen';
 export { default as CustomDrawerScreen } from './CustomDrawerScreen';
 export { default as CustomerServiceScreen } from './CustomerServiceScreen';
 export { default as HomepageScreen } from './HomepageScreen';

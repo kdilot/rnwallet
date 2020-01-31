@@ -21,6 +21,7 @@ import {
     FingerPrintScreen,
     PinCodeScreen,
     WalletRestoreScreen,
+    AddressBookListScreen,
 } from 'screens';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
@@ -37,8 +38,8 @@ const BottomMenuTab = createMaterialTopTabNavigator(
                 tabBarIcon: ({ focused, tintColor }) => <Icon name="file-text" size={25} color={focused ? 'black' : 'black'} />,
             },
         },
-        AddressBook: {
-            screen: AddressBookScreen,
+        AddressBookList: {
+            screen: AddressBookListScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <Icon name="book" size={25} color={focused ? 'black' : 'black'} />,
             },
@@ -82,7 +83,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
 const ROUTE = {
     Home: 'home',
     WalletHistory: 'walletHistory',
-    AddressBook: 'addressBook',
+    AddressBookList: 'addressBook',
     Setting: 'setting',
 };
 
@@ -168,6 +169,12 @@ const BottomStack = createStackNavigator(
             screen: WalletRestoreScreen,
             navigationOptions: ({ screenProps }) => ({
                 headerTitle: 'PIN CODE',
+            }),
+        },
+        AddressBook: {
+            screen: AddressBookScreen,
+            navigationOptions: ({ screenProps }) => ({
+                headerTitle: screenProps.lang.addressBook,
             }),
         },
     },

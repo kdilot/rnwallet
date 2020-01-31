@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 import { Overlay } from 'react-native-elements';
-import styles from './styles';
+import Icon from 'react-native-vector-icons/Ionicons';
+import S from './styles';
 import PropTypes from 'prop-types';
+
+const WIDTH = Dimensions.get('screen').width * 0.65;
 
 export default class OverlayComponent extends Component {
     static defaultProps = {
         text: 'Overlay Text',
         isVisible: false,
-        height: '20%',
     };
     render() {
-        const { isVisible, text, height } = this.props;
+        const { isVisible, text } = this.props;
         return (
-            <Overlay isVisible={isVisible} height={height}>
-                <View style={styles.container}>
-                    <Text style={styles.textStyle}>{text}</Text>
+            <Overlay isVisible={isVisible} height={WIDTH} overlayStyle={S.OverlayView}>
+                <View style={S.ContainerView}>
+                    <View style={S.MessageView}>
+                        <Text style={S.MessageText}>{text}</Text>
+                    </View>
+                    <View style={S.IconView}>
+                        <Icon name="ios-time" size={100} />
+                    </View>
                 </View>
             </Overlay>
         );
@@ -25,5 +32,4 @@ export default class OverlayComponent extends Component {
 OverlayComponent.propTypes = {
     text: PropTypes.string,
     isVisible: PropTypes.bool,
-    height: PropTypes.string,
 };

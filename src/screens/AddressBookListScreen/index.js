@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-
-import { AddressBookComponent, ToastComponent, LoadComponent } from 'components';
-import styles from './styles';
-
+import { ToastComponent, AddressBookListComponent, LoadComponent } from 'components';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
+import S from './styles';
+import PropTypes from 'prop-types';
 
-class AddressBookScreen extends Component {
+class AddressBookListScreen extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            page: 1,
             addressBookList: [],
             addressBookLoad: false,
         };
@@ -61,32 +58,39 @@ class AddressBookScreen extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { addressBookLoad, addressBookList } = this.state;
+        const { addressBookList, addressBookLoad } = this.state;
+        const list = addressBookList.filter(f => f.nickname);
         return (
-            <>
-                <View style={styles.container}>
-                    {addressBookList.length > 0 ? (
-                        <FlatList
-                            data={addressBookList}
-                            renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
-                            keyExtractor={(item, index) => index.toString()}
-                            removeClippedSubviews={false}
-                        />
-                    ) : (
-                        <LoadComponent isLoad={addressBookLoad} />
-                    )}
+            <View style={S.ContainerView}>
+                {list.length > 0 ? (
+                    <FlatList
+                        data={list}
+                        renderItem={({ item }) => {
+                            return item.nickname && <AddressBookListComponent navigation={navigation} toast={this.toast} item={item} />;
+                        }}
+                        keyExtractor={(item, index) => index.toString()}
+                        removeClippedSubviews={false}
+                    />
+                ) : (
+                    <LoadComponent isLoad={addressBookLoad} />
+                )}
+
+                <View style={S.AbsoluteView}>
+                    <TouchableOpacity style={S.AddBtnView} onPress={() => navigation.navigate('AddressBook')}>
+                        <Text style={S.AddBtnIconView}>+</Text>
+                    </TouchableOpacity>
                 </View>
                 <ToastComponent
                     ref={ref => {
                         this.toast = ref;
                     }}
                 />
-            </>
+            </View>
         );
     }
 }
 
-AddressBookScreen.proptpes = {
+AddressBookListScreen.proptpes = {
     page: PropTypes.number,
     addressBookLoad: PropTypes.bool,
 };
@@ -99,4 +103,4 @@ export default connect(
     dispatch => ({
         addressBookAction: bindActionCreators(addressBookActions, dispatch),
     }),
-)(AddressBookScreen);
+)(AddressBookListScreen);

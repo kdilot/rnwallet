@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
+    IsEmptyView: {
         flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });

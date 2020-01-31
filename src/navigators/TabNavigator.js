@@ -181,7 +181,9 @@ const BottomStack = createStackNavigator(
     {
         initialRouteName: 'Home',
         headerLayoutPreset: 'center',
-        defaultNavigationOptions: {},
+        defaultNavigationOptions: {
+            headerForceInset: { top: 'never' },
+        },
     },
 );
 

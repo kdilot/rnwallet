@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,6 +7,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import TabNavigator from './TabNavigator';
 import { IntroScreen, WalletIntroScreen, WalletCreateScreen, WalletRestoreScreen } from 'screens';
 import { PopupComponent } from 'components';
+import { SafeAreaView } from 'react-native';
 
 class MainNavigator extends Component {
     componentDidMount() {
@@ -15,12 +17,14 @@ class MainNavigator extends Component {
 
     render() {
         return (
-            <PopupComponent
-                ref={ref => {
-                    this.popup = ref;
-                }}>
-                <Screens screenProps={{ lang: this.props.locale.lang, popup: this.popup }} />
-            </PopupComponent>
+            <SafeAreaView style={{ flex: 1 }}>
+                <PopupComponent
+                    ref={ref => {
+                        this.popup = ref;
+                    }}>
+                    <Screens screenProps={{ lang: this.props.locale.lang, popup: this.popup }} />
+                </PopupComponent>
+            </SafeAreaView>
         );
     }
 }

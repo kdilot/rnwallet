@@ -58,4 +58,14 @@ export default StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
+    closeView: {
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        top: 0,
+        right: 0,
+        zIndex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });

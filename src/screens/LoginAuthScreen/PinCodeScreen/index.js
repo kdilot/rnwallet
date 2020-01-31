@@ -121,6 +121,9 @@ export default class PinCode extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <SafeAreaView style={styles.container}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.pop()} style={styles.closeView}>
+                    <Text>X</Text>
+                </TouchableOpacity>
                 <View style={styles.titleLayout}>
                     <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : status === ACCESS_PIN ? lang.accessPin : ''}</Text>
                 </View>

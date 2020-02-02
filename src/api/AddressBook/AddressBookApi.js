@@ -43,7 +43,6 @@ export const getAddressBookMap = async address => {
 };
 
 export const setAddressBookApi = async param => {
-    console.log(param, Global.USER_ETH_ADDRESS);
     try {
         const result = await fetch(Global.ROZEUS_WALLET_API_URI + '/addressbook', {
             method: 'POST',

@@ -5,7 +5,6 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { IconComponent } from 'components';
-import Icon from 'react-native-vector-icons/Feather';
 import {
     QrcodeTextScreen,
     QrcodeScannerScreen,
@@ -96,11 +95,11 @@ BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
             onPress={() => {
                 navigation.openDrawer();
             }}>
-            <Icon name="menu" size={30} />
+            <IconComponent name={'btn_menu_02'} size={40} />
         </TouchableOpacity>
     ),
     header: navigation.state.index === 0 && null,
-    headerLeftContainerStyle: { marginLeft: 20 },
+    headerLeftContainerStyle: { marginLeft: 10 },
 });
 
 const BottomStack = createStackNavigator(

@@ -41,5 +41,7 @@ export default {
     btn_copy_02: require('asset/icon/btn_copy_02.png'),
     btn_del: require('asset/icon/btn_del.png'),
     btn_send: require('asset/icon/btn_send.png'),
+    btn_menu: require('asset/icon/btn_menu.png'),
     btn_menu_02: require('asset/icon/btn_menu_02.png'),
+    btn_close: require('asset/icon/btn_close.png'),
 };

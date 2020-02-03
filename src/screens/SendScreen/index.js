@@ -86,6 +86,14 @@ class SendScreen extends Component {
             return;
         }
 
+        const decimal = price.split('.')[1];
+        if (decimal !== undefined) {
+            if (decimal.length > 8) {
+                this.onToast('소수점 자릿수를 확인하세요.');
+                return;
+            }
+        }
+
         if (list.fingerprint || list.pin) {
             this.props.navigation.navigate(list.fingerprint ? 'FingerPrint' : 'PinCode', { sendData: { price, gas, address } });
         } else {

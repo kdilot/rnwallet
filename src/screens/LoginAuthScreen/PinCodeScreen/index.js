@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { PinInput } from 'react-native-pins';
 import { VirtualKeyboard } from 'react-native-screen-keyboard';
+import { IconComponent } from 'components';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -122,7 +123,7 @@ export default class PinCode extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.pop()} style={styles.closeView}>
-                    <Text>X</Text>
+                    <IconComponent name={'btn_close'} size={44} />
                 </TouchableOpacity>
                 <View style={styles.titleLayout}>
                     <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : status === ACCESS_PIN ? lang.accessPin : ''}</Text>

@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { basicColor, whiteColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: basicColor,
+        backgroundColor: '#545aef',
     },
     titleLayout: {
         flex: 3,
@@ -24,8 +23,9 @@ export default StyleSheet.create({
     },
     pinTextStyle: {
         padding: 10,
-        color: whiteColor,
+        color: 'white',
         textAlign: 'center',
+        fontSize: 20,
     },
     pinContainerStyle: {
         flex: 2,
@@ -33,17 +33,18 @@ export default StyleSheet.create({
         alignContent: 'flex-end',
     },
     pinStyle: {
-        backgroundColor: whiteColor,
-        padding: 15,
+        backgroundColor: 'white',
+        padding: 5,
         marginLeft: 10,
         marginRight: 10,
     },
     pinActiveStyle: {
-        backgroundColor: 'yellow',
+        backgroundColor: '#fb8325',
     },
     restoreTextStyle: {
-        color: whiteColor,
+        color: 'white',
         textDecorationLine: 'underline',
+        fontSize: 16,
     },
     inputLayout: {
         flex: 4,
@@ -62,8 +63,8 @@ export default StyleSheet.create({
         position: 'absolute',
         width: 50,
         height: 50,
-        top: 0,
-        right: 0,
+        top: 10,
+        right: 10,
         zIndex: 1,
         justifyContent: 'center',
         alignItems: 'center',

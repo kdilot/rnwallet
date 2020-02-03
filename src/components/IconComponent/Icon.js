@@ -15,4 +15,9 @@ export default {
     en_s: require('asset/icon/en_s.png'),
     zh: require('asset/icon/zh.png'),
     zh_s: require('asset/icon/zh_s.png'),
+    ic_open: require('asset/icon/ic_open.png'),
+    ic_hidden: require('asset/icon/ic_hidden.png'),
+    ic_answer: require('asset/icon/ic_a.png'),
+    ic_question: require('asset/icon/ic_q.png'),
+    img_email: require('asset/icon/img_email.png'),
 };

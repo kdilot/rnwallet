@@ -9,44 +9,23 @@ export default StyleSheet.create({
         height: 50,
         flexDirection: 'row',
     },
-    topTab__faqBox: { flex: 1, height: '100%' },
-    topTab__faqTouchBox: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: 'gray',
+    topTab__textBox: { flex: 1, height: '100%' },
+    topTab__touchBox: { width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#979797' },
+
+    'topTab__touchBox--focused': { width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 3, borderBottomColor: '#545aef' },
+
+    topTab__text: {
+        fontSize: 14,
+        lineHeight: 20,
+        color: '#979797',
     },
-    'topTab__faqTouchBox--focused': {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: 'blue',
+    'topTab__text--focused': {
+        fontSize: 14,
+        lineHeight: 20,
+        color: '#545aef',
+        fontWeight: 'bold',
     },
-    topTab__faqText: {},
-    'topTab__faqText--focused': { color: 'blue' },
-    topTab__emailBox: { flex: 1, height: '100%' },
-    topTab__emailTouchBox: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: 'gray',
-    },
-    'topTab__emailTouchBox--focused': {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: 'blue',
-    },
-    topTab__emailText: {},
-    'topTab__emailText--focused': { color: 'blue' },
+
     contents: {
         flex: 1,
     },
@@ -54,8 +33,13 @@ export default StyleSheet.create({
     contents__emailBox: {
         width: '100%',
         height: '100%',
-        justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: 106,
     },
-    contents__emaiText: {},
+    contents__emailImg: {
+        width: 140,
+        height: 100,
+    },
+    contents__emaiText: { fontSize: 16, lineHeight: 24, fontWeight: 'bold', marginTop: 20 },
+    contents__emaiTextDetail: { fontSize: 12, lineHeight: 18, color: '#777777', marginTop: 10 },
 });

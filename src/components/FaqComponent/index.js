@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { IconComponent } from 'components';
 import styles from './styles';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default class FaqComponent extends Component {
     constructor(props) {
@@ -35,29 +36,29 @@ export default class FaqComponent extends Component {
     render() {
         const { no, title, contents } = this.props.faq;
         return (
-            <View style={this.state.isExtended ? styles['container--extended'] : styles.container}>
-                <View style={styles.faq}>
-                    <View style={styles.faq__iconBox}>
-                        <IconComponent name={'eth'} size={20} />
+            <TouchableWithoutFeedback onPress={this.toggleContents}>
+                <View style={this.state.isExtended ? styles['container--extended'] : styles.container}>
+                    <View style={styles.faq}>
+                        <View style={styles.faq__iconBox}>
+                            <IconComponent name={'ic_question'} size={18} />
+                        </View>
+                        <View style={styles.faq__titleBox}>
+                            <Text style={styles.faq__title}>{title}</Text>
+                        </View>
+                        <View style={styles.faq__btnBox}>
+                            <IconComponent name={this.state.isExtended ? 'ic_hidden' : 'ic_open'} size={34} />
+                        </View>
                     </View>
-                    <View style={styles.faq__titleBox}>
-                        <Text>{title}</Text>
-                    </View>
-                    <View style={styles.faq__btnBox}>
-                        <TouchableOpacity style={styles.faq__btnTouchBox} onPress={this.toggleContents}>
-                            <IconComponent name={'eth'} size={20} />
-                        </TouchableOpacity>
+                    <View style={this.state.isExtended ? styles['faq--extended'] : styles['faq--none']}>
+                        <View style={styles['faq--extended__iconBox']}>
+                            <IconComponent name={'ic_answer'} size={18} />
+                        </View>
+                        <View style={styles['faq--extended__contentsBox']}>
+                            <Text style={styles['faq--extended__contents']}>{contents}</Text>
+                        </View>
                     </View>
                 </View>
-                <View style={this.state.isExtended ? styles['faq--extended'] : styles['faq--none']}>
-                    <View style={styles['faq--extended__iconBox']}>
-                        <IconComponent name={'eth'} size={20} />
-                    </View>
-                    <View style={styles['faq--extended__contentsBox']}>
-                        <Text>{contents}</Text>
-                    </View>
-                </View>
-            </View>
+            </TouchableWithoutFeedback>
         );
     }
 }

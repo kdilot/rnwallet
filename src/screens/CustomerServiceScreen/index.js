@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { Text, View, SafeAreaView, ImageBackground } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { FlatList } from 'react-navigation';
 import { FaqComponent, LoadComponent } from 'components';
 import { getFaqList } from 'api/Faq/FaqApi';
 import styles from './styles';
+import img_email from 'asset/icon/img_email.png';
 
 export default class CustomerServiceScreen extends Component {
     constructor(props) {
@@ -46,14 +47,14 @@ export default class CustomerServiceScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.topTab}>
-                    <View style={styles.topTab__faqBox}>
-                        <TouchableWithoutFeedback style={isOnFaqTab ? styles['topTab__faqTouchBox--focused'] : styles.topTab__faqTouchBox} onPress={this.pressFaqTab}>
-                            <Text style={isOnFaqTab ? styles['topTab__faqText--focused'] : styles.topTab__faqText}>FAQ</Text>
+                    <View style={styles.topTab__textBox}>
+                        <TouchableWithoutFeedback style={isOnFaqTab ? styles['topTab__touchBox--focused'] : styles.topTab__touchBox} onPress={this.pressFaqTab}>
+                            <Text style={isOnFaqTab ? styles['topTab__text--focused'] : styles.topTab__text}>FAQ</Text>
                         </TouchableWithoutFeedback>
                     </View>
-                    <View style={styles.topTab__emailBox}>
-                        <TouchableWithoutFeedback style={isOnEmailTab ? styles['topTab__emailTouchBox--focused'] : styles.topTab__emailTouchBox} onPress={this.pressEmailTab}>
-                            <Text style={isOnEmailTab ? styles['topTab__emailText--focused'] : styles.topTab__emailText}>E-mail</Text>
+                    <View style={styles.topTab__textBox}>
+                        <TouchableWithoutFeedback style={isOnEmailTab ? styles['topTab__touchBox--focused'] : styles.topTab__touchBox} onPress={this.pressEmailTab}>
+                            <Text style={isOnEmailTab ? styles['topTab__text--focused'] : styles.topTab__text}>E-mail</Text>
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
@@ -67,7 +68,9 @@ export default class CustomerServiceScreen extends Component {
                 ) : (
                     <View style={styles.contents}>
                         <View style={styles.contents__emailBox}>
-                            <Text style={styles.contents__emaiText}>rozeus.service@google.com</Text>
+                            <ImageBackground style={styles.contents__emailImg} source={img_email}></ImageBackground>
+                            <Text style={styles.contents__emaiText}>rozwallet@rozeus.com</Text>
+                            <Text style={styles.contents__emaiTextDetail}>Please E-mail Rozeus your question.</Text>
                         </View>
                     </View>
                 )}

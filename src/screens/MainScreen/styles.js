@@ -4,42 +4,42 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#6ab8f7',
+        backgroundColor: '#f8f8f8',
     },
     HeaderView: {
         justifyContent: 'center',
-        height: 60,
-        paddingLeft: 20,
+        height: 50,
+        paddingLeft: 10,
     },
     HeaderTitleView: {
-        height: 60,
+        height: 50,
         justifyContent: 'flex-end',
-        paddingLeft: 60,
+        paddingLeft: 40,
+        paddingTop: 14,
     },
     HeaderTitleText: {
-        fontSize: 30,
+        fontSize: 24,
+        color: 'white',
     },
     CoinTypeView: {
-        padding: 20,
+        paddingRight: 30,
     },
     CoinTypeText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
+        fontSize: 14,
+        color: '#acacac',
         borderBottomWidth: 2,
         borderColor: 'transparent',
     },
     CoinSelected: isRoz => ({
-        color: isRoz ? 'blue' : 'orange',
-        borderColor: isRoz ? 'blue' : 'orange',
+        color: isRoz ? '#639bff' : '#fc8209',
+        borderColor: isRoz ? '#639bff' : '#fc8209',
         borderBottomWidth: 2,
     }),
     ContentView: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         paddingLeft: 40,
+        paddingTop: 20,
     },
-    SliderView: {
-        paddingHorizontal: 15,
-    },
+    SliderView: {},
 });

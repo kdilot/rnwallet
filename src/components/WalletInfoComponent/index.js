@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import CardView from 'react-native-cardview';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import PlaceholderLayout from './PlaceholderLayout';
-import { IconComponent } from 'components';
+import { Text, View, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
+import { IconComponent, Icon } from 'components';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
+
+const WIDTH = Dimensions.get('window').width;
 
 export default class WalletInfoComponent extends Component {
     static defaultProps = {
@@ -30,51 +29,49 @@ export default class WalletInfoComponent extends Component {
         const { icon, name, coin, value, navigation, refresh, isLoad } = this.props;
         const { lang } = navigation.getScreenProps('locale');
         return (
-            <View style={styles.container}>
-                <CardView cardElevation={10} cornerRadius={10} style={styles.cardLayout(isLoad)}>
-                    {isLoad ? (
-                        <>
-                            <View style={styles.headerLayout}>
-                                <View style={styles.contentTextGroup}>
-                                    <Text style={styles.headerTextStyle}>{name}</Text>
+            <View style={S.ContainerView}>
+                <ImageBackground source={Icon[coin === 'ROZ' ? 'roz_card' : 'eth_card']} style={{ width: WIDTH, height: WIDTH }}>
+                    <View style={S.CardView}>
+                        <View style={S.HeaderView}>
+                            <View style={S.TextHeaderView}>
+                                <View style={S.TextHeaderGroup}>
+                                    <Text style={S.TextHeaderText}>{name}</Text>
                                 </View>
                                 <TouchableOpacity
                                     onPress={() => {
                                         refresh();
                                     }}>
-                                    <Ionicons name="md-refresh" size={35} />
+                                    <IconComponent name={'btn_refresh'} size={40} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.contentLayout}>
-                                <View style={styles.contentIconStyle}>
-                                    <IconComponent name={icon} size={45} />
-                                </View>
-                                <View style={[styles.contentTextGroup, styles.alignRight]}>
-                                    <Text style={styles.contentTextStyle}>{value}</Text>
-                                    <Text style={styles.contentCoinTextStyle}>{coin === 'ETH' ? 'ETH' : 'ROZ'}</Text>
+                            <View style={S.ContentView}>
+                                <View style={S.ContentIconView}>
+                                    <IconComponent name={`ic_${icon}`} size={28} />
+                                    <Text style={S.ContentIconText}>{coin}</Text>
                                 </View>
                             </View>
-                            <View style={styles.footerLayout}>
-                                <TouchableOpacity
-                                    style={styles.buttonGroup}
-                                    onPress={() => {
-                                        this.onReceive();
-                                    }}>
-                                    <Text style={styles.buttonTextStyle}>{lang.receive}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={styles.buttonGroup}
-                                    onPress={() => {
-                                        this.onSend();
-                                    }}>
-                                    <Text style={styles.buttonTextStyle}>{lang.send}</Text>
-                                </TouchableOpacity>
+                            <View style={S.ContentView}>
+                                <Text style={S.ContentCoinText}>{isLoad ? value : 'Loading...'}</Text>
                             </View>
-                        </>
-                    ) : (
-                        <PlaceholderLayout />
-                    )}
-                </CardView>
+                        </View>
+                        <View style={S.FooterView}>
+                            <TouchableOpacity
+                                style={[S.ButtonGroupView, S.ButtonLine]}
+                                onPress={() => {
+                                    this.onReceive();
+                                }}>
+                                <Text style={S.ButtonText}>{lang.receive}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={S.ButtonGroupView}
+                                onPress={() => {
+                                    this.onSend();
+                                }}>
+                                <Text style={S.ButtonText}>{lang.send}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ImageBackground>
             </View>
         );
     }

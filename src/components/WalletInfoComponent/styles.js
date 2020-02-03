@@ -1,67 +1,75 @@
 import { StyleSheet } from 'react-native';
-import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 15,
     },
-    cardLayout: isLoad => ({
+    CardView: {
+        flex: 1,
+        margin: 80,
+        marginTop: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    HeaderView: {
+        flex: 9,
         width: '100%',
-        height: 200,
-        paddingHorizontal: isLoad ? 15 : 0,
-    }),
-    headerLayout: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingTop: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
-    headerTextStyle: {
-        fontSize: 20,
-    },
-    contentLayout: {
-        flex: 2,
-        padding: 5,
+    TextHeaderView: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    contentIconStyle: {
-        flex: 1,
-        alignItems: 'flex-start',
-    },
-    contentTextGroup: {
+    TextHeaderGroup: {
         flex: 4,
     },
-    alignRight: {
-        alignItems: 'flex-end',
+    TextHeaderText: {
+        fontSize: 22,
+        color: 'white',
     },
-    contentTextStyle: {
-        textAlign: 'center',
-        fontSize: 25,
+    ContentView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
     },
-    contentCoinTextStyle: {
-        fontSize: 35,
-        fontWeight: 'bold',
-    },
-    footerLayout: {
+    ContentIconView: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 10,
-        borderTopWidth: 1,
-        borderTopColor: dividerDarkColor,
+        alignItems: 'center',
     },
-    buttonGroup: {
+    ContentIconText: {
+        marginLeft: 8,
+        fontSize: 12,
+        color: 'white',
+    },
+    ContentCoinText: {
+        textAlign: 'center',
+        fontSize: 34,
+        color: 'white',
+        marginTop: 20,
+    },
+    FooterView: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        flexDirection: 'row',
+    },
+    ButtonGroupView: {
         flex: 1,
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    buttonTextStyle: {
-        fontSize: 15,
+    ButtonLine: {
+        borderRightWidth: 1,
+        borderRightColor: 'white',
+    },
+    ButtonText: {
+        fontSize: 16,
+        color: 'white',
     },
 });

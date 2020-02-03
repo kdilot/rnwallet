@@ -50,4 +50,5 @@ export default {
     ic_roz: require('asset/icon/ic_roz.png'),
     roz_card: require('asset/icon/roz_card.png'),
     eth_card: require('asset/icon/eth_card.png'),
+    btn_refresh: require('asset/icon/btn_refresh.png'),
 };

@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { PureComponent } from 'react';
-import { View, Text, Dimensions, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { WalletInfoComponent } from 'components';
+import { WalletInfoComponent, IconComponent, Icon } from 'components';
 import AsyncStorage from '@react-native-community/async-storage';
 import Carousel from 'react-native-snap-carousel';
 import { animationAction } from './animation';
@@ -12,7 +13,6 @@ import * as walletActions from 'modules/WalletReducer';
 import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
-import Feather from 'react-native-vector-icons/Feather';
 import styles from './styles';
 
 const CARD = ['roz', 'eth'];
@@ -142,12 +142,13 @@ class MainScreen extends PureComponent {
 
         return (
             <SafeAreaView style={styles.container}>
+                <Image source={Icon['home_bg']} style={{ width: WIDTH * 0.65, height: (WIDTH * 0.65 * 548) / 351, position: 'absolute', top: 0, left: 0 }} />
                 <View style={styles.HeaderView}>
                     <TouchableOpacity
                         onPress={() => {
                             navigation.openDrawer();
                         }}>
-                        <Feather name="menu" size={30} color={'white'} />
+                        <IconComponent name={'btn_menu'} size={40} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.HeaderTitleView}>
@@ -183,7 +184,7 @@ class MainScreen extends PureComponent {
                         />
                     )}
                     sliderWidth={WIDTH}
-                    itemWidth={WIDTH * 0.8}
+                    itemWidth={WIDTH * 0.83}
                 />
             </SafeAreaView>
         );

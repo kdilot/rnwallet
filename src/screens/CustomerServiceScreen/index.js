@@ -68,7 +68,7 @@ export default class CustomerServiceScreen extends Component {
                 ) : (
                     <View style={styles.contents}>
                         <View style={styles.contents__emailBox}>
-                            <ImageBackground style={styles.contents__emailImg} source={img_email}></ImageBackground>
+                            <ImageBackground style={styles.contents__emailImg} source={img_email} />
                             <Text style={styles.contents__emaiText}>rozwallet@rozeus.com</Text>
                             <Text style={styles.contents__emaiTextDetail}>Please E-mail Rozeus your question.</Text>
                         </View>

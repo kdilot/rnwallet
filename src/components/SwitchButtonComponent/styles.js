@@ -1,39 +1,34 @@
 import { StyleSheet } from 'react-native';
-import { basicColor } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'stretch',
-        padding: 20,
+        height: 56,
+        paddingLeft: 20,
+        paddingRight: 0,
     },
     textLayout: {
         flex: 1,
         justifyContent: 'center',
     },
     toggleLayout: {
-        flex: 1,
+        flex: 3,
         justifyContent: 'center',
         alignItems: 'flex-end',
+        marginRight: 10,
     },
     textStyle: {
-        fontSize: 15,
+        paddingVertical: 16,
+        fontSize: 16,
     },
     languageLayout: {
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
     languageGroup: {
-        padding: 5,
         marginLeft: 10,
-        borderWidth: 1,
-        borderRadius: 5,
-    },
-    languageTextStyle: {},
-    selectedText: {
-        borderColor: basicColor,
-        color: basicColor,
-        fontWeight: 'bold',
     },
 });

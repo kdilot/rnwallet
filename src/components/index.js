@@ -3,6 +3,7 @@ export { default as AddressBookMiniComponent } from './AddressBookMiniComponent'
 export { default as AddressBookListComponent } from './AddressBookListComponent';
 export { default as ButtonComponent } from './ButtonComponent';
 export { default as IconComponent } from './IconComponent';
+export { default as Icon } from './IconComponent/Icon';
 export { default as OverlayComponent } from './OverlayComponent';
 export { default as ToastComponent } from './ToastComponent';
 export { default as WalletHistoryComponent } from './WalletHistoryComponent';

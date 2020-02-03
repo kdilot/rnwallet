@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions } from 'react-native';
 import { Overlay } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { IconComponent } from 'components';
 import S from './styles';
 import PropTypes from 'prop-types';
 
@@ -21,7 +21,7 @@ export default class OverlayComponent extends Component {
                         <Text style={S.MessageText}>{text}</Text>
                     </View>
                     <View style={S.IconView}>
-                        <Icon name="ios-time" size={100} />
+                        <IconComponent name={'img_loading'} size={80} />
                     </View>
                 </View>
             </Overlay>

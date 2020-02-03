@@ -17,12 +17,11 @@ export default StyleSheet.create({
         flex: 1,
     },
     MessageText: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 16,
         textAlign: 'center',
     },
     IconView: {
-        flex: 5,
+        flex: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },

@@ -44,4 +44,5 @@ export default {
     btn_menu: require('asset/icon/btn_menu.png'),
     btn_menu_02: require('asset/icon/btn_menu_02.png'),
     btn_close: require('asset/icon/btn_close.png'),
+    img_loading: require('asset/icon/img_loading.png'),
 };

@@ -45,4 +45,9 @@ export default {
     btn_menu_02: require('asset/icon/btn_menu_02.png'),
     btn_close: require('asset/icon/btn_close.png'),
     img_loading: require('asset/icon/img_loading.png'),
+    home_bg: require('asset/icon/home_bg.png'),
+    ic_eth: require('asset/icon/ic_eth.png'),
+    ic_roz: require('asset/icon/ic_roz.png'),
+    roz_card: require('asset/icon/roz_card.png'),
+    eth_card: require('asset/icon/eth_card.png'),
 };

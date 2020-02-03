@@ -29,7 +29,6 @@ export default class NoticeScreen extends PureComponent {
     }
 
     componentDidMount() {
-        const { navigation } = this.props;
         const { params } = this.props.navigation.state;
 
         if (params && params.isOnNoticeDetail) {
@@ -40,9 +39,7 @@ export default class NoticeScreen extends PureComponent {
             return;
         }
 
-        this.focusListener = navigation.addListener('didFocus', async payload => {
-            this.getNoticeList();
-        });
+        this.getNoticeList();
     }
 
     getNoticeList = async () => {
@@ -80,8 +77,18 @@ export default class NoticeScreen extends PureComponent {
     };
 
     pressNotice = noticeDetail => {
-        this.props.navigation.push('Notice', { isOnNoticeDetail: true, noticeDetail: noticeDetail });
+        let noticeList = [];
+        noticeList = this.state.noticeList.concat();
+        for (let i = 0; i < noticeList.length; i++) {
+            if (noticeList[i].no == noticeDetail.no) {
+                noticeList[i].isNew = false;
+            }
+        }
+
+        this.setState({ noticeList: noticeList });
         this.setNoticeRead(noticeDetail.no);
+
+        this.props.navigation.push('Notice', { isOnNoticeDetail: true, noticeDetail: noticeDetail });
     };
 
     render() {

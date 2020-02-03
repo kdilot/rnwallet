@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { dividerDarkColor } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
@@ -59,7 +58,7 @@ export default StyleSheet.create({
     InputBoxView: {
         padding: 10,
         height: 40,
-        borderColor: dividerDarkColor,
+        borderColor: '#e5e5e5',
         borderWidth: 1,
     },
 });

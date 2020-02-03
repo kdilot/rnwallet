@@ -6,7 +6,7 @@ import styles from './styles';
 
 export default class Icon extends PureComponent {
     static defaultProps = {
-        size: 50,
+        size: 0,
         style: {},
         iconStyle: {},
         name: 'roz',
@@ -16,7 +16,7 @@ export default class Icon extends PureComponent {
         const { size, iconStyle, style, name } = this.props;
         return (
             <View style={style}>
-                <Image source={icon[name]} style={[styles.size(size), iconStyle]} />
+                <Image source={icon[name]} style={[size && styles.size(size), iconStyle]} />
             </View>
         );
     }

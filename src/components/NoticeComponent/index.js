@@ -1,5 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { View, Text, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { IconComponent } from 'components';
 import styles from './styles';
 import ic_more from 'asset/icon/ic_more.png';
 import ic_new from 'asset/icon/ic_new.png';

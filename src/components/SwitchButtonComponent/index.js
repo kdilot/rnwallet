@@ -1,12 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as localeActions from 'modules/LocaleReducer';
 import * as settingActions from 'modules/SettingReducer';
-import { Switch, Text, View, TouchableOpacity } from 'react-native';
+import { Switch, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import { basicColor, dividerDarkColor, dividerLightColor } from 'constants/Color';
 import AsyncStorage from '@react-native-community/async-storage';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
+import { Icon } from 'components';
 import { LANG_TYPE } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -66,7 +68,7 @@ class SwitchButtonComponent extends Component {
                                     onPress={() => {
                                         LocaleAction.setLanguage(language);
                                     }}>
-                                    <Text style={[styles.languageTextStyle, locale === language && styles.selectedText]}>{language.toUpperCase()}</Text>
+                                    <ImageBackground source={Icon[locale === language ? `${language}_s` : language]} style={{ width: 50, height: 28 }} />
                                 </TouchableOpacity>
                             ))}
                         </View>

@@ -1,4 +1,18 @@
 export default {
     eth: require('asset/icon/eth.png'),
     roz: require('asset/icon/roz.png'),
+    home: require('asset/icon/home.png'),
+    home_s: require('asset/icon/home_s.png'),
+    address: require('asset/icon/address.png'),
+    address_s: require('asset/icon/address_s.png'),
+    history: require('asset/icon/history.png'),
+    history_s: require('asset/icon/history_s.png'),
+    setting: require('asset/icon/setting.png'),
+    setting_s: require('asset/icon/setting_s.png'),
+    ko: require('asset/icon/ko.png'),
+    ko_s: require('asset/icon/ko_s.png'),
+    en: require('asset/icon/en.png'),
+    en_s: require('asset/icon/en_s.png'),
+    zh: require('asset/icon/zh.png'),
+    zh_s: require('asset/icon/zh_s.png'),
 };

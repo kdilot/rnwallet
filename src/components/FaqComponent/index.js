@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { IconComponent } from 'components';
 import styles from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import ethPng from 'asset/icon/eth.png';
 
 export default class FaqComponent extends Component {
     constructor(props) {
@@ -39,20 +38,20 @@ export default class FaqComponent extends Component {
             <View style={this.state.isExtended ? styles['container--extended'] : styles.container}>
                 <View style={styles.faq}>
                     <View style={styles.faq__iconBox}>
-                        <ImageBackground style={{ width: 20, height: 20 }} source={ethPng}></ImageBackground>
+                        <IconComponent name={'eth'} size={20} />
                     </View>
                     <View style={styles.faq__titleBox}>
                         <Text>{title}</Text>
                     </View>
                     <View style={styles.faq__btnBox}>
                         <TouchableOpacity style={styles.faq__btnTouchBox} onPress={this.toggleContents}>
-                            <ImageBackground style={{ width: 20, height: 20 }} source={ethPng} />
+                            <IconComponent name={'eth'} size={20} />
                         </TouchableOpacity>
                     </View>
                 </View>
                 <View style={this.state.isExtended ? styles['faq--extended'] : styles['faq--none']}>
                     <View style={styles['faq--extended__iconBox']}>
-                        <ImageBackground style={{ width: 20, height: 20 }} source={ethPng} />
+                        <IconComponent name={'eth'} size={20} />
                     </View>
                     <View style={styles['faq--extended__contentsBox']}>
                         <Text>{contents}</Text>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
 import { Text, View, TextInput, KeyboardAvoidingView, SafeAreaView } from 'react-native';
-import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
+import { Button, ToastComponent, OverlayComponent } from 'components';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -82,10 +82,10 @@ class WalletRestore extends Component {
                     <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                     <View style={styles.textareaLayout}>
                         <Text style={styles.textStyle}>{lang.restoreInputMsg}</Text>
-                        <TextInput style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
+                        <TextInput placeholder="Please enter a word." style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
                     </View>
                     <View style={styles.buttonLayout}>
-                        <ButtonComponent name={lang.restore} disable={restoreDisable} onPress={this.onRestore} />
+                        <Button name={lang.restore} disable={restoreDisable} color={restoreDisable ? 'btn_d' : 'btn_b'} onPress={this.onRestore} />
                     </View>
                     <ToastComponent
                         ref={ref => {

@@ -8,21 +8,28 @@ export default StyleSheet.create({
     textareaLayout: {
         alignItems: 'center',
         justifyContent: 'flex-start',
+        marginHorizontal: 20,
     },
     textStyle: {
-        margin: 15,
+        marginTop: 15,
+        marginBottom: 10,
+        paddingLeft: 10,
+        fontSize: 14,
+        textAlign: 'left',
+        alignSelf: 'flex-start',
     },
     textareaStyle: {
         width: '100%',
-        height: 100,
-        borderColor: 'gray',
+        height: 140,
+        borderColor: '#e5e5e5',
         borderWidth: 1,
         color: 'black',
-        fontSize: 17,
+        fontSize: 16,
         padding: 10,
     },
     buttonLayout: {
         flex: 1,
+        paddingHorizontal: 10,
         justifyContent: 'flex-end',
     },
 });

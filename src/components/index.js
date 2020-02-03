@@ -13,3 +13,4 @@ export { default as PopupComponent } from './PopupComponent';
 export { default as LoadComponent } from './LoadComponent';
 export { default as FaqComponent } from './FaqComponent';
 export { default as NoticeComponent } from './NoticeComponent';
+export { default as Button } from './Button';

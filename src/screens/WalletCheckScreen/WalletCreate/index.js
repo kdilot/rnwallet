@@ -5,11 +5,12 @@ import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
 import { Text, View, TextInput, Clipboard, Dimensions, SafeAreaView } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
-import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
+import { Button, ToastComponent, OverlayComponent } from 'components';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class WalletCreate extends Component {
     constructor(props) {
@@ -82,13 +83,10 @@ class WalletCreate extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <SafeAreaView style={styles.container}>
-                <View style={{ flex: 1, padding: 15 }}>
+                <View style={{ flex: 1 }}>
                     <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                     <View style={styles.textareaLayout}>
                         <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
-                    </View>
-                    <View style={styles.buttonLayout}>
-                        <ButtonComponent name={lang.copy} outline={true} onPress={this.onCopy} />
                     </View>
                     <View style={styles.confirmLayout}>
                         <View style={styles.confirmTextLayout}>
@@ -105,18 +103,20 @@ class WalletCreate extends Component {
                                 spacing={12}
                                 itemDimension={(Dimensions.get('window').width - 50) / 4}
                                 renderItem={({ item, index }) => (
-                                    <ButtonComponent
-                                        name={item}
+                                    <TouchableOpacity
+                                        activeOpacity={0.9}
+                                        style={styles.wordLayout}
                                         onPress={() => {
                                             this.checkWord(item);
-                                        }}
-                                    />
+                                        }}>
+                                        <Text style={{ color: 'white' }}>{item}</Text>
+                                    </TouchableOpacity>
                                 )}
                             />
                         </View>
-                    </View>
-                    <View style={styles.buttonLayout}>
-                        <ButtonComponent name={lang.create} disable={createDisable} onPress={this.onCreate} />
+                        <View style={styles.buttonLayout}>
+                            <Button name={lang.create} disable={createDisable} color={createDisable ? 'btn_d' : 'btn_o'} onPress={this.onRestore} />
+                        </View>
                     </View>
                     <ToastComponent
                         ref={ref => {

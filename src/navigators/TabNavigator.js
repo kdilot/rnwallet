@@ -4,6 +4,7 @@ import { createAppContainer } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import { IconComponent } from 'components';
 import Icon from 'react-native-vector-icons/Feather';
 import {
     QrcodeTextScreen,
@@ -29,25 +30,25 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         Home: {
             screen: MainScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="server" size={25} color={focused ? 'black' : 'black'} />,
+                tabBarIcon: ({ focused, tintColor }) => <IconComponent name={focused ? 'home_s' : 'home'} size={60} />,
             },
         },
         WalletHistory: {
             screen: WalletHistoryScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="file-text" size={25} color={focused ? 'black' : 'black'} />,
+                tabBarIcon: ({ focused, tintColor }) => <IconComponent name={focused ? 'history_s' : 'history'} size={60} />,
             },
         },
         AddressBookList: {
             screen: AddressBookListScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="book" size={25} color={focused ? 'black' : 'black'} />,
+                tabBarIcon: ({ focused, tintColor }) => <IconComponent name={focused ? 'address_s' : 'address'} size={60} />,
             },
         },
         Setting: {
             screen: SettingScreen,
             navigationOptions: {
-                tabBarIcon: ({ focused, tintColor }) => <Icon name="settings" size={25} color={focused ? 'black' : 'black'} />,
+                tabBarIcon: ({ focused, tintColor }) => <IconComponent name={focused ? 'setting_s' : 'setting'} size={60} />,
             },
         },
     },
@@ -58,9 +59,10 @@ const BottomMenuTab = createMaterialTopTabNavigator(
         initialRouteName: 'Home',
         tabBarOptions: {
             style: {
+                height: 60,
                 backgroundColor: 'white',
                 borderTopWidth: 0.5,
-                borderTopColor: 'black',
+                borderTopColor: '#f1f1f1',
             },
             tabStyle: {
                 margin: 3,
@@ -73,7 +75,7 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             showIcon: true,
             showLabel: false,
             indicatorStyle: {
-                borderBottomColor: 'black',
+                borderBottomColor: 'white',
                 borderBottomWidth: 3,
             },
         },

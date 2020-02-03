@@ -6,14 +6,12 @@ import * as settingActions from 'modules/SettingReducer';
 import * as txListActions from 'modules/TxListReducer';
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, SafeAreaView } from 'react-native';
 import Slider from '@react-native-community/slider';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { ButtonComponent, ToastComponent, OverlayComponent } from 'components';
+import { ToastComponent, OverlayComponent, IconComponent, Button } from 'components';
 import { getGasPrice } from 'api/EtherChain';
 import * as etherjs from 'api/etherjs';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import PlaceholderLayout from './PlaceholderLayout';
-import { basicColor } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -163,7 +161,7 @@ class SendScreen extends Component {
                 <KeyboardAvoidingView style={{ flex: 1, padding: 20 }}>
                     <View style={styles.HeaderView}>
                         <View style={styles.CoinView}>
-                            <View style={styles.CoinIcon} />
+                            <IconComponent name={coin.toLowerCase()} size={30} />
                             <Text style={styles.CoinText}>{coin}</Text>
                         </View>
                         <View style={styles.InputView}>
@@ -185,7 +183,7 @@ class SendScreen extends Component {
                                     onPress={() => {
                                         this.onSearch();
                                     }}>
-                                    <Ionicons name="qrcode-scan" size={25} />
+                                    <IconComponent name={'qrcode'} size={34} />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -206,8 +204,8 @@ class SendScreen extends Component {
                                         <Slider
                                             value={gas}
                                             onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
-                                            thumbTintColor={basicColor}
-                                            minimumTrackTintColor={basicColor}
+                                            thumbTintColor={'#545aef'}
+                                            minimumTrackTintColor={'#545aef'}
                                             minimumValue={gasMinValue}
                                             maximumValue={gasMaxValue}
                                             step={0.1}
@@ -223,19 +221,13 @@ class SendScreen extends Component {
                                             {`(${gasMaxValue})`}
                                         </Text>
                                     </View>
-                                    <Text style={{ textAlign: 'center' }}>Value: {gas}</Text>
+                                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold' }}>{gas}</Text>
                                 </>
                             )}
                         </View>
                     </View>
                     <View style={styles.BottomView}>
-                        <ButtonComponent
-                            disable={isSendDisable}
-                            name={lang.send}
-                            onPress={() => {
-                                this.onCheckAuth();
-                            }}
-                        />
+                        <Button name={lang.send} disable={isSendDisable} color={isSendDisable ? 'btn_d' : 'btn_b'} onPress={this.onCheckAuth} />
                     </View>
                 </KeyboardAvoidingView>
                 <ToastComponent

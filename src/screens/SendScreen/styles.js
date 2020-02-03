@@ -21,19 +21,21 @@ export default StyleSheet.create({
         marginRight: 10,
     },
     CoinText: {
-        fontWeight: 'bold',
+        paddingLeft: 10,
+        fontSize: 16,
         alignSelf: 'center',
     },
     InputView: {
         marginBottom: 10,
+        padding: 5,
     },
     AddressView: {
         flexDirection: 'row',
     },
     QrIcon: {
         position: 'absolute',
-        top: 6,
-        right: 10,
+        top: 3,
+        right: 5,
     },
     BottomView: {
         flex: 1,

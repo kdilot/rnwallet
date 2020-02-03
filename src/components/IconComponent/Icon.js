@@ -36,4 +36,5 @@ export default {
     close: require('asset/icon/close.png'),
     menu_logo: require('asset/icon/menu_logo.png'),
     ic_more: require('asset/icon/ic_more.png'),
+    img_comingsoon: require('asset/icon/img_comingsoon.png'),
 };

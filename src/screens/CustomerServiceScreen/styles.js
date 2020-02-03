@@ -34,7 +34,7 @@ export default StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        paddingTop: 106,
+        justifyContent: 'center',
     },
     contents__emailImg: {
         width: 140,

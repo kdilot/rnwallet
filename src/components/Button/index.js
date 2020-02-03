@@ -13,7 +13,7 @@ export default class ButtonComponent extends Component {
     render() {
         const { name, disable, onPress, color } = this.props;
         return (
-            <TouchableOpacity onPress={!disable && onPress} activeOpacity={1}>
+            <TouchableOpacity onPress={!disable ? onPress : null} activeOpacity={1}>
                 <ImageBackground source={Icon[color]} style={{ width: '100%', height: 70 }}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ fontSize: 16, color: 'white' }}>{name}</Text>

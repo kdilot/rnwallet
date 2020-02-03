@@ -27,9 +27,9 @@ class IntroScreen extends Component {
     };
 
     goToWalletIntro = async () => {
-        // await setTimeout(() => {
-        //     this.props.navigation.navigate('WalletIntro');
-        // }, 3000);
+        await setTimeout(() => {
+            this.props.navigation.navigate('WalletIntro');
+        }, 3000);
     };
 
     setSetting = () => {

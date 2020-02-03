@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableOpacity, SafeAreaView } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, FlatList, Text, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import { IconComponent, Icon } from 'components';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -33,25 +34,21 @@ export default class CustomDrawerScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.logoLayout}>
-                    <Ionicons name="logo-xbox" size={100} color="white" />
+                    <Image source={Icon['menu_logo']} style={{ width: '84%', height: '14%' }} />
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.closeDrawer()} style={styles.closeView}>
-                        <Text>X</Text>
+                        <IconComponent name={'close'} size={44} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentLayout}>
                     <FlatList
                         data={MenuList}
-                        ItemSeparatorComponent={() => {
-                            return <View style={styles.dividerStyle} />;
-                        }}
-                        ListFooterComponent={() => {
-                            return <View style={styles.dividerStyle} />;
-                        }}
                         renderItem={({ item }) => (
                             <View style={styles.itemLayout}>
                                 <TouchableOpacity onPress={() => this.onClick(item.action)}>
-                                    <Text>{lang[item.title]}</Text>
-                                    <Ionicons name="md-arrow-forward" style={styles.itemArrowLayout} size={20} />
+                                    <Text style={{ fontSize: 16 }}>{lang[item.title]}</Text>
+                                    <View style={styles.itemArrowLayout}>
+                                        <IconComponent name={'ic_more'} size={34} />
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                         )}

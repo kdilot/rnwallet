@@ -1,5 +1,4 @@
-import { StyleSheet } from 'react-native';
-import { basicColor, dividerLightColor } from 'constants/Color';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -11,7 +10,7 @@ export default StyleSheet.create({
     logoLayout: {
         flex: 2,
         width: '100%',
-        backgroundColor: basicColor,
+        backgroundColor: '#f3f3f3',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -31,14 +30,13 @@ export default StyleSheet.create({
     itemLayout: {
         flex: 1,
         width: '100%',
-        padding: 15,
+        paddingLeft: 22,
+        paddingRight: 10,
+        paddingVertical: 13,
     },
     itemArrowLayout: {
         position: 'absolute',
         right: 0,
-    },
-    dividerStyle: {
-        height: 1,
-        backgroundColor: dividerLightColor,
+        top: Platform.OS === 'ios' ? -9 : -6,
     },
 });

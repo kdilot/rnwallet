@@ -33,4 +33,7 @@ export default {
     btn_o: require('asset/icon/btn_o.png'),
     btn_w: require('asset/icon/btn_w.png'),
     qrcode: require('asset/icon/qrcode.png'),
+    close: require('asset/icon/close.png'),
+    menu_logo: require('asset/icon/menu_logo.png'),
+    ic_more: require('asset/icon/ic_more.png'),
 };

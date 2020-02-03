@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { View, StatusBar, SafeAreaView, Image } from 'react-native';
+import { View, StatusBar, SafeAreaView, Image, Dimensions } from 'react-native';
 import { Button } from 'components';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import { Icon } from 'components';
 import styles from './styles';
 import PropTypes from 'prop-types';
+
+const WIDTH = Dimensions.get('window').width;
 
 class WalletCheckScreen extends Component {
     componentDidMount() {
@@ -32,8 +34,8 @@ class WalletCheckScreen extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
             <SafeAreaView style={styles.container}>
-                <Image source={Icon['wallet_intro']} style={{ width: '100%', height: '58%' }} />
-                <Image source={Icon['wallet_logo']} style={{ width: '61%', height: '11%', position: 'absolute', top: '21%', left: '19.4%' }} />
+                <Image source={Icon['wallet_intro']} style={{ width: WIDTH, height: (WIDTH * 557) / 540 }} />
+                <Image source={Icon['wallet_logo']} style={{ width: WIDTH * 0.61, height: (WIDTH * 0.61 * 120) / 330, position: 'absolute', top: '21%', left: '19.4%' }} />
                 <StatusBar backgroundColor={'#2e3045'} />
                 <View style={styles.buttonLayout}>
                     <View style={styles.buttonStyle}>

@@ -9,25 +9,25 @@ const ROZEUS_WALLET_API_URI = Global.ROZEUS_WALLET_API_URI;
 const PROD_MODE = Global.PROD_MODE;
 
 export const getNoticeList = async () => {
-	let noticeList = [];
+    let noticeList = [];
 
-	try {
-		let fetchResult = await fetch(ROZEUS_WALLET_API_URI + '/noticeList');
-		let result = await fetchResult.json();
+    try {
+        let fetchResult = await fetch(ROZEUS_WALLET_API_URI + '/noticeList');
+        let result = await fetchResult.json();
 
-		noticeList = result.data;
+        noticeList = result.data;
 
-		for (let i = 0; i < noticeList.length; i++) {
-			noticeList[i].inDt = moment(noticeList[i].inDt).format('YYYY.MM.DD');
-		}
+        for (let i = 0; i < noticeList.length; i++) {
+            noticeList[i].inDt = moment(noticeList[i].inDt._seconds * 1000).format('YYYY.MM.DD');
+        }
 
-		if (PROD_MODE === 'DEV') {
-			console.log('getNoticeList: suc');
-		}
-	} catch (err) {
-		logUtil.log('getNoticeList: ' + JSON.stringify(err));
-		return [];
-	}
+        if (PROD_MODE === 'DEV') {
+            console.log('getNoticeList: suc');
+        }
+    } catch (err) {
+        logUtil.log('getNoticeList: ' + JSON.stringify(err));
+        return [];
+    }
 
-	return noticeList;
+    return noticeList;
 };

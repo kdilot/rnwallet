@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Share, Clipboard, SafeAreaView } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import ButtonComponent from 'components/ButtonComponent';
-import ToastComponent from 'components/ToastComponent';
+import { Button, ToastComponent } from 'components';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -47,12 +46,16 @@ export default class QrcodeText extends Component {
                     }}
                 />
                 <View style={styles.qrLayout}>
-                    <QRCode size={200} value={text} />
+                    <QRCode size={180} value={text} />
                     <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
                 <View style={styles.buttonLayout}>
-                    <ButtonComponent style={styles.buttonStyle} name={lang.copy} outline={true} onPress={this.onCopy} />
-                    <ButtonComponent style={styles.buttonStyle} name={lang.share} onPress={this.onShare} />
+                    <View style={styles.buttonStyle}>
+                        <Button name={lang.copy} color={'btn_sm_b'} onPress={this.onCopy} />
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <Button name={lang.share} color={'btn_sm_o'} onPress={this.onShare} />
+                    </View>
                 </View>
             </SafeAreaView>
         );

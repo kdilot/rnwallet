@@ -32,4 +32,5 @@ export default {
     btn_d: require('asset/icon/btn_d.png'),
     btn_o: require('asset/icon/btn_o.png'),
     btn_w: require('asset/icon/btn_w.png'),
+    qrcode: require('asset/icon/qrcode.png'),
 };

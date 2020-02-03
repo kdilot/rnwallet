@@ -7,9 +7,10 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     address: {
-        padding: 10,
+        padding: 20,
         fontSize: 15,
         textAlign: 'center',
+        color: '#777777',
     },
     qrLayout: {
         flex: 4,
@@ -18,13 +19,13 @@ export default StyleSheet.create({
     },
     buttonLayout: {
         flex: 2,
-        width: '100%',
-        paddingHorizontal: '20%',
-        alignItems: 'flex-start',
-        justifyContent: 'space-around',
         flexDirection: 'row',
+        paddingHorizontal: 25,
+        paddingBottom: 20,
+        alignItems: 'flex-end',
     },
     buttonStyle: {
-        width: '40%',
+        flex: 1,
+        justifyContent: 'center',
     },
 });

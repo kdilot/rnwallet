@@ -4,16 +4,17 @@ export default StyleSheet.create({
     ContainerView: {
         flex: 1,
         flexDirection: 'row',
-        padding: 20,
+        paddingRight: 10,
     },
     TextView: {
         flex: 2,
-        padding: 5,
+        padding: 20,
     },
     ButtonGroupView: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     ButtonView: {
         paddingLeft: 10,

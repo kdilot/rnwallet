@@ -8,16 +8,12 @@ export default StyleSheet.create({
     },
     AbsoluteView: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 12,
         left: Dimensions.get('screen').width / 2 - 25,
     },
     AddBtnView: {
-        width: 50,
-        height: 50,
-        borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
     },
     AddBtnIconView: {
         fontSize: 30,

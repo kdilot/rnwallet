@@ -37,4 +37,9 @@ export default {
     menu_logo: require('asset/icon/menu_logo.png'),
     ic_more: require('asset/icon/ic_more.png'),
     img_comingsoon: require('asset/icon/img_comingsoon.png'),
+    btn_add: require('asset/icon/btn_add.png'),
+    btn_copy_02: require('asset/icon/btn_copy_02.png'),
+    btn_del: require('asset/icon/btn_del.png'),
+    btn_send: require('asset/icon/btn_send.png'),
+    btn_menu_02: require('asset/icon/btn_menu_02.png'),
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, TouchableOpacity, Clipboard } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
+import { IconComponent } from 'components';
 import PropTypes from 'prop-types';
 import S from './styles';
 
@@ -50,21 +50,21 @@ class AddressBookListComponent extends Component {
                         onPress={() => {
                             this.onDelete(item.address);
                         }}>
-                        <Feather name="trash" size={20} />
+                        <IconComponent name={'btn_del'} size={34} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={S.ButtonView}
                         onPress={() => {
                             this.onCopy(item.address);
                         }}>
-                        <Feather name="copy" size={20} />
+                        <IconComponent name={'btn_copy_02'} size={34} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={S.ButtonView}
                         onPress={() => {
                             this.onSend(item.address);
                         }}>
-                        <Feather name="send" size={20} />
+                        <IconComponent name={'btn_send'} size={34} />
                     </TouchableOpacity>
                 </View>
             </View>

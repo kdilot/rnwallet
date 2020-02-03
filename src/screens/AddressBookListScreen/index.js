@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AddressBookListComponent, ToastComponent, LoadComponent } from 'components';
+import { AddressBookListComponent, ToastComponent, LoadComponent, IconComponent } from 'components';
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import S from './styles';
@@ -32,12 +32,12 @@ class AddressBookListScreen extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         // detect realtime txList change
-        if (prevProps.txListStore && prevProps.txListStore.list != this.props.txListStore.list) {
+        if (prevProps.txListStore && prevProps.txListStore.list !== this.props.txListStore.list) {
             this.getData();
         }
 
         // detect realtime addressBookMap change
-        if (prevProps.addressBookStore && prevProps.addressBookStore.map != this.props.addressBookStore.map) {
+        if (prevProps.addressBookStore && prevProps.addressBookStore.map !== this.props.addressBookStore.map) {
             this.getData();
         }
     }
@@ -68,8 +68,8 @@ class AddressBookListScreen extends Component {
                 )}
 
                 <View style={S.AbsoluteView}>
-                    <TouchableOpacity style={S.AddBtnView} onPress={() => navigation.navigate('AddressBook')}>
-                        <Text style={S.AddBtnIconView}>+</Text>
+                    <TouchableOpacity style={S.AddBtnView} onPress={() => navigation.navigate('AddressBook')} activeOpacity={0.8}>
+                        <IconComponent name={'btn_add'} size={68} />
                     </TouchableOpacity>
                 </View>
                 <ToastComponent

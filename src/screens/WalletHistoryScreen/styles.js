@@ -36,11 +36,14 @@ export default StyleSheet.create({
     },
     ItemListView: {
         flex: 7,
-        paddingVertical: 5,
-        paddingHorizontal: 5,
+        paddingVertical: 14,
+        paddingHorizontal: 20,
         width: '100%',
     },
     AddressBookView: {
         flex: 1,
+    },
+    DividerView: {
+        height: 14,
     },
 });

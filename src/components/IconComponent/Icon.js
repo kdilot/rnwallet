@@ -59,4 +59,7 @@ export default {
     btn_add_02: require('asset/icon/btn_add_02.png'),
     btn_save: require('asset/icon/btn_save.png'),
     ic_search: require('asset/icon/ic_search.png'),
+    img_from: require('asset/icon/img_from.png'),
+    img_hash: require('asset/icon/img_hash.png'),
+    img_to: require('asset/icon/img_to.png'),
 };

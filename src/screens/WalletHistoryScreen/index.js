@@ -223,7 +223,6 @@ class WalletHistoryScreen extends Component {
                 </View>
                 {addressBookShow ? (
                     <View style={S.AddressBookView}>
-                        {/* 거래내역 조회 로직 */}
                         <AddressBookMiniComponent onActive={this.onActiveMini} addressBookList={addressBookList} />
                     </View>
                 ) : (
@@ -231,6 +230,7 @@ class WalletHistoryScreen extends Component {
                         {data.length > 0 ? (
                             <FlatList
                                 data={data}
+                                ItemSeparatorComponent={() => <View style={S.DividerView} />}
                                 ListHeaderComponent={
                                     <View>
                                         {pendingTxList.length > 0 &&
@@ -244,7 +244,6 @@ class WalletHistoryScreen extends Component {
                                 removeClippedSubviews={false}
                                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />}
                                 onEndReached={() => {
-                                    //  [임시조건 적용]
                                     if (data.length % PAGE_COUNT === 0) {
                                         this.getData(itemType, page);
                                     }

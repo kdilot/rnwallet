@@ -1,7 +1,6 @@
 export { default as AddressBookComponent } from './AddressBookComponent';
 export { default as AddressBookMiniComponent } from './AddressBookMiniComponent';
 export { default as AddressBookListComponent } from './AddressBookListComponent';
-export { default as ButtonComponent } from './ButtonComponent';
 export { default as IconComponent } from './IconComponent';
 export { default as Icon } from './IconComponent/Icon';
 export { default as OverlayComponent } from './OverlayComponent';

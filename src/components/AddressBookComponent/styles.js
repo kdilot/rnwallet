@@ -20,6 +20,7 @@ export default StyleSheet.create({
     },
     InputView: {
         paddingVertical: 12,
+        padding: 0,
     },
     AddressView: {
         flexDirection: 'row',

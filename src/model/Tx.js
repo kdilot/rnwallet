@@ -1,5 +1,4 @@
 import * as etherjs from 'api/etherjs';
-import { plusColor, minusColor } from 'constants/Color';
 import moment from 'moment';
 import { USER_ETH_ADDRESS, ROZ_CONTRACT_ADDRESS } from 'constants/Global';
 import { logUtil } from 'log/log';
@@ -31,8 +30,8 @@ export class Tx {
 
             formedTx = {
                 send: send,
-                circleColor: send ? minusColor : plusColor,
-                lineColor: send ? minusColor : plusColor,
+                // circleColor: send ? minusColor : plusColor,
+                // lineColor: send ? minusColor : plusColor,
                 hash: tx.hash,
                 nickname: '',
                 from: tx.from,
@@ -68,8 +67,8 @@ export class Tx {
 
             formedPendingTx = {
                 send: true, // pending data is only sending.
-                circleColor: minusColor,
-                lineColor: minusColor,
+                // circleColor: minusColor,
+                // lineColor: minusColor,
                 hash: tx.hash,
                 nickname: '',
                 from: tx.from,

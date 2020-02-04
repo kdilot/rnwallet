@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#545aef',
     },
     textareaLayout: {
         flex: 2.5,
@@ -32,6 +32,8 @@ export default StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
         backgroundColor: 'white',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
     },
     confirmTextLayout: {
         flex: 1,

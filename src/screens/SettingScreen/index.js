@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
@@ -43,8 +43,6 @@ class SettingScreen extends Component {
             <SafeAreaView style={styles.panelLayout}>
                 <FlatList
                     data={SETTING_MENU_LIST}
-                    ItemSeparatorComponent={() => <View style={styles.dividerStyle} />}
-                    ListFooterComponent={() => <View style={styles.dividerStyle} />}
                     renderItem={({ item }) => <SwitchButtonComponent navigation={navigation} onToast={this.onToast} name={item.name} />}
                     keyExtractor={(item, index) => index.toString()}
                 />

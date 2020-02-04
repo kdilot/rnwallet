@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { DARK_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
@@ -46,12 +47,12 @@ export default StyleSheet.create({
     }),
     InfoTimeText: {
         fontSize: 10,
-        color: '#777777',
+        color: DARK_COLOR,
     },
     InfoValueText: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#000000',
+        color: 'black',
         marginBottom: 6,
     },
     MoreBtnView: {
@@ -75,7 +76,7 @@ export default StyleSheet.create({
     MoreItemText: {
         flex: 8,
         fontSize: 12,
-        color: '#777777',
+        color: DARK_COLOR,
         paddingLeft: 6,
     },
     MoreItemButton: {

@@ -23,6 +23,7 @@ import {
     WalletRestoreScreen,
     AddressBookListScreen,
 } from 'screens';
+import { LIGHT_COLOR } from 'constants/Color';
 
 const BottomMenuTab = createMaterialTopTabNavigator(
     {
@@ -100,7 +101,7 @@ BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
     ),
     header: navigation.state.index === 0 && null,
     headerStyle: {
-        backgroundColor: '#f8f8f8',
+        backgroundColor: LIGHT_COLOR,
     },
     headerLeftContainerStyle: { marginLeft: 10 },
 });

@@ -1,17 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { MAIN_BLUE_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#545aef',
+        backgroundColor: MAIN_BLUE_COLOR,
     },
     textareaLayout: {
         flex: 2.5,
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 30,
-        backgroundColor: '#545aef',
+        backgroundColor: MAIN_BLUE_COLOR,
     },
     textarea: {
         width: '100%',
@@ -51,6 +52,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        backgroundColor: '#545aef',
+        backgroundColor: MAIN_BLUE_COLOR,
     },
 });

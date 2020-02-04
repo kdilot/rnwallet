@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { DARK_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
@@ -28,6 +29,6 @@ export default StyleSheet.create({
     AddressText: {
         flex: 9,
         fontSize: 12,
-        color: '#777777',
+        color: DARK_COLOR,
     },
 });

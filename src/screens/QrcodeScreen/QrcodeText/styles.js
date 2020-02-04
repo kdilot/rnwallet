@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { DARK_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -10,7 +11,7 @@ export default StyleSheet.create({
         padding: 20,
         fontSize: 15,
         textAlign: 'center',
-        color: '#777777',
+        color: DARK_COLOR,
     },
     qrLayout: {
         flex: 4,

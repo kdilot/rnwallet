@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { MAIN_BLUE_COLOR, MAIN_ORANGE_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#545aef',
+        backgroundColor: MAIN_BLUE_COLOR,
     },
     titleLayout: {
         flex: 3,
@@ -39,7 +40,7 @@ export default StyleSheet.create({
         marginRight: 10,
     },
     pinActiveStyle: {
-        backgroundColor: '#fb8325',
+        backgroundColor: MAIN_ORANGE_COLOR,
     },
     restoreTextStyle: {
         color: 'white',
@@ -51,8 +52,8 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
     },
     keyStyle: {
-        borderRightColor: '#fff',
-        borderBottomColor: '#fff',
+        borderRightColor: 'white',
+        borderBottomColor: 'white',
         borderRadius: 30,
     },
     keyboardStyle: {

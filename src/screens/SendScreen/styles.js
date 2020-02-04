@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { BOX_BORDER_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
@@ -58,7 +59,7 @@ export default StyleSheet.create({
     InputBoxView: {
         padding: 10,
         height: 40,
-        borderColor: '#e5e5e5',
+        borderColor: BOX_BORDER_COLOR,
         borderWidth: 1,
     },
 });

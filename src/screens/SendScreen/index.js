@@ -12,6 +12,7 @@ import * as etherjs from 'api/etherjs';
 import RNSecureKeyStore from 'react-native-secure-key-store';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import PlaceholderLayout from './PlaceholderLayout';
+import { MAIN_BLUE_COLOR } from 'constants/Color';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -204,8 +205,8 @@ class SendScreen extends Component {
                                         <Slider
                                             value={gas}
                                             onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
-                                            thumbTintColor={'#545aef'}
-                                            minimumTrackTintColor={'#545aef'}
+                                            thumbTintColor={MAIN_BLUE_COLOR}
+                                            minimumTrackTintColor={MAIN_BLUE_COLOR}
                                             minimumValue={gasMinValue}
                                             maximumValue={gasMaxValue}
                                             step={0.1}

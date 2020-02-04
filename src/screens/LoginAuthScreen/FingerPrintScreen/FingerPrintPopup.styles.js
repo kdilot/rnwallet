@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import { MAIN_BLUE_COLOR, DARK_COLOR } from 'constants/Color';
 const WIDTH = Dimensions.get('window').width;
 
 export default {
@@ -8,7 +9,7 @@ export default {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#545aef',
+        backgroundColor: MAIN_BLUE_COLOR,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -35,8 +36,7 @@ export default {
     },
     description: error => ({
         textAlign: 'center',
-        color: error ? 'red' : '#777777',
-        fontSize: 10,
+        color: error ? 'red' : DARK_COLOR,
         marginHorizontal: 20,
     }),
     buttonContainer: {
@@ -46,8 +46,8 @@ export default {
         marginBottom: 30,
     },
     buttonText: {
-        color: '#545aef',
-        fontSize: 12,
+        color: MAIN_BLUE_COLOR,
+        fontSize: 15,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
     },

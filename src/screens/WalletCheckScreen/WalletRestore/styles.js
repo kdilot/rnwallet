@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { BOX_BORDER_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -21,7 +22,7 @@ export default StyleSheet.create({
     textareaStyle: {
         width: '100%',
         height: 140,
-        borderColor: '#e5e5e5',
+        borderColor: BOX_BORDER_COLOR,
         borderWidth: 1,
         color: 'black',
         fontSize: 16,

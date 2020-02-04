@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { LIGHT_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#f8f8f8',
+        backgroundColor: LIGHT_COLOR,
     },
     HeaderView: {
         justifyContent: 'center',

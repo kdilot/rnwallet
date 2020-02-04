@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { MAIN_BLUE_COLOR, MAIN_ORANGE_COLOR, SUCCESS_COLOR, FAIL_COLOR, PENDING_COLOR, BOX_BORDER_COLOR, DARK_COLOR, DARK_COLOR2, LIGHT_COLOR, LIGHT_COLOR2 } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -9,7 +10,7 @@ export default StyleSheet.create({
     },
     faq: {
         borderBottomWidth: 1,
-        borderBottomColor: '#c9c9c9',
+        borderBottomColor: LIGHT_COLOR2,
         flex: 1,
         flexDirection: 'row',
         paddingLeft: 20,

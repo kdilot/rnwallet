@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { DARK_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -15,7 +16,7 @@ export default StyleSheet.create({
     msgContent: {
         textAlign: 'center',
         fontSize: 12,
-        color: '#777777',
+        color: DARK_COLOR,
         marginTop: 10,
     },
 });

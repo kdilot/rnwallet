@@ -1,11 +1,12 @@
-const rozeusColor = '#d82027';
-const basicColor = '#2196F3';
-const whiteColor = 'white';
-const dividerDarkColor = '#ADB0B2';
-const dividerLightColor = '#ede8e8';
-const plusColor = '#447bbe';
-const minusColor = '#df1f2d';
-const successColor = '#00c07f';
-const failColor = '#ff6562';
+const MAIN_BLUE_COLOR = '#545aef';
+const MAIN_ORANGE_COLOR = '#fb8235';
+const SUCCESS_COLOR = '#459f11';
+const FAIL_COLOR = '#cc1515';
+const PENDING_COLOR = '#646464';
+const BOX_BORDER_COLOR = '#e5e5e5';
+const DARK_COLOR = '#777777';
+const DARK_COLOR2 = '#979797';
+const LIGHT_COLOR = '#f8f8f8';
+const LIGHT_COLOR2 = '#c9c9c9';
 
-export { rozeusColor, basicColor, whiteColor, dividerDarkColor, dividerLightColor, plusColor, minusColor, successColor, failColor };
+export { MAIN_BLUE_COLOR, MAIN_ORANGE_COLOR, SUCCESS_COLOR, FAIL_COLOR, PENDING_COLOR, BOX_BORDER_COLOR, DARK_COLOR, DARK_COLOR2, LIGHT_COLOR, LIGHT_COLOR2 };

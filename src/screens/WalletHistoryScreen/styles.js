@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { MAIN_BLUE_COLOR, DARK_COLOR2, LIGHT_COLOR, LIGHT_COLOR2 } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
         flex: 1,
-        backgroundColor: '#f8f8f8',
+        backgroundColor: LIGHT_COLOR,
     },
     ItemTypeView: {
         zIndex: 1,
@@ -11,7 +12,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        backgroundColor: '#f8f8f8',
+        backgroundColor: LIGHT_COLOR,
     },
     ItemView: {
         flex: 1,
@@ -19,20 +20,20 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: 1.5,
-        borderBottomColor: '#c9c9c9',
+        borderBottomColor: LIGHT_COLOR2,
     },
     TypeSelectedView: {
-        borderBottomColor: '#545aef',
+        borderBottomColor: MAIN_BLUE_COLOR,
         borderBottomWidth: 3,
     },
     ItemText: {
         fontSize: 14,
-        color: '#979797',
+        color: DARK_COLOR2,
         textAlign: 'center',
     },
     TypeSelectedText: {
         fontWeight: 'bold',
-        color: '#545aef',
+        color: MAIN_BLUE_COLOR,
     },
     ItemListView: {
         flex: 7,

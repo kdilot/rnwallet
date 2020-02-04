@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as addressActions from 'modules/AddressBookReducer';
 import { Text, View, TouchableOpacity, Clipboard, Image } from 'react-native';
 import { IconComponent, Icon } from 'components';
+import { MAIN_BLUE_COLOR, MAIN_ORANGE_COLOR, SUCCESS_COLOR, FAIL_COLOR, PENDING_COLOR } from 'constants/Color';
 import PropTypes from 'prop-types';
 import S from './styles';
 
@@ -68,12 +69,12 @@ class WalletHistoryComponent extends Component {
                     </View>
                     <View style={S.InfoTextView}>
                         <View style={S.InfoTextGroupView}>
-                            {send >= 0 && <Text style={[S.InfoText, S.InfoTextColor(send ? '#fb8325' : '#545aef')]}>{send ? lang.sentBtn : lang.receiveBtn}</Text>}
+                            {send >= 0 && <Text style={[S.InfoText, S.InfoTextColor(send ? MAIN_ORANGE_COLOR : MAIN_BLUE_COLOR)]}>{send ? lang.sentBtn : lang.receiveBtn}</Text>}
                             <Text style={S.InfoTimeText}>{time}</Text>
                         </View>
                         <View style={S.InfoTextGroupView}>
                             {send >= 0 && (
-                                <Text style={[S.InfoText, S.InfoTextColor(status === STATUS_SUCCESS ? '#459f11' : status === STATUS_PENDING ? '#646464' : '#cc1515')]}>
+                                <Text style={[S.InfoText, S.InfoTextColor(status === STATUS_SUCCESS ? SUCCESS_COLOR : status === STATUS_PENDING ? PENDING_COLOR : FAIL_COLOR)]}>
                                     {status === STATUS_SUCCESS ? lang.success : status === STATUS_PENDING ? 'Pending' : lang.fail}
                                 </Text>
                             )}

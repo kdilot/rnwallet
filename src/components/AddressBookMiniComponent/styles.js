@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { LIGHT_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
         flex: 1,
-        backgroundColor: '#f8f8f8',
+        backgroundColor: LIGHT_COLOR,
     },
     ListView: {
         flex: 1,

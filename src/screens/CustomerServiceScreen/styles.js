@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { MAIN_BLUE_COLOR, DARK_COLOR, DARK_COLOR2 } from 'constants/Color';
 
 export default StyleSheet.create({
     container: {
@@ -10,19 +11,19 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     topTab__textBox: { flex: 1, height: '100%' },
-    topTab__touchBox: { width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#979797' },
+    topTab__touchBox: { width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: DARK_COLOR2 },
 
-    'topTab__touchBox--focused': { width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 3, borderBottomColor: '#545aef' },
+    'topTab__touchBox--focused': { width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderBottomWidth: 3, borderBottomColor: MAIN_BLUE_COLOR },
 
     topTab__text: {
         fontSize: 14,
         lineHeight: 20,
-        color: '#979797',
+        color: DARK_COLOR2,
     },
     'topTab__text--focused': {
         fontSize: 14,
         lineHeight: 20,
-        color: '#545aef',
+        color: MAIN_BLUE_COLOR,
         fontWeight: 'bold',
     },
 
@@ -41,5 +42,5 @@ export default StyleSheet.create({
         height: 100,
     },
     contents__emaiText: { fontSize: 16, lineHeight: 24, fontWeight: 'bold', marginTop: 20 },
-    contents__emaiTextDetail: { fontSize: 12, lineHeight: 18, color: '#777777', marginTop: 10 },
+    contents__emaiTextDetail: { fontSize: 12, lineHeight: 18, color: DARK_COLOR, marginTop: 10 },
 });

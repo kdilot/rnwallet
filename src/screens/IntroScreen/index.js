@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as settingActions from 'modules/SettingReducer';
 import * as walletActions from 'modules/WalletReducer';
 import { Icon } from 'components';
-import styles from './styles';
+import S from './styles';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -44,12 +44,12 @@ class IntroScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={S.ContainerView}>
                 <Image source={Icon['intro_top']} style={{ width: WIDTH * 0.5, height: (WIDTH * 0.5 * 405) / 288, position: 'absolute', top: 0, left: 0 }} />
                 <Image source={Icon['intro_logo']} style={{ width: 170, height: 140, position: 'absolute', top: HEIGHT * 0.3, left: (WIDTH - 170) / 2 }} />
                 <Image source={Icon['intro_bottom']} style={{ width: WIDTH * 0.5, height: (WIDTH * 0.5 * 1280) / 748, position: 'absolute', bottom: 0, right: 0 }} />
                 <Image source={Icon['intro_content']} style={{ width: WIDTH * 0.71, height: (WIDTH * 0.71 * 1228) / 1028, position: 'absolute', bottom: 0, right: 0 }} />
-                <Text style={styles.footerText}>copyright@rozeus, All rights reserved.</Text>
+                <Text style={S.FooterText}>copyright@rozeus, All rights reserved.</Text>
             </SafeAreaView>
         );
     }

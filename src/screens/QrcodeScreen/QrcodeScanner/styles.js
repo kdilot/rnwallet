@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    cameraStyle: {
+    CameraStyle: {
         height: '100%',
     },
 });

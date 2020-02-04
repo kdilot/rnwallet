@@ -7,9 +7,9 @@ import { View, Text, TouchableOpacity, RefreshControl, FlatList, SafeAreaView } 
 import { WalletHistoryComponent, AddressBookMiniComponent, ToastComponent, LoadComponent } from 'components';
 import * as etherjs from 'api/etherjs';
 import { convertTxListToAddressBookList } from 'api/AddressBook/AddressBookApi';
+import { Tx } from 'model/Tx';
 import PropTypes from 'prop-types';
 import S from './styles';
-import { Tx } from 'model/Tx';
 
 const ITEMTYPE_ALL = 0;
 const ITEMTYPE_ROZ = 1;

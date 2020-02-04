@@ -2,30 +2,30 @@ import { StyleSheet } from 'react-native';
 import { DARK_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    address: {
+    AddressView: {
         padding: 20,
         fontSize: 15,
         textAlign: 'center',
         color: DARK_COLOR,
     },
-    qrLayout: {
+    QrView: {
         flex: 4,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    buttonLayout: {
+    ButtonView: {
         flex: 2,
         flexDirection: 'row',
         paddingHorizontal: 25,
         paddingBottom: 20,
         alignItems: 'flex-end',
     },
-    buttonStyle: {
+    ButtonStyle: {
         flex: 1,
         justifyContent: 'center',
     },

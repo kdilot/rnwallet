@@ -10,7 +10,7 @@ import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import AsyncStorage from '@react-native-community/async-storage';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
 
 class WalletRestore extends Component {
     constructor(props) {
@@ -77,14 +77,14 @@ class WalletRestore extends Component {
         const { text, restoreDisable, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={S.ContainerView}>
                 <KeyboardAvoidingView style={{ flex: 1, padding: 20 }}>
                     <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
-                    <View style={styles.textareaLayout}>
-                        <Text style={styles.textStyle}>{lang.restoreInputMsg}</Text>
-                        <TextInput placeholder="Please enter a word." style={styles.textareaStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
+                    <View style={S.TextAreaView}>
+                        <Text style={S.TextStyle}>{lang.restoreInputMsg}</Text>
+                        <TextInput placeholder="Please enter a word." style={S.TextInputStyle} multiline={true} textAlignVertical={'top'} value={text} onChangeText={this.onChangeText} />
                     </View>
-                    <View style={styles.buttonLayout}>
+                    <View style={S.ButtonView}>
                         <Button name={lang.restore} disable={restoreDisable} color={restoreDisable ? 'btn_d' : 'btn_b'} onPress={this.onRestore} />
                     </View>
                     <ToastComponent

@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as walletActions from 'modules/WalletReducer';
-import { Text, View, TextInput, Clipboard, Dimensions, SafeAreaView } from 'react-native';
+import { Text, View, TextInput, Clipboard, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import { Button, ToastComponent, OverlayComponent } from 'components';
 import { fromMnemonic } from 'api/etherjs';
 import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
 import PropTypes from 'prop-types';
-import styles from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import S from './styles';
 
 class WalletCreate extends Component {
     constructor(props) {
@@ -82,14 +81,14 @@ class WalletCreate extends Component {
         const { mnemonic, shuffleMnemonic } = this.props.walletStore;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={S.ContainerView}>
                 <View style={{ flex: 1 }}>
                     <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
-                    <View style={styles.textareaLayout}>
-                        <TextInput style={styles.textarea} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
+                    <View style={S.TextAreaView}>
+                        <TextInput style={S.TextInputView} multiline={true} textAlignVertical={'top'} editable={false} value={mnemonic.split(' ').join('   ')} />
                     </View>
-                    <View style={styles.confirmLayout}>
-                        <View style={styles.confirmTextLayout}>
+                    <View style={S.ConfirmView}>
+                        <View style={S.ConfirmTextView}>
                             <Text>{lang.createSaveTextMsg}</Text>
                             <Text>
                                 {lang.createConfirmWordMsgOne}
@@ -97,7 +96,7 @@ class WalletCreate extends Component {
                                 {lang.createConfirmWordMsgTwo}
                             </Text>
                         </View>
-                        <View style={styles.confirmGridLayout}>
+                        <View style={S.ConfirmWordView}>
                             <FlatGrid
                                 items={shuffleMnemonic}
                                 spacing={12}
@@ -105,7 +104,7 @@ class WalletCreate extends Component {
                                 renderItem={({ item, index }) => (
                                     <TouchableOpacity
                                         activeOpacity={0.9}
-                                        style={styles.wordLayout}
+                                        style={S.WordView}
                                         onPress={() => {
                                             this.checkWord(item);
                                         }}>
@@ -114,7 +113,7 @@ class WalletCreate extends Component {
                                 )}
                             />
                         </View>
-                        <View style={styles.buttonLayout}>
+                        <View style={S.ButtonView}>
                             <Button name={lang.create} disable={createDisable} color={createDisable ? 'btn_d' : 'btn_o'} onPress={this.onRestore} />
                         </View>
                     </View>

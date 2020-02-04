@@ -13,7 +13,7 @@ import * as walletActions from 'modules/WalletReducer';
 import * as etherjs from 'api/etherjs';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
 import * as Global from 'constants/Global';
-import styles from './styles';
+import S from './styles';
 
 const CARD = ['roz', 'eth'];
 const WIDTH = Dimensions.get('window').width;
@@ -141,9 +141,9 @@ class MainScreen extends PureComponent {
         const { ethBalance, rozBalance, isEthLoad, isRozLoad, isRoz } = this.state;
 
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={S.container}>
                 <Image source={Icon['home_bg']} style={{ width: WIDTH * 0.65, height: (WIDTH * 0.65 * 548) / 351, position: 'absolute', top: 0, left: 0 }} />
-                <View style={styles.HeaderView}>
+                <View style={S.HeaderView}>
                     <TouchableOpacity
                         onPress={() => {
                             navigation.openDrawer();
@@ -151,14 +151,14 @@ class MainScreen extends PureComponent {
                         <IconComponent name={'btn_menu'} size={40} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.HeaderTitleView}>
-                    <Text style={styles.HeaderTitleText}>Wallets</Text>
+                <View style={S.HeaderTitleView}>
+                    <Text style={S.HeaderTitleText}>Wallets</Text>
                 </View>
-                <View style={styles.ContentView}>
-                    <TouchableOpacity style={styles.CoinTypeView} disabled={isRoz && true} onPress={this.onSelect}>
+                <View style={S.ContentView}>
+                    <TouchableOpacity style={S.CoinTypeView} disabled={isRoz && true} onPress={this.onSelect}>
                         <Image source={Icon[isRoz ? 'home_tab_roz_s' : 'home_tab_roz']} style={{ width: 30, height: 22 }} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.CoinTypeView} disabled={!isRoz && true} onPress={this.onSelect}>
+                    <TouchableOpacity style={S.CoinTypeView} disabled={!isRoz && true} onPress={this.onSelect}>
                         <Image source={Icon[!isRoz ? 'home_tab_eth_s' : 'home_tab_eth']} style={{ width: 30, height: 22 }} />
                     </TouchableOpacity>
                 </View>
@@ -168,7 +168,7 @@ class MainScreen extends PureComponent {
                     }}
                     inactiveSlideOpacity={1}
                     inactiveSlideScale={1}
-                    slideStyle={styles.SliderView}
+                    slideStyle={S.SliderView}
                     scrollEnabled={false}
                     data={CARD}
                     renderItem={(i, index) => (

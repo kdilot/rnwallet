@@ -2,16 +2,16 @@ import { StyleSheet } from 'react-native';
 import { BOX_BORDER_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         flex: 1,
         justifyContent: 'space-around',
     },
-    textareaLayout: {
+    TextAreaView: {
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginHorizontal: 20,
     },
-    textStyle: {
+    TextStyle: {
         marginTop: 15,
         marginBottom: 10,
         paddingLeft: 10,
@@ -19,7 +19,7 @@ export default StyleSheet.create({
         textAlign: 'left',
         alignSelf: 'flex-start',
     },
-    textareaStyle: {
+    TextInputStyle: {
         width: '100%',
         height: 140,
         borderColor: BOX_BORDER_COLOR,
@@ -28,7 +28,7 @@ export default StyleSheet.create({
         fontSize: 16,
         padding: 10,
     },
-    buttonLayout: {
+    ButtonView: {
         flex: 1,
         paddingHorizontal: 10,
         justifyContent: 'flex-end',

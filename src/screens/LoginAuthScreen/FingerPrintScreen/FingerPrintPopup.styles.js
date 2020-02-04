@@ -3,7 +3,7 @@ import { MAIN_BLUE_COLOR, DARK_COLOR } from 'constants/Color';
 const WIDTH = Dimensions.get('window').width;
 
 export default {
-    container: {
+    ContainerView: {
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -14,7 +14,7 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    contentContainer: {
+    ContentView: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -24,28 +24,28 @@ export default {
         backgroundColor: 'white',
         zIndex: 10,
     },
-    logo: {
+    LogoView: {
         justifyContent: 'center',
         alignItems: 'center',
         flex: 5,
     },
-    message: {
+    MessageView: {
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
     },
-    description: error => ({
+    Description: error => ({
         textAlign: 'center',
         color: error ? 'red' : DARK_COLOR,
         marginHorizontal: 20,
     }),
-    buttonContainer: {
+    ButtonView: {
         flex: 2,
         justifyContent: 'flex-end',
         alignItems: 'center',
         marginBottom: 30,
     },
-    buttonText: {
+    ButtonText: {
         color: MAIN_BLUE_COLOR,
         fontSize: 15,
         fontWeight: 'bold',

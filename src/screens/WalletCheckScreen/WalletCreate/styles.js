@@ -2,19 +2,19 @@ import { StyleSheet } from 'react-native';
 import { MAIN_BLUE_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: MAIN_BLUE_COLOR,
     },
-    textareaLayout: {
+    TextAreaView: {
         flex: 2.5,
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 30,
         backgroundColor: MAIN_BLUE_COLOR,
     },
-    textarea: {
+    TextInputView: {
         width: '100%',
         height: 100,
         borderColor: 'gray',
@@ -22,13 +22,13 @@ export default StyleSheet.create({
         fontSize: 16,
         marginTop: 20,
     },
-    buttonLayout: {
+    ButtonView: {
         flex: 1,
         width: '100%',
         justifyContent: 'center',
         paddingHorizontal: 30,
     },
-    confirmLayout: {
+    ConfirmView: {
         flex: 6,
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -36,17 +36,17 @@ export default StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
-    confirmTextLayout: {
+    ConfirmTextView: {
         flex: 1,
         alignItems: 'flex-start',
         justifyContent: 'center',
         paddingHorizontal: 40,
     },
-    confirmGridLayout: {
+    ConfirmWordView: {
         flex: 3,
         paddingHorizontal: 20,
     },
-    wordLayout: {
+    WordView: {
         padding: 15,
         paddingHorizontal: 25,
         justifyContent: 'center',

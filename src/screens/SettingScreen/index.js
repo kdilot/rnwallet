@@ -7,7 +7,7 @@ import { SwitchButtonComponent, ToastComponent } from 'components';
 import AsyncStorage from '@react-native-community/async-storage';
 import { SETTING_MENU_LIST } from 'constants/Global';
 import PropTypes from 'prop-types';
-import styles from './style';
+import S from './styles';
 
 class SettingScreen extends Component {
     componentDidMount = () => {
@@ -40,7 +40,7 @@ class SettingScreen extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <SafeAreaView style={styles.panelLayout}>
+            <SafeAreaView style={S.PanelView}>
                 <FlatList
                     data={SETTING_MENU_LIST}
                     renderItem={({ item }) => <SwitchButtonComponent navigation={navigation} onToast={this.onToast} name={item.name} />}

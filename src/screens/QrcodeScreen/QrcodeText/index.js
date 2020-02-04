@@ -4,7 +4,7 @@ import QRCode from 'react-native-qrcode-svg';
 import { Button, ToastComponent } from 'components';
 import { USER_ETH_ADDRESS } from 'constants/Global';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
 
 export default class QrcodeText extends Component {
     constructor(props) {
@@ -39,21 +39,21 @@ export default class QrcodeText extends Component {
         const { text } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={S.ContainerView}>
                 <ToastComponent
                     ref={ref => {
                         this.toast = ref;
                     }}
                 />
-                <View style={styles.qrLayout}>
+                <View style={S.QrView}>
                     <QRCode size={180} value={text} />
-                    <Text style={{ ...styles.address, width: Dimensions.get('window').width }}>{text}</Text>
+                    <Text style={{ ...S.AddressView, width: Dimensions.get('window').width }}>{text}</Text>
                 </View>
-                <View style={styles.buttonLayout}>
-                    <View style={styles.buttonStyle}>
+                <View style={S.ButtonView}>
+                    <View style={S.ButtonStyle}>
                         <Button name={lang.copy} color={'btn_sm_b'} onPress={this.onCopy} />
                     </View>
-                    <View style={styles.buttonStyle}>
+                    <View style={S.ButtonStyle}>
                         <Button name={lang.share} color={'btn_sm_o'} onPress={this.onShare} />
                     </View>
                 </View>

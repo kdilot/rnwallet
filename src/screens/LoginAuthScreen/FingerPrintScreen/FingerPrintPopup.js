@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
 import { IconComponent } from 'components';
 import AnimationText from './styles.animation';
-import styles from './FingerPrintPopup.styles';
+import S from './FingerPrintPopup.styles';
 
 class FingerPrintPopup extends Component {
     constructor(props) {
@@ -52,27 +52,27 @@ class FingerPrintPopup extends Component {
         const { lang } = this.props.navigation.getScreenProps('locale');
 
         return (
-            <View style={styles.container}>
-                <View style={[styles.contentContainer]}>
-                    <View style={styles.logo}>
+            <View style={S.ContainerView}>
+                <View style={[S.ContentView]}>
+                    <View style={S.LogoView}>
                         <IconComponent name={'img_fingerprint'} size={60} />
                     </View>
-                    <View style={styles.message}>
+                    <View style={S.MessageView}>
                         <AnimationText
                             ref={instance => {
                                 this.description = instance;
                             }}
-                            style={styles.description(errorMessage)}>
+                            style={S.Description(errorMessage)}>
                             {errorMessage || lang.fingerprintMsg}
                         </AnimationText>
                     </View>
 
                     <TouchableOpacity
-                        style={styles.buttonContainer}
+                        style={S.ButtonView}
                         onPress={() => {
                             navigation.navigate('PinCode');
                         }}>
-                        <Text style={styles.buttonText}>{lang.usePinMsg}</Text>
+                        <Text style={S.ButtonText}>{lang.usePinMsg}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

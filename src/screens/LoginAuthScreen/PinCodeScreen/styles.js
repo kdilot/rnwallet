@@ -2,65 +2,65 @@ import { StyleSheet } from 'react-native';
 import { MAIN_BLUE_COLOR, MAIN_ORANGE_COLOR } from 'constants/Color';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         flex: 1,
         backgroundColor: MAIN_BLUE_COLOR,
     },
-    titleLayout: {
+    TitleView: {
         flex: 3,
         alignContent: 'center',
         justifyContent: 'flex-end',
     },
-    pinLayout: {
+    PinView: {
         flex: 1,
         alignItems: 'center',
         padding: 0,
         margin: 0,
     },
-    restoreLayout: {
+    RestoreView: {
         flex: 2,
         alignItems: 'center',
         justifyContent: 'flex-end',
     },
-    pinTextStyle: {
+    TitleText: {
         padding: 10,
         color: 'white',
         textAlign: 'center',
         fontSize: 20,
     },
-    pinContainerStyle: {
+    PinContainerStyle: {
         flex: 2,
         justifyContent: 'flex-end',
         alignContent: 'flex-end',
     },
-    pinStyle: {
+    PinStyle: {
         backgroundColor: 'white',
         padding: 5,
         marginLeft: 10,
         marginRight: 10,
     },
-    pinActiveStyle: {
+    PinActiveStyle: {
         backgroundColor: MAIN_ORANGE_COLOR,
     },
-    restoreTextStyle: {
+    RestoreText: {
         color: 'white',
         textDecorationLine: 'underline',
         fontSize: 16,
     },
-    inputLayout: {
+    NumberView: {
         flex: 4,
         justifyContent: 'flex-end',
     },
-    keyStyle: {
+    NumberKeyStyle: {
         borderRightColor: 'white',
         borderBottomColor: 'white',
         borderRadius: 30,
     },
-    keyboardStyle: {
+    NumberKeyboardStyle: {
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
-    closeView: {
+    CloseView: {
         position: 'absolute',
         width: 50,
         height: 50,

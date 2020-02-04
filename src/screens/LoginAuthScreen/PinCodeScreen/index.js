@@ -5,7 +5,7 @@ import { VirtualKeyboard } from 'react-native-screen-keyboard';
 import { IconComponent } from 'components';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
 
 const NEW_PIN = 1;
 const CONFIRM_PIN = 2;
@@ -121,35 +121,35 @@ export default class PinCode extends Component {
         const { maxPin } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SafeAreaView style={styles.container}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.pop()} style={styles.closeView}>
+            <SafeAreaView style={S.ContainerView}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.pop()} style={S.CloseView}>
                     <IconComponent name={'btn_close'} size={44} />
                 </TouchableOpacity>
-                <View style={styles.titleLayout}>
-                    <Text style={styles.pinTextStyle}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : status === ACCESS_PIN ? lang.accessPin : ''}</Text>
+                <View style={S.TitleView}>
+                    <Text style={S.TitleText}>{status === NEW_PIN ? lang.newPin : status === CONFIRM_PIN ? lang.confirmPin : status === ACCESS_PIN ? lang.accessPin : ''}</Text>
                 </View>
-                <View style={styles.pinLayout}>
+                <View style={S.PinView}>
                     <PinInput
                         onRef={ref => (this.pin = ref)}
                         numberOfPins={maxPin}
                         numberOfPinsActive={pinNumber.length ? pinNumber.length : 0}
-                        containerStyle={styles.pinContainerStyle}
-                        pinStyle={styles.pinStyle}
-                        pinActiveStyle={styles.pinActiveStyle}
+                        containerStyle={S.PinContainerStyle}
+                        pinStyle={S.PinStyle}
+                        pinActiveStyle={S.PinActiveStyle}
                     />
                 </View>
-                <View style={styles.restoreLayout}>
+                <View style={S.RestoreView}>
                     {newPinNumber && status === ACCESS_PIN && (
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.navigation.navigate('PinCodeRestore', { isPinRestore: true });
                             }}>
-                            <Text style={styles.restoreTextStyle}>Forgot PIN?</Text>
+                            <Text style={S.RestoreText}>Forgot PIN?</Text>
                         </TouchableOpacity>
                     )}
                 </View>
-                <View style={styles.inputLayout}>
-                    <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} keyStyle={styles.keyStyle} keyboardStyle={styles.keyboardStyle} />
+                <View style={S.NumberView}>
+                    <VirtualKeyboard onRef={ref => (this.keyboard = ref)} onKeyDown={this.keyDown} keyStyle={S.NumberKeyStyle} keyboardStyle={S.NumberKeyboardStyle} />
                 </View>
             </SafeAreaView>
         );

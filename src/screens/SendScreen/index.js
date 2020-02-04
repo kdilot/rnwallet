@@ -14,7 +14,7 @@ import { USER_ETH_ADDRESS } from 'constants/Global';
 import PlaceholderLayout from './PlaceholderLayout';
 import { MAIN_BLUE_COLOR } from 'constants/Color';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import S from './styles';
 
 class SendScreen extends Component {
     constructor(props) {
@@ -157,30 +157,30 @@ class SendScreen extends Component {
         const { price, address, isSendDisable, gas, gasMinValue, gasMaxValue, coin, isVisible } = this.state;
         const { lang } = this.props.navigation.getScreenProps('locale');
         return (
-            <SafeAreaView style={styles.ContainerView}>
+            <SafeAreaView style={S.ContainerView}>
                 <OverlayComponent isVisible={isVisible} text={lang.inProgressMsg} />
                 <KeyboardAvoidingView style={{ flex: 1, padding: 20 }}>
-                    <View style={styles.HeaderView}>
-                        <View style={styles.CoinView}>
+                    <View style={S.HeaderView}>
+                        <View style={S.CoinView}>
                             <IconComponent name={coin.toLowerCase()} size={30} />
-                            <Text style={styles.CoinText}>{coin}</Text>
+                            <Text style={S.CoinText}>{coin}</Text>
                         </View>
-                        <View style={styles.InputView}>
-                            <Text style={styles.InputText}>{lang.price}</Text>
-                            <TextInput style={styles.InputBoxView} placeholder={lang.price} keyboardType="decimal-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
+                        <View style={S.InputView}>
+                            <Text style={S.InputText}>{lang.price}</Text>
+                            <TextInput style={S.InputBoxView} placeholder={lang.price} keyboardType="decimal-pad" onChangeText={text => this.setState({ price: text })} value={price.toString()} />
                         </View>
-                        <View style={styles.InputView}>
-                            <Text style={styles.InputText}>{lang.address}</Text>
-                            <View style={styles.AddressView}>
+                        <View style={S.InputView}>
+                            <Text style={S.InputText}>{lang.address}</Text>
+                            <View style={S.AddressView}>
                                 <TextInput
-                                    style={[styles.InputBoxView, { flex: 1, paddingRight: 50 }]}
+                                    style={[S.InputBoxView, { flex: 1, paddingRight: 50 }]}
                                     placeholder={lang.address}
                                     keyboardType="default"
                                     onChangeText={text => this.setState({ address: text })}
                                     value={address}
                                 />
                                 <TouchableOpacity
-                                    style={styles.QrIcon}
+                                    style={S.QrIcon}
                                     onPress={() => {
                                         this.onSearch();
                                     }}>
@@ -188,20 +188,20 @@ class SendScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.InputView}>
-                            <Text style={styles.InputText}>{lang.fees}</Text>
+                        <View style={S.InputView}>
+                            <Text style={S.InputText}>{lang.fees}</Text>
                             {isSendDisable ? (
                                 <PlaceholderLayout />
                             ) : (
                                 <>
                                     <TextInput
-                                        style={styles.InputBoxView}
+                                        style={S.InputBoxView}
                                         placeholder={lang.fees}
                                         keyboardType="decimal-pad"
                                         onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
                                         value={gas.toString()}
                                     />
-                                    <View style={styles.SliderView}>
+                                    <View style={S.SliderView}>
                                         <Slider
                                             value={gas}
                                             onValueChange={data => this.setState({ gas: Number(parseFloat(data).toFixed(1)) })}
@@ -212,12 +212,12 @@ class SendScreen extends Component {
                                             step={0.1}
                                         />
                                     </View>
-                                    <View style={styles.FeeView}>
-                                        <Text style={styles.FeeText}>
+                                    <View style={S.FeeView}>
+                                        <Text style={S.FeeText}>
                                             {lang.slow}
                                             {`(${gasMinValue})`}
                                         </Text>
-                                        <Text style={[styles.FeeText, { textAlign: 'right' }]}>
+                                        <Text style={[S.FeeText, { textAlign: 'right' }]}>
                                             {lang.fast}
                                             {`(${gasMaxValue})`}
                                         </Text>
@@ -227,7 +227,7 @@ class SendScreen extends Component {
                             )}
                         </View>
                     </View>
-                    <View style={styles.BottomView}>
+                    <View style={S.BottomView}>
                         <Button name={lang.send} disable={isSendDisable} color={isSendDisable ? 'btn_d' : 'btn_b'} onPress={this.onCheckAuth} />
                     </View>
                 </KeyboardAvoidingView>

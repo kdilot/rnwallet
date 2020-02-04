@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
     },
-    footerText: {
+    FooterText: {
         zIndex: 1,
         position: 'absolute',
         bottom: 30,

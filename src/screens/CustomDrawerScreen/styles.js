@@ -1,20 +1,20 @@
 import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
+    ContainerView: {
         flex: 1,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    logoLayout: {
+    LogoView: {
         flex: 2,
         width: '100%',
         backgroundColor: '#f3f3f3',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    closeView: {
+    CloseView: {
         position: 'absolute',
         width: 50,
         height: 50,
@@ -23,18 +23,18 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    contentLayout: {
+    ContentView: {
         flex: 5,
         width: '100%',
     },
-    itemLayout: {
+    ItemView: {
         flex: 1,
         width: '100%',
         paddingLeft: 22,
         paddingRight: 10,
         paddingVertical: 13,
     },
-    itemArrowLayout: {
+    ItemArrowView: {
         position: 'absolute',
         right: 0,
         top: Platform.OS === 'ios' ? -9 : -6,

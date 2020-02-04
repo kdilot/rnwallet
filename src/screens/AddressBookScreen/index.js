@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-
 import { AddressBookComponent, ToastComponent, LoadComponent } from 'components';
-import styles from './styles';
-
 import * as addressBookActions from 'modules/AddressBookReducer';
 import * as addressBookApi from 'api/AddressBook/AddressBookApi';
+import PropTypes from 'prop-types';
+import S from './styles';
 
 class AddressBookScreen extends Component {
     constructor(props) {
@@ -63,11 +61,11 @@ class AddressBookScreen extends Component {
         const { navigation } = this.props;
         const { addressBookLoad, addressBookList } = this.state;
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={S.ContainerView}>
                 {addressBookList.length > 0 ? (
                     <FlatList
                         data={addressBookList}
-                        ItemSeparatorComponent={() => <View style={styles.DividerView} />}
+                        ItemSeparatorComponent={() => <View style={S.DividerView} />}
                         renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
                         keyExtractor={(item, index) => index.toString()}
                         removeClippedSubviews={false}

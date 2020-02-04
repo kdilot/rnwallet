@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, AppState, SafeAreaView } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
-import styles from './FingerPrint.styles';
+import S from './FingerPrint.styles';
 import FingerPrintPopup from './FingerPrintPopup';
 
 class FingerPrint extends Component {
@@ -50,9 +50,9 @@ class FingerPrint extends Component {
     render() {
         const { isFingerprint, errorMessage } = this.state;
         return (
-            <SafeAreaView style={styles.container}>
-                {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
-                {isFingerprint && <FingerPrintPopup {...this.props} style={styles.popup} />}
+            <SafeAreaView style={S.container}>
+                {errorMessage && <Text style={S.errorMessage}>{errorMessage}</Text>}
+                {isFingerprint && <FingerPrintPopup {...this.props} style={S.popup} />}
             </SafeAreaView>
         );
     }

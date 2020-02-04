@@ -37,11 +37,6 @@ const BottomMenuTab = createMaterialTopTabNavigator(
             screen: WalletHistoryScreen,
             navigationOptions: {
                 tabBarIcon: ({ focused, tintColor }) => <IconComponent name={focused ? 'history_s' : 'history'} size={60} />,
-                headerStyle: {
-                    elevation: 0,
-                    shadowOpacity: 0,
-                    borderBottomWidth: 0,
-                },
             },
         },
         AddressBookList: {

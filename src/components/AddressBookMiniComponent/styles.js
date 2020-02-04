@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { dividerLightColor } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
@@ -23,10 +22,6 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'flex-end',
         paddingRight: 10,
-    },
-    DividerView: {
-        height: 1,
-        backgroundColor: dividerLightColor,
     },
     IsEmptyView: {
         flex: 1,

@@ -1,4 +1,5 @@
-import { basicColor, whiteColor, dividerDarkColor } from 'constants/Color';
+import { Dimensions } from 'react-native';
+const WIDTH = Dimensions.get('window').width;
 
 export default {
     container: {
@@ -7,7 +8,7 @@ export default {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: basicColor,
+        backgroundColor: '#545aef',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -16,9 +17,10 @@ export default {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10,
-        height: '50%',
-        backgroundColor: whiteColor,
+        borderRadius: 20,
+        width: WIDTH * 0.61,
+        height: WIDTH * 0.61,
+        backgroundColor: 'white',
         zIndex: 10,
     },
     logo: {
@@ -33,8 +35,8 @@ export default {
     },
     description: error => ({
         textAlign: 'center',
-        color: error ? 'red' : dividerDarkColor,
-        fontSize: 18,
+        color: error ? 'red' : '#777777',
+        fontSize: 10,
         marginHorizontal: 20,
     }),
     buttonContainer: {
@@ -44,8 +46,9 @@ export default {
         marginBottom: 30,
     },
     buttonText: {
-        color: basicColor,
-        fontSize: 15,
+        color: '#545aef',
+        fontSize: 12,
         fontWeight: 'bold',
+        textDecorationLine: 'underline',
     },
 };

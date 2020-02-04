@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
 import { Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
 import FingerprintScanner from 'react-native-fingerprint-scanner';
+import { IconComponent } from 'components';
 import AnimationText from './styles.animation';
 import styles from './FingerPrintPopup.styles';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class FingerPrintPopup extends Component {
     constructor(props) {
@@ -49,14 +48,14 @@ class FingerPrintPopup extends Component {
 
     render() {
         const { errorMessage } = this.state;
-        const { style, navigation } = this.props;
+        const { navigation } = this.props;
         const { lang } = this.props.navigation.getScreenProps('locale');
 
         return (
             <View style={styles.container}>
-                <View style={[styles.contentContainer, style]}>
+                <View style={[styles.contentContainer]}>
                     <View style={styles.logo}>
-                        <Ionicons name="fingerprint" color={'black'} size={100} />
+                        <IconComponent name={'img_fingerprint'} size={60} />
                     </View>
                     <View style={styles.message}>
                         <AnimationText

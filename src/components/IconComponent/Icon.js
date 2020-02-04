@@ -55,4 +55,5 @@ export default {
     home_tab_eth_s: require('asset/icon/home_tab_eth_s.png'),
     home_tab_roz: require('asset/icon/home_tab_roz.png'),
     home_tab_roz_s: require('asset/icon/home_tab_roz_s.png'),
+    img_fingerprint: require('asset/icon/img_fingerprint.png'),
 };

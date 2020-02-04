@@ -1,7 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import { basicColor, whiteColor } from 'constants/Color';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -9,10 +6,10 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: basicColor,
+        backgroundColor: 'transparent',
     },
     subheading: {
-        color: whiteColor,
+        color: 'white',
         fontSize: 12,
         textAlign: 'center',
         marginTop: 5,
@@ -23,13 +20,10 @@ export default StyleSheet.create({
         marginVertical: 30,
     },
     errorMessage: {
-        color: whiteColor,
+        color: 'white',
         fontSize: 16,
         textAlign: 'center',
         marginHorizontal: 10,
         marginTop: 30,
-    },
-    popup: {
-        width: width * 0.8,
     },
 });

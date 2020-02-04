@@ -26,7 +26,7 @@ export default class AddressBookMiniComponent extends Component {
                                         </Text>
                                     </View>
                                     <View style={S.ListIconView}>
-                                        <IconComponent name={'btn_send'} size={34} />
+                                        <IconComponent name={'ic_search'} size={34} />
                                     </View>
                                 </View>
                             </TouchableOpacity>

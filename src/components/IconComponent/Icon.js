@@ -58,4 +58,5 @@ export default {
     img_fingerprint: require('asset/icon/img_fingerprint.png'),
     btn_add_02: require('asset/icon/btn_add_02.png'),
     btn_save: require('asset/icon/btn_save.png'),
+    ic_search: require('asset/icon/ic_search.png'),
 };

@@ -99,6 +99,9 @@ BottomMenuTab.navigationOptions = ({ navigation, screenProps }) => ({
         </TouchableOpacity>
     ),
     header: navigation.state.index === 0 && null,
+    headerStyle: {
+        backgroundColor: '#f8f8f8',
+    },
     headerLeftContainerStyle: { marginLeft: 10 },
 });
 

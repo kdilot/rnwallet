@@ -4,14 +4,15 @@ import { basicColor } from 'constants/Color';
 export default StyleSheet.create({
     ContainerView: {
         flex: 1,
+        backgroundColor: '#f8f8f8',
     },
     ItemTypeView: {
         zIndex: 1,
-        height: 50,
-        marginTop: 15,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        backgroundColor: '#f8f8f8',
     },
     ItemView: {
         flex: 1,
@@ -19,7 +20,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: 1.5,
-        borderBottomColor: 'gray',
+        borderBottomColor: '#c9c9c9',
     },
     TypeSelectedView: {
         borderBottomColor: basicColor,

@@ -4,7 +4,7 @@ import { dividerLightColor } from 'constants/Color';
 export default StyleSheet.create({
     ContainerView: {
         flex: 1,
-        backgroundColor: '#c9c9c9',
+        backgroundColor: '#f8f8f8',
     },
     ListView: {
         flex: 1,

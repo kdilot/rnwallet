@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { basicColor } from 'constants/Color';
 
 export default StyleSheet.create({
     ContainerView: {
@@ -23,17 +22,17 @@ export default StyleSheet.create({
         borderBottomColor: '#c9c9c9',
     },
     TypeSelectedView: {
-        borderBottomColor: basicColor,
-        borderBottomWidth: 4,
+        borderBottomColor: '#545aef',
+        borderBottomWidth: 3,
     },
     ItemText: {
-        fontSize: 15,
-        color: 'gray',
+        fontSize: 14,
+        color: '#979797',
         textAlign: 'center',
     },
     TypeSelectedText: {
         fontWeight: 'bold',
-        color: basicColor,
+        color: '#545aef',
     },
     ItemListView: {
         flex: 7,

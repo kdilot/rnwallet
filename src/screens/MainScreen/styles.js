@@ -24,17 +24,6 @@ export default StyleSheet.create({
     CoinTypeView: {
         paddingRight: 30,
     },
-    CoinTypeText: {
-        fontSize: 14,
-        color: '#acacac',
-        borderBottomWidth: 2,
-        borderColor: 'transparent',
-    },
-    CoinSelected: isRoz => ({
-        color: isRoz ? '#639bff' : '#fc8209',
-        borderColor: isRoz ? '#639bff' : '#fc8209',
-        borderBottomWidth: 2,
-    }),
     ContentView: {
         flexDirection: 'row',
         justifyContent: 'flex-start',

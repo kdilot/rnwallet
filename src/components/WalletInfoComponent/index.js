@@ -56,12 +56,13 @@ export default class WalletInfoComponent extends Component {
                         </View>
                         <View style={S.FooterView}>
                             <TouchableOpacity
-                                style={[S.ButtonGroupView, S.ButtonLine]}
+                                style={[S.ButtonGroupView, S.ButtonLeft]}
                                 onPress={() => {
                                     this.onReceive();
                                 }}>
                                 <Text style={S.ButtonText}>{lang.receive}</Text>
                             </TouchableOpacity>
+                            <View style={S.ButtonLine} />
                             <TouchableOpacity
                                 style={S.ButtonGroupView}
                                 onPress={() => {

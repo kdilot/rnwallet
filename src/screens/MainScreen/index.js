@@ -156,10 +156,10 @@ class MainScreen extends PureComponent {
                 </View>
                 <View style={styles.ContentView}>
                     <TouchableOpacity style={styles.CoinTypeView} disabled={isRoz && true} onPress={this.onSelect}>
-                        <Text style={[styles.CoinTypeText, isRoz && styles.CoinSelected(isRoz)]}>ROZ</Text>
+                        <Image source={Icon[isRoz ? 'home_tab_roz_s' : 'home_tab_roz']} style={{ width: 30, height: 22 }} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.CoinTypeView} disabled={!isRoz && true} onPress={this.onSelect}>
-                        <Text style={[styles.CoinTypeText, !isRoz && styles.CoinSelected(isRoz)]}>ETH</Text>
+                        <Image source={Icon[!isRoz ? 'home_tab_eth_s' : 'home_tab_eth']} style={{ width: 30, height: 22 }} />
                     </TouchableOpacity>
                 </View>
                 <Carousel

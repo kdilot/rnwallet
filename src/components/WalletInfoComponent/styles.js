@@ -63,13 +63,21 @@ export default StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingLeft: 20,
+    },
+    ButtonLeft: {
+        paddingLeft: 0,
+        paddingRight: 20,
     },
     ButtonLine: {
-        borderRightWidth: 1,
-        borderRightColor: 'white',
+        width: 1,
+        height: '100%',
+        borderWidth: 0.5,
+        borderColor: 'white',
     },
     ButtonText: {
         fontSize: 16,
         color: 'white',
+        textAlign: 'center',
     },
 });

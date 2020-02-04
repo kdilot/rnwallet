@@ -51,4 +51,8 @@ export default {
     roz_card: require('asset/icon/roz_card.png'),
     eth_card: require('asset/icon/eth_card.png'),
     btn_refresh: require('asset/icon/btn_refresh.png'),
+    home_tab_eth: require('asset/icon/home_tab_eth.png'),
+    home_tab_eth_s: require('asset/icon/home_tab_eth_s.png'),
+    home_tab_roz: require('asset/icon/home_tab_roz.png'),
+    home_tab_roz_s: require('asset/icon/home_tab_roz_s.png'),
 };

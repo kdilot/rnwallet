@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 5,
+    },
+    DividerView: {
+        height: 1,
+        backgroundColor: '#f4f4f4',
     },
 });

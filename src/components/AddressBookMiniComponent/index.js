@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { IconComponent } from 'components';
 import PropTypes from 'prop-types';
 import S from './styles';
 
@@ -25,7 +26,7 @@ export default class AddressBookMiniComponent extends Component {
                                         </Text>
                                     </View>
                                     <View style={S.ListIconView}>
-                                        <Text>Icon</Text>
+                                        <IconComponent name={'btn_send'} size={34} />
                                     </View>
                                 </View>
                             </TouchableOpacity>

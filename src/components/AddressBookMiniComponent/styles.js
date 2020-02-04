@@ -6,19 +6,22 @@ export default StyleSheet.create({
         flex: 1,
     },
     ListView: {
-        padding: 20,
         flex: 1,
         width: '100%',
     },
     ListGroupView: {
         flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     ListTextView: {
         flex: 8,
+        padding: 20,
     },
     ListIconView: {
         flex: 1,
         alignItems: 'flex-end',
+        paddingRight: 10,
     },
     DividerView: {
         height: 1,

@@ -56,4 +56,6 @@ export default {
     home_tab_roz: require('asset/icon/home_tab_roz.png'),
     home_tab_roz_s: require('asset/icon/home_tab_roz_s.png'),
     img_fingerprint: require('asset/icon/img_fingerprint.png'),
+    btn_add_02: require('asset/icon/btn_add_02.png'),
+    btn_save: require('asset/icon/btn_save.png'),
 };

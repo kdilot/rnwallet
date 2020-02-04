@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -67,6 +67,7 @@ class AddressBookScreen extends Component {
                 {addressBookList.length > 0 ? (
                     <FlatList
                         data={addressBookList}
+                        ItemSeparatorComponent={() => <View style={styles.DividerView} />}
                         renderItem={({ item }) => <AddressBookComponent navigation={navigation} toast={this.toast} nickname={item.nickname} address={item.address} />}
                         keyExtractor={(item, index) => index.toString()}
                         removeClippedSubviews={false}

@@ -11,6 +11,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 10,
         paddingBottom: 14,
+        paddingRight: 4,
     },
     AddressText: {
         flex: 9,

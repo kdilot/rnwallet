@@ -12,9 +12,6 @@ export const ROZ_CONTRACT_ADDRESS = '0x60ac9c7a34dbe35e7392c20d9660cfb290bb485a'
 
 export const SETTING_MENU_LIST = [
     {
-        name: 'push',
-    },
-    {
         name: 'pin',
     },
     {

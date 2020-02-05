@@ -26,7 +26,7 @@ export default StyleSheet.create({
         alignSelf: 'center',
     },
     InputView: {
-        marginBottom: 10,
+        marginBottom: 5,
         padding: 5,
     },
     AddressView: {
@@ -41,9 +41,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
     },
-    SliderView: {
-        marginVertical: 10,
-    },
+    SliderView: {},
     FeeView: {
         paddingHorizontal: 10,
         flexDirection: 'row',

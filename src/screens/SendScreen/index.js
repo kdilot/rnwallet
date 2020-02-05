@@ -189,18 +189,18 @@ class SendScreen extends Component {
                             </View>
                         </View>
                         <View style={S.InputView}>
-                            <Text style={S.InputText}>{lang.fees}</Text>
+                            <Text style={[S.InputText, { paddingBottom: 0 }]}>{lang.fees}</Text>
                             {isSendDisable ? (
                                 <PlaceholderLayout />
                             ) : (
                                 <>
-                                    <TextInput
+                                    {/* <TextInput
                                         style={S.InputBoxView}
                                         placeholder={lang.fees}
                                         keyboardType="decimal-pad"
                                         onChangeText={text => this.setState({ gas: text > 10 ? 10 : Number(text) })}
                                         value={gas.toString()}
-                                    />
+                                    /> */}
                                     <View style={S.SliderView}>
                                         <Slider
                                             value={gas}
